@@ -1,0 +1,47 @@
+﻿{
+  "servers": [
+    {
+      "name": "Production Server",
+      "api": "https://manage.havaapp.ph",
+      "notification": "ws://manage.havaapp.ph:9292/faye",
+      "is_secured": true,
+      "is_local": false
+    },
+    {
+      "name": "QA Server",
+      "api": "http://admin.havaapp.ph",
+      "notification": "ws://admin.havaapp.ph:9292/faye",
+      "is_secured": true,
+      "is_local": false
+    },
+    {
+      "name": "Hava Server",
+      "api": "http://206.189.46.189:80",
+      "notification": "ws://206.189.46.189:9292/faye",
+      "is_secured": true,
+      "is_local": false
+    },
+    {
+      "name": "Trikey Server",
+      "api": "http://188.166.205.71:80",
+      "notification": "ws://188.166.205.71:9292/faye",
+      "is_secured": true,
+      "is_local": false
+    },
+    {
+      "name": "Hava Local Server (144)",
+      "api": "http://192.168.254.144:3000",
+      "notification": "ws://192.168.254.144:9292/faye",
+      "is_secured": true,
+      "is_local": false
+    },
+    {
+      "name": "Custom Server",
+      "api": "",
+      "notification": "",
+      "is_secured": true,
+      "is_local": false
+    }
+  ],
+  "status": 200
+}

@@ -1,0 +1,19 @@
+﻿{
+  "popup": {
+    "current_build": 1,
+    "optional_build": 1,
+    "ios_link": "",
+    "android_link": "",
+    "title": "No Internet Connection",
+    "image": "CFNoInternetImage",
+    "image_width": 61,
+    "image_height": 61,
+    "description": "You do not have internet connection.\nConnect to a wi-fi or enable data.",
+    "button_text": "Try Again",
+    "button_width": 200,
+    "is_show_button": true,
+    "is_show_close": false,
+    "popup_type": 1
+  },
+  "status": 200
+}

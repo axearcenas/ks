@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" x:Class="KeepSafe.Views.MainPage"
+             xmlns:local="clr-namespace:KeepSafe">
+    <StackLayout>
+        <!-- Place new controls here -->
+        <Image HeightRequest="{local:ScaleHeight Value=150}"
+               WidthRequest="{local:ScaleWidth Value=150}"
+               BackgroundColor="Red"
+               HorizontalOptions="Center"
+               Margin="{local:ScaleThickness Value='10,50,10,10'}">
+        </Image>
+        <Button Text="Change Label"
+                HeightRequest="{local:ScaleHeight Value=40}"
+                WidthRequest="{local:ScaleWidth Value=100}"
+                Command="{Binding ChangeLabelCommand}"
+                Margin="{local:ScaleThickness Value='0,10'}"/>
+        <Button Text="Show DisplayAlert"
+                HeightRequest="{local:ScaleHeight Value=40}"
+                WidthRequest="{local:ScaleWidth Value=100}"
+                Command="{Binding ShowDisplayAlertCommand}"
+                Margin="{local:ScaleThickness Value='0,10'}"/>
+        <Button Text="Navigation To Another Page"
+                HeightRequest="{local:ScaleHeight Value=40}"
+                WidthRequest="{local:ScaleWidth Value=100}"
+                Command="{Binding ChangePageCommand}"
+                Margin="{local:ScaleThickness Value='0,10'}"/>
+        <Button Text="Navigation To Back To Previous Page"
+                HeightRequest="{local:ScaleHeight Value=40}"
+                WidthRequest="{local:ScaleWidth Value=100}"
+                Command="{Binding BackCommand}"
+                Margin="{local:ScaleThickness Value='0,10'}"
+                IsVisible="{Binding ShowPreviousButton}"/>
+        <Label Text="{Binding TextLabel}"
+               HorizontalOptions="Center"
+               VerticalOptions="CenterAndExpand" />
+    </StackLayout>
+</ContentPage>

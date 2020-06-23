@@ -2,37 +2,70 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>UIDeviceFamily</key>
-    <array>
-        <integer>1</integer>
-        <integer>2</integer>
-    </array>
-    <key>UISupportedInterfaceOrientations</key>
-    <array>
-        <string>UIInterfaceOrientationPortrait</string>
-        <string>UIInterfaceOrientationLandscapeLeft</string>
-        <string>UIInterfaceOrientationLandscapeRight</string>
-    </array>
-    <key>UISupportedInterfaceOrientations~ipad</key>
-    <array>
-        <string>UIInterfaceOrientationPortrait</string>
-        <string>UIInterfaceOrientationPortraitUpsideDown</string>
-        <string>UIInterfaceOrientationLandscapeLeft</string>
-        <string>UIInterfaceOrientationLandscapeRight</string>
-    </array>
-    <key>MinimumOSVersion</key>
-    <string>8.0</string>
-    <key>CFBundleDisplayName</key>
-    <string>KeepSafe</string>
-    <key>CFBundleIdentifier</key>
-    <string>com.godigital.Keep-Safe</string>
-    <key>CFBundleVersion</key>
-    <string>1.0</string>
-    <key>UILaunchStoryboardName</key>
-    <string>LaunchScreen</string>
-    <key>CFBundleName</key>
-    <string>KeepSafe</string>
-    <key>XSAppIconAssets</key>
-    <string>Assets.xcassets/AppIcon.appiconset</string>
+	<key>UIDeviceFamily</key>
+	<array>
+		<integer>1</integer>
+		<integer>2</integer>
+	</array>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>MinimumOSVersion</key>
+	<string>8.0</string>
+	<key>CFBundleDisplayName</key>
+	<string>KeepSafe</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.godigital.Keep-Safe</string>
+	<key>CFBundleVersion</key>
+	<string>1.0</string>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>CFBundleName</key>
+	<string>KeepSafe</string>
+	<key>XSAppIconAssets</key>
+	<string>Assets.xcassets/AppIcon.appiconset</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Hava App wants to access your photo gallery so you can upload a display picture for your profile.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Hava App wants to access your current location to get nearby Vehicles.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Hava App wants to access your current location to get nearby Vehicles.</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Hava App wants to access your contacts.</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Hava App wants to access your calendar.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Hava App wants to access your photos so you can upload a display picture for your profile.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Hava App wants to access your microphone.</string>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Hava App wants to access your apple music.</string>
+	<key>NSSiriUsageDescription</key>
+	<string>Hava App wants to access your siri.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Hava App wants to access your camera so you can take a photo as display picture for your profile.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Hava App wants to access your current location to get nearby Vehicles.</string>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleLightContent</string>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Fonts/FontAwesome.ttf</string>
+		<string>Fonts/FontAwesome5BrandsRegular.otf</string>
+		<string>Fonts/FontAwesome5Regular.otf</string>
+		<string>Fonts/FontAwesome5Solid.otf</string>
+	</array>
 </dict>
 </plist>
