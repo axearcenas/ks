@@ -12,8 +12,10 @@ using Android.Content;
 namespace KeepSafe.Droid
 {
     [Activity(Label = "KeepSafe", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
+    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity, ViewTreeObserver.IOnGlobalLayoutListener
     {
+        public static Action GlobalLayout;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             TabLayoutResource = Resource.Layout.Tabbar;
@@ -126,6 +128,29 @@ namespace KeepSafe.Droid
 
             display.GetRealSize(realSize);
             display.GetSize(usableSize);
+        }
+
+        public override void OnBackPressed()
+        {
+            if (Rg.Plugins.Popup.Popup.SendBackPressed(base.OnBackPressed))
+            {
+                // Do something if there are some pages in the `PopupStack`
+            }
+            else
+            {
+                // Do something if there are not any pages in the `PopupStack`
+            }
+        }
+
+        public override void SetContentView(View view)
+        {
+            base.SetContentView(view);
+            view.ViewTreeObserver.AddOnGlobalLayoutListener(this);
+        }
+
+        public void OnGlobalLayout()
+        {
+            GlobalLayout?.Invoke();
         }
     }
 }

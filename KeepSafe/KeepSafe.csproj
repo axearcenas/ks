@@ -31,4 +31,11 @@
     <Folder Include="Resources\SVG\" />
     <Folder Include="Views\" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="Views\CustomViews\PComboBoxViews\ComboBoxListPopup.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Renderers\CustomButtonRenderer.cs" />
+    <Compile Remove="Renderers\CustomButtonRenderer.cs" />
+  </ItemGroup>
 </Project>
