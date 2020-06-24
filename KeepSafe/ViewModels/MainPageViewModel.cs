@@ -82,7 +82,7 @@ namespace KeepSafe.ViewModels
 
         private void OnChangeLabelCommand_Execute()
         {
-            TextLabel = TextLabel.Equals("Changed Text: Sample") ? "Welcome to Xamarin.Forms!" : "Changed Text: Hahaha";
+            TextLabel = TextLabel.Equals("Changed Text: Sample") ? "Welcome to Xamarin.Forms!" : "Changed Text: Sample";
         }
 
         private async void OnLogoTapped_Execute()

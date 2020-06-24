@@ -6,6 +6,7 @@
                    xmlns:res="clr-namespace:KeepSafe.Resources"
                    HasSystemPadding="false"
                    CloseWhenBackgroundIsClicked="true"
+                   HasKeyboardOffset="False"
                    BackgroundColor="{Static res:ColorResource.LOADING_BACKGROUNDCOLOR}">
     <local:RGPopupPage.Resources>
         <ResourceDictionary>

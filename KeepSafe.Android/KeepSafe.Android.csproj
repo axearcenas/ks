@@ -134,6 +134,16 @@
     <AndroidAsset Include="Assets\Fonts\FontAwesome5Solid.otf" />
     <AndroidAsset Include="Assets\Fonts\FontAwesome5Regular.otf" />
     <AndroidAsset Include="Assets\Fonts\FontAwesome.ttf" />
+    <AndroidAsset Include="Assets\Fonts\OpenSans-Bold.ttf" />
+    <AndroidAsset Include="Assets\Fonts\OpenSans-BoldItalic.ttf" />
+    <AndroidAsset Include="Assets\Fonts\OpenSans-ExtraBold.ttf" />
+    <AndroidAsset Include="Assets\Fonts\OpenSans-ExtraBoldItalic.ttf" />
+    <AndroidAsset Include="Assets\Fonts\OpenSans-Italic.ttf" />
+    <AndroidAsset Include="Assets\Fonts\OpenSans-Light.ttf" />
+    <AndroidAsset Include="Assets\Fonts\OpenSans-LightItalic.ttf" />
+    <AndroidAsset Include="Assets\Fonts\OpenSans-Regular.ttf" />
+    <AndroidAsset Include="Assets\Fonts\OpenSans-Semibold.ttf" />
+    <AndroidAsset Include="Assets\Fonts\OpenSans-SemiboldItalic.ttf" />
   </ItemGroup>
  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

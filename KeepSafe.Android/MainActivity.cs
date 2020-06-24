@@ -96,8 +96,16 @@ namespace KeepSafe.Droid
 
             base.OnCreate(savedInstanceState);
 
+            FFImageLoading.Forms.Platform.CachedImageRenderer.Init(true);
+            var ignore = typeof(FFImageLoading.Svg.Forms.SvgCachedImage);
+
+            global::Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
+
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+
+            App.Log("Width: " + App.ScreenWidth.ToString() + " Height: " + App.ScreenHeight.ToString());
+
             LoadApplication(new App());
         }
 

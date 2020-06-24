@@ -33,6 +33,7 @@ namespace KeepSafe.Droid.Renderers
 
             if (this.Control != null)
             {
+                Control.SetPadding(0, 0, 0, 0);
                 this.Control.HorizontalScrollBarEnabled = false;
                 this.Control.VerticalScrollBarEnabled = false;
                 this.Control.SetBackgroundColor(Android.Graphics.Color.Transparent);

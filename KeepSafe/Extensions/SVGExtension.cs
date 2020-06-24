@@ -7,6 +7,15 @@ namespace KeepSafe.Helpers.Extentsions
     {
         static SvgImageSourceConverter svgImageSourceConverter = new SvgImageSourceConverter();
         public static string SVGPathFormat { get { return "resource://KeepSafe.Resources.SVG.{0}.svg"; } }
+
+        /// <summary>
+        /// Gets the svg file path using image name.
+        /// <para>and returns:</para>
+        /// <para>resource://KeepSafe.Resources.SVG.[imageName].svg</para>
+        /// </summary>
+        /// <param name="imageName"></param>
+        /// <value>resource://KeepSafe.Resources.SVG.[imageName].svg</value>
+        /// <returns>resource://KeepSafe.Resources.SVG.[imageName].svg</returns>
         public static string GetSVGPath(this string imageName)
         {
             if (string.IsNullOrEmpty(imageName)) return null;
