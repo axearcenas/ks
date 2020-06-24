@@ -12,6 +12,10 @@
                BackgroundColor="Red"
                HorizontalOptions="Center"
                Margin="{local:ScaleThickness Value='10,50,10,10'}">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Command="{Binding LogoTapped}"/>
+            </Image.GestureRecognizers>
         </Image>
         <Button Text="Change Label"
                 HeightRequest="{local:ScaleHeight Value=40}"
@@ -34,8 +38,16 @@
                 Command="{Binding BackCommand}"
                 Margin="{local:ScaleThickness Value='0,10'}"
                 IsVisible="{Binding ShowPreviousButton}"/>
-        <Label Text="{Binding TextLabel}"
+        <Label
                HorizontalOptions="Center"
-               VerticalOptions="CenterAndExpand" />
+               VerticalOptions="CenterAndExpand" >
+            <Label.Text>
+                <MultiBinding StringFormat="{}{0} {1}">
+                    <Binding Path="TextLabel"/>
+                    <Binding Path="TapCount" />
+                </MultiBinding>
+            </Label.Text>
+        </Label>
+
     </StackLayout>
 </ContentPage>

@@ -15,6 +15,8 @@ using Xamarin.Forms.Xaml;
 using KeepSafe.Views;
 using Prism.Services;
 using Prism.Common;
+using KeepSafe.Views.Popups;
+using KeepSafe.ViewModels.PopupsViewModel;
 
 namespace KeepSafe
 {
@@ -62,6 +64,7 @@ namespace KeepSafe
 
             //NOTE: FOR TESTING PAGE to show error initializing page
             //MainPage = new MainPage() { BindingContext = new MainPageViewModel(NavigationService, new PageDialogService(new ApplicationProvider())) };
+            //MainPage = new CustomServerPopup() { BindingContext = new CustomServerPopupViewModel(NavigationService) };
 
             NavigationService.NavigateAsync($"ks://keepsafe.ph/{nameof(KeepSafe.Views.MainPage)}");
         }
@@ -147,7 +150,8 @@ namespace KeepSafe
             containerRegistry.RegisterPopupNavigationService();
             containerRegistry.RegisterPopupDialogService();
             containerRegistry.RegisterForNavigation<NavigationPage>();
-            containerRegistry.RegisterForNavigation<KeepSafe.Views.MainPage>();
+            containerRegistry.RegisterForNavigation<MainPage>();
+            containerRegistry.RegisterForNavigation<CustomServerPopup,CustomServerPopupViewModel>();
             //NOTE: Views that has a view model in ViewModel Folder
             //containerRegistry.RegisterForNavigation<GetStartedPage>();
             //NOTE: Views that has a view model but not in ViewModel Folder

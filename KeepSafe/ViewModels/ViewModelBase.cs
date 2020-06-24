@@ -7,7 +7,7 @@ using Prism.Mvvm;
 using Prism.Navigation;
 using Prism.Services;
 
-namespace HavaPassenger.ViewModels
+namespace KeepSafe.ViewModels
 {
     public class ViewModelBase : BindableBase, INavigationAware, IDestructible
     {
