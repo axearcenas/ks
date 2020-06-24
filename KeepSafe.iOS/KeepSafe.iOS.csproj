@@ -68,6 +68,8 @@
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Renderers\CustomEntryRenderer.cs" />
+    <Compile Include="Renderers\CustomFrameRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
@@ -175,5 +177,8 @@
     <BundleResource Include="Resources\Fonts\FontAwesome5Solid.otf" />
     <BundleResource Include="Resources\Fonts\FontAwesome5Regular.otf" />
     <BundleResource Include="Resources\Fonts\FontAwesome.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Renderers\" />
   </ItemGroup>
 </Project>

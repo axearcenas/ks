@@ -18,6 +18,10 @@ namespace KeepSafe
         //NDAwOTJAMzEzNjJlMzMyZTMwam9pVHdLWGYxbjd5QmZSaGswVUhmeFBHWTVtVFpXSXM2eVJqVzFUY0lLdz0
         public static readonly string APP_CENTER_KEY = "ios=4f983dc8-08fa-4701-8d24-f12a2c0c6618; " + "android=4ed26710-55fe-4912-80d9-b588801f6c84";
 
+        //VALUES
+        public static readonly double NAVIGATION_HEIGHT = App.IsAddNavHeight ? 82.ScaleHeight() : 58.ScaleHeight();
+
+        public static readonly double BORDER_HEIGHT = .5D.ScaleHeight();
 #if DEBUG == false
         /// <summary> /users </summary>
         public static readonly string USERS_URL = "/users";
@@ -57,8 +61,8 @@ namespace KeepSafe
         // Production Server
         public static readonly string SERVER_NAME = "Production Server";
         public static readonly bool IS_SERVER_SECURE = false;
-        public static readonly string URL_STABLE = "https://manage.havaapp.ph";
-        public static readonly string URL_FAYE_NOTIFICATION = "ws://manage.havaapp.ph:9292/faye";
+        public static readonly string URL_STABLE = "https://keepsafe.ph";
+        public static readonly string URL_FAYE_NOTIFICATION = "ws://keepsafe.ph:9292/faye";
 
         //Running Server
         public static string RUNNING_SERVER_NAME = SERVER_NAME;

@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<local:RGPopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                   x:Class="KeepSafe.Views.CustomViews.PComboBoxViews.ComboBoxListPopup"
+                   xmlns:local="clr-namespace:KeepSafe"
+                   xmlns:res="clr-namespace:KeepSafe.Resources"
+                   CloseWhenBackgroundIsClicked="True"
+                   BackgroundColor="{Static res:ColorResource.LOADING_BACKGROUNDCOLOR}"
+                   x:Name="parentPopupPage" >
+    <local:RGPopupPage.HasSystemPadding>
+        <OnPlatform x:TypeArguments="x:Boolean" Android="True" iOS="False"/>
+    </local:RGPopupPage.HasSystemPadding>
+    <!--
+    xmlns:animation="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+    <local:RGPopupPage.Animation>
+        <animation:FadeAnimation DurationIn="250"
+                                 DurationOut="250"
+                                 EasingIn="CubicInOut"
+                                 EasingOut="CubicInOut"/>
+    </local:RGPopupPage.Animation>-->
+    <Frame x:Name="mainView" CornerRadius="0" Padding="0" 
+                     HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand"
+                     BackgroundColor="{Static res:ColorResource.WHITE_COLOR}"
+                     BorderColor="{Binding Source={Reference parentPopupPage},Path=BorderColor}"
+                     SizeChanged="mainView_SizeChanged">
+        <ListView x:Name="listView" RowHeight="{local:ScaleHeight Value=40}"
+                  HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand"
+                  ItemsSource="{Binding Source={Reference parentPopupPage},Path=ItemSource}"
+                  ItemSelected="listView_ItemSelected" SelectionMode="Single"
+                  SeparatorVisibility="None" SeparatorColor="Transparent"
+                  VerticalScrollBarVisibility="Never">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <ScrollView  Orientation="Horizontal" Margin="{local:ScaleThickness Value='0,0,0,0'}"  HorizontalScrollBarVisibility="Never">
+                                <Label Text="{Binding .}"  TextColor="{Static res:ColorResource.BLACK_COLOR}"
+                                        FontSize="{local:ScaleFontSize Value=17}"
+                                        FontFamily="{Static res:FontResource.BOLD}"
+                                        HorizontalOptions="Fill"
+                                        HorizontalTextAlignment="Center"
+                                        VerticalOptions="Fill"
+                                       VerticalTextAlignment="Center">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" CommandParameter="{Binding .}" NumberOfTapsRequired="1"/>
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </ScrollView>
+                            <BoxView Style="{StaticResource SeparatorBoxViewStyle}" />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Frame>    
+</local:RGPopupPage>

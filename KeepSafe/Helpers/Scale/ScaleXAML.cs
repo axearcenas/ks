@@ -386,6 +386,7 @@ namespace KeepSafe
 
         public object ProvideValue(IServiceProvider serviceProvider)
         {
+            App.Log($"SCALING_STARTING : IsResponsive? => {IsResponsive} | Value => {Android ?? Value}", this.GetType().ToString());
             return IsResponsive ? (double)(Android ?? Value)?.ScaleWidthResponsive(Value) : (double)(Android ?? Value)?.ScaleWidth(Value);
         }
     }
@@ -452,6 +453,7 @@ namespace KeepSafe
 
         public object ProvideValue(IServiceProvider serviceProvider)
         {
+            App.Log($"SCALING_STARTING : Value => {Android ?? Value}", this.GetType().ToString());
             return (Android ?? Value)?.ScaleFont(Value);
         }
     }

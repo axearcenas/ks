@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<local:RGPopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                   x:Class="KeepSafe.Views.Popups.CustomServerPopup"
+                   xmlns:local="clr-namespace:KeepSafe"
+                   xmlns:res="clr-namespace:KeepSafe.Resources"
+                   HasSystemPadding="false"
+                   CloseWhenBackgroundIsClicked="true"
+                   HasKeyboardOffset="False"
+                   BackgroundColor="{Static res:ColorResource.LOADING_BACKGROUNDCOLOR}">
+    <local:RGPopupPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="local:PComboBox" x:Key="choiceValuePComboBoxStyle">
+                <Setter Property="TextColor" Value="{Static res:ColorResource.BLACK_COLOR}"/>
+                <Setter Property="FontFamily" Value="{Static res:FontResource.REGULAR}"/>
+                 <Setter Property="FontSize" Value="{local:ScaleFontSize Value=14}"/>
+                 <Setter Property="BackgroundColor" Value="Transparent"/>
+                 <Setter Property="Padding" Value="{local:ScaleThickness Value='5,0,5,0'}"/>
+                 <Setter Property="BorderColor" Value="{Static res:ColorResource.BORDER_COLOR}"/>
+                 <Setter Property="BorderWidth" Value="{Static local:Constants.BORDER_HEIGHT}"/>
+                 <Setter Property="Margin" Value="{local:ScaleThickness Value='25,13,25,0'}"/>
+                 <Setter Property="CornerRadius" Value="{local:ScaleHeightFloat Value=3}"/>
+            </Style>
+        </ResourceDictionary>
+    </local:RGPopupPage.Resources>
+    <local:RGPopupPage.Content>
+        <Frame BackgroundColor="{Static res:ColorResource.WHITE_COLOR}"
+               HasShadow="false" Padding="0" Margin="0"
+               IsClippedToBounds="True"
+               Visual="Default"
+               CascadeInputTransparent="False"
+               VerticalOptions="Center" HorizontalOptions="Center"
+               BorderColor="{Static res:ColorResource.MAIN_THEME_COLOR}"
+               CornerRadius="{local:ScaleWidth Value=5}">
+            <Grid x:Name="gridLayout" ColumnSpacing="0" RowSpacing="0"
+                  BackgroundColor="{Static res:ColorResource.WHITE_COLOR}"
+                  WidthRequest="{local:ScaleWidthDouble Value=300}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=40}"></RowDefinition>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=50}"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=14}"></RowDefinition> <!--Spacing-->
+                    <RowDefinition Height="Auto"></RowDefinition><!--SampleIp-->
+                    <RowDefinition Height="{local:ScaleGridHeight Value=30}"></RowDefinition> <!--Button-->
+                    <RowDefinition Height="{local:ScaleGridHeight Value=40}"></RowDefinition> <!--Button-->
+                    <RowDefinition Height="{local:ScaleGridHeight Value=14}"></RowDefinition> <!--Spacing-->
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="{local:ScaleGridWidth Value=10}"></ColumnDefinition>
+                    <ColumnDefinition Width="{local:ScaleGridWidth Value=280}"></ColumnDefinition>
+                    <ColumnDefinition Width="{local:ScaleGridWidth Value=10}"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <!--<BoxView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                         BackgroundColor="{Static res:ColorResource.MAIN_THEME_COLOR}">
+                </BoxView>-->
+                <Label Grid.Row="0" Grid.ColumnSpan="3"
+                       TextColor="{Static res:ColorResource.WHITE_COLOR}"
+                       Text="Server List" InputTransparent="true"
+                       FontSize="{local:ScaleFontSize Value=15}"
+                       FontFamily="{Static res:FontResource.BOLD}"
+                       HorizontalOptions="Fill" VerticalOptions="Fill"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center"
+                       BackgroundColor="{Static res:ColorResource.MAIN_THEME_COLOR}">
+                </Label>
+                <local:PComboBox x:Name="pComboBox"
+                                 Grid.Row="1" Grid.Column="1"
+                                 Style="{StaticResource choiceValuePComboBoxStyle}"
+                                 PlaceholderFontSize="{local:ScaleFontSize Value=14}"
+                                 PlaceholderFontFamily="{Static res:FontResource.REGULAR}"
+                                 PlaceholderColor="{Static res:ColorResource.GRAY_COLOR}" 
+                                 SelectedItemCommand="{Binding PComboBoxSelectedItemCommand}"
+                                 BorderColor="Transparent"
+                                 Margin="{local:ScaleThickness Value='0,10,0,0'}"
+                                 IsMultipleSelect="False"
+                                 HorizontalOptions="Fill" BackgroundColor="White"
+                                 DropdownBorderColor="{Static res:ColorResource.MAIN_THEME_COLOR}"
+                                 DropdownBorderWidth="{local:ScaleHeightDouble Value=1}"
+                                 ItemSource="{Binding Servers}"
+                                 >
+                    <local:PComboBox.Behaviors>
+                        <local:PComboBoxBehavior Request="{Binding PComboBoxItemSelectionRequest}"/>
+                    </local:PComboBox.Behaviors>
+                    <local:PComboBox.CustomView>
+                        <Label x:Name="customLabel" IsVisible="true"
+                               Text="{Binding ServerName}"
+                               TextColor="{Static res:ColorResource.MAIN_THEME_COLOR}"
+                               FontFamily="{Static res:FontResource.REGULAR}"
+                               BackgroundColor="Transparent"
+                               Margin="{local:ScaleThickness Value='20,10,0,0'}"
+                               HeightRequest="{local:ScaleHeightDouble Value=40}"
+                               FontSize="{local:ScaleFontSize Value=14}"
+                               VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                    </local:PComboBox.CustomView>
+                     <local:PComboBox.ItemTemplate>
+                          <DataTemplate>
+                            <ViewCell>
+                                <Grid HorizontalOptions="Fill" VerticalOptions="Fill"
+                                        >
+                                    <Label Text="{Binding Name}"
+                                            TextColor="{Static res:ColorResource.MAIN_THEME_COLOR}"
+                                            FontFamily="{Static res:FontResource.REGULAR}"
+                                            FontSize="{local:ScaleFontSize Value=13}"
+                                            VerticalOptions="Center" HorizontalOptions="Center">
+                                    </Label>
+                                    <BoxView BackgroundColor="{Static res:ColorResource.MAIN_THEME_COLOR}"
+                                                HeightRequest="{local:ScaleHeightDouble Value=0.5}"
+                                                VerticalOptions="End" HorizontalOptions="Fill">
+                                    </BoxView>
+                                </Grid>
+                            </ViewCell>
+                          </DataTemplate>
+                    </local:PComboBox.ItemTemplate>
+                </local:PComboBox>
+                <BoxView Grid.Row="1" Grid.Column="1" IsVisible="true"
+                         BackgroundColor="{Static res:ColorResource.MAIN_THEME_COLOR}"
+                         HeightRequest="{local:ScaleHeightDouble Value=0.5}"
+                         Margin="{local:ScaleThickness Value='0,0,0,-.5'}"
+                         VerticalOptions="End" HorizontalOptions="Fill">
+                </BoxView>
+                
+                <Label x:Name="apiIPLabel" Grid.Row="2" Grid.Column="1"
+                       HeightRequest="{local:ScaleHeightDouble Value=20}"
+                       Text="API" IsVisible="{Binding ApiIpEntry.IsVisible}"
+                       TextColor="{Static res:ColorResource.MAIN_THEME_COLOR}"
+                       FontSize="{local:ScaleFontSize Value=12}"
+                       FontFamily="{Static res:FontResource.REGULAR}"
+                       VerticalOptions="Center" HorizontalOptions="StartAndExpand"
+                       VerticalTextAlignment="End" HorizontalTextAlignment="Start"
+                       Margin="{local:ScaleThickness Value='0,5,0,0'}"/>
+                
+                <local:CustomEntry x:Name="apiIPEntry"
+                        Grid.Row="3" Grid.Column="1"
+                                   Text="{Binding ApiIpEntry.Text}"
+                       IsVisible="{Binding ApiIpEntry.IsVisible}"
+                        VerticalOptions="Start" HorizontalOptions="Fill"
+                        HorizontalTextAlignment="Center"
+                        Keyboard="Url"
+                        HeightRequest="{local:ScaleHeightDouble Value=30}"
+                        FontSize="{local:ScaleFontSize Value=14}"
+                        FontFamily="{Static res:FontResource.REGULAR}"
+                        TextColor="{Static res:ColorResource.MAIN_THEME_COLOR}"
+                       />
+                
+                <BoxView x:Name="apiLine" Grid.Row="4" Grid.Column="1" IsVisible="{Binding ApiIpEntry.IsVisible}"
+                         BackgroundColor="{Static res:ColorResource.MAIN_THEME_COLOR}"
+                         HeightRequest="{local:ScaleHeightDouble Value=0.5}"
+                         VerticalOptions="End" HorizontalOptions="Fill">
+                </BoxView>
+                
+                <Label x:Name="notificationIPLabel"
+                       Grid.Row="5"
+                       Grid.Column="1"
+                       HeightRequest="{local:ScaleHeightDouble Value=20}"
+                       Text="Notification"
+                       IsVisible="{Binding ApiIpEntry.IsVisible}"
+                       TextColor="{Static res:ColorResource.MAIN_THEME_COLOR}"
+                       FontSize="{local:ScaleFontSize Value=12}"
+                       FontFamily="{Static res:FontResource.REGULAR}"
+                       VerticalOptions="Center" HorizontalOptions="StartAndExpand"
+                       VerticalTextAlignment="End" HorizontalTextAlignment="Start"
+                       Margin="{local:ScaleThickness Value='0,5,0,0'}"/>
+                
+                <local:CustomEntry x:Name="notificationIPEntry"
+                                   Grid.Row="6" Grid.Column="1"
+                                   Text="{Binding NotificationIpEntry.Text}"
+                                   IsVisible="{Binding ApiIpEntry.IsVisible}"
+                                   VerticalOptions="Start" HorizontalOptions="Fill"
+                                   HorizontalTextAlignment="Center"
+                                   Keyboard="Url"
+                                   HeightRequest="{local:ScaleHeightDouble Value=30}"
+                                   FontSize="{local:ScaleFontSize Value=14}"
+                                   FontFamily="{Static res:FontResource.REGULAR}"
+                                   TextColor="{Static res:ColorResource.MAIN_THEME_COLOR}"/>
+                
+                <BoxView x:Name="notificationLine" Grid.Row="7" Grid.Column="1"
+                         IsVisible="{Binding ApiIpEntry.IsVisible}"
+                         BackgroundColor="{Static res:ColorResource.MAIN_THEME_COLOR}"
+                         HeightRequest="{local:ScaleHeightDouble Value=0.5}"
+                         VerticalOptions="End" HorizontalOptions="Fill">
+                </BoxView>
+                
+                <Label x:Name="hint"
+                       Grid.Row="9"
+                       IsVisible="{Binding ApiIpEntry.IsVisible}"
+                       Grid.Column="1"
+                       TextColor="{Static res:ColorResource.MAIN_THEME_COLOR}"
+                       FontFamily="{Static res:FontResource.REGULAR}"
+                       VerticalOptions="Center" HorizontalOptions="Start"
+                       FontSize="{local:ScaleFontSize Value=12}"
+                       Margin="{local:ScaleThickness Value='0,0,0,14'}">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span>
+                                <Span.Text>
+API: http://&lt;host&gt;
+FAYE: ws://&lt;host&gt;/ws
+Note: Add Port Number if needed (:3000)
+                                </Span.Text>
+                            </Span>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                
+                <Switch x:Name="isSecureSwitch" IsVisible="{Binding ApiIpEntry.IsVisible}"
+                        Grid.Row="10" Grid.Column="1"
+                        VerticalOptions="Center" HorizontalOptions="End"
+                        OnColor="{Static res:ColorResource.MAIN_THEME_COLOR}"
+                        IsToggled="{Binding IsSecureServer}"
+                        BackgroundColor="Transparent">
+                </Switch>
+                
+                <Button Grid.Row="11" Grid.Column="1" Text="SAVE"
+                        TextColor="{Static res:ColorResource.WHITE_COLOR}"
+                        BackgroundColor="{Static res:ColorResource.MAIN_THEME_COLOR}"
+                        FontFamily="{Static res:FontResource.REGULAR}"
+                        CornerRadius="{local:ScaleHeightInt Value=20}"
+                        HeightRequest="{local:ScaleHeightDouble Value=40}"
+                        WidthRequest="{local:ScaleWidthDouble Value=150}"
+                        FontSize="{local:ScaleFontSize Value=12}"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Command="{Binding SaveCommand}"
+                        CommandParameter="{Reference pComboBox}"/>
+            </Grid>
+        </Frame>
+    </local:RGPopupPage.Content>
+</local:RGPopupPage>

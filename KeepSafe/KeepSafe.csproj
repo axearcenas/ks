@@ -31,4 +31,16 @@
     <Folder Include="Resources\SVG\" />
     <Folder Include="Views\" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Renderers\CustomButtonRenderer.cs" />
+    <Compile Remove="Renderers\CustomButtonRenderer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Resources\Files\CustomAlert.json" />
+    <None Remove="Resources\Files\ServerList.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Files\CustomAlert.json" />
+    <EmbeddedResource Include="Resources\Files\ServerList.json" />
+  </ItemGroup>
 </Project>

@@ -4,6 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" x:Class="KeepSafe.Views.MainPage"
+             xmlns:res="clr-namespace:KeepSafe.Resources"
              xmlns:local="clr-namespace:KeepSafe">
     <StackLayout>
         <!-- Place new controls here -->
@@ -12,6 +13,22 @@
                BackgroundColor="Red"
                HorizontalOptions="Center"
                Margin="{local:ScaleThickness Value='10,50,10,10'}">
+            <Image.Clip>
+                <EllipseGeometry
+                     RadiusX="{local:ScaleHeight Value=72}"
+                     RadiusY="{local:ScaleHeight Value=72}"                     
+                     Center="84.375,84.375"/>
+            </Image.Clip>
+            <Image.Source>
+                <FontImageSource FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"
+                                 Glyph="smile-wink"
+                                 Size="{local:ScaleFontSize Value=150}"
+                                 Color="White"/>
+            </Image.Source>
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Command="{Binding LogoTapped}"/>
+            </Image.GestureRecognizers>
         </Image>
         <Button Text="Change Label"
                 HeightRequest="{local:ScaleHeight Value=40}"
@@ -34,8 +51,17 @@
                 Command="{Binding BackCommand}"
                 Margin="{local:ScaleThickness Value='0,10'}"
                 IsVisible="{Binding ShowPreviousButton}"/>
-        <Label Text="{Binding TextLabel}"
-               HorizontalOptions="Center"
-               VerticalOptions="CenterAndExpand" />
+        <Label HorizontalOptions="Center"
+               VerticalOptions="CenterAndExpand"
+               HorizontalTextAlignment="Center"
+               FontSize="-1">
+            <Label.Text>
+                <MultiBinding StringFormat="{}--- {1} --- &#10; {0} &#10;--- {1} ---">
+                    <Binding Path="TextLabel"/>
+                    <Binding Path="TapCount" />
+                </MultiBinding>
+            </Label.Text>
+        </Label>
+        <!--<Path Stroke="DarkGoldenRod" StrokeThickness="3" Data="M 100,200 C 100,25 400,350 400,175 H 280" />-->
     </StackLayout>
 </ContentPage>
