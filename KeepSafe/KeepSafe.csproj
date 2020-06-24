@@ -38,9 +38,11 @@
   <ItemGroup>
     <None Remove="Resources\Files\CustomAlert.json" />
     <None Remove="Resources\Files\ServerList.json" />
+    <None Remove="Resources\SVG\KeepSafeLogo.svg" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Files\CustomAlert.json" />
     <EmbeddedResource Include="Resources\Files\ServerList.json" />
+    <EmbeddedResource Include="Resources\SVG\KeepSafeLogo.svg" />
   </ItemGroup>
 </Project>

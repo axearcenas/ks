@@ -22,6 +22,7 @@ namespace KeepSafe
         public static readonly double NAVIGATION_HEIGHT = App.IsAddNavHeight ? 82.ScaleHeight() : 58.ScaleHeight();
 
         public static readonly double BORDER_HEIGHT = .5D.ScaleHeight();
+        public static readonly Thickness LOGO_MARGIN = new Thickness(0, App.IsAddNavHeight ? 40.ScaleHeight() : 22.ScaleHeight(), 0, 0);
 #if DEBUG == false
         /// <summary> /users </summary>
         public static readonly string USERS_URL = "/users";
