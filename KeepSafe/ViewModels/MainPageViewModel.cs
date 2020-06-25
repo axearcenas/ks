@@ -73,13 +73,15 @@ namespace KeepSafe.ViewModels
             }
         }
 
-        private void OnToUserLoginCommand_Execute()
+        private async void OnToUserLoginCommand_Execute()
         {
             if (!IsClicked)
             {
                 IsClicked = true;
                 SellectedType = UserType.User;
                 //TODO Navigate To User Login
+                await Task.Delay(16);
+                await NavigationService.NavigateAsync(nameof(LoginPage));
                 StartTimer();
             }
         }

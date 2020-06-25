@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<local:MainNavigationPage xmlns="http://xamarin.com/schemas/2014/forms"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          x:Class="KeepSafe.Views.LoginPage"
+                          xmlns:local="clr-namespace:KeepSafe"
+                          xmlns:res="clr-namespace:KeepSafe.Resources"
+                          xmlns:prism="http://prismlibrary.com"
+                          NavBackgroundColor="White"
+                          LeftIcon="BackIcon"
+                          LeftIconType="SVG"
+                          LeftButtonCommand="{Binding BackCommand}">
+    <local:MainNavigationPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Button" x:Key="EntryBorderButtonStyle">
+                <Setter Property="Grid.ColumnSpan" Value="2"/>
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="HorizontalOptions" Value="Fill"/>
+                <Setter Property="VerticalOptions" Value="Fill"/>
+                <Setter Property="BorderColor" Value="{Static res:ColorResource.MAIN_BLUE_COLOR}"/>
+                <Setter Property="BorderWidth" Value="{local:ScaleHeightDouble Value=1}"/>
+                <Setter Property="CornerRadius" Value="{local:ScaleHeight Value=5}"/>
+                <Setter Property="InputTransparent" Value="True"/>
+            </Style>
+            <Style TargetType="Grid" x:Key="EntryGridStyle">
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="VerticalOptions" Value="Start"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="HeightRequest" Value="{local:ScaleHeight Value=38}"/>
+                <Setter Property="MinimumHeightRequest" Value="{local:ScaleHeight Value=38}"/>
+                <Setter Property="WidthRequest" Value="{local:ScaleWidth Value=280}"/>
+                <Setter Property="Padding" Value="0"/>
+            </Style>
+            <Style TargetType="Label" x:Key="IconLabelStyle">
+                <Setter Property="Grid.Column" Value="0"/>
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="FontSize" Value="{local:ScaleFontSize Value=17}"/>
+                <Setter Property="TextColor" Value="{Static res:ColorResource.MAIN_BLUE_COLOR}"/>
+            </Style>
+            <Style TargetType="local:CustomEntry" x:Key="EntryStyle">
+                <Setter Property="Grid.Column" Value="1"/>
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="VerticalOptions" Value="Fill"/>
+                <Setter Property="HorizontalOptions" Value="Fill"/>
+                <Setter Property="FontSize" Value="{local:ScaleFontSize Value=17}"/>
+                <Setter Property="TextColor" Value="{Static res:ColorResource.MAIN_BLUE_COLOR}"/>
+                <Setter Property="FontFamily" Value="{Static res:FontResource.LIGHT}"/>
+                <Setter Property="PlaceholderColor" Value="{Static res:ColorResource.PLACEHOLDER_COLOR}"/>
+                <Setter Property="Margin" Value="{local:ScaleThickness Value='11,0'}"/>
+                <Setter Property="MoveUp" Value="True"/>
+                <Setter Property="MoveUpAnimationSpeed" Value="16"/>
+                <Setter Property="CanProceedToView" Value="True"/>                
+            </Style>
+            <Style TargetType="BoxView" x:Key="SeparatorBoxViewStyle">
+                <Setter Property="Grid.Column" Value="0"/>
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="VerticalOptions" Value="Fill"/>
+                <Setter Property="HorizontalOptions" Value="End"/>
+                <Setter Property="WidthRequest" Value="{local:ScaleHeight Value=1}"/>
+                <Setter Property="BackgroundColor" Value="{Static res:ColorResource.MAIN_BLUE_COLOR}"/>
+            </Style>
+        </ResourceDictionary>
+    </local:MainNavigationPage.Resources>
+    <StackLayout Spacing="0"
+                 Padding="0">
+        <!-- Logo -->
+        <Image Source="KeepSafeLogo"
+               HeightRequest="{local:ScaleHeight Value=155}"
+               WidthRequest="{local:ScaleWidth Value=159}"
+               BackgroundColor="Transparent"
+               HorizontalOptions="Center"
+               Margin="{local:ScaleThickness Value='0,17,0,0'}">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Command="{Binding LogoTapped}"/>
+            </Image.GestureRecognizers>
+        </Image>
+        <!-- Login Label -->
+        <Label Text="Enter your Login Details"
+               TextColor="{Static res:ColorResource.MAIN_BLUE_COLOR}"
+               FontSize="{local:ScaleFontSize Value=20}"
+               FontFamily="{Static res:FontResource.REGULAR}"
+               HorizontalOptions="Center"
+               CharacterSpacing="{local:ScaleWidthDouble Value=2}"
+               Margin="{local:ScaleThickness Value='0,18'}"/>
+
+        <!-- Email Address Entry -->
+        <Grid ColumnSpacing="0"
+              ColumnDefinitions="{local:ScaleColumnDefinition Value='38,*'}"
+              Style="{StaticResource EntryGridStyle}"
+              Margin="{local:ScaleThickness Value='0,0,0,17'}">
+            <Button Style="{StaticResource EntryBorderButtonStyle}" />
+            <Label Text="envelope"
+                   FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"
+                   Style="{StaticResource IconLabelStyle}"/>
+            <BoxView Style="{StaticResource SeparatorBoxViewStyle}"/>
+            <local:CustomEntry Text="{Binding EmailAddressEntry.Text}"
+                               Placeholder="{Binding EmailAddressEntry.Placeholder}"
+                               PlaceholderColor="{Binding EmailAddressEntry.PlaceholderColor}"
+                               Keyboard="Email"
+                               ReturnType="Next"
+                               NextView="{Reference passwordEntry}"
+                               MoveUpOffset="{local:ScaleHeightDouble Value=139}"
+                               Style="{StaticResource EntryStyle}">
+                <local:CustomEntry.Behaviors>
+                    <prism:EventToCommandBehavior Command="{Binding EntryFocusedCommand}"
+                                                  CommandParameter="0"
+                                                  EventName="Focused" />
+                </local:CustomEntry.Behaviors>
+            </local:CustomEntry>
+        </Grid>
+
+        <!-- Password Entry -->
+        <Grid ColumnSpacing="0"
+              ColumnDefinitions="{local:ScaleColumnDefinition Value='38,*'}"
+              Style="{StaticResource EntryGridStyle}">
+            <Button Style="{StaticResource EntryBorderButtonStyle}" />
+            <Label Text="lock"
+                   FontFamily="{Static res:FontResource.FONTAWESOME5_SOLID}"
+                   Style="{StaticResource IconLabelStyle}"/>
+            <BoxView Style="{StaticResource SeparatorBoxViewStyle}"/>
+            <local:CustomEntry x:Name="passwordEntry"
+                               Text="{Binding PasswordEntry.Text}"
+                               Placeholder="{Binding PasswordEntry.Placeholder}"
+                               PlaceholderColor="{Binding PasswordEntry.PlaceholderColor}"
+                               Keyboard="Default"
+                               IsPassword="True"
+                               MoveUpOffset="{local:ScaleHeightDouble Value=85}"
+                               Style="{StaticResource EntryStyle}">
+                <local:CustomEntry.Behaviors>
+                    <prism:EventToCommandBehavior Command="{Binding EntryFocusedCommand}"
+                                                  CommandParameter="1"
+                                                  EventName="Focused" />
+                </local:CustomEntry.Behaviors>
+            </local:CustomEntry>
+        </Grid>
+
+        <!-- Forgot Password-->
+        <Label Text="Forgot Password?"
+               TextColor="{Static res:ColorResource.MAIN_BLUE_COLOR}"
+               FontSize="{local:ScaleFontSize Value=12}"
+               FontFamily="{Static res:FontResource.REGULAR}"
+               HeightRequest="{local:ScaleHeightDouble Value=30}"
+               TextDecorations="Underline"
+               HorizontalOptions="End"
+               VerticalOptions="Start"
+               HorizontalTextAlignment="Center"
+               VerticalTextAlignment="Center"
+               Margin="{local:ScaleThickness Value='0,1,20,11'}">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                      Command="{Binding ForotPasswordCommand}" />
+            </Label.GestureRecognizers>
+        </Label>
+
+        <!-- login Button-->
+        <Button Text="Login"
+                TextColor="{Static res:ColorResource.WHITE_COLOR}"
+                FontFamily="{Static res:FontResource.BOLD}"
+                BackgroundColor="{Static res:ColorResource.MAIN_THEME_COLOR}"
+                HorizontalOptions="Center"
+                VerticalOptions="Start"
+                CornerRadius="{local:ScaleHeight Value=5}"
+                HeightRequest="{local:ScaleHeight Value=38}"
+                WidthRequest="{local:ScaleWidth Value=280}"
+                Command="{Binding LoginCommand}"
+                Margin="{local:ScaleThickness Value='0,0,0,4'}"/>
+
+        <!-- ___ OR __-->
+
+        <Grid Padding="0"
+              HeightRequest="{local:ScaleHeight Value=24}"
+              Margin="{local:ScaleThickness Value='49,4,49,13'}">
+            <BoxView HeightRequest="{local:ScaleHeightDouble Value=1}"
+                     Color="{Static res:ColorResource.PLACEHOLDER_COLOR}"
+                     HorizontalOptions="Fill"
+                     VerticalOptions="Center"/>
+            <Label Text="Or"
+                   TextColor="{Static res:ColorResource.PLACEHOLDER_COLOR}"
+                   FontSize="{local:ScaleFontSize Value=20}"
+                   FontFamily="{Static res:FontResource.REGULAR}"
+                   BackgroundColor="{Static res:ColorResource.WHITE_COLOR}"
+                   WidthRequest="{local:ScaleWidth Value=47}"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Fill"
+                   HorizontalTextAlignment="Center"/>
+        </Grid>
+        <!-- Register Button -->
+        <Grid Padding="0"
+              HeightRequest="{local:ScaleHeight Value=39}"
+              MinimumHeightRequest="{local:ScaleHeight Value=39}"
+              WidthRequest="{local:ScaleWidth Value=280}"
+              BackgroundColor="Transparent"
+              HorizontalOptions="Center"
+              IsClippedToBounds="True"
+              ColumnSpacing="0"
+              ColumnDefinitions="{local:ScaleColumnDefinition Value='*,38'}">
+            <Button Grid.ColumnSpan="2"
+                    Text="Register"
+                    TextColor="{Static res:ColorResource.MAIN_THEME_COLOR}"
+                    FontSize="{local:ScaleFontSize Value=16}"
+                    FontFamily="{Static res:FontResource.BOLD}"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Fill"                        
+                    BackgroundColor="{Static res:ColorResource.WHITE_COLOR}"
+                    BorderColor="{Static res:ColorResource.MAIN_THEME_COLOR}"
+                    BorderWidth="{local:ScaleHeightDouble Value=0.9}"
+                    CornerRadius="{local:ScaleHeight Value=4}"
+                    Padding="{local:ScaleThickness Value='0,0,38,0'}"
+                    Command="{Binding ToRegistrationCommand}">
+            </Button>
+
+            <BoxView Grid.Column="1"
+                     InputTransparent="True"
+                     WidthRequest="{local:ScaleHeightDouble Value=0.9}"
+                     Color="{Static res:ColorResource.MAIN_THEME_COLOR}"
+                     HorizontalOptions="Start"
+                     VerticalOptions="Fill"/>
+            <local:FFSVGImage Grid.Column="1"
+                              Source="{local:FFSVGImageSource ImageName=ArrowForward}"
+                              HorizontalOptions="Fill"
+                              VerticalOptions="Center"
+                              HeightRequest="{local:ScaleHeight Value=12}"/>
+            <!--<Label Grid.Column="1"
+                   Text="angle-double-right"
+                   TextColor="{Static res:ColorResource.MAIN_BLUE_COLOR}"
+                   FontSize="{local:ScaleFontSize Value=12}"
+                   FontFamily="{Static res:FontResource.FONTAWESOME5_SOLID}"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center">
+            </Label>-->
+        </Grid>
+
+    </StackLayout>
+</local:MainNavigationPage>

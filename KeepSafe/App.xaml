@@ -9,11 +9,9 @@
                         xmlns:local="clr-namespace:KeepSafe"
                         xmlns:res="clr-namespace:KeepSafe.Resources"
                         >
-                        <!--xmlns:res="clr-namespace:KeepSafe.Resources"-->
     <prism:PrismApplication.Resources>
         <ResourceDictionary>
             <!--Global Styles-->
-            <Color x:Key="NavigationPrimary">#2196F3</Color>
             <Style TargetType="NavigationPage">
                 <Setter Property="BarBackgroundColor" Value="{Static res:ColorResource.MAIN_THEME_COLOR}"/>
                 <Setter Property="BarTextColor" Value="White" />
@@ -128,7 +126,7 @@
                             Margin="{local:ScaleThickness Value='0,0,0,0'}"
                             AutomationId="LeftButton"
                             Style="{StaticResource TemplateButtonStyle}"
-                            IsVisible="false">
+                            IsVisible="true">
                         <Button.Triggers>
                             <DataTrigger TargetType="Button"
                                          Binding="{TemplateBinding LeftIconType}"
@@ -175,7 +173,7 @@
                             Style="{StaticResource TemplateButtonStyle}"
                             Command="{TemplateBinding RightButtonCommand}"
                             BackgroundColor="{TemplateBinding RightButtonColor}" 
-                            IsVisible="false">
+                            IsVisible="true">
                         <Button.Triggers>                            
                             <DataTrigger TargetType="Button"
                                          Binding="{TemplateBinding RightIconType}"
