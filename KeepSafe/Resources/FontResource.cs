@@ -8,6 +8,8 @@ namespace KeepSafe.Resources
         //TODO: ADD THEME FONTS
         public static readonly string REGULAR = Device.RuntimePlatform == Device.iOS ? "OpenSans" : "Fonts/OpenSans-Regular.ttf#OpenSans-Regular";
         public static readonly string BOLD = Device.RuntimePlatform == Device.iOS ? "OpenSans-Bold" : "Fonts/OpenSans-Bold.ttf#OpenSans-Bold";
+
+
         public static readonly string BOLDITALIC = Device.RuntimePlatform == Device.iOS ? "OpenSans-BoldItalic" : "Fonts/OpenSans-BoldItalic.ttf#OpenSans-BoldItalic";
         public static readonly string EXTRABOLD = Device.RuntimePlatform == Device.iOS ? "OpenSans-ExtraBold" : "Fonts/OpenSans-ExtraBold.ttf#OpenSans-ExtraBold";
         public static readonly string EXTRABOLDITALIC = Device.RuntimePlatform == Device.iOS ? "OpenSans-ExtraBoldItalic" : "Fonts/OpenSans-ExtraBoldItalic.ttf#OpenSans-ExtraBoldItalic";
