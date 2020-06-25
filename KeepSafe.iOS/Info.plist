@@ -66,6 +66,8 @@
 		<string>Fonts/FontAwesome5BrandsRegular.otf</string>
 		<string>Fonts/FontAwesome5Regular.otf</string>
 		<string>Fonts/FontAwesome5Solid.otf</string>
+		<string>Fonts/Roboto-Bold.ttf</string>
+		<string>Fonts/Roboto-Regular.ttf</string>
 	</array>
 </dict>
 </plist>

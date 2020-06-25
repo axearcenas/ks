@@ -115,6 +115,10 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon20.png">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\KeepSafeLogo.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\KeepSafeLogo.imageset\KeepSafeLogo.png" />
+    <ImageAsset Include="Assets.xcassets\KeepSafeLogo.imageset\KeepSafeLogo%402x.png" />
+    <ImageAsset Include="Assets.xcassets\KeepSafeLogo.imageset\KeepSafeLogo%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -177,8 +181,11 @@
     <BundleResource Include="Resources\Fonts\FontAwesome5Solid.otf" />
     <BundleResource Include="Resources\Fonts\FontAwesome5Regular.otf" />
     <BundleResource Include="Resources\Fonts\FontAwesome.ttf" />
+    <BundleResource Include="Resources\Fonts\Roboto-Regular.ttf" />
+    <BundleResource Include="Resources\Fonts\Roboto-Bold.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Renderers\" />
+    <Folder Include="Assets.xcassets\KeepSafeLogo.imageset\" />
   </ItemGroup>
 </Project>

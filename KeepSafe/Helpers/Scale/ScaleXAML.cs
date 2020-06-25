@@ -161,27 +161,35 @@ namespace KeepSafe
 
         public object ProvideValue(IServiceProvider serviceProvider)
         {
-            App.Log($"SCALING_STARTING : IsResponsive? => {IsResponsive} | Value => {Android ?? Value}", this.GetType().ToString());
-            var property = (serviceProvider.GetService<IProvideValueTarget>().TargetProperty as BindableProperty).ReturnType;
-            if (!string.IsNullOrEmpty(Value))
+            Type property = typeof(double);
+            App.Log($"SCALING_STARTING : IsResponsive? => {IsResponsive} | Value => {Android ?? Value} {(serviceProvider.GetService<IProvideValueTarget>().TargetProperty as BindableProperty) == null}", this.GetType().ToString());
+            IProvideValueTarget provideValueTarget = serviceProvider.GetService<IProvideValueTarget>();
+            if (provideValueTarget != null)
             {
-                if (Value.Contains("|"))
+                if (provideValueTarget.TargetObject is Setter setter)
+                    property = setter.Property.ReturnType;
+                else if(provideValueTarget.TargetProperty is BindableProperty bindableProperty)
+                    property = bindableProperty.ReturnType;
+                if (!string.IsNullOrEmpty(Value))
                 {
-                    string[] paramPlatform = Value.Split('|');
-                    Value = Device.RuntimePlatform == Device.Android ? paramPlatform[0] : paramPlatform[1];
+                    if (Value.Contains("|"))
+                    {
+                        string[] paramPlatform = Value.Split('|');
+                        Value = Device.RuntimePlatform == Device.Android ? paramPlatform[0] : paramPlatform[1];
+                    }
+                    double.TryParse(Android ?? Value, out double numberValue);
+                    var returnData = Convert.ChangeType(IsResponsive ? (int)numberValue.ScaleHeightResponsive() : (int)numberValue.ScaleHeight(), Type.GetType(property.ToString()));
+                    App.Log($"SCALING_STARTING : IsResponsive? => {IsResponsive} | Value => {returnData} :TYPE {returnData.GetType()} | {Type.GetType(property.ToString())}", this.GetType().ToString());
+                    if (returnData != null)
+                        return returnData;
+                    //return Convert.ChangeType( IsResponsive ? (int)numberValue.ScaleHeightResponsive() : (int)numberValue.ScaleHeight(), property.GetType());
+                    //switch (property.ToString())
+                    //{
+                    //    case "System.Int16": case "System.Int32": case "System.Int64": App.Log($"END INT", this.GetType().ToString()); return IsResponsive ? (int)numberValue.ScaleHeightResponsive()  : (int)numberValue.ScaleHeight();
+                    //    case "System.Double": App.Log($"END DOUBLE", this.GetType().ToString()); return IsResponsive ? (double)numberValue.ScaleHeightResponsive() : (double)numberValue.ScaleHeight();
+                    //    case "System.Single": App.Log($"END FLOAT", this.GetType().ToString()); return IsResponsive ? (float)numberValue.ScaleHeightResponsive() : (float)numberValue.ScaleHeight();
+                    //}
                 }
-                double.TryParse(Android ?? Value, out double numberValue);
-                var returnData = Convert.ChangeType(IsResponsive ? (int)numberValue.ScaleHeightResponsive() : (int)numberValue.ScaleHeight(), Type.GetType(property.ToString()));
-                App.Log($"SCALING_STARTING : IsResponsive? => {IsResponsive} | Value => {returnData} :TYPE {returnData.GetType()} | {Type.GetType(property.ToString())}", this.GetType().ToString());
-                if (returnData != null)
-                    return returnData;
-                //return Convert.ChangeType( IsResponsive ? (int)numberValue.ScaleHeightResponsive() : (int)numberValue.ScaleHeight(), property.GetType());
-                //switch (property.ToString())
-                //{
-                //    case "System.Int16": case "System.Int32": case "System.Int64": App.Log($"END INT", this.GetType().ToString()); return IsResponsive ? (int)numberValue.ScaleHeightResponsive()  : (int)numberValue.ScaleHeight();
-                //    case "System.Double": App.Log($"END DOUBLE", this.GetType().ToString()); return IsResponsive ? (double)numberValue.ScaleHeightResponsive() : (double)numberValue.ScaleHeight();
-                //    case "System.Single": App.Log($"END FLOAT", this.GetType().ToString()); return IsResponsive ? (float)numberValue.ScaleHeightResponsive() : (float)numberValue.ScaleHeight();
-                //}
             }
             throw new InvalidOperationException($"Cannot convert Height[{Value}]");
         }
@@ -195,28 +203,36 @@ namespace KeepSafe
 
         public object ProvideValue(IServiceProvider serviceProvider)
         {
-            App.Log($"SCALING_STARTING : IsResponsive? => {IsResponsive} | Value => {Android ?? Value}", this.GetType().ToString());
-            var property = (serviceProvider.GetService<IProvideValueTarget>().TargetProperty as BindableProperty).ReturnType;
-            if (!string.IsNullOrEmpty(Value))
+            Type property = typeof(double);
+            App.Log($"SCALING_STARTING : IsResponsive? => {IsResponsive} | Value => {Android ?? Value} {(serviceProvider.GetService<IProvideValueTarget>().TargetProperty as BindableProperty) == null}", this.GetType().ToString());
+            IProvideValueTarget provideValueTarget = serviceProvider.GetService<IProvideValueTarget>();
+            if (provideValueTarget != null)
             {
-                if (Value.Contains("|"))
+                if (provideValueTarget.TargetObject is Setter setter)
+                    property = setter.Property.ReturnType;
+                else if (provideValueTarget.TargetProperty is BindableProperty bindableProperty)
+                    property = bindableProperty.ReturnType;
+                if (!string.IsNullOrEmpty(Value))
                 {
-                    string[] paramPlatform = Value.Split('|');
-                    Value = Device.RuntimePlatform == Device.Android ? paramPlatform[0] : paramPlatform[1];
-                }
-                double.TryParse(Android ?? Value, out double numberValue);
-                var returnData = Convert.ChangeType(IsResponsive ? (int)numberValue.ScaleWidthResponsive() : (int)numberValue.ScaleWidth(), Type.GetType(property.ToString()));
-                App.Log($"SCALING_ENDING : IsResponsive? => {IsResponsive} | Value => {returnData} :TYPE {returnData.GetType()} | {property.ToString()}", this.GetType().ToString());
-                if(returnData != null)
-                    return returnData;
-                //return Convert.ChangeType(IsResponsive ? (int)numberValue.ScaleHeightResponsive() : (int)numberValue.ScaleHeight(), property.GetType());
+                    if (Value.Contains("|"))
+                    {
+                        string[] paramPlatform = Value.Split('|');
+                        Value = Device.RuntimePlatform == Device.Android ? paramPlatform[0] : paramPlatform[1];
+                    }
+                    double.TryParse(Android ?? Value, out double numberValue);
+                    var returnData = Convert.ChangeType(IsResponsive ? (int)numberValue.ScaleWidthResponsive() : (int)numberValue.ScaleWidth(), Type.GetType(property.ToString()));
+                    App.Log($"SCALING_ENDING : IsResponsive? => {IsResponsive} | Value => {returnData} :TYPE {returnData.GetType()} | {property.ToString()}", this.GetType().ToString());
+                    if (returnData != null)
+                        return returnData;
+                    //return Convert.ChangeType(IsResponsive ? (int)numberValue.ScaleHeightResponsive() : (int)numberValue.ScaleHeight(), property.GetType());
 
-                //switch (property.ToString())
-                //{
-                //    case "System.Int16": case "System.Int32": case "System.Int64": App.Log($"END INT", this.GetType().ToString()); return IsResponsive ? (int)numberValue.ScaleWidthResponsive() : (int)numberValue.ScaleWidth();
-                //    case "System.Double": App.Log($"END DOUBLE", this.GetType().ToString()); return IsResponsive ? (double)numberValue.ScaleWidthResponsive() : (double)numberValue.ScaleWidth();
-                //    case "System.Single": App.Log($"END FLOAT", this.GetType().ToString()); return IsResponsive ? (float)numberValue.ScaleWidthResponsive() : (float)numberValue.ScaleWidth();
-                //}
+                    //switch (property.ToString())
+                    //{
+                    //    case "System.Int16": case "System.Int32": case "System.Int64": App.Log($"END INT", this.GetType().ToString()); return IsResponsive ? (int)numberValue.ScaleWidthResponsive() : (int)numberValue.ScaleWidth();
+                    //    case "System.Double": App.Log($"END DOUBLE", this.GetType().ToString()); return IsResponsive ? (double)numberValue.ScaleWidthResponsive() : (double)numberValue.ScaleWidth();
+                    //    case "System.Single": App.Log($"END FLOAT", this.GetType().ToString()); return IsResponsive ? (float)numberValue.ScaleWidthResponsive() : (float)numberValue.ScaleWidth();
+                    //}
+                }
             }
             throw new InvalidOperationException($"Cannot convert Width[{Value}]");
         }
