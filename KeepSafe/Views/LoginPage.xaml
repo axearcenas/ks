@@ -125,15 +125,27 @@
                                Placeholder="{Binding PasswordEntry.Placeholder}"
                                PlaceholderColor="{Binding PasswordEntry.PlaceholderColor}"
                                Keyboard="Default"
-                               IsPassword="True"
+                               IsPassword="{Binding PasswordEntry.IsPassword}"
                                MoveUpOffset="{local:ScaleHeightDouble Value=85}"
-                               Style="{StaticResource EntryStyle}">
+                               Style="{StaticResource EntryStyle}"
+                               Margin="{local:ScaleThickness Value='11,0,42,0'}">
                 <local:CustomEntry.Behaviors>
                     <prism:EventToCommandBehavior Command="{Binding EntryFocusedCommand}"
                                                   CommandParameter="1"
                                                   EventName="Focused" />
                 </local:CustomEntry.Behaviors>
             </local:CustomEntry>
+            <Button Grid.Column="1"
+                    Text="eye"
+                    TextColor="{Static res:ColorResource.MAIN_BLUE_COLOR}"
+                    FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"
+                    FontSize="{local:ScaleFontSize Value=16}"
+                    BackgroundColor="Transparent"
+                    VerticalOptions="Fill"
+                    WidthRequest="{local:ScaleWidth Value=42}"
+                    HorizontalOptions="End"
+                    IsVisible="{Binding IsPasswordButtonVisible}"
+                    Command="{Binding ShowPasswordCommand}"/>
         </Grid>
 
         <!-- Forgot Password-->
@@ -158,6 +170,7 @@
         <Button Text="Login"
                 TextColor="{Static res:ColorResource.WHITE_COLOR}"
                 FontFamily="{Static res:FontResource.BOLD}"
+                FontSize="{local:ScaleFontSize Value=16}"
                 BackgroundColor="{Static res:ColorResource.MAIN_THEME_COLOR}"
                 HorizontalOptions="Center"
                 VerticalOptions="Start"

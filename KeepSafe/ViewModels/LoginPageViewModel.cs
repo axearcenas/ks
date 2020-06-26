@@ -18,14 +18,21 @@ namespace KeepSafe.ViewModels
     public class LoginPageViewModel : ViewModelBase, IFileConnector, IRestReceiver
     {
         public EntryViewModel EmailAddressEntry { get; } = new EntryViewModel() { Placeholder = "Email Address", PlaceholderColor = ColorResource.PLACEHOLDER_COLOR };
-        public EntryViewModel PasswordEntry { get; } = new EntryViewModel() { Placeholder = "Password", PlaceholderColor = ColorResource.PLACEHOLDER_COLOR };
+        public EntryViewModel PasswordEntry { get; } = new EntryViewModel() { Placeholder = "Password", PlaceholderColor = ColorResource.PLACEHOLDER_COLOR ,IsPassword = true};
 
         public DelegateCommand BackCommand { get; set; }
         public DelegateCommand ForotPasswordCommand { get; set; }
         public DelegateCommand LoginCommand { get; set; }
         public DelegateCommand RegisterCommand { get; set; }
         public DelegateCommand<object> EntryFocusedCommand { get; set; }
-        
+        public DelegateCommand ShowPasswordCommand { get; set; }
+
+        bool _IsPasswordButtonVisible = false;
+        public bool IsPasswordButtonVisible
+        {
+            get { return _IsPasswordButtonVisible; }
+            set { _IsPasswordButtonVisible = value; OnPropertyChanged(); }
+        }
 
         public LoginPageViewModel(INavigationService navigationService,IPageDialogService pageDialogService)
             :base (navigationService, pageDialogService)
@@ -35,6 +42,16 @@ namespace KeepSafe.ViewModels
             LoginCommand = new DelegateCommand(OnLoginCommand_Execute);
             RegisterCommand = new DelegateCommand(OnRegisterCommandCommand_Execute);
             EntryFocusedCommand = new DelegateCommand<object>(OnEntryFocusedCommand_Execute);
+            ShowPasswordCommand = new DelegateCommand(OnShowPasswordCommand_Execute);
+            PasswordEntry.PropertyChanged += PasswordEntry_PropertyChanged;
+        }
+
+        private void PasswordEntry_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if(e.PropertyName.Equals("Text"))
+            {
+                IsPasswordButtonVisible = !string.IsNullOrEmpty(PasswordEntry.Text);
+            }
         }
 
         private async void OnBackCommand_Execute()
@@ -66,6 +83,11 @@ namespace KeepSafe.ViewModels
         private void OnForotPasswordCommand_Execute()
         {
             //TODO Forgot Password Page
+        }
+
+        private void OnShowPasswordCommand_Execute()
+        {
+            PasswordEntry.IsPassword = !PasswordEntry.IsPassword;
         }
 
         private void OnLoginCommand_Execute()
@@ -141,13 +163,12 @@ namespace KeepSafe.ViewModels
                             Device.BeginInvokeOnMainThread(async() =>
                             {
                                 //TODO save USER Here
-                                EmailAddressEntry.ToDefaultValue();
-                                PasswordEntry.ToDefaultValue();
                                 PageDialogService?.DisplayAlertAsync("Login Succesfully",jsonData["message"].ToString(),"Okay");
+                                EmailAddressEntry.ClearText();
+                                PasswordEntry.ClearText();
                             });                            
                         }
                         break;
-
                 }
             }
             IsClicked = false;

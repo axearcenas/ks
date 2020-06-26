@@ -173,30 +173,11 @@ namespace KeepSafe
             get { return (Color)GetValue(RightButtonColorProperty); }
         }
 
-        //public static readonly BindableProperty IsLoadingProperty = BindableProperty.Create(nameof(IsLoading), typeof(bool), typeof(MainNavigationPage), false);
-        //public bool IsLoading
-        //{
-        //    get { return (bool)GetValue(IsLoadingProperty); }
-        //    set { SetValue(IsLoadingProperty, value); }
-        //}
-
-        //public static readonly BindableProperty LoadingColorProperty = BindableProperty.Create(nameof(LoadingColor), typeof(Color), typeof(MainNavigationPage), ColorResource.MAIN_BLUE_COLOR);
-        //public Color LoadingColor
-        //{
-        //    get { return (Color)GetValue(LoadingColorProperty); }
-        //    set { SetValue(LoadingColorProperty, value); }
-        //}
-
-        //public static readonly BindableProperty LoadingBackgroundColorProperty = BindableProperty.Create(nameof(LoadingBackgroundColor), typeof(Color), typeof(MainNavigationPage), ColorResource.LOADING_BACKGROUNDCOLOR);
-        //public Color LoadingBackgroundColor
-        //{
-        //    get { return (Color)GetValue(LoadingBackgroundColorProperty); }
-        //    set { SetValue(LoadingBackgroundColorProperty, value); }
-        //}
-
         public MainNavigationPage()
         {
             InitializeComponent();
+
+            DependencyService.Get<IChangeBarColor>().ChangeColor(BarStyle.Dark);
         }
     }
 

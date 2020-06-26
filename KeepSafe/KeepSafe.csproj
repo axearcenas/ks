@@ -30,6 +30,7 @@
     <Folder Include="Helpers\Effects\" />
     <Folder Include="Resources\SVG\" />
     <Folder Include="Views\" />
+    <Folder Include="DependencyServices\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Renderers\CustomButtonRenderer.cs" />
