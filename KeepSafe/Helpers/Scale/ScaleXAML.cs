@@ -168,7 +168,7 @@ namespace KeepSafe
             {
                 if (provideValueTarget.TargetObject is Setter setter)
                     property = setter.Property.ReturnType;
-                else if(provideValueTarget.TargetProperty is BindableProperty bindableProperty)
+                else if (provideValueTarget.TargetProperty is BindableProperty bindableProperty)
                     property = bindableProperty.ReturnType;
                 if (!string.IsNullOrEmpty(Value))
                 {
@@ -222,7 +222,7 @@ namespace KeepSafe
                     double.TryParse(Android ?? Value, out double numberValue);
                     var returnData = Convert.ChangeType(IsResponsive ? (int)numberValue.ScaleWidthResponsive() : (int)numberValue.ScaleWidth(), Type.GetType(property.ToString()));
                     App.Log($"SCALING_ENDING : IsResponsive? => {IsResponsive} | Value => {returnData} :TYPE {returnData.GetType()} | {property.ToString()}", this.GetType().ToString());
-                    if (returnData != null)
+                    if(returnData != null)
                         return returnData;
                     //return Convert.ChangeType(IsResponsive ? (int)numberValue.ScaleHeightResponsive() : (int)numberValue.ScaleHeight(), property.GetType());
 
@@ -246,36 +246,44 @@ namespace KeepSafe
 
         public object ProvideValue(IServiceProvider serviceProvider)
         {
-            App.Log($"SCALING_STARTING : IsResponsive? => {IsResponsive} | Value => {Android ?? Value}", this.GetType().ToString());
-            var property = (serviceProvider.GetService<IProvideValueTarget>().TargetProperty as BindableProperty).ReturnType;
-            if (!string.IsNullOrEmpty(Value))
+            Type property = typeof(double);
+            App.Log($"SCALING_STARTING : IsResponsive? => {IsResponsive} | Value => {Android ?? Value} {(serviceProvider.GetService<IProvideValueTarget>().TargetProperty as BindableProperty) == null}", this.GetType().ToString());
+            IProvideValueTarget provideValueTarget = serviceProvider.GetService<IProvideValueTarget>();
+            if (provideValueTarget != null)
             {
-                Value = Device.RuntimePlatform == Device.Android ? Android ?? Value : Value;
-                if (property == typeof(RowDefinitionCollection))
+                if (provideValueTarget.TargetObject is Setter setter)
+                    property = setter.Property.ReturnType;
+                else if (provideValueTarget.TargetProperty is BindableProperty bindableProperty)
+                    property = bindableProperty.ReturnType;
+                if (!string.IsNullOrEmpty(Value))
                 {
-                    RowDefinitionCollection rowDefinitions = new RowDefinitionCollection();
-                    foreach(string value in Value.Split(','))
+                    Value = Device.RuntimePlatform == Device.Android ? Android ?? Value : Value;
+                    if (property == typeof(RowDefinitionCollection))
                     {
-                        if (value.Equals("*"))
-                            rowDefinitions.Add(new RowDefinition() { Height = GridLength.Star });
-                        else if (value.Contains("*"))
+                        RowDefinitionCollection rowDefinitions = new RowDefinitionCollection();
+                        foreach(string value in Value.Split(','))
                         {
-                            double.TryParse(value.Replace("*", ""), out double starValue);
-                            rowDefinitions.Add(new RowDefinition() { Height = new GridLength(starValue, GridUnitType.Star) });
-                        }
-                        else if (value.ToLower().Equals("auto"))
-                            rowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
-                        else
-                        {
-                            if(double.TryParse(value.Replace("*", ""), out double absoluteValue))
-                                rowDefinitions.Add(new RowDefinition() { Height = new GridLength( IsResponsive ? absoluteValue.ScaleHeightResponsive() : absoluteValue.ScaleHeight(), GridUnitType.Absolute) });
+                            if (value.Equals("*"))
+                                rowDefinitions.Add(new RowDefinition() { Height = GridLength.Star });
+                            else if (value.Contains("*"))
+                            {
+                                double.TryParse(value.Replace("*", ""), out double starValue);
+                                rowDefinitions.Add(new RowDefinition() { Height = new GridLength(starValue, GridUnitType.Star) });
+                            }
+                            else if (value.ToLower().Equals("auto"))
+                                rowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
                             else
-                                throw new InvalidOperationException($"Cannot convert Width[{Value}]");
+                            {
+                                if(double.TryParse(value.Replace("*", ""), out double absoluteValue))
+                                    rowDefinitions.Add(new RowDefinition() { Height = new GridLength( IsResponsive ? absoluteValue.ScaleHeightResponsive() : absoluteValue.ScaleHeight(), GridUnitType.Absolute) });
+                                else
+                                    throw new InvalidOperationException($"Cannot convert Width[{Value}]");
+                            }
                         }
+                        //App.Log($"SCALING_ENDING : IsResponsive? => {IsResponsive} | Value => {Android ?? Value}", this.GetType().ToString());
+                        App.Log($"SCALING_ENDING : IsResponsive? => {IsResponsive} | Value => {Android ?? Value} ||| RowDefinationCollection: {JsonConvert.SerializeObject(rowDefinitions)}", this.GetType().ToString());
+                        return rowDefinitions;
                     }
-                    //App.Log($"SCALING_ENDING : IsResponsive? => {IsResponsive} | Value => {Android ?? Value}", this.GetType().ToString());
-                    App.Log($"SCALING_ENDING : IsResponsive? => {IsResponsive} | Value => {Android ?? Value} ||| RowDefinationCollection: {JsonConvert.SerializeObject(rowDefinitions)}", this.GetType().ToString());
-                    return rowDefinitions;
                 }
             }
             throw new InvalidOperationException($"Cannot convert Width[{Value}]");
@@ -290,36 +298,44 @@ namespace KeepSafe
 
         public object ProvideValue(IServiceProvider serviceProvider)
         {
-            App.Log($"SCALING_STARTING : IsResponsive? => {IsResponsive} | Value => {Android ?? Value}", this.GetType().ToString());
-            var property = (serviceProvider.GetService<IProvideValueTarget>().TargetProperty as BindableProperty).ReturnType;
-            if (!string.IsNullOrEmpty(Value))
+            Type property = typeof(double);
+            App.Log($"SCALING_STARTING : IsResponsive? => {IsResponsive} | Value => {Android ?? Value} {(serviceProvider.GetService<IProvideValueTarget>().TargetProperty as BindableProperty) == null}", this.GetType().ToString());
+            IProvideValueTarget provideValueTarget = serviceProvider.GetService<IProvideValueTarget>();
+            if (provideValueTarget != null)
             {
-                Value = Device.RuntimePlatform == Device.Android ? Android ?? Value : Value;
-                if (property == typeof(ColumnDefinitionCollection))
+                if (provideValueTarget.TargetObject is Setter setter)
+                    property = setter.Property.ReturnType;
+                else if (provideValueTarget.TargetProperty is BindableProperty bindableProperty)
+                    property = bindableProperty.ReturnType;
+                if (!string.IsNullOrEmpty(Value))
                 {
-                    ColumnDefinitionCollection columnDefinitions = new ColumnDefinitionCollection();
-                    foreach (string value in Value.Split(','))
+                    Value = Device.RuntimePlatform == Device.Android ? Android ?? Value : Value;
+                    if (property == typeof(ColumnDefinitionCollection))
                     {
-                        if (value.Equals("*"))
-                            columnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Star });
-                        else if (value.Contains("*"))
+                        ColumnDefinitionCollection columnDefinitions = new ColumnDefinitionCollection();
+                        foreach (string value in Value.Split(','))
                         {
-                            double.TryParse(value.Replace("*", ""), out double starValue);
-                            columnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(starValue, GridUnitType.Star) });
-                        }
-                        else if (value.ToLower().Equals("auto"))
-                            columnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
-                        else
-                        {
-                            if (double.TryParse(value.Replace("*", ""), out double absoluteValue))
-                                columnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(IsResponsive ? absoluteValue.ScaleWidthResponsive() : absoluteValue.ScaleWidth(), GridUnitType.Absolute) });
+                            if (value.Equals("*"))
+                                columnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Star });
+                            else if (value.Contains("*"))
+                            {
+                                double.TryParse(value.Replace("*", ""), out double starValue);
+                                columnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(starValue, GridUnitType.Star) });
+                            }
+                            else if (value.ToLower().Equals("auto"))
+                                columnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
                             else
-                                throw new InvalidOperationException($"Cannot convert Width[{Value}]");
+                            {
+                                if (double.TryParse(value.Replace("*", ""), out double absoluteValue))
+                                    columnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(IsResponsive ? absoluteValue.ScaleWidthResponsive() : absoluteValue.ScaleWidth(), GridUnitType.Absolute) });
+                                else
+                                    throw new InvalidOperationException($"Cannot convert Width[{Value}]");
+                            }
                         }
+                        //App.Log($"SCALING_ENDING : IsResponsive? => {IsResponsive} | Value => {Android ?? Value}", this.GetType().ToString());
+                        App.Log($"SCALING_ENDING : IsResponsive? => {IsResponsive} | Value => {Android ?? Value} ||| RowDefinationCollection: {JsonConvert.SerializeObject(columnDefinitions)}", this.GetType().ToString());
+                        return columnDefinitions;
                     }
-                    //App.Log($"SCALING_ENDING : IsResponsive? => {IsResponsive} | Value => {Android ?? Value}", this.GetType().ToString());
-                    App.Log($"SCALING_ENDING : IsResponsive? => {IsResponsive} | Value => {Android ?? Value} ||| RowDefinationCollection: {JsonConvert.SerializeObject(columnDefinitions)}", this.GetType().ToString());
-                    return columnDefinitions;
                 }
             }
             throw new InvalidOperationException($"Cannot convert Width[{Value}]");
