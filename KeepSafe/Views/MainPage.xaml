@@ -6,7 +6,7 @@
              mc:Ignorable="d" x:Class="KeepSafe.Views.MainPage"
              xmlns:res="clr-namespace:KeepSafe.Resources"
              xmlns:local="clr-namespace:KeepSafe"
-             BackgroundColor="{Static res:ColorResource.WHITE_COLOR}">
+             BackgroundColor="Transparent">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style TargetType="Label" x:Key="IconLabelStyle">
@@ -30,165 +30,109 @@
                 <Setter Property="InputTransparent" Value="True"/>
             </Style>
             <Style TargetType="Button" x:Key="ButtonStyle">
-                <Setter Property="TextColor" Value="{Static res:ColorResource.MAIN_BLUE_COLOR}"/>
+                <Setter Property="TextColor" Value="{Static res:ColorResource.WHITE_COLOR}"/>
                 <Setter Property="FontSize" Value="{local:ScaleFontSize Value=21}"/>
                 <Setter Property="FontFamily" Value="{Static res:FontResource.REGULAR}"/>
                 <Setter Property="HorizontalOptions" Value="Center"/>
-                <Setter Property="HeightRequest" Value="{local:ScaleHeight Value=85}"/>
-                <Setter Property="MinimumHeightRequest" Value="{local:ScaleHeight Value=85}"/>
-                <Setter Property="WidthRequest" Value="{local:ScaleWidth Value=280}"/>
+                <Setter Property="HeightRequest" Value="{local:ScaleHeight Value=50}"/>
+                <Setter Property="MinimumHeightRequest" Value="{local:ScaleHeight Value=50}"/>
+                <Setter Property="WidthRequest" Value="{local:ScaleWidth Value=288}"/>
                 <Setter Property="BackgroundColor" Value="Transparent"/>
                 <Setter Property="VerticalOptions" Value="Fill"/>
-                <Setter Property="BorderColor" Value="{Static res:ColorResource.MAIN_THEME_COLOR}"/>
+                <Setter Property="BorderColor" Value="{Static res:ColorResource.WHITE_COLOR}"/>
                 <Setter Property="BorderWidth" Value="{local:ScaleHeightDouble Value=1}"/>
-                <Setter Property="CornerRadius" Value="{local:ScaleHeight Value=5}"/>
-                <Setter Property="VerticalOptions" Value="Center"/>
-                <Setter Property="Padding" Value="{local:ScaleThickness Value='26,0,0,0|0,0,0,0'}"/>
-                <Setter Property="ContentLayout" Value="{d:OnPlatform iOS='Left,29'}"/>
+                <Setter Property="CornerRadius" Value="{local:ScaleHeight Value=25}"/>
+                <Setter Property="VerticalOptions" Value="End"/>
             </Style>
         </ResourceDictionary>
-    </ContentPage.Resources>
-    <StackLayout Spacing="0"
-                 Padding="0">
-        <!-- Logo -->
-        <Image Source="KeepSafeLogo"
-               HeightRequest="{local:ScaleHeight Value=155}"
-               WidthRequest="{local:ScaleWidth Value=158.43}"
-               BackgroundColor="Transparent"
-               HorizontalOptions="Center"
-               Margin="{Static local:Constants.LOGO_MARGIN}">
-            <Image.GestureRecognizers>
+    </ContentPage.Resources>     
+    <Grid Padding="0"
+          RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="{Static local:Constants.STATUS_BAR_HEIGHT}" />
+            <RowDefinition Height="{local:ScaleGridHeight Value=184}" />
+            <RowDefinition Height="{local:ScaleGridHeight Value=118}" />
+            <RowDefinition Height="{local:ScaleGridHeight Value=72}" />
+            <RowDefinition Height="{local:ScaleGridHeight Value=54}" />
+            <RowDefinition Height="{local:ScaleGridHeight Value=17}" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <!-- 0 | status bar height -->
+        <Image Grid.RowSpan="7" Source="MainBackground"
+               HorizontalOptions="Fill"
+               VerticalOptions="Fill"
+               Aspect="AspectFill"/>
+        <!-- 1 | Logo -->        
+        <local:FFSVGImage Grid.Row="1"
+                          Source="{local:FFSVGImageSource ImageName=KeepSafeLogo}"
+                          HeightRequest="{local:ScaleHeight Value=155}"
+                          WidthRequest="{local:ScaleWidth Value=158.43}"
+                          HorizontalOptions="Center"
+                          VerticalOptions="End"
+                          BackgroundColor="Transparent">
+            <local:FFSVGImage.GestureRecognizers>
                 <TapGestureRecognizer NumberOfTapsRequired="1"
                                       Command="{Binding LogoTapped}"/>
-            </Image.GestureRecognizers>
-        </Image>
-        <!-- Login Label -->
-        <Label Text="Login"
-               TextColor="{Static res:ColorResource.MAIN_BLUE_COLOR}"
-               FontSize="{local:ScaleFontSize Value=21}"
-               FontFamily="{Static res:FontResource.REGULAR}"
-               HorizontalOptions="Center"
-               Margin="{local:ScaleThickness Value='0,43.57,0,19'}"/>
-        <!-- User Button -->
-        
-        <Button Grid.ColumnSpan="2"
+            </local:FFSVGImage.GestureRecognizers>
+        </local:FFSVGImage>
+
+        <!-- 2 | User Button -->        
+        <Button Grid.Row="2"
                 Text="User"
                 Style="{StaticResource ButtonStyle}"
-                Margin="{local:ScaleThickness Value='0,0,0,20'}"
-                Command="{Binding ToUserLoginCommand}"
-                Padding="{local:ScaleThickness Value='26,0,0,0|0,0,46,0'}"
-                ContentLayout="{OnPlatform iOS='Left,84'}">
-            <Button.ImageSource>
-                <FontImageSource Glyph="User"
-                                    FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"
-                                    Size="{local:ScaleFontSize Value=41}"
-                                    Color="{Static res:ColorResource.MAIN_BLUE_COLOR}"/>
-            </Button.ImageSource>
+                Command="{Binding ToUserLoginCommand}">
             <Button.Triggers>
                 <DataTrigger TargetType="Button"
                                 Binding="{Binding SellectedType}"
                                 Value="User">
+                    <Setter Property="BorderColor" Value="{Static res:ColorResource.MAIN_THEME_COLOR}"/>
                     <Setter Property="BackgroundColor" Value="{Static res:ColorResource.MAIN_THEME_COLOR}"/>
                     <Setter Property="TextColor" Value="{Static res:ColorResource.WHITE_COLOR}"/>
-                    <Setter Property="ImageSource">
-                        <Setter.Value>
-                            <FontImageSource Glyph="User"
-                                    FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"
-                                    Size="{local:ScaleFontSize Value=41}"
-                                    Color="{Static res:ColorResource.WHITE_COLOR}"/>
-                        </Setter.Value>
-                    </Setter>
                 </DataTrigger>
             </Button.Triggers>
         </Button>
-        <!-- Establishment Button -->
-        <Button Grid.ColumnSpan="2"
+
+        <!-- 3 | Establishment Button -->
+        <Button Grid.Row="3"
                 Text="Establishments"
                 Style="{StaticResource ButtonStyle}"
                 Command="{Binding ToEstablishmentLoginCommand}">
-            <Button.ImageSource>
-                <FontImageSource Glyph="Building"
-                                    FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"
-                                    Size="{local:ScaleFontSize Value=41}"
-                                    Color="{Static res:ColorResource.MAIN_BLUE_COLOR}"/>
-            </Button.ImageSource>
             <Button.Triggers>
                 <DataTrigger TargetType="Button"
                                 Binding="{Binding SellectedType}"
                                 Value="Establishment">
+                    <Setter Property="BorderColor" Value="{Static res:ColorResource.MAIN_THEME_COLOR}"/>
                     <Setter Property="BackgroundColor" Value="{Static res:ColorResource.MAIN_THEME_COLOR}"/>
                     <Setter Property="TextColor" Value="{Static res:ColorResource.WHITE_COLOR}"/>
-                    <Setter Property="ImageSource">
-                        <Setter.Value>
-                            <FontImageSource Glyph="Building"
-                                    FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"
-                                    Size="{local:ScaleFontSize Value=41}"
-                                    Color="{Static res:ColorResource.WHITE_COLOR}"/>
-                        </Setter.Value>
-                    </Setter>
                 </DataTrigger>
             </Button.Triggers>
         </Button>
-
-        <Grid Padding="0"
-              HeightRequest="{local:ScaleHeight Value=24}"
-              Margin="{local:ScaleThickness Value='49,10,49,14'}">
-            <BoxView HeightRequest="{local:ScaleHeightDouble Value=1}"
-                     Color="{Static res:ColorResource.PLACEHOLDER_COLOR}"
-                     HorizontalOptions="Fill"
-                     VerticalOptions="Center"/>
-            <Label Text="Or"
-                   TextColor="{Static res:ColorResource.PLACEHOLDER_COLOR}"
-                   FontSize="{local:ScaleFontSize Value=20}"
-                   FontFamily="{Static res:FontResource.REGULAR}"
-                   BackgroundColor="{Static res:ColorResource.WHITE_COLOR}"
-                   WidthRequest="{local:ScaleWidth Value=47}"
-                   HorizontalOptions="Center"
-                   VerticalOptions="Fill"
-                   HorizontalTextAlignment="Center"/>
-        </Grid>
-        <!-- Register Button -->
-        <Grid Padding="0"
-              HeightRequest="{local:ScaleHeight Value=39}"
-              MinimumHeightRequest="{local:ScaleHeight Value=39}"
-              WidthRequest="{local:ScaleWidth Value=280}"
-              BackgroundColor="Transparent"
-              HorizontalOptions="Center"
-              IsClippedToBounds="True"
-              ColumnSpacing="0"
-              ColumnDefinitions="{local:ScaleColumnDefinition Value='*,38'}">
-            <Button Grid.ColumnSpan="2"
-                    Text="Register"
-                    TextColor="{Static res:ColorResource.MAIN_THEME_COLOR}"
-                    FontSize="{local:ScaleFontSize Value=16}"
-                    FontFamily="{Static res:FontResource.BOLD}"
-                    HorizontalOptions="Fill"
-                    VerticalOptions="Fill"                        
-                    BackgroundColor="{Static res:ColorResource.WHITE_COLOR}"
-                    BorderColor="{Static res:ColorResource.MAIN_THEME_COLOR}"
-                    BorderWidth="{local:ScaleHeightDouble Value=0.9}"
-                    CornerRadius="{local:ScaleHeight Value=4}"
-                    Pressed="Button_PressedReleased"
-                    Released="Button_PressedReleased"
-                    Padding="{local:ScaleThickness Value='0,0,38,0'}"
-                    Command="{Binding ToRegistrationCommand}">
-            </Button>
-
-            <BoxView Grid.Column="1"
-                     InputTransparent="True"
-                     WidthRequest="{local:ScaleHeightDouble Value=0.9}"
-                     Color="{Static res:ColorResource.MAIN_THEME_COLOR}"
-                     HorizontalOptions="Start"
-                     VerticalOptions="Fill"/>
-            <Label Grid.Column="1"
-                   Text="angle-double-right"
-                   TextColor="{Static res:ColorResource.MAIN_BLUE_COLOR}"
-                   FontSize="{local:ScaleFontSize Value=12}"
-                   FontFamily="{Static res:FontResource.FONTAWESOME5_SOLID}"
-                   HorizontalOptions="Center"
-                   VerticalOptions="Center">
-            </Label>
-        </Grid>
-
-    </StackLayout>
+        <!-- 4 | Spacing -->
+        <!-- 6 | new User-->
+        <Label Grid.Row="6"
+               HeightRequest="{local:ScaleHeightDouble Value=42}"
+               Margin="{local:ScaleThickness Value='0,15'}"
+               BackgroundColor="Transparent"
+               HorizontalOptions="Center"
+               VerticalOptions="End">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text=" New User?"
+                          TextColor="{Static res:ColorResource.WHITE_COLOR}"
+                          FontSize="{local:ScaleFontSize Value=18}"
+                          FontFamily="{Static res:FontResource.LIGHT}"/>
+                    <Span Text=" Sign Up "
+                          TextColor="{Static res:ColorResource.WHITE_COLOR}"
+                          FontSize="{local:ScaleFontSize Value=18}"
+                          FontFamily="{Static res:FontResource.BOLD}"
+                          BackgroundColor="Transparent">
+                        <Span.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ToRegistrationCommand}"
+                                                  NumberOfTapsRequired="1"/>
+                        </Span.GestureRecognizers>
+                    </Span>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+    </Grid>
 </ContentPage>

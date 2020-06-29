@@ -53,7 +53,7 @@ namespace KeepSafe
         {
             InitializeComponent();
             _NavigationService = NavigationService;
-
+            Device.SetFlags(new string[] { "Shapes_Experimental" });
             //when using socket
             //WebsocketConnection.Link();
 

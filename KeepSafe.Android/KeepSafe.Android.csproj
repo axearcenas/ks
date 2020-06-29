@@ -134,19 +134,19 @@
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable-xhdpi\KeepSafeLogo.png">
+    <AndroidResource Include="Resources\drawable-hdpi\MainBackground.png">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable-xxhdpi\KeepSafeLogo.png">
+    <AndroidResource Include="Resources\drawable-mdpi\MainBackground.png">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable-hdpi\KeepSafeLogo.png">
+    <AndroidResource Include="Resources\drawable-xhdpi\MainBackground.png">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable-mdpi\KeepSafeLogo.png">
+    <AndroidResource Include="Resources\drawable-xxhdpi\MainBackground.png">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
