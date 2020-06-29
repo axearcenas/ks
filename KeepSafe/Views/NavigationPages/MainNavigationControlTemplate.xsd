@@ -1,0 +1,209 @@
+<prism:PrismApplication.Resources>
+        <ResourceDictionary>
+            <!--Global Styles-->
+            <Color x:Key="NavigationPrimary">#2196F3</Color>
+            <Style TargetType="NavigationPage">
+                <Setter Property="BarBackgroundColor" Value="{Static res:ColorResource.MAIN_THEME_COLOR}"/>
+                <Setter Property="BarTextColor" Value="White" />
+            </Style>
+            <Style TargetType="Label">
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="FontFamily" Value="{x:Static res:FontResource.REGULAR}"/>
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="BorderColor" Value="Transparent"/>
+                <Setter Property="BorderWidth" Value="0"/>
+                <Setter Property="CornerRadius" Value="0"/>
+                <Setter Property="FontFamily" Value="{x:Static res:FontResource.REGULAR}"/>
+            </Style>
+            <Style x:Key="SeparatorBoxViewStyle" TargetType="BoxView">
+                <Setter Property="BackgroundColor" Value="{x:Static res:ColorResource.MAIN_THEME_COLOR}"/>
+                <Setter Property="HorizontalOptions" Value="Fill"/>
+                <Setter Property="VerticalOptions" Value="End" />
+                <Setter Property="HeightRequest" Value="{local:ScaleHeightDouble Value=1}"/>
+            </Style>
+            <Style TargetType="Frame">
+                <Setter Property="HasShadow" Value="False" />
+            </Style>
+            <Style x:Key="TemplateButtonStyle" TargetType="Button">
+                <Setter Property="Grid.Row" Value="0"/>
+                <Setter Property="WidthRequest" Value="{local:ScaleWidth Value=40}"/>
+                <Setter Property="HeightRequest" Value="{local:ScaleHeight Value=41}"/>
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="FontSize" Value="{local:ScaleFontSize Value=14}"/>
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="VerticalOptions" Value="End"/>
+                <Setter Property="BorderColor" Value="Transparent"/>
+                <Setter Property="BorderWidth" Value="0"/>
+                <Setter Property="BorderRadius" Value="0"/>
+            </Style>
+            
+            <Style x:Key="FontAwesomeSolidButtonStyle" TargetType="Button">
+                <Setter Property="Grid.Row" Value="0"/>
+                <Setter Property="WidthRequest" Value="{local:ScaleWidthDouble Value=40}"/>
+                <Setter Property="HeightRequest" Value="{local:ScaleHeightDouble Value=41}"/>
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="FontSize" Value="{local:ScaleFontSize Value=14}"/>
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="VerticalOptions" Value="End"/>
+                <Setter Property="BorderColor" Value="Transparent"/>
+                <Setter Property="BorderWidth" Value="0"/>
+                <Setter Property="BorderRadius" Value="0"/>
+                <Setter Property="FontSize" Value="{local:ScaleFontSize Value=25}" />
+                <Setter Property="FontFamily" Value="{Static res:FontResource.FONTAWESOME5_SOLID}"/>
+                <Setter Property="IsVisible" Value="true"/>
+            </Style>
+            
+            <Style x:Key="FontAwesomeRegularButtonStyle" TargetType="Button">
+                <Setter Property="Grid.Row" Value="0"/>
+                <Setter Property="WidthRequest" Value="{local:ScaleWidthDouble Value=40}"/>
+                <Setter Property="HeightRequest" Value="{local:ScaleHeightDouble Value=41}"/>
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="FontSize" Value="{local:ScaleFontSize Value=14}"/>
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="VerticalOptions" Value="End"/>
+                <Setter Property="BorderColor" Value="Transparent"/>
+                <Setter Property="BorderWidth" Value="0"/>
+                <Setter Property="BorderRadius" Value="0"/>
+                <Setter Property="FontSize" Value="{local:ScaleFontSize Value=25}" />
+                <Setter Property="FontFamily" Value="{Static res:FontResource.REGULAR}"/>
+                <Setter Property="IsVisible" Value="true"/>
+            </Style>
+            
+            <Style x:Key="FontAwesomeBrandButtonStyle" TargetType="Button">
+                <Setter Property="Grid.Row" Value="0"/>
+                <Setter Property="WidthRequest" Value="{local:ScaleWidthDouble Value=40}"/>
+                <Setter Property="HeightRequest" Value="{local:ScaleHeightDouble Value=41}"/>
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="FontSize" Value="{local:ScaleFontSize Value=14}"/>
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="VerticalOptions" Value="End"/>
+                <Setter Property="BorderColor" Value="Transparent"/>
+                <Setter Property="BorderWidth" Value="0"/>
+                <Setter Property="BorderRadius" Value="0"/>
+                <Setter Property="FontSize" Value="{local:ScaleFontSize Value=25}" />
+                <Setter Property="FontFamily" Value="{Static res:FontResource.FONTAWESOME5_BRANDREGULAR}"/>
+                <Setter Property="IsVisible" Value="true"/>
+            </Style>
+            <ControlTemplate x:Key="NavigationBar">
+                <Grid RowSpacing="0" ColumnSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="{x:Static local:Constants.NAVIGATION_HEIGHT}"/>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="{local:ScaleGridWidth Value=40}"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="{local:ScaleGridWidth Value=40}"/>
+                    </Grid.ColumnDefinitions>
+                    <ContentPresenter Grid.Row="1" Grid.ColumnSpan="3"/>
+                    <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                           HeightRequest="{local:ScaleHeightDouble Value=58}"
+                           Source="{TemplateBinding NavImage}" Aspect="AspectFill"
+                           BackgroundColor="{TemplateBinding NavBackgroundColor}"
+                           Opacity="{TemplateBinding NavOpacity}" InputTransparent="true"/>
+                    <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Text="{TemplateBinding PageTitle}"
+                           InputTransparent="true" Margin="{x:Static local:Constants.NAV_TITLE_MARGIN}"
+                           VerticalOptions="{TemplateBinding TitleVerticalOptions}" VerticalTextAlignment="Center"
+                           HorizontalOptions="{TemplateBinding TitleHorizontalOptions}" HorizontalTextAlignment="Center"
+                           HeightRequest="{TemplateBinding TitleHeightRequest}" FontSize="{TemplateBinding TitleFontSize}"
+                           FontFamily="{TemplateBinding TitleFontFamily}" TextColor="{TemplateBinding TitleFontColor}"/>
+                    <Button Grid.Column="0"
+                            Text="{TemplateBinding LeftText}"
+                            Command="{TemplateBinding LeftButtonCommand}"
+                            BackgroundColor="{TemplateBinding LeftButtonColor}"
+                            Margin="{local:ScaleThickness Value='0,0,0,0'}"
+                            AutomationId="LeftButton"
+                            Style="{StaticResource TemplateButtonStyle}"
+                            IsVisible="false">
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button"
+                                         Binding="{TemplateBinding LeftIconType}"
+                                         Value="FontAwesome5Brand">
+                                <Setter Property="Text" Value="{TemplateBinding LeftIcon}" />
+                                <Setter Property="TextColor" Value="{TemplateBinding LeftIconColor}" />
+                                <Setter Property="Style" Value="{StaticResource FontAwesomeBrandButtonStyle}" />
+                                <Setter Property="IsVisible" Value="true"/>
+                            </DataTrigger>
+                            <DataTrigger TargetType="Button"
+                                         Binding="{TemplateBinding LeftIconType}"
+                                         Value="FontAwesome5Regular">
+                                <Setter Property="Text" Value="{TemplateBinding LeftIcon}" />
+                                <Setter Property="TextColor" Value="{TemplateBinding LeftIconColor}" />
+                                <Setter Property="Style" Value="{StaticResource FontAwesomeRegularButtonStyle}" />
+                                <Setter Property="IsVisible" Value="true"/>
+                            </DataTrigger>
+                            <DataTrigger TargetType="Button"
+                                         Binding="{TemplateBinding LeftIconType}"
+                                         Value="FontAwesome5Solid">
+                                <Setter Property="Text" Value="{TemplateBinding LeftIcon}" />
+                                <Setter Property="TextColor" Value="{TemplateBinding LeftIconColor}" />
+                                <Setter Property="Style" Value="{StaticResource FontAwesomeSolidButtonStyle}" />
+                                <Setter Property="IsVisible" Value="true"/>
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <local:FFSVGImage Source="{local:FFSVGBindingImageSource IsTemplateBinding=true, BindingImageName=LeftIcon }"
+                                      HeightRequest="{local:ScaleHeightDouble Value=21}" HorizontalOptions="Fill" VerticalOptions="End"
+                                      Margin="{local:ScaleThickness Value='0,0,0,9.5'}" InputTransparent="true" FadeAnimationEnabled="true"
+                                      Tint="{TemplateBinding LeftIconColor}" IsVisible="false">
+                        <local:FFSVGImage.Triggers>
+                            <DataTrigger TargetType="local:FFSVGImage"
+                                         Binding="{TemplateBinding LeftIconType}"
+                                         Value="SVG">
+                                <Setter Property="IsVisible" Value="true"/>
+                            </DataTrigger>
+                        </local:FFSVGImage.Triggers>
+                    </local:FFSVGImage>
+                    <Button Grid.Column="2"
+                            Text="{TemplateBinding RightText}" 
+                            Margin="{local:ScaleThickness Value='0,0,0,0'}"
+                            AutomationId="RightButtonInNavigation"
+                            Style="{StaticResource TemplateButtonStyle}"
+                            Command="{TemplateBinding RightButtonCommand}"
+                            BackgroundColor="{TemplateBinding RightButtonColor}" 
+                            IsVisible="false">
+                        <Button.Triggers>                            
+                            <DataTrigger TargetType="Button"
+                                         Binding="{TemplateBinding RightIconType}"
+                                         Value="FontAwesome5Brand">
+                                <Setter Property="Text" Value="{TemplateBinding RightIcon}" />
+                                <Setter Property="TextColor" Value="{TemplateBinding RightIconColor}" />
+                                <Setter Property="Style" Value="{StaticResource FontAwesomeBrandButtonStyle}" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="Button"
+                                         Binding="{TemplateBinding RightIconType}"
+                                         Value="FontAwesome5Regular">
+                                <Setter Property="Text" Value="{TemplateBinding RightIcon}" />
+                                <Setter Property="TextColor" Value="{TemplateBinding RightIconColor}" />
+                                <Setter Property="Style" Value="{StaticResource FontAwesomeRegularButtonStyle}" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="Button"
+                                         Binding="{TemplateBinding LeftIconType}"
+                                         Value="FontAwesome5Solid">
+                                <Setter Property="Text" Value="{TemplateBinding RightIcon}" />
+                                <Setter Property="TextColor" Value="{TemplateBinding RightIconColor}" />
+                                <Setter Property="Style" Value="{StaticResource FontAwesomeSolidButtonStyle}" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <local:FFSVGImage Grid.Column="2" Source="{local:FFSVGBindingImageSource IsTemplateBinding=true, BindingImageName=RightIcon }"
+                                      HeightRequest="{local:ScaleHeightDouble Value=21}" HorizontalOptions="Fill" VerticalOptions="End"
+                                      Margin="{local:ScaleThickness Value='0,0,0,9.5'}" InputTransparent="true" FadeAnimationEnabled="true"
+                                      Tint="{TemplateBinding RightIconColor}">
+                        <local:FFSVGImage.Triggers>
+                            <DataTrigger TargetType="local:FFSVGImage" Binding="{TemplateBinding RightIcon}" Value="">
+                                <Setter Property="IsVisible" Value="false" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="local:FFSVGImage"
+                                         Binding="{TemplateBinding LeftIconType}"
+                                         Value="SVG">
+                                <Setter Property="IsVisible" Value="true"/>
+                            </DataTrigger>
+                        </local:FFSVGImage.Triggers>
+                    </local:FFSVGImage>
+                </Grid> 
+            </ControlTemplate>
+        </ResourceDictionary>
+    </prism:PrismApplication.Resources>

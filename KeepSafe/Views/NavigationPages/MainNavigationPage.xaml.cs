@@ -187,6 +187,5 @@ namespace KeepSafe
         FontAwesome5Regular,
         FontAwesome5Brand,
         SVG
-
     }
 }
