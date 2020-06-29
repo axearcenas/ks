@@ -149,10 +149,13 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon20.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\KeepSafeLogo.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\KeepSafeLogo.imageset\KeepSafeLogo.png" />
-    <ImageAsset Include="Assets.xcassets\KeepSafeLogo.imageset\KeepSafeLogo%402x.png" />
-    <ImageAsset Include="Assets.xcassets\KeepSafeLogo.imageset\KeepSafeLogo%403x.png" />
+    <ImageAsset Include="Assets.xcassets\MainBackground.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\MainBackground.imageset\KeepSafeLogo.png" />
+    <ImageAsset Include="Assets.xcassets\MainBackground.imageset\KeepSafeLogo%402x.png" />
+    <ImageAsset Include="Assets.xcassets\MainBackground.imageset\KeepSafeLogo%403x.png" />
+    <ImageAsset Include="Assets.xcassets\MainBackground.imageset\MainBackground.png" />
+    <ImageAsset Include="Assets.xcassets\MainBackground.imageset\MainBackground%402x.png" />
+    <ImageAsset Include="Assets.xcassets\MainBackground.imageset\MainBackground%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -221,6 +224,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Renderers\" />
-    <Folder Include="Assets.xcassets\KeepSafeLogo.imageset\" />
+    <Folder Include="Assets.xcassets\MainBackground.imageset\" />
   </ItemGroup>
 </Project>

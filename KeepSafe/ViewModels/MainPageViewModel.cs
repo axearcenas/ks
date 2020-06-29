@@ -79,7 +79,6 @@ namespace KeepSafe.ViewModels
             {
                 IsClicked = true;
                 SellectedType = UserType.User;
-                //TODO Navigate To User Login
                 await Task.Delay(16);
                 await NavigationService.NavigateAsync(nameof(LoginPage));
                 StartTimer();
@@ -93,6 +92,7 @@ namespace KeepSafe.ViewModels
                 IsClicked = true;
                 SellectedType = UserType.Establishment;
                 //TODO Navigate To Establishment Login
+                App.Log("TODO: Navigate To Establishment Login");
                 StartTimer();
             }
         }
@@ -112,6 +112,7 @@ namespace KeepSafe.ViewModels
         private void OnToRegistrationCommand_Execute()
         {
             //TODO Navigate to RegisterPage
+            App.Log("TODO: Navigate to RegisterPage");
         }
 
     }

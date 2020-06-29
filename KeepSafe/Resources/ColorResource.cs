@@ -11,7 +11,7 @@ namespace KeepSafe.Resources
         }
 
         //COLOR
-        public static readonly Color MAIN_THEME_COLOR = Color.FromHex("#DE3344");
+        public static readonly Color MAIN_THEME_COLOR = Color.FromHex("#EE3E5B");
         public static readonly Color MAIN_BLUE_COLOR = Color.FromHex("#05257A");
         public static readonly Color MAIN_BUTTON_COLOR = Color.FromHex("#DE3344");
 
@@ -27,11 +27,6 @@ namespace KeepSafe.Resources
         public static readonly Color BORDER_COLOR = Color.FromHex("#D3D3D3");
 
         public static readonly Color LOADING_BACKGROUNDCOLOR = Color.FromHex("#40000000");
-//#05257A
-        //lightgray / lightgrey	#D3D3D3	rgb(211,211,211)
-        //silver	#C0C0C0	rgb(192,192,192)
-        //darkgray / darkgrey	#A9A9A9	rgb(169,169,169)
-        //gray / grey	#808080	
 
     }
 }

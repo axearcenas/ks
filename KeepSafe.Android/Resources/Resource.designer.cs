@@ -13091,6 +13091,8 @@ namespace KeepSafe.Droid
 			// aapt resource value: 0x7F070065
 			public const int common_google_signin_btn_icon_light_normal_background = 2131165285;
 			
+			public const int MainBackground = 2131165285;
+			
 			// aapt resource value: 0x7F070066
 			public const int common_google_signin_btn_text_dark = 2131165286;
 			

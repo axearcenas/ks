@@ -66,6 +66,8 @@
     <None Remove="Resources\SVG\KeepSafeLogo.svg" />
     <None Remove="Resources\SVG\BackIcon.svg" />
     <None Remove="Resources\SVG\ArrowForward.svg" />
+    <None Remove="Resources\SVG\FacebookIcon.svg" />
+    <None Remove="Resources\SVG\GoogleIcon.svg" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Files\CustomAlert.json" />
@@ -73,5 +75,7 @@
     <EmbeddedResource Include="Resources\SVG\KeepSafeLogo.svg" />
     <EmbeddedResource Include="Resources\SVG\BackIcon.svg" />
     <EmbeddedResource Include="Resources\SVG\ArrowForward.svg" />
+    <EmbeddedResource Include="Resources\SVG\FacebookIcon.svg" />
+    <EmbeddedResource Include="Resources\SVG\GoogleIcon.svg" />
   </ItemGroup>
 </Project>
