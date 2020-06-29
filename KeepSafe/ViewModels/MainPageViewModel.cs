@@ -11,29 +11,22 @@ using KeepSafe.Views.Popups;
 using Rg.Plugins.Popup.Services;
 using Prism.Common;
 using KeepSafe.ViewModels.PopupsViewModel;
+using System.Threading;
 
 namespace KeepSafe.ViewModels
 {
     public class MainPageViewModel : ViewModelBase
     {
         public DelegateCommand LogoTapped { get; set; }
-        public DelegateCommand ChangeLabelCommand { get; set; }
-        public DelegateCommand ShowDisplayAlertCommand { get; set; }
-        public DelegateCommand ChangePageCommand { get; set; }
-        public DelegateCommand BackCommand { get; set; }
+        public DelegateCommand ToUserLoginCommand { get; set; }
+        public DelegateCommand ToEstablishmentLoginCommand { get; set; }
+        public DelegateCommand ToRegistrationCommand { get; set; }
 
-        string _TextLabel = "Welcome to Xamarin.Forms!";
-        public string TextLabel
+        UserType _SellectedType = UserType.None;
+        public UserType SellectedType
         {
-            get { return _TextLabel; }
-            set { SetProperty(ref _TextLabel, value, nameof(TextLabel)); }
-        }
-
-        bool _ShowPreviousButton;
-        public bool ShowPreviousButton
-        {
-            get { return _ShowPreviousButton; }
-            set { SetProperty(ref _ShowPreviousButton, value, nameof(ShowPreviousButton)); }
+            get { return _SellectedType; }
+            set { SetProperty(ref _SellectedType, value, nameof(SellectedType)); }
         }
 
         int _TapCount;
@@ -43,46 +36,20 @@ namespace KeepSafe.ViewModels
             set { SetProperty(ref _TapCount, value, nameof(TapCount)); }
         }
 
+        Timer timer;
+
         public MainPageViewModel(INavigationService navigationService,IPageDialogService pageDialogService) :
             base(navigationService, pageDialogService)
         {
             LogoTapped = new DelegateCommand(OnLogoTapped_Execute);
-            ChangeLabelCommand = new DelegateCommand(OnChangeLabelCommand_Execute);
-            ShowDisplayAlertCommand = new DelegateCommand(OnShowDisplayAlertCommand_Execute);
-            ChangePageCommand = new DelegateCommand(OnChangePageCommand_Execute);
-            BackCommand = new DelegateCommand(OnBackCommand_Execute);
+            ToUserLoginCommand = new DelegateCommand(OnToUserLoginCommand_Execute);
+            ToEstablishmentLoginCommand = new DelegateCommand(OnEstablishmentClickedCommand_Execute);
+            ToRegistrationCommand = new DelegateCommand(OnToRegistrationCommand_Execute);
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedFrom(parameters);
-            if (parameters.ContainsKey("ShowPreviousButton"))
-            {
-                ShowPreviousButton = (bool)parameters["ShowPreviousButton"];
-            }
-        }
-
-        private void OnBackCommand_Execute()
-        {
-            NavigationService.GoBackAsync();
-        }
-
-        private void OnChangePageCommand_Execute()
-        {
-            INavigationParameters parameters = new NavigationParameters();
-            parameters.Add(nameof(ShowPreviousButton), true);
-
-            NavigationService.NavigateAsync(nameof(MainPage), parameters);
-        }
-
-        private void OnShowDisplayAlertCommand_Execute()
-        {
-            PageDialogService.DisplayAlertAsync("Display Alert Sample","This is how to display alert","Okay");
-        }
-
-        private void OnChangeLabelCommand_Execute()
-        {
-            TextLabel = TextLabel.Equals("Changed Text: Sample") ? "Welcome to Xamarin.Forms!" : "Changed Text: Sample";
         }
 
         private async void OnLogoTapped_Execute()
@@ -105,5 +72,55 @@ namespace KeepSafe.ViewModels
                 }
             }
         }
+
+        private void OnToUserLoginCommand_Execute()
+        {
+            if (!IsClicked)
+            {
+                IsClicked = true;
+                SellectedType = UserType.User;
+                //TODO Navigate To User Login
+                App.Log("TODO: Navigate To User Login");
+                StartTimer();
+            }
+        }
+
+        private void OnEstablishmentClickedCommand_Execute()
+        {
+            if (!IsClicked)
+            {
+                IsClicked = true;
+                SellectedType = UserType.Establishment;
+                //TODO Navigate To Establishment Login
+                App.Log("TODO: Navigate To Establishment Login");
+                StartTimer();
+            }
+        }
+
+        void StartTimer()
+        {
+            timer = new Timer(Timer_Elapsed,this,1000, 0);
+        }
+
+        private void Timer_Elapsed(object state)
+        {
+            timer.Dispose();
+            SellectedType = UserType.None;
+            IsClicked = false;
+        }
+
+        private void OnToRegistrationCommand_Execute()
+        {
+            //TODO Navigate to RegisterPage
+            App.Log("TODO: Navigate to RegisterPage");
+        }
+
+    }
+
+    public enum UserType
+    {
+        None,
+        User,
+        Establishment
     }
 }

@@ -53,7 +53,7 @@ namespace KeepSafe
         {
             InitializeComponent();
             _NavigationService = NavigationService;
-
+            Device.SetFlags(new string[] { "Shapes_Experimental" });
             //when using socket
             //WebsocketConnection.Link();
 
@@ -63,10 +63,10 @@ namespace KeepSafe
             Constants.ApplyServerSettings();
 
             //NOTE: FOR TESTING PAGE to show error initializing page
-            //MainPage = new MainPage() { BindingContext = new MainPageViewModel(NavigationService, new PageDialogService(new ApplicationProvider())) };
+            MainPage = new MainPage() { BindingContext = new MainPageViewModel(NavigationService, new PageDialogService(new ApplicationProvider())) };
             //MainPage = new CustomServerPopup() { BindingContext = new CustomServerPopupViewModel(NavigationService) };
 
-            NavigationService.NavigateAsync($"ks://keepsafe.ph/{nameof(KeepSafe.Views.MainPage)}");
+            //NavigationService.NavigateAsync($"ks://keepsafe.ph/{nameof(KeepSafe.Views.MainPage)}");
         }
 
         public static void Log(string msg, [System.Runtime.CompilerServices.CallerMemberName] string memberName = "")

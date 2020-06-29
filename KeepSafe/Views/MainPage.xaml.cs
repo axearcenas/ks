@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using static Xamarin.Forms.Button;
 
 namespace KeepSafe.Views
 {
@@ -16,6 +17,14 @@ namespace KeepSafe.Views
         public MainPage()
         {
             InitializeComponent();
+        }
+
+        void Button_PressedReleased(System.Object sender, System.EventArgs e)
+        {
+            if (Device.RuntimePlatform == Device.iOS && sender is Button button && button.Parent is View view)
+            {
+                view.FadeTo(button.IsPressed ? .4 : 1, 50, button.IsPressed ? Easing.CubicOut : Easing.CubicIn);
+            }
         }
     }
 }

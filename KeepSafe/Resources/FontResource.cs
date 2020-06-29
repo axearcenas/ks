@@ -6,9 +6,8 @@ namespace KeepSafe.Resources
     public class FontResource
     {
         //TODO: ADD THEME FONTS
-        public static readonly string REGULAR = Device.RuntimePlatform == Device.iOS ? "OpenSans" : "Fonts/OpenSans-Regular.ttf#OpenSans-Regular";
-        public static readonly string BOLD = Device.RuntimePlatform == Device.iOS ? "OpenSans-Bold" : "Fonts/OpenSans-Bold.ttf#OpenSans-Bold";
-
+        public static readonly string REGULAR = Device.RuntimePlatform == Device.iOS ? "Roboto" : "Fonts/Roboto-Regular.ttf#Roboto-Regular";
+        public static readonly string BOLD = Device.RuntimePlatform == Device.iOS ? "Roboto-Bold" : "Fonts/Roboto-Bold.ttf#Roboto-Bold";
 
         public static readonly string BOLDITALIC = Device.RuntimePlatform == Device.iOS ? "OpenSans-BoldItalic" : "Fonts/OpenSans-BoldItalic.ttf#OpenSans-BoldItalic";
         public static readonly string EXTRABOLD = Device.RuntimePlatform == Device.iOS ? "OpenSans-ExtraBold" : "Fonts/OpenSans-ExtraBold.ttf#OpenSans-ExtraBold";

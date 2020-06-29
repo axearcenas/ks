@@ -5,63 +5,134 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" x:Class="KeepSafe.Views.MainPage"
              xmlns:res="clr-namespace:KeepSafe.Resources"
-             xmlns:local="clr-namespace:KeepSafe">
-    <StackLayout>
-        <!-- Place new controls here -->
-        <Image HeightRequest="{local:ScaleHeight Value=150}"
-               WidthRequest="{local:ScaleWidth Value=150}"
-               BackgroundColor="Red"
-               HorizontalOptions="Center"
-               Margin="{local:ScaleThickness Value='10,50,10,10'}">
-            <Image.Clip>
-                <EllipseGeometry
-                     RadiusX="{local:ScaleHeight Value=72}"
-                     RadiusY="{local:ScaleHeight Value=72}"                     
-                     Center="84.375,84.375"/>
-            </Image.Clip>
-            <Image.Source>
-                <FontImageSource FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"
-                                 Glyph="smile-wink"
-                                 Size="{local:ScaleFontSize Value=150}"
-                                 Color="White"/>
-            </Image.Source>
-            <Image.GestureRecognizers>
+             xmlns:local="clr-namespace:KeepSafe"
+             BackgroundColor="Transparent">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label" x:Key="IconLabelStyle">
+                <Setter Property="Grid.Column" Value="0"/>
+                <Setter Property="TextColor" Value="{Static res:ColorResource.MAIN_BLUE_COLOR}"/>
+                <Setter Property="FontSize" Value="{local:ScaleFontSize Value=42}"/>
+                <Setter Property="FontFamily" Value="{Static res:FontResource.FONTAWESOME5_REGULAR}"/>
+                <Setter Property="Margin" Value="{local:ScaleThickness Value='0,0,2,0'}"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="InputTransparent" Value="True"/>
+            </Style>
+            <Style TargetType="Label" x:Key="TextLabelStyle">
+                <Setter Property="Grid.Column" Value="1"/>
+                <Setter Property="TextColor" Value="{Static res:ColorResource.MAIN_BLUE_COLOR}"/>
+                <Setter Property="FontSize" Value="{local:ScaleFontSize Value=22}"/>
+                <Setter Property="FontFamily" Value="{Static res:FontResource.REGULAR}"/>
+                <Setter Property="Margin" Value="{local:ScaleThickness Value='0,0,34,0'}"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="InputTransparent" Value="True"/>
+            </Style>
+            <Style TargetType="Button" x:Key="ButtonStyle">
+                <Setter Property="TextColor" Value="{Static res:ColorResource.WHITE_COLOR}"/>
+                <Setter Property="FontSize" Value="{local:ScaleFontSize Value=21}"/>
+                <Setter Property="FontFamily" Value="{Static res:FontResource.REGULAR}"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="HeightRequest" Value="{local:ScaleHeight Value=50}"/>
+                <Setter Property="MinimumHeightRequest" Value="{local:ScaleHeight Value=50}"/>
+                <Setter Property="WidthRequest" Value="{local:ScaleWidth Value=288}"/>
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="VerticalOptions" Value="Fill"/>
+                <Setter Property="BorderColor" Value="{Static res:ColorResource.WHITE_COLOR}"/>
+                <Setter Property="BorderWidth" Value="{local:ScaleHeightDouble Value=1}"/>
+                <Setter Property="CornerRadius" Value="{local:ScaleHeight Value=25}"/>
+                <Setter Property="VerticalOptions" Value="End"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>     
+    <Grid Padding="0"
+          RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="{Static local:Constants.STATUS_BAR_HEIGHT}" />
+            <RowDefinition Height="{local:ScaleGridHeight Value=184}" />
+            <RowDefinition Height="{local:ScaleGridHeight Value=118}" />
+            <RowDefinition Height="{local:ScaleGridHeight Value=72}" />
+            <RowDefinition Height="{local:ScaleGridHeight Value=54}" />
+            <RowDefinition Height="{local:ScaleGridHeight Value=17}" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <!-- 0 | status bar height -->
+        <Image Grid.RowSpan="7" Source="MainBackground"
+               HorizontalOptions="Fill"
+               VerticalOptions="Fill"
+               Aspect="AspectFill"/>
+        <!-- 1 | Logo -->        
+        <local:FFSVGImage Grid.Row="1"
+                          Source="{local:FFSVGImageSource ImageName=KeepSafeLogo}"
+                          HeightRequest="{local:ScaleHeight Value=155}"
+                          WidthRequest="{local:ScaleWidth Value=158.43}"
+                          HorizontalOptions="Center"
+                          VerticalOptions="End"
+                          BackgroundColor="Transparent">
+            <local:FFSVGImage.GestureRecognizers>
                 <TapGestureRecognizer NumberOfTapsRequired="1"
                                       Command="{Binding LogoTapped}"/>
-            </Image.GestureRecognizers>
-        </Image>
-        <Button Text="Change Label"
-                HeightRequest="{local:ScaleHeight Value=40}"
-                WidthRequest="{local:ScaleWidth Value=100}"
-                Command="{Binding ChangeLabelCommand}"
-                Margin="{local:ScaleThickness Value='0,10'}"/>
-        <Button Text="Show DisplayAlert"
-                HeightRequest="{local:ScaleHeight Value=40}"
-                WidthRequest="{local:ScaleWidth Value=100}"
-                Command="{Binding ShowDisplayAlertCommand}"
-                Margin="{local:ScaleThickness Value='0,10'}"/>
-        <Button Text="Navigation To Another Page"
-                HeightRequest="{local:ScaleHeight Value=40}"
-                WidthRequest="{local:ScaleWidth Value=100}"
-                Command="{Binding ChangePageCommand}"
-                Margin="{local:ScaleThickness Value='0,10'}"/>
-        <Button Text="Navigation To Back To Previous Page"
-                HeightRequest="{local:ScaleHeight Value=40}"
-                WidthRequest="{local:ScaleWidth Value=100}"
-                Command="{Binding BackCommand}"
-                Margin="{local:ScaleThickness Value='0,10'}"
-                IsVisible="{Binding ShowPreviousButton}"/>
-        <Label HorizontalOptions="Center"
-               VerticalOptions="CenterAndExpand"
-               HorizontalTextAlignment="Center"
-               FontSize="-1">
-            <Label.Text>
-                <MultiBinding StringFormat="{}--- {1} --- &#10; {0} &#10;--- {1} ---">
-                    <Binding Path="TextLabel"/>
-                    <Binding Path="TapCount" />
-                </MultiBinding>
-            </Label.Text>
+            </local:FFSVGImage.GestureRecognizers>
+        </local:FFSVGImage>
+
+        <!-- 2 | User Button -->        
+        <Button Grid.Row="2"
+                Text="User"
+                Style="{StaticResource ButtonStyle}"
+                Command="{Binding ToUserLoginCommand}">
+            <Button.Triggers>
+                <DataTrigger TargetType="Button"
+                                Binding="{Binding SellectedType}"
+                                Value="User">
+                    <Setter Property="BorderColor" Value="{Static res:ColorResource.MAIN_THEME_COLOR}"/>
+                    <Setter Property="BackgroundColor" Value="{Static res:ColorResource.MAIN_THEME_COLOR}"/>
+                    <Setter Property="TextColor" Value="{Static res:ColorResource.WHITE_COLOR}"/>
+                </DataTrigger>
+            </Button.Triggers>
+        </Button>
+
+        <!-- 3 | Establishment Button -->
+        <Button Grid.Row="3"
+                Text="Establishments"
+                Style="{StaticResource ButtonStyle}"
+                Command="{Binding ToEstablishmentLoginCommand}">
+            <Button.Triggers>
+                <DataTrigger TargetType="Button"
+                                Binding="{Binding SellectedType}"
+                                Value="Establishment">
+                    <Setter Property="BorderColor" Value="{Static res:ColorResource.MAIN_THEME_COLOR}"/>
+                    <Setter Property="BackgroundColor" Value="{Static res:ColorResource.MAIN_THEME_COLOR}"/>
+                    <Setter Property="TextColor" Value="{Static res:ColorResource.WHITE_COLOR}"/>
+                </DataTrigger>
+            </Button.Triggers>
+        </Button>
+        <!-- 4 | Spacing -->
+        <!-- 6 | new User-->
+        <Label Grid.Row="6"
+               HeightRequest="{local:ScaleHeightDouble Value=42}"
+               Margin="{local:ScaleThickness Value='0,15'}"
+               BackgroundColor="Transparent"
+               HorizontalOptions="Center"
+               VerticalOptions="End">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text=" New User?"
+                          TextColor="{Static res:ColorResource.WHITE_COLOR}"
+                          FontSize="{local:ScaleFontSize Value=18}"
+                          FontFamily="{Static res:FontResource.LIGHT}"/>
+                    <Span Text=" Sign Up "
+                          TextColor="{Static res:ColorResource.WHITE_COLOR}"
+                          FontSize="{local:ScaleFontSize Value=18}"
+                          FontFamily="{Static res:FontResource.BOLD}"
+                          BackgroundColor="Transparent">
+                        <Span.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ToRegistrationCommand}"
+                                                  NumberOfTapsRequired="1"/>
+                        </Span.GestureRecognizers>
+                    </Span>
+                </FormattedString>
+            </Label.FormattedText>
         </Label>
-        <!--<Path Stroke="DarkGoldenRod" StrokeThickness="3" Data="M 100,200 C 100,25 400,350 400,175 H 280" />-->
-    </StackLayout>
+    </Grid>
 </ContentPage>
