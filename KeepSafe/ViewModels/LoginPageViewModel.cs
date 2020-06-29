@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using KeepSafe.Extension;
 using KeepSafe.Extensions;
 using KeepSafe.Helpers.FileReader;
 using KeepSafe.Models;
@@ -17,8 +18,8 @@ namespace KeepSafe.ViewModels
 {
     public class LoginPageViewModel : ViewModelBase, IFileConnector, IRestReceiver
     {
-        public EntryViewModel EmailAddressEntry { get; } = new EntryViewModel() { Placeholder = "Email Address", PlaceholderColor = ColorResource.PLACEHOLDER_COLOR };
-        public EntryViewModel PasswordEntry { get; } = new EntryViewModel() { Placeholder = "Password", PlaceholderColor = ColorResource.PLACEHOLDER_COLOR ,IsPassword = true};
+        public EntryViewModel EmailAddressEntry { get; } = new EntryViewModel() { Placeholder = "Mobile No.", PlaceholderColor = ColorResource.MAIN_BLACK_COLOR };
+        public EntryViewModel PasswordEntry { get; } = new EntryViewModel() { Placeholder = "Password", PlaceholderColor = ColorResource.MAIN_BLACK_COLOR, IsPassword = true};
 
         public DelegateCommand BackCommand { get; set; }
         public DelegateCommand ForotPasswordCommand { get; set; }
@@ -26,6 +27,8 @@ namespace KeepSafe.ViewModels
         public DelegateCommand RegisterCommand { get; set; }
         public DelegateCommand<object> EntryFocusedCommand { get; set; }
         public DelegateCommand ShowPasswordCommand { get; set; }
+        public DelegateCommand LoginFacebookCommand { get; set; }
+        public DelegateCommand LoginGoogleCommand { get; set; }
 
         bool _IsPasswordButtonVisible = false;
         public bool IsPasswordButtonVisible
@@ -43,6 +46,8 @@ namespace KeepSafe.ViewModels
             RegisterCommand = new DelegateCommand(OnRegisterCommandCommand_Execute);
             EntryFocusedCommand = new DelegateCommand<object>(OnEntryFocusedCommand_Execute);
             ShowPasswordCommand = new DelegateCommand(OnShowPasswordCommand_Execute);
+            LoginFacebookCommand = new DelegateCommand(OnLoginFacebookCommand_Execute);
+            LoginGoogleCommand = new DelegateCommand(OnLoginGoogleCommand_Execute);
             PasswordEntry.PropertyChanged += PasswordEntry_PropertyChanged;
         }
 
@@ -94,13 +99,13 @@ namespace KeepSafe.ViewModels
         {
             bool IsNotError = true;
             
-            if(EmailAddressEntry.ValidateIsTextNullOrEmpty("Email address is required"))
+            if(EmailAddressEntry.ValidateIsTextNullOrEmpty("Mobile number is required"))
             {
                 IsNotError = false;
             }
-            else if (!EmailAddressEntry.Text.IsValidEmail())
+            else if (!(EmailAddressEntry.Text+"+63").IsValidPhoneNumber())
             {
-                EmailAddressEntry.ShowError("Not a valid email address");
+                EmailAddressEntry.ShowError("Not a valid mobile number");
                 IsNotError = false;
             }
 
@@ -149,6 +154,17 @@ namespace KeepSafe.ViewModels
         private void OnRegisterCommandCommand_Execute()
         {
             //TODO Register Page
+        }
+
+        private void OnLoginFacebookCommand_Execute()
+        {
+            //TODO Implement facebook OAuth
+            //Xamarin.Essentials.WebAuthenticator.AuthenticateAsync();
+        }
+
+        private void OnLoginGoogleCommand_Execute()
+        {
+            //TODO Implement google OAuth
         }
 
         public void ReceiveJSONData(JObject jsonData, int wsType)

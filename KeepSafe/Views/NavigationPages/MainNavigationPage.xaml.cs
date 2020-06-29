@@ -173,6 +173,19 @@ namespace KeepSafe
             get { return (Color)GetValue(RightButtonColorProperty); }
         }
 
+        public static readonly new BindableProperty BackgroundImageSourceProperty =
+            BindableProperty.Create(
+                propertyName: nameof(BackgroundImageSource),
+                returnType: typeof(ImageSource),
+                declaringType: typeof(MainNavigationPage),
+                defaultValue: null);
+
+        public new ImageSource BackgroundImageSource
+        {
+            get { return (ImageSource)GetValue(BackgroundImageSourceProperty); }
+            set { SetValue(BackgroundImageSourceProperty, value); }
+        }
+
         public MainNavigationPage()
         {
             InitializeComponent();

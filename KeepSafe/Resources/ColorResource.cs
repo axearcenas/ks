@@ -13,15 +13,17 @@ namespace KeepSafe.Resources
         //COLOR
         public static readonly Color MAIN_THEME_COLOR = Color.FromHex("#EE3E5B");
         public static readonly Color MAIN_BLUE_COLOR = Color.FromHex("#05257A");
-        public static readonly Color MAIN_BUTTON_COLOR = Color.FromHex("#DE3344");
 
+        public static readonly Color MAIN_BUTTON_COLOR = Color.FromHex("#DE3344");
         public static readonly Color MAIN_TEXT_COLOR = Color.FromHex("#64A731");
+        public static readonly Color MAIN_BLACK_COLOR = Color.FromHex("#2F353D");
+
         public static readonly Color DISABLE_BUTTON_COLOR = Color.FromHex("#64A731");
         public static readonly Color PLACEHOLDER_COLOR = Color.FromHex("#777E91");// HINT TEXT
 
         public static readonly Color WHITE_COLOR = Color.FromHex("#FFFFFF");
         public static readonly Color BLACK_COLOR = Color.FromHex("#000000");
-        public static readonly Color LIGHT_GRAY_COLOR = Color.FromHex("#D3D3D3");
+        public static readonly Color LIGHT_GRAY_COLOR = Color.FromHex("#DEDEDE");
         public static readonly Color GRAY_COLOR = Color.FromHex("#A9A9A9");
 
         public static readonly Color BORDER_COLOR = Color.FromHex("#D3D3D3");

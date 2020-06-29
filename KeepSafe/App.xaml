@@ -107,12 +107,21 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="{local:ScaleGridWidth Value=40}"/>
                     </Grid.ColumnDefinitions>
+                    <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                           Grid.RowSpan="2"
+                           Source="{TemplateBinding BackgroundImageSource}"
+                           HorizontalOptions="Fill"
+                           VerticalOptions="Fill"
+                           Aspect="AspectFill"
+                           BackgroundColor="{TemplateBinding NavBackgroundColor}"
+                           InputTransparent="true"/>
                     <ContentPresenter Grid.Row="1" Grid.ColumnSpan="3"/>
                     <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
                            HeightRequest="{local:ScaleHeightDouble Value=58}"
                            Source="{TemplateBinding NavImage}" Aspect="AspectFill"
                            BackgroundColor="{TemplateBinding NavBackgroundColor}"
-                           Opacity="{TemplateBinding NavOpacity}" InputTransparent="true"/>
+                           Opacity="{TemplateBinding NavOpacity}"
+                           InputTransparent="true"/>
                     <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Text="{TemplateBinding PageTitle}"
                            InputTransparent="true" Margin="{x:Static local:Constants.NAV_TITLE_MARGIN}"
                            VerticalOptions="{TemplateBinding TitleVerticalOptions}" VerticalTextAlignment="Center"
