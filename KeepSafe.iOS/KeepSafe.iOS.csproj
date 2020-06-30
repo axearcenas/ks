@@ -99,6 +99,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Renderers\CustomEntryRenderer.cs" />
     <Compile Include="Renderers\CustomFrameRenderer.cs" />
+    <Compile Include="DependencyServices\LaunchApp.cs" />
+    <Compile Include="DependencyServices\BrightnessService.cs" />
+    <Compile Include="DependencyServices\OpenWebsite.cs" />
+    <Compile Include="DependencyServices\ChangeBarColor.cs" />
+    <Compile Include="DependencyServices\OTPService.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
@@ -215,6 +220,7 @@
     <BundleResource Include="Resources\Fonts\FontAwesome.ttf" />
     <BundleResource Include="Resources\Fonts\Roboto-Regular.ttf" />
     <BundleResource Include="Resources\Fonts\Roboto-Bold.ttf" />
+    <BundleResource Include="Resources\Fonts\Roboto-Light.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Renderers\" />

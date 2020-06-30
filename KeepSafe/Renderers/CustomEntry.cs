@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Mime;
 using Xamarin.Forms;
 
 namespace KeepSafe
@@ -54,8 +55,6 @@ namespace KeepSafe
             set { SetValue(MoveUpAnimationSpeedProperty, value); }
         }
 
-
-
         public static readonly BindableProperty CanProceedToViewProperty =
             BindableProperty.Create(
                 propertyName: nameof(CanProceedToView),
@@ -66,6 +65,19 @@ namespace KeepSafe
         {
             get { return (bool)GetValue(CanProceedToViewProperty); }
             set { SetValue(CanProceedToViewProperty, value); }
+        }
+
+        public static readonly BindableProperty ContentTypeProperty =
+            BindableProperty.Create(
+                propertyName: nameof(ContentType),
+                returnType: typeof(ContentType),
+                declaringType: typeof(CustomEntry),
+                defaultValue: ContentType.Default);
+
+        public ContentType ContentType
+        {
+            get { return (ContentType)GetValue(ContentTypeProperty); }
+            set { SetValue(ContentTypeProperty, value); }
         }
 
 
@@ -104,5 +116,11 @@ namespace KeepSafe
         Sentences,
         None,
         All
+    }
+
+    public enum ContentType
+    {
+        Default,
+        OneTimeCode
     }
 }

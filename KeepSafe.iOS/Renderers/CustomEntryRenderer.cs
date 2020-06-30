@@ -52,6 +52,13 @@ namespace KeepSafe.iOS.Renderers
                     Control.AutocapitalizationType = UITextAutocapitalizationType.None;
                 }
 
+                switch(entry.ContentType)
+                {
+                    case ContentType.OneTimeCode:
+                        Control.TextContentType = UITextContentType.OneTimeCode;
+                        break;
+                }
+
                 //Control.AutocapitalizationType = UITextAutocapitalizationType.None;
                 //if (entry.Keyboard == Keyboard.Numeric || entry.Keyboard == Keyboard.Telephone)
                 //{
@@ -63,15 +70,15 @@ namespace KeepSafe.iOS.Renderers
                 //        {
                 //            if(entry.ReturnType == ReturnType.Next)
                 //            {
-                //                if(entry.NextEntry != null)
+                //                if(entry.NextView != null)
                 //                {
-                //                    entry.NextEntry.Focus();
+                //                    entry.NextView.Focus();
                 //                }
                 //            }
                 //            else if(entry.ReturnType == ReturnType.Done)
                 //            {
                 //                Control.ResignFirstResponder();
-                //                entry.InvokeCompleted();
+                //                //entry.InvokeCompleted();
                 //            }
                 //        })
                 //    };

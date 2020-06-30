@@ -59,9 +59,10 @@ namespace KeepSafe.ViewModels.PopupsViewModel
 
         bool isServerListOpened;
 #if DEBUG
-        RestRequest RestServices = new RestRequest();
+        RestRequest restServices = new RestRequest();
 #else
-        override RestRequest RestServices = new RestRequest();
+        FileReader fileReader = FileReader.GetInstance;
+        new RestRequest restServices = new RestRequest();
 #endif
         public CustomServerPopupViewModel(INavigationService navigationService,IPageDialogService pageDialogService)
             : base(navigationService, pageDialogService)
@@ -141,16 +142,16 @@ namespace KeepSafe.ViewModels.PopupsViewModel
 
             try
             {
-                RestServices.SetDelegate( this);
+                restServices.SetDelegate( this);
                 if (DataClass.GetInstance.CurrentServer.IsSecured)
                 {
                     //TODO files for servers secured
-                    await RestServices.GetRequest("http://demo2630086.mockable.io/server_list", cts.Token, 1);
+                    await restServices.GetRequest("http://demo2630086.mockable.io/server_list", cts.Token, 1);
                 }
                 else
                 {
                     //TODO files for servers not secured
-                    await RestServices.GetRequest("http://demo2630086.mockable.io/server_list", cts.Token, 1);
+                    await restServices.GetRequest("http://demo2630086.mockable.io/server_list", cts.Token, 1);
                 }
             }
             catch (OperationCanceledException oce)

@@ -116,6 +116,9 @@
     <PackageReference Include="Xamarin.FFImageLoading">
       <Version>2.4.11.982</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.GooglePlayServices.Auth">
+      <Version>71.1600.1</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
@@ -123,6 +126,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Renderers\CustomEntryRenderer.cs" />
     <Compile Include="Renderers\CustomButtonRenderer.cs" />
+    <Compile Include="DependencyServices\LaunchApp.cs" />
+    <Compile Include="DependencyServices\BrightnessService.cs" />
+    <Compile Include="DependencyServices\ChangeBarColor.cs" />
+    <Compile Include="DependencyServices\SmsReceiver\SmsReceiver.cs" />
+    <Compile Include="DependencyServices\SmsReceiver\OTPService.cs" />
+    <Compile Include="DependencyServices\SmsReceiver\AppHashKeyHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -206,6 +215,7 @@
     <AndroidAsset Include="Assets\Fonts\OpenSans-SemiboldItalic.ttf" />
     <AndroidAsset Include="Assets\Fonts\Roboto-Regular.ttf" />
     <AndroidAsset Include="Assets\Fonts\Roboto-Bold.ttf" />
+    <AndroidAsset Include="Assets\Fonts\Roboto-Light.ttf" />
   </ItemGroup>
  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
