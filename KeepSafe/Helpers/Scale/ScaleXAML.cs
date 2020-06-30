@@ -168,7 +168,7 @@ namespace KeepSafe
             {
                 if (provideValueTarget.TargetObject is Setter setter)
                     property = setter.Property.ReturnType;
-                else if (provideValueTarget.TargetProperty is BindableProperty bindableProperty)
+                else if(provideValueTarget.TargetProperty is BindableProperty bindableProperty)
                     property = bindableProperty.ReturnType;
                 if (!string.IsNullOrEmpty(Value))
                 {
@@ -222,7 +222,7 @@ namespace KeepSafe
                     double.TryParse(Android ?? Value, out double numberValue);
                     var returnData = Convert.ChangeType(IsResponsive ? (int)numberValue.ScaleWidthResponsive() : (int)numberValue.ScaleWidth(), Type.GetType(property.ToString()));
                     App.Log($"SCALING_ENDING : IsResponsive? => {IsResponsive} | Value => {returnData} :TYPE {returnData.GetType()} | {property.ToString()}", this.GetType().ToString());
-                    if(returnData != null)
+                    if (returnData != null)
                         return returnData;
                     //return Convert.ChangeType(IsResponsive ? (int)numberValue.ScaleHeightResponsive() : (int)numberValue.ScaleHeight(), property.GetType());
 
@@ -261,7 +261,7 @@ namespace KeepSafe
                     if (property == typeof(RowDefinitionCollection))
                     {
                         RowDefinitionCollection rowDefinitions = new RowDefinitionCollection();
-                        foreach(string value in Value.Split(','))
+                        foreach (string value in Value.Split(','))
                         {
                             if (value.Equals("*"))
                                 rowDefinitions.Add(new RowDefinition() { Height = GridLength.Star });
@@ -274,8 +274,8 @@ namespace KeepSafe
                                 rowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
                             else
                             {
-                                if(double.TryParse(value.Replace("*", ""), out double absoluteValue))
-                                    rowDefinitions.Add(new RowDefinition() { Height = new GridLength( IsResponsive ? absoluteValue.ScaleHeightResponsive() : absoluteValue.ScaleHeight(), GridUnitType.Absolute) });
+                                if (double.TryParse(value.Replace("*", ""), out double absoluteValue))
+                                    rowDefinitions.Add(new RowDefinition() { Height = new GridLength(IsResponsive ? absoluteValue.ScaleHeightResponsive() : absoluteValue.ScaleHeight(), GridUnitType.Absolute) });
                                 else
                                     throw new InvalidOperationException($"Cannot convert Width[{Value}]");
                             }

@@ -39,6 +39,13 @@ namespace KeepSafe.ViewModels.ViewViewModels
             set { SetPropertyChanged(ref _IsVisible, value); }
         }
 
+        bool _IsPassword;
+        public bool IsPassword
+        {
+            get { return _IsPassword; }
+            set { SetPropertyChanged(ref _IsPassword, value, nameof(IsPassword)); }
+        }
+
         Color? DefaultColor;
         string DefaultPlaceholder;
         bool IsError;
@@ -75,6 +82,11 @@ namespace KeepSafe.ViewModels.ViewViewModels
             Text = string.IsNullOrEmpty(Text) ? TextValue : Text;
             Placeholder = DefaultPlaceholder;
             PlaceholderColor = DefaultColor ?? Color.Black;
+        }
+
+        public void ClearText()
+        {
+            Text = string.Empty;
         }
     }
 }

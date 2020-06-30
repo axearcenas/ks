@@ -17,6 +17,8 @@ using Prism.Services;
 using Prism.Common;
 using KeepSafe.Views.Popups;
 using KeepSafe.ViewModels.PopupsViewModel;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
 
 namespace KeepSafe
 {
@@ -53,7 +55,7 @@ namespace KeepSafe
         {
             InitializeComponent();
             _NavigationService = NavigationService;
-            Device.SetFlags(new string[] { "Shapes_Experimental" });
+            Xamarin.Forms.Device.SetFlags(new string[] { "Shapes_Experimental" });
             //when using socket
             //WebsocketConnection.Link();
 
@@ -63,10 +65,11 @@ namespace KeepSafe
             Constants.ApplyServerSettings();
 
             //NOTE: FOR TESTING PAGE to show error initializing page
-            MainPage = new MainPage() { BindingContext = new MainPageViewModel(NavigationService, new PageDialogService(new ApplicationProvider())) };
+            //MainPage = new NavigationPage(new MainPage() { BindingContext = new MainPageViewModel(NavigationService, new PageDialogService(new ApplicationProvider())) });
             //MainPage = new CustomServerPopup() { BindingContext = new CustomServerPopupViewModel(NavigationService) };
 
             //NavigationService.NavigateAsync($"ks://keepsafe.ph/{nameof(KeepSafe.Views.MainPage)}");
+            ShowMainPage();
         }
 
         public static void Log(string msg, [System.Runtime.CompilerServices.CallerMemberName] string memberName = "")
@@ -153,6 +156,7 @@ namespace KeepSafe
             containerRegistry.RegisterForNavigation<MainPage>();
             containerRegistry.RegisterForNavigation<CustomServerPopup,CustomServerPopupViewModel>();
             containerRegistry.RegisterForNavigation<MyTabbedPage, MyTabbedPageViewModel>();
+            containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
             //NOTE: Views that has a view model in ViewModel Folder
             //containerRegistry.RegisterForNavigation<GetStartedPage>();
             //NOTE: Views that has a view model but not in ViewModel Folder

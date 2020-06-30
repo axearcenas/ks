@@ -54,6 +54,7 @@
     <Folder Include="Helpers\Effects\" />
     <Folder Include="Resources\SVG\" />
     <Folder Include="Views\" />
+    <Folder Include="DependencyServices\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Renderers\CustomButtonRenderer.cs" />
@@ -63,6 +64,8 @@
     <None Remove="Resources\Files\CustomAlert.json" />
     <None Remove="Resources\Files\ServerList.json" />
     <None Remove="Resources\SVG\KeepSafeLogo.svg" />
+    <None Remove="Resources\SVG\BackIcon.svg" />
+    <None Remove="Resources\SVG\ArrowForward.svg" />
     <None Remove="Resources\SVG\FacebookIcon.svg" />
     <None Remove="Resources\SVG\GoogleIcon.svg" />
     <None Remove="Resources\SVG\ProfileIcon.svg" />
@@ -73,6 +76,8 @@
     <EmbeddedResource Include="Resources\Files\CustomAlert.json" />
     <EmbeddedResource Include="Resources\Files\ServerList.json" />
     <EmbeddedResource Include="Resources\SVG\KeepSafeLogo.svg" />
+    <EmbeddedResource Include="Resources\SVG\BackIcon.svg" />
+    <EmbeddedResource Include="Resources\SVG\ArrowForward.svg" />
     <EmbeddedResource Include="Resources\SVG\FacebookIcon.svg" />
     <EmbeddedResource Include="Resources\SVG\GoogleIcon.svg" />
     <EmbeddedResource Include="Resources\SVG\ProfileIcon.svg" />
