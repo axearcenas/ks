@@ -105,6 +105,7 @@
     <Compile Include="DependencyServices\ChangeBarColor.cs" />
     <Compile Include="DependencyServices\OTPService.cs" />
     <Compile Include="Renderers\CustomPickerRenderer.cs" />
+    <Compile Include="Renderers\CustomTabbedPage.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
@@ -157,6 +158,30 @@
     <ImageAsset Include="Assets.xcassets\MainBackground.imageset\MainBackground.png" />
     <ImageAsset Include="Assets.xcassets\MainBackground.imageset\MainBackground%402x.png" />
     <ImageAsset Include="Assets.xcassets\MainBackground.imageset\MainBackground%403x.png" />
+    <ImageAsset Include="Assets.xcassets\HomeIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\HomeIcon.imageset\HomeIcon.png" />
+    <ImageAsset Include="Assets.xcassets\HomeIcon.imageset\HomeIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\HomeIcon.imageset\HomeIcon%403x.png" />
+    <ImageAsset Include="Assets.xcassets\ProfileIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ProfileIcon.imageset\ProfileIcon.png" />
+    <ImageAsset Include="Assets.xcassets\ProfileIcon.imageset\ProfileIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\ProfileIcon.imageset\ProfileIcon%403x.png" />
+    <ImageAsset Include="Assets.xcassets\ScanIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ScanIcon.imageset\ScanIcon.png" />
+    <ImageAsset Include="Assets.xcassets\ScanIcon.imageset\ScanIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\ScanIcon.imageset\ScanIcon%403x.png" />
+    <ImageAsset Include="Assets.xcassets\SelectedHomeIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\SelectedHomeIcon.imageset\SelectedHomeIcon.png" />
+    <ImageAsset Include="Assets.xcassets\SelectedHomeIcon.imageset\SelectedHomeIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\SelectedHomeIcon.imageset\SelectedHomeIcon%403x.png" />
+    <ImageAsset Include="Assets.xcassets\SelectedProfileIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\SelectedProfileIcon.imageset\SelectedProfileIcon.png" />
+    <ImageAsset Include="Assets.xcassets\SelectedProfileIcon.imageset\SelectedProfileIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\SelectedProfileIcon.imageset\SelectedProfileIcon%403x.png" />
+    <ImageAsset Include="Assets.xcassets\SelectedScanIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\SelectedScanIcon.imageset\SelectedScanIcon.png" />
+    <ImageAsset Include="Assets.xcassets\SelectedScanIcon.imageset\SelectedScanIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\SelectedScanIcon.imageset\SelectedScanIcon%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -226,5 +251,11 @@
   <ItemGroup>
     <Folder Include="Renderers\" />
     <Folder Include="Assets.xcassets\MainBackground.imageset\" />
+    <Folder Include="Assets.xcassets\HomeIcon.imageset\" />
+    <Folder Include="Assets.xcassets\ProfileIcon.imageset\" />
+    <Folder Include="Assets.xcassets\ScanIcon.imageset\" />
+    <Folder Include="Assets.xcassets\SelectedHomeIcon.imageset\" />
+    <Folder Include="Assets.xcassets\SelectedProfileIcon.imageset\" />
+    <Folder Include="Assets.xcassets\SelectedScanIcon.imageset\" />
   </ItemGroup>
 </Project>

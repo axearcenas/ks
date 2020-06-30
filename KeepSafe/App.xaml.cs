@@ -45,6 +45,10 @@ namespace KeepSafe
         public static Action OnAppResume { get; set; }
         public static Action OnAppSleep { get; set; }
 
+        public static string AppScheme { get; } = "ks://";
+        public static string AppRootRoute { get; } = "keepsafe.ph/";
+        public static string AppNavigationRootRoute { get { return $"{AppScheme}{AppRootRoute}"; } }
+
         public App() : this(null) { }
 
         public App(IPlatformInitializer initializer) : base(initializer) { }
@@ -68,8 +72,8 @@ namespace KeepSafe
             //MainPage = new NavigationPage(new MainPage() { BindingContext = new MainPageViewModel(NavigationService, new PageDialogService(new ApplicationProvider())) });
             //MainPage = new CustomServerPopup() { BindingContext = new CustomServerPopupViewModel(NavigationService) };
 
-            //NavigationService.NavigateAsync($"ks://keepsafe.ph/{nameof(KeepSafe.Views.MainPage)}");
             ShowMainPage();
+            //ShowHomePage();
         }
 
         public static void Log(string msg, [System.Runtime.CompilerServices.CallerMemberName] string memberName = "")
@@ -114,12 +118,12 @@ namespace KeepSafe
         public static void ShowHomePage()
         {
             //TODO Create Landing Page
-            _NavigationService.NavigateAsync($"ks://keepsafe.ph/{nameof(MyTabbedPage)}");
+            _NavigationService.NavigateAsync($"{AppNavigationRootRoute}{nameof(MyTabbedPage)}");
         }
 
         public static void ShowMainPage()
         {
-            _NavigationService.NavigateAsync($"ks://keepsafe.ph/{nameof(Views.MainPage)}");
+            _NavigationService.NavigateAsync($"{AppNavigationRootRoute}NavigationPage/{nameof(Views.MainPage)}");
         }
 
         public static void Logout()
@@ -158,6 +162,9 @@ namespace KeepSafe
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
             containerRegistry.RegisterForNavigation<RegisterUserPage,RegisterUserViewModel>();
             containerRegistry.RegisterForNavigation<MyTabbedPage, MyTabbedPageViewModel>();
+            containerRegistry.RegisterForNavigation<HomePage>();
+            containerRegistry.RegisterForNavigation<ScanPage>();
+            containerRegistry.RegisterForNavigation<ProfilePage>();
             //NOTE: Views that has a view model in ViewModel Folder
             //containerRegistry.RegisterForNavigation<GetStartedPage>();
             //NOTE: Views that has a view model but not in ViewModel Folder

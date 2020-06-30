@@ -180,6 +180,7 @@ namespace KeepSafe.ViewModels
                             {
                                 //TODO save USER Here
                                 PageDialogService?.DisplayAlertAsync("Login Succesfully",jsonData["message"].ToString(),"Okay");
+                                App.ShowHomePage();
                                 EmailAddressEntry.ClearText();
                                 PasswordEntry.ClearText();
                             });                            
