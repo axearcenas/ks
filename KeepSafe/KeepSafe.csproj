@@ -84,4 +84,15 @@
     <EmbeddedResource Include="Resources\SVG\HomeIcon.svg" />
     <EmbeddedResource Include="Resources\SVG\ScanIcon.svg" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Views\HomePage.xaml.cs">
+      <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ScanPage.xaml.cs">
+      <DependentUpon>ScanPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ProfilePage.xaml.cs">
+      <DependentUpon>ProfilePage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>

@@ -12,6 +12,7 @@ namespace KeepSafe.Resources
 
         //COLOR
         public static readonly Color MAIN_THEME_COLOR = Color.FromHex("#EE3E5B");
+        public static readonly Color MAIN_DARK_THEME_COLOR = Color.FromHex("#5D172C");
         public static readonly Color MAIN_BLUE_COLOR = Color.FromHex("#05257A");
 
         public static readonly Color MAIN_BUTTON_COLOR = Color.FromHex("#DE3344");
@@ -29,6 +30,11 @@ namespace KeepSafe.Resources
         public static readonly Color BORDER_COLOR = Color.FromHex("#D3D3D3");
 
         public static readonly Color LOADING_BACKGROUNDCOLOR = Color.FromHex("#40000000");
+
+        public static readonly Color TAB_SELECTED_ICONCOLOR = Color.FromHex("#E6455B");
+        public static readonly Color TAB_DEFAULT_ICONCOLOR = Color.FromHex("#702D41");
+        public static readonly Color TAB_DEFAULT_TEXTCOLOR = Color.FromHex("#D290A4");
+        public static readonly Color TAB_SELECTED_TEXTCOLOR = Color.FromHex("#FFFFFF");
 
     }
 }
