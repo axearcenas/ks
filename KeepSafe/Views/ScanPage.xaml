@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<local:MainNavigationPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KeepSafe.Views.ScanPage"
+            xmlns:local="clr-namespace:KeepSafe"
+            xmlns:res="clr-namespace:KeepSafe.Resources"
+            xmlns:views="clr-namespace:KeepSafe.Views">    
+    <Grid>
+        <Label Text="SCAN PAGE"
+           HorizontalOptions="Center"
+           VerticalOptions="Center"/>
+    </Grid>
+</local:MainNavigationPage>

@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            x:Class="KeepSafe.Views.MyTabbedPage"
+            xmlns:prism="http://prismlibrary.com"
+            xmlns:local="clr-namespace:KeepSafe"
+            xmlns:res="clr-namespace:KeepSafe.Resources"
+            xmlns:views="clr-namespace:KeepSafe.Views"
+            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+            android:TabbedPage.ToolbarPlacement="Bottom"
+            x:Name="customTab" 
+            BarBackgroundColor="{Static res:ColorResource.MAIN_DARK_THEME_COLOR}"
+            SelectedTabColor="{Static res:ColorResource.WHITE_COLOR}"
+            UnselectedTabColor="{Static res:ColorResource.TAB_DEFAULT_TEXTCOLOR}"
+            >
+    <NavigationPage IconImageSource="HomeIcon" Title="Home">
+        <x:Arguments>
+            <views:HomePage NavigationPage.HasNavigationBar="False"/>
+        </x:Arguments>
+    </NavigationPage>
+    <NavigationPage Icon="ScanIcon" Title="Scan">
+        <x:Arguments>
+            <views:ScanPage  NavigationPage.HasNavigationBar="False"/>
+        </x:Arguments>
+    </NavigationPage>
+    <NavigationPage IconImageSource="ProfileIcon" Title="Profile">
+        <x:Arguments>
+            <views:ProfilePage  NavigationPage.HasNavigationBar="False"/>
+        </x:Arguments>
+    </NavigationPage>
+    <!--<TabBar >
+                <views:MainPage Icon="{local:FFSVGImageSource ImageName=HomeIcon}"
+                                Title="Home" />
+                <views:MainPage Icon="MainBackground" Title="Home" />
+       <Tab Icon="MainBackground" Title="Home">
+            <ShellContent >
+                <views:MainPage />
+            </ShellContent>
+       </Tab>
+        <Tab Icon="MainBackground" Title="Home">
+            <ShellContent >
+            </ShellContent>
+       </Tab>
+    </TabBar>-->
+</TabbedPage>

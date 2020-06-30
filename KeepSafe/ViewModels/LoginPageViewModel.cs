@@ -103,7 +103,7 @@ namespace KeepSafe.ViewModels
             {
                 IsNotError = false;
             }
-            else if (!(EmailAddressEntry.Text+"+63").IsValidPhoneNumber())
+            else if (!EmailAddressEntry.Text.IsValidPhoneNumber())
             {
                 EmailAddressEntry.ShowError("Not a valid mobile number");
                 IsNotError = false;
@@ -180,6 +180,7 @@ namespace KeepSafe.ViewModels
                             {
                                 //TODO save USER Here
                                 PageDialogService?.DisplayAlertAsync("Login Succesfully",jsonData["message"].ToString(),"Okay");
+                                App.ShowHomePage();
                                 EmailAddressEntry.ClearText();
                                 PasswordEntry.ClearText();
                             });                            
