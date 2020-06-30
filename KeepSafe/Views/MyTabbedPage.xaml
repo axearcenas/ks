@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       x:Class="KeepSafe.Views.MyTabbedPage"
+       xmlns:local="clr-namespace:KeepSafe"
+       xmlns:res="clr-namespace:KeepSafe.Resources"
+       xmlns:views="clr-namespace:KeepSafe.Views">
+    <TabBar>
+       <Tab Icon="{local:FFSVGImageSource ImageName=HomeIcon}" Title="Home">
+            <ShellContent>
+                <views:MainPage/>
+            </ShellContent>
+       </Tab>
+    </TabBar>
+</Shell>

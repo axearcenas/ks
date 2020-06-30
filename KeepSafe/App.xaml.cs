@@ -111,12 +111,12 @@ namespace KeepSafe
         public static void ShowHomePage()
         {
             //TODO Create Landing Page
-            _NavigationService.NavigateAsync("ks://keepsafe.ph/HomePage");
+            _NavigationService.NavigateAsync($"ks://keepsafe.ph/{nameof(MyTabbedPage)}");
         }
 
         public static void ShowMainPage()
         {
-            _NavigationService.NavigateAsync("ks://keepsafe.ph/MainPage");
+            _NavigationService.NavigateAsync($"ks://keepsafe.ph/{nameof(Views.MainPage)}");
         }
 
         public static void Logout()
@@ -152,6 +152,7 @@ namespace KeepSafe
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage>();
             containerRegistry.RegisterForNavigation<CustomServerPopup,CustomServerPopupViewModel>();
+            containerRegistry.RegisterForNavigation<MyTabbedPage, MyTabbedPageViewModel>();
             //NOTE: Views that has a view model in ViewModel Folder
             //containerRegistry.RegisterForNavigation<GetStartedPage>();
             //NOTE: Views that has a view model but not in ViewModel Folder
