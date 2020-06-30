@@ -132,6 +132,7 @@
     <Compile Include="DependencyServices\SmsReceiver\SmsReceiver.cs" />
     <Compile Include="DependencyServices\SmsReceiver\OTPService.cs" />
     <Compile Include="DependencyServices\SmsReceiver\AppHashKeyHelper.cs" />
+    <Compile Include="Renderers\CustomPickerRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

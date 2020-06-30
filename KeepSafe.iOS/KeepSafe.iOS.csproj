@@ -104,6 +104,7 @@
     <Compile Include="DependencyServices\OpenWebsite.cs" />
     <Compile Include="DependencyServices\ChangeBarColor.cs" />
     <Compile Include="DependencyServices\OTPService.cs" />
+    <Compile Include="Renderers\CustomPickerRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
