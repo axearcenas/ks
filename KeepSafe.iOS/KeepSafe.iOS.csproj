@@ -182,6 +182,10 @@
     <ImageAsset Include="Assets.xcassets\SelectedScanIcon.imageset\SelectedScanIcon.png" />
     <ImageAsset Include="Assets.xcassets\SelectedScanIcon.imageset\SelectedScanIcon%402x.png" />
     <ImageAsset Include="Assets.xcassets\SelectedScanIcon.imageset\SelectedScanIcon%403x.png" />
+    <ImageAsset Include="Assets.xcassets\UserBackground.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\UserBackground.imageset\UserBackground.png" />
+    <ImageAsset Include="Assets.xcassets\UserBackground.imageset\UserBackground%402x.png" />
+    <ImageAsset Include="Assets.xcassets\UserBackground.imageset\UserBackground%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -257,5 +261,6 @@
     <Folder Include="Assets.xcassets\SelectedHomeIcon.imageset\" />
     <Folder Include="Assets.xcassets\SelectedProfileIcon.imageset\" />
     <Folder Include="Assets.xcassets\SelectedScanIcon.imageset\" />
+    <Folder Include="Assets.xcassets\UserBackground.imageset\" />
   </ItemGroup>
 </Project>

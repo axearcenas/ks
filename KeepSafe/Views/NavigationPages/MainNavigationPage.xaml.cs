@@ -186,7 +186,32 @@ namespace KeepSafe
             set { SetValue(BackgroundImageSourceProperty, value); }
         }
 
-        public MainNavigationPage()
+		public static readonly BindableProperty StatusBarColorProperty =
+			BindableProperty.Create(
+				propertyName: nameof(StatusBarColor),
+				returnType: typeof(BarStyle),
+				declaringType: typeof(MainNavigationPage),
+				defaultValue: BarStyle.Dark,
+                propertyChanged: OnStatusBarColor_PropertyChanged);
+
+        private static void OnStatusBarColor_PropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            MainNavigationPage pComboBox = bindable as MainNavigationPage;
+            if (newValue is BarStyle BarStyleValue)
+            {
+                DependencyService.Get<IChangeBarColor>().ChangeColor(BarStyleValue);
+
+            }
+        }
+        public BarStyle StatusBarColor
+		{
+			get { return (BarStyle)GetValue(StatusBarColorProperty); }
+			set { SetValue(StatusBarColorProperty, value); }
+		}
+
+
+
+		public MainNavigationPage()
         {
             InitializeComponent();
 
