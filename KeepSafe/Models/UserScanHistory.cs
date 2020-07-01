@@ -19,6 +19,13 @@ namespace KeepSafe.Models
             set { _PlateNumber = value; OnPropertyChanged(); }
         }
 
+        string _Name;
+        public string Name
+        {
+            get { return _Name; }
+            set { _Name = value; OnPropertyChanged(); }
+        }
+
         string _Address;
         public string Address
         {

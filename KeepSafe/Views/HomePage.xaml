@@ -115,7 +115,8 @@
                         VerticalOptions="Fill"
                         ItemsSource="{Binding MyScanHistory}"
                         RemainingItemsThreshold="1"
-                        RemainingItemsThresholdReachedCommand="{Binding PaginationCommand}">            
+                        RemainingItemsThresholdReachedCommand="{Binding PaginationCommand}"
+                        >            
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid Padding="0"
@@ -130,7 +131,7 @@
                               ColumnDefinitions="{local:ScaleColumnDefinition Value='48,*'}">
 
                             <!-- icon -->
-                            <Button Grid.Column="0"
+                            <Button Grid.Column="0"                                    
                                     Text="{Binding BusinessTypeIcon}"
                                     TextColor="{Static res:ColorResource.WHITE_COLOR}"
                                     FontSize="{local:ScaleFontSize Value=21}"
@@ -138,13 +139,21 @@
                                     BackgroundColor="{Static res:ColorResource.LIST_CARD_ICON_BACKGROUNDCOLOR}"
                                     HorizontalOptions="Fill"
                                     VerticalOptions="Fill"
-                                    InputTransparent="True"/>
+                                    InputTransparent="True">
+                            </Button>
                             <StackLayout Grid.Column="1"
                                          Spacing="{local:ScaleHeight Value=5}"
                                          HorizontalOptions="Fill"
                                          VerticalOptions="Center">
-                                <Label Text="{Binding PlateNumber,StringFormat='Plate#   {0}'}"                                       
-                                       Style="{StaticResource ListValueLabelStyle}"/>
+                                <Label Text="{Binding Name}"                                       
+                                       Style="{StaticResource ListValueLabelStyle}">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label" Binding="{Binding BusinessType}"
+                                                     Value="Automobile">
+                                            <Setter Property="Text" Value="{Binding PlateNumber,StringFormat='Plate#   {0}'}"/>
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
                                 <Label Text="{Binding Address}"                                       
                                        Style="{StaticResource ListValueLabelStyle}"/>
                                 <!--<Button Text="{Binding DateScanned, StringFormat='{0:MM/dd/yy}'}"
