@@ -72,6 +72,8 @@
     <None Remove="Resources\SVG\ProfileIcon.svg" />
     <None Remove="Resources\SVG\HomeIcon.svg" />
     <None Remove="Resources\SVG\ScanIcon.svg" />
+    <None Remove="Resources\SVG\ScannerInidcator.svg" />
+    <None Remove="Resources\SVG\SearchIcon.svg" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Files\CustomAlert.json" />
@@ -84,6 +86,8 @@
     <EmbeddedResource Include="Resources\SVG\ProfileIcon.svg" />
     <EmbeddedResource Include="Resources\SVG\HomeIcon.svg" />
     <EmbeddedResource Include="Resources\SVG\ScanIcon.svg" />
+    <EmbeddedResource Include="Resources\SVG\ScannerInidcator.svg" />
+    <EmbeddedResource Include="Resources\SVG\SearchIcon.svg" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Views\HomePage.xaml.cs">

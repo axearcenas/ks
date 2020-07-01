@@ -97,7 +97,9 @@
                 <Setter Property="IsVisible" Value="true"/>
             </Style>
             <ControlTemplate x:Key="NavigationBar">
-                <Grid RowSpacing="0" ColumnSpacing="0">
+                <Grid RowSpacing="0"
+                      ColumnSpacing="0"
+                      Padding="{x:Static local:Constants.STATUSBAR_PADDING}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="{x:Static local:Constants.NAVIGATION_HEIGHT}"/>
                         <RowDefinition Height="*" />

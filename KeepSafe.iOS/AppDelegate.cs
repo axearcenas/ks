@@ -82,7 +82,7 @@ namespace KeepSafe.iOS
             LoadApplication(new App(new iOSInitializer()));
 
             //FirebasePushNotificationManager.Initialize(options, true);
-            //ZXing.Net.Mobile.Forms.iOS.Platform.Init();
+            ZXing.Net.Mobile.Forms.iOS.Platform.Init();
             //SfEffectsViewRenderer.Init();
 
 
