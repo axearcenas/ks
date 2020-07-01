@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <local:MainNavigationPage xmlns="http://xamarin.com/schemas/2014/forms"
                           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                          x:Class="KeepSafe.RegisterUserPage"
+                          x:Class="KeepSafe.RegisterBusinessPage"
                           xmlns:local="clr-namespace:KeepSafe"
                           xmlns:prism="http://prismlibrary.com"
                           xmlns:res="clr-namespace:KeepSafe.Resources"
@@ -120,7 +120,7 @@
                                           Aspect="AspectFill"/>
                     </Grid>                    
                 </Frame>
-                <!--First Name-->
+                <!--Business Name-->
                 <Frame Grid.Row="3"
                        Style="{StaticResource EntryFrameStyle}">
                     <Grid RowSpacing="0"
@@ -130,18 +130,18 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="{local:ScaleGridWidth Value=30}"/>
                         </Grid.ColumnDefinitions>
-                        <Label Text="user"
-                               FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"
+                        <Label Text="briefcase"
                                Style="{StaticResource EntryIconStyle}"/>
-                        <local:CustomEntry Text="{Binding FirstNameEntry.Text}"
-                                           Placeholder="{Binding FirstNameEntry.Placeholder}"
-                                           PlaceholderColor="{Binding FirstNameEntry.PlaceholderColor}"
+                        <local:CustomEntry Text="{Binding BusinessNameEntry.Text}"
+                                           Placeholder="{Binding BusinessNameEntry.Placeholder}"
+                                           PlaceholderColor="{Binding BusinessNameEntry.PlaceholderColor}"
                                            AutoCapitalization="Words"
                                            Style="{StaticResource EntryStyle}"/>
                     </Grid>
                 </Frame>
-                <!--Last Name-->
+                <!--Type of Establishment-->
                 <Frame Grid.Row="5"
+                       IsClippedToBounds="True"
                        Style="{StaticResource EntryFrameStyle}">
                     <Grid RowSpacing="0"
                           ColumnSpacing="0">
@@ -150,14 +150,52 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="{local:ScaleGridWidth Value=30}"/>
                         </Grid.ColumnDefinitions>
-                        <Label Text="user"
-                               FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"
+                        <Label Text="building"
                                Style="{StaticResource EntryIconStyle}"/>
-                        <local:CustomEntry Text="{Binding LastNameEntry.Text}"
-                                           Placeholder="{Binding LastNameEntry.Placeholder}"
-                                           PlaceholderColor="{Binding LastNameEntry.PlaceholderColor}"
-                                           AutoCapitalization="Words"
-                                           Style="{StaticResource EntryStyle}"/>
+                        <Picker x:Name="EstablishmentPicker"
+                                Grid.Column="1"
+                                Grid.ColumnSpan="2"
+                                Title="Type of Establishment"
+                                TitleColor="{Binding EstablishmentTypeTextColor}"
+                                BackgroundColor="#A57B88"
+                                TextColor="White"
+                                SelectedItem="{Binding EstablishmentTypeSelectedItem}"
+                                FontFamily="{Static res:FontResource.LIGHT}"
+                                FontSize="{local:ScaleFontSize Value=16}"
+                                Margin="{local:ScaleThickness Value='12,0,0,0'}">
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>Hotel</x:String>
+                                    <x:String>Gym &#x26; Yoga</x:String>
+                                    <x:String>Clinic</x:String>
+                                    <x:String>Hospital</x:String>
+                                    <x:String>Travel Agency</x:String>
+                                    <x:String>Boutique</x:String>
+                                    <x:String>Bar &#x26; Restaurant</x:String>
+                                    <x:String>Manufacturing</x:String>
+                                    <x:String>Banking &#x26; Remittance</x:String>
+                                    <x:String>Spa &#x26; Personal Care</x:String>
+                                    <x:String>Government</x:String>
+                                    <x:String>Theatre &#x26; Movie Houses</x:String>
+                                    <x:String>Appliance &#x26; Computer Store</x:String>
+                                    <x:String>Department Store</x:String>
+                                    <x:String>Grocery &#x26; Supermarket</x:String>
+                                    <x:String>Automobile</x:String>
+                                    <x:String>Home Improvement</x:String>
+                                    <x:String>Graphics &#x26; Printing</x:String>
+                                </x:Array>
+                            </Picker.ItemsSource>
+                            <Picker.Behaviors>
+                                <prism:EventToCommandBehavior Command="{Binding SelectedIndexChangedCommand}"
+                                                              CommandParameter="{x:Reference EstablishmentPicker}"
+                                                              EventName="SelectedIndexChanged"/>
+                            </Picker.Behaviors>
+                        </Picker>
+                        <Label Text="chevron-down"
+                               Grid.Column="2"
+                               InputTransparent="True"
+                               HorizontalOptions="Start"
+                               Style="{StaticResource EntryIconStyle}"/>
                     </Grid>
                 </Frame>
                 <!--Mobile #-->
@@ -180,8 +218,28 @@
                                            Style="{StaticResource EntryStyle}"/>
                     </Grid>
                 </Frame>
-                <!--Address-->
+                <!--Contact Person-->
                 <Frame Grid.Row="9"
+                       Style="{StaticResource EntryFrameStyle}">
+                    <Grid RowSpacing="0"
+                          ColumnSpacing="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="{local:ScaleGridWidth Value=40}"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="{local:ScaleGridWidth Value=30}"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Text="user"
+                               FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"
+                               Style="{StaticResource EntryIconStyle}"/>
+                        <local:CustomEntry Text="{Binding ContactPersonEntry.Text}"
+                                           Placeholder="{Binding ContactPersonEntry.Placeholder}"
+                                           PlaceholderColor="{Binding ContactPersonEntry.PlaceholderColor}"
+                                           AutoCapitalization="Words"
+                                           Style="{StaticResource EntryStyle}"/>
+                    </Grid>
+                </Frame>
+                <!--Address-->
+                <Frame Grid.Row="11"
                        Style="{StaticResource EntryFrameStyle}">
                     <Grid RowSpacing="0"
                           ColumnSpacing="0">
@@ -198,36 +256,6 @@
                                            Style="{StaticResource EntryStyle}"/>
                     </Grid>
                 </Frame>
-                <!--Birthdate-->
-                <Frame Grid.Row="11"
-                       Style="{StaticResource EntryFrameStyle}">
-                    <Grid RowSpacing="0"
-                          ColumnSpacing="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="{local:ScaleGridWidth Value=40}"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="{local:ScaleGridWidth Value=30}"/>
-                        </Grid.ColumnDefinitions>
-                        <Label Text="calendar-alt"
-                               FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"
-                               Style="{StaticResource EntryIconStyle}"/>
-                        <local:CustomDatePicker x:Name="BirthdatePicker"
-                                                Grid.Column="1"
-                                                Placeholder="Birthdate"
-                                                Date="{Binding Birthdate}"
-                                                TextColor="{Binding BirthdateTextColor}"
-                                                FontFamily="{Static res:FontResource.LIGHT}"
-                                                FontSize="{local:ScaleFontSize Value=16}"
-                                                BackgroundColor="Transparent"
-                                                Margin="{local:ScaleThickness Value='12,0,0,0'}">
-                            <local:CustomDatePicker.Behaviors>
-                                <prism:EventToCommandBehavior Command="{Binding DateSelectedCommand}"
-                                                              CommandParameter="{x:Reference BirthdatePicker}"
-                                                              EventName="DateSelected"/>
-                            </local:CustomDatePicker.Behaviors>
-                        </local:CustomDatePicker>
-                    </Grid>
-                </Frame>                
                 <!--Email-->
                 <Frame Grid.Row="13"
                        Style="{StaticResource EntryFrameStyle}">
