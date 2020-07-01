@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using KeepSafe.Views.Popups;
+using Rg.Plugins.Popup.Extensions;
 using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
 
@@ -14,15 +16,16 @@ namespace KeepSafe.Helpers
             lock (RemoveLoadingLock)
             {
                 //TODO Add LoadingPage 
-                //Device.BeginInvokeOnMainThread(() =>
-                //{
-                //    var loadingPage = PopupNavigation.Instance.PopupStack.FirstOrDefault(obj => obj is LoadingPage);
-                //    if (loadingPage == null)
-                //    {
-                //        DataClass.GetInstance.LoadingTimeoutMessage = message;
-                //        Application.Current.MainPage.Navigation.PushPopupAsync(new LoadingPage(message, timeout, callback), false);
-                //    }
-                //});
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    var loadingPage = PopupNavigation.Instance.PopupStack.FirstOrDefault(obj => obj is LoadingPage);
+                    if (loadingPage == null)
+                    {
+                        //DataClass.GetInstance.LoadingTimeoutMessage = message;
+                        PopupNavigation.Instance.PushAsync(new LoadingPage(message, timeout, callback), false);
+                        
+                    }
+                });
             }
         }
 
@@ -31,20 +34,20 @@ namespace KeepSafe.Helpers
             lock (RemoveLoadingLock)
             {
                 //TODO Add LoadingPage 
-                //Device.BeginInvokeOnMainThread(() =>
-                //{
-                //    if (PopupNavigation.Instance.PopupStack.Count > 0)
-                //    {
-                //        var loadingPage = (LoadingPage)PopupNavigation.Instance.PopupStack.FirstOrDefault(obj => obj is LoadingPage);
-                //        if (loadingPage != null)
-                //        {
-                //            loadingPage.StopLoading();
-                //            PopupNavigation.Instance.RemovePageAsync(loadingPage, false);
-                //            if (!string.IsNullOrWhiteSpace(message))
-                //                ToastServices.Instance.ShowToast(message, isBackgroundTransparent, isTimerOn);
-                //        }
-                //    }
-                //});
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    if (PopupNavigation.Instance.PopupStack.Count > 0)
+                    {
+                        var loadingPage = (LoadingPage)PopupNavigation.Instance.PopupStack.FirstOrDefault(obj => obj is LoadingPage);
+                        if (loadingPage != null)
+                        {
+                            loadingPage.StopLoading();
+                            PopupNavigation.Instance.RemovePageAsync(loadingPage, false);
+                            //if (!string.IsNullOrWhiteSpace(message))
+                            //    ToastServices.Instance.ShowToast(message, isBackgroundTransparent, isTimerOn);
+                        }
+                    }
+                });
             }
         }
 

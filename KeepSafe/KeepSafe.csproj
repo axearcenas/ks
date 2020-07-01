@@ -55,6 +55,7 @@
     <Folder Include="Resources\SVG\" />
     <Folder Include="Views\" />
     <Folder Include="DependencyServices\" />
+    <Folder Include="Enum\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Renderers\CustomButtonRenderer.cs" />
@@ -71,6 +72,9 @@
     <None Remove="Resources\SVG\ProfileIcon.svg" />
     <None Remove="Resources\SVG\HomeIcon.svg" />
     <None Remove="Resources\SVG\ScanIcon.svg" />
+    <None Remove="Resources\Files\CheckInHistory.json" />
+    <None Remove="Resources\Files\CheckOutHistory.json" />
+    <None Remove="Resources\SVG\MyQRIcon.svg" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Files\CustomAlert.json" />
@@ -83,6 +87,9 @@
     <EmbeddedResource Include="Resources\SVG\ProfileIcon.svg" />
     <EmbeddedResource Include="Resources\SVG\HomeIcon.svg" />
     <EmbeddedResource Include="Resources\SVG\ScanIcon.svg" />
+    <EmbeddedResource Include="Resources\Files\CheckInHistory.json" />
+    <EmbeddedResource Include="Resources\Files\CheckOutHistory.json" />
+    <EmbeddedResource Include="Resources\SVG\MyQRIcon.svg" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Views\HomePage.xaml.cs">
@@ -93,6 +100,9 @@
     </Compile>
     <Compile Update="Views\ProfilePage.xaml.cs">
       <DependentUpon>ProfilePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\LoadingPage.xaml.cs">
+      <DependentUpon>LoadingPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>

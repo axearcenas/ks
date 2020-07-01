@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<local:RGPopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KeepSafe.Views.Popups.LoadingPage"
+             xmlns:local="clr-namespace:KeepSafe"
+             xmlns:res="clr-namespace:KeepSafe.Resources"
+             HasSystemPadding="false"
+             CloseWhenBackgroundIsClicked="False"
+             HasKeyboardOffset="False"
+             BackgroundColor="{Static res:ColorResource.LOADING_BACKGROUNDCOLOR}">
+    <Frame Padding="0"
+           CornerRadius="{local:ScaleHeight Value=5}"
+           HeightRequest="{local:ScaleHeight Value=50}"
+           WidthRequest="{local:ScaleWidth Value=50}"
+           BackgroundColor="{Static res:ColorResource.WHITE_COLOR}"
+           HorizontalOptions="Center"
+           VerticalOptions="Center">
+        <ActivityIndicator Color="{Static res:ColorResource.MAIN_THEME_COLOR}"
+                           IsRunning="True"
+                           HorizontalOptions="Fill"
+                           VerticalOptions="Fill"
+                           Margin="{local:ScaleThickness Value='10'}"/>
+    </Frame>
+</local:RGPopupPage>

@@ -1,14 +1,192 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <local:MainNavigationPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="KeepSafe.Views.HomePage"
-            xmlns:prism="http://prismlibrary.com"
-            xmlns:local="clr-namespace:KeepSafe"
-            xmlns:res="clr-namespace:KeepSafe.Resources"
-            xmlns:views="clr-namespace:KeepSafe.Views">
-    <Grid>
-        <Label Text="HOME PAGE"
-           HorizontalOptions="Center"
-           VerticalOptions="Center"/>
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          x:Class="KeepSafe.Views.HomePage"
+                          xmlns:prism="http://prismlibrary.com"
+                          xmlns:local="clr-namespace:KeepSafe"
+                          xmlns:res="clr-namespace:KeepSafe.Resources"
+                          xmlns:views="clr-namespace:KeepSafe.Views"
+                          xmlns:sys="clr-namespace:System;assembly=netstandard"
+                          RightIconType="SVG"
+                          RightIcon="MyQRIcon"
+                          RightButtonCommand="{Binding MyQRCommand}"
+                          NavBackgroundColor="Transparent"
+                          BackgroundImageSource="UserBackground"
+                          StatusBarColor="Light"
+                          BackgroundColor="{Static res:ColorResource.MAIN_DARK_THEME_COLOR}">
+    <local:MainNavigationPage.Resources>
+        <ResourceDictionary>
+            <!--<Style x:Key="ButtonStyle" TargetType="Button">
+                <Setter Property="asdf" Value="asdf"/>
+            </Style>-->
+            <Style x:Key="ListValueLabelStyle" TargetType="Label">
+                <Setter Property="Grid.Column" Value="1"/>
+                <Setter Property="TextColor" Value="{Static res:ColorResource.WHITE_COLOR}"/>
+                <Setter Property="FontSize" Value="{local:ScaleFontSize Value=12}"/>
+                <Setter Property="FontFamily" Value="{Static res:FontResource.REGULAR}"/>
+                <Setter Property="Margin" Value="{local:ScaleThickness Value='6,0'}"/>
+                <Setter Property="HorizontalOptions" Value="Start"/>
+            </Style>
+            <Style x:Key="ListValueButtonStyle" TargetType="Button">
+                <Setter Property="Grid.Column" Value="1"/>
+                <Setter Property="TextColor" Value="{Static res:ColorResource.WHITE_COLOR}"/>
+                <Setter Property="FontSize" Value="{local:ScaleFontSize Value=12}"/>
+                <Setter Property="FontFamily" Value="{Static res:FontResource.REGULAR}"/>
+                <Setter Property="Margin" Value="{local:ScaleThickness Value='6,0'}"/>
+                <Setter Property="HorizontalOptions" Value="Start"/>
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+            </Style>
+        </ResourceDictionary>
+    </local:MainNavigationPage.Resources>
+    <Grid Padding="0"
+          Margin="0"
+          ColumnSpacing="0"
+          RowSpacing="0"
+          RowDefinitions="{local:ScaleRowDefinition Value='95,51,20,*'}">
+        <!-- 0 | Logo -->
+        <local:FFSVGImage Grid.Row="0"
+                          Source="{local:FFSVGImageSource ImageName=KeepSafeLogo}"
+                          HeightRequest="{local:ScaleHeight Value=155}"
+                          WidthRequest="{local:ScaleWidth Value=159}"
+                          BackgroundColor="Transparent"
+                          HorizontalOptions="Center"
+                          Margin="{local:ScaleThickness Value='0,-30,0,0'}"/>
+        <!-- 1 | Chek In Check Out-->
+        <Frame Grid.Row="1" Padding="0"
+               HeightRequest="{local:ScaleHeight Value=40}"
+               CornerRadius="{local:ScaleHeight Value=20}"
+               IsClippedToBounds="True"
+               Margin="{local:ScaleThickness Value='35,0'}"
+               VerticalOptions="End">
+            <Grid HorizontalOptions="Fill"
+                  VerticalOptions="Fill"
+                  ColumnDefinitions="*,*">
+                <Button Grid.Column="0"
+                        Text="Check In"
+                        TextColor="{Static res:ColorResource.MAIN_BLACK_COLOR}"
+                        FontSize="{local:ScaleFontSize Value=15}"
+                        FontFamily="{Static res:FontResource.LIGHT}"
+                        BackgroundColor="{Static res:ColorResource.WHITE_COLOR}"
+                        CornerRadius="0"
+                        Command="{Binding HistoryCommand}">
+                    <Button.CommandParameter>
+                        <sys:Int32 >0</sys:Int32>
+                    </Button.CommandParameter>
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button"
+                                     Binding="{Binding SelectedHistoryType}"
+                                     Value="CheckIn">                          
+                            <Setter Property="TextColor"
+                                    Value="{Static res:ColorResource.WHITE_COLOR}"/>
+                            <Setter Property="BackgroundColor"
+                                    Value="{Static res:ColorResource.TAB_SELECTED_ICONCOLOR}"/>  
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+                <Button Grid.Column="1"
+                        Text="Check Out"
+                        TextColor="{Static res:ColorResource.MAIN_BLACK_COLOR}"
+                        FontSize="{local:ScaleFontSize Value=15}"
+                        FontFamily="{Static res:FontResource.LIGHT}"
+                        BackgroundColor="{Static res:ColorResource.WHITE_COLOR}"
+                        CornerRadius="0" 
+                        Command="{Binding HistoryCommand}">                        
+                    <Button.CommandParameter>
+                        <sys:Int32 >1</sys:Int32>
+                    </Button.CommandParameter>
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button"
+                                     Binding="{Binding SelectedHistoryType}"
+                                     Value="CheckOut">                          
+                            <Setter Property="TextColor"
+                                    Value="{Static res:ColorResource.WHITE_COLOR}"/>
+                            <Setter Property="BackgroundColor"
+                                    Value="{Static res:ColorResource.TAB_SELECTED_ICONCOLOR}"/>  
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+            </Grid>
+        </Frame>
+
+        <!-- 2 | Space -->
+        <!-- 3 | List -->
+        <CollectionView Grid.Row="3"
+                        HorizontalOptions="Fill"
+                        VerticalOptions="Fill"
+                        ItemsSource="{Binding MyScanHistory}"
+                        RemainingItemsThreshold="1"
+                        RemainingItemsThresholdReachedCommand="{Binding PaginationCommand}">            
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="0"
+                              HeightRequest="{local:ScaleHeight Value=96}">
+                        <Frame Margin="{local:ScaleThickness Value='20,0,20,10'}"
+                           Padding="0"
+                           CornerRadius="{local:ScaleHeight Value=5}"
+                           IsClippedToBounds="True"
+                           BackgroundColor="{Static res:ColorResource.LIST_CARD_BACKGROUNDCOLOR}">
+                        <Grid Padding="0"
+                              ColumnSpacing="0"
+                              ColumnDefinitions="{local:ScaleColumnDefinition Value='48,*'}">
+
+                            <!-- icon -->
+                            <Button Grid.Column="0"
+                                    Text="{Binding BusinessTypeIcon}"
+                                    TextColor="{Static res:ColorResource.WHITE_COLOR}"
+                                    FontSize="{local:ScaleFontSize Value=21}"
+                                    FontFamily="{Static res:FontResource.FONTAWESOME5_SOLID}"
+                                    BackgroundColor="{Static res:ColorResource.LIST_CARD_ICON_BACKGROUNDCOLOR}"
+                                    HorizontalOptions="Fill"
+                                    VerticalOptions="Fill"
+                                    InputTransparent="True"/>
+                            <StackLayout Grid.Column="1"
+                                         Spacing="{local:ScaleHeight Value=5}"
+                                         HorizontalOptions="Fill"
+                                         VerticalOptions="Center">
+                                <Label Text="{Binding PlateNumber,StringFormat='Plate#   {0}'}"                                       
+                                       Style="{StaticResource ListValueLabelStyle}"/>
+                                <Label Text="{Binding Address}"                                       
+                                       Style="{StaticResource ListValueLabelStyle}"/>
+                                <!--<Button Text="{Binding DateScanned, StringFormat='{0:MM/dd/yy}'}"
+                                        Style="{StaticResource ListValueButtonStyle}"/>-->
+                                <Label Style="{StaticResource ListValueLabelStyle}">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="calendar-alt"
+                                                  TextColor="{Static res:ColorResource.WHITE_COLOR}"
+                                                  FontSize="{local:ScaleFontSize Value=14}"
+                                                  FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"/>
+                                            <Span Text="{Binding DateScanned, StringFormat='    {0:MM/dd/yy}'}"
+                                                  TextColor="{Static res:ColorResource.WHITE_COLOR}"
+                                                  FontSize="{local:ScaleFontSize Value=12}"
+                                                  FontFamily="{Static res:FontResource.REGULAR}"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label Style="{StaticResource ListValueLabelStyle}" >
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="clock"
+                                                  TextColor="{Static res:ColorResource.WHITE_COLOR}"
+                                                  FontSize="{local:ScaleFontSize Value=14}"
+                                                  FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"/>
+                                            <Span Text="{Binding DateScanned, StringFormat='   {0:H:mm tt}'}"
+                                                  TextColor="{Static res:ColorResource.WHITE_COLOR}"
+                                                  FontSize="{local:ScaleFontSize Value=12}"
+                                                  FontFamily="{Static res:FontResource.REGULAR}"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+
+                            </StackLayout>
+
+                        </Grid>
+                    </Frame>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
     </Grid>
 </local:MainNavigationPage>
