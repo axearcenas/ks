@@ -159,13 +159,13 @@ namespace KeepSafe
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage>();
             containerRegistry.RegisterForNavigation<CustomServerPopup,CustomServerPopupViewModel>();
+            containerRegistry.RegisterForNavigation<MyTabbedPage, MyTabbedPageViewModel>();
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
             containerRegistry.RegisterForNavigation<RegisterUserPage,RegisterUserViewModel>();
             containerRegistry.RegisterForNavigation<MyTabbedPage, MyTabbedPageViewModel>();
             containerRegistry.RegisterForNavigation<HomePage>();
             containerRegistry.RegisterForNavigation<ScanPage>();
             containerRegistry.RegisterForNavigation<ProfilePage>();
-            containerRegistry.RegisterForNavigation<RegisterUserPage,RegisterUserViewModel>();
             //NOTE: Views that has a view model in ViewModel Folder
             //containerRegistry.RegisterForNavigation<GetStartedPage>();
             //NOTE: Views that has a view model but not in ViewModel Folder
