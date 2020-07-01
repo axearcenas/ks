@@ -22,6 +22,8 @@ namespace KeepSafe.ViewModels
         public DelegateCommand ToEstablishmentLoginCommand { get; set; }
         public DelegateCommand ToRegistrationCommand { get; set; }
 
+        INavigationService _navigationService;
+
         UserType _SellectedType = UserType.None;
         public UserType SellectedType
         {
@@ -38,13 +40,15 @@ namespace KeepSafe.ViewModels
 
         Timer timer;
 
-        public MainPageViewModel(INavigationService navigationService,IPageDialogService pageDialogService) :
+        public MainPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService) :
             base(navigationService, pageDialogService)
         {
+            _navigationService = navigationService;
+
             LogoTapped = new DelegateCommand(OnLogoTapped_Execute);
             ToUserLoginCommand = new DelegateCommand(OnToUserLoginCommand_Execute);
             ToEstablishmentLoginCommand = new DelegateCommand(OnEstablishmentClickedCommand_Execute);
-            ToRegistrationCommand = new DelegateCommand(OnToRegistrationCommand_Execute);
+            ToRegistrationCommand = new DelegateCommand(OnToRegistrationCommand_Execute);            
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -113,6 +117,7 @@ namespace KeepSafe.ViewModels
         {
             //TODO Navigate to RegisterPage
             App.Log("TODO: Navigate to RegisterPage");
+            NavigationService.NavigateAsync("RegisterUserPage");
         }
 
     }

@@ -161,6 +161,8 @@ namespace KeepSafe
             containerRegistry.RegisterForNavigation<CustomServerPopup,CustomServerPopupViewModel>();
             containerRegistry.RegisterForNavigation<MyTabbedPage, MyTabbedPageViewModel>();
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
+            containerRegistry.RegisterForNavigation<RegisterUserPage,RegisterUserViewModel>();
+            containerRegistry.RegisterForNavigation<MyTabbedPage, MyTabbedPageViewModel>();
             containerRegistry.RegisterForNavigation<HomePage>();
             containerRegistry.RegisterForNavigation<ScanPage>();
             containerRegistry.RegisterForNavigation<ProfilePage>();

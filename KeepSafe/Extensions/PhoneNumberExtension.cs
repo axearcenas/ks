@@ -13,12 +13,8 @@ namespace KeepSafe.Extension
 
         public static bool IsValidPhoneNumber(this string phoneEntry)
         {
-            string phoneNumber = Regex.Replace(phoneEntry, "[() - +]", "");
-            bool isNumber = long.TryParse(phoneNumber, out long result);
-            return phoneNumber.Length == (phoneEntry.StartsWith("0") ? 11 : !phoneEntry.StartsWith("63") || !phoneEntry.StartsWith("+63") ? 10 :  12) && isNumber;
+            return Regex.IsMatch(phoneEntry, @"^(09|\+639)\d{9}$");
         }
-
-
 
         public static string ToPhoneNumber(this string phoneEntry)
         {
