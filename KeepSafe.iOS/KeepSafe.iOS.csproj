@@ -106,7 +106,6 @@
     <Compile Include="DependencyServices\OTPService.cs" />
     <Compile Include="Renderers\CustomPickerRenderer.cs" />
     <Compile Include="Renderers\CustomTabbedPage.cs" />
-    <Compile Include="Renderers\CustomPickerRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />

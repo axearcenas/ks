@@ -134,7 +134,6 @@
     <Compile Include="DependencyServices\SmsReceiver\AppHashKeyHelper.cs" />
     <Compile Include="Renderers\CustomPickerRenderer.cs" />
     <Compile Include="Renderers\CustomTabbedPageRenderer.cs" />
-    <Compile Include="Renderers\CustomPickerRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
