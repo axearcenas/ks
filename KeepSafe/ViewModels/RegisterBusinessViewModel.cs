@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using KeepSafe.Extension;
 using KeepSafe.Extensions;
 using KeepSafe.Helpers.MediaHelper;
@@ -15,30 +14,36 @@ using Xamarin.Forms;
 
 namespace KeepSafe
 {
-    public class RegisterUserViewModel : ViewModelBase
+    public class RegisterBusinessViewModel : ViewModelBase
     {
         public DelegateCommand BackButtonClickedCommand { get; set; }
         public DelegateCommand UploadPhotoClickedCommand { get; set; }
-        public DelegateCommand<object> DateSelectedCommand { get; set; }
+        public DelegateCommand<object> SelectedIndexChangedCommand { get; set; }
         public DelegateCommand<object> CheckBoxClickedCommand { get; set; }
         public DelegateCommand EULALabelTappedCommand { get; set; }
         public DelegateCommand RegisterButtonClickedCommand { get; set; }
         public DelegateCommand LoginLabelTappedCommand { get; set; }
 
-        public EntryViewModel FirstNameEntry { get; } = new EntryViewModel() { Placeholder = "First Name", PlaceholderColor = ColorResource.WHITE_COLOR };
-        public EntryViewModel LastNameEntry { get; } = new EntryViewModel() { Placeholder = "Last Name", PlaceholderColor = ColorResource.WHITE_COLOR };
-        public EntryViewModel MobileNumberEntry { get; } = new EntryViewModel() { Placeholder = "Mobile #", PlaceholderColor = ColorResource.WHITE_COLOR };        
+        public EntryViewModel BusinessNameEntry { get; } = new EntryViewModel() { Placeholder = "Business Name", PlaceholderColor = ColorResource.WHITE_COLOR };
+        public EntryViewModel MobileNumberEntry { get; } = new EntryViewModel() { Placeholder = "Mobile #", PlaceholderColor = ColorResource.WHITE_COLOR };
+        public EntryViewModel ContactPersonEntry { get; } = new EntryViewModel() { Placeholder = "Contact Person", PlaceholderColor = ColorResource.WHITE_COLOR };
         public EntryViewModel AddressEntry { get; } = new EntryViewModel() { Placeholder = "Address", PlaceholderColor = ColorResource.WHITE_COLOR };
-        public EntryViewModel BirthdateEntry { get; } = new EntryViewModel() { Placeholder = "Birthdate", PlaceholderColor = ColorResource.WHITE_COLOR };
         public EntryViewModel EmailAddressEntry { get; } = new EntryViewModel() { Placeholder = "Email", PlaceholderColor = ColorResource.WHITE_COLOR };
-        public EntryViewModel PasswordEntry { get; } = new EntryViewModel() { Placeholder = "Password", PlaceholderColor = ColorResource.WHITE_COLOR, IsPassword=true };
+        public EntryViewModel PasswordEntry { get; } = new EntryViewModel() { Placeholder = "Password", PlaceholderColor = ColorResource.WHITE_COLOR, IsPassword = true };
 
         //TODO Remove this tihs
-        string _UserImage;
-        public string UserImage
+        string _EstablishmentImage;
+        public string EstablishmentImage
         {
-            get { return _UserImage; }
-            set { SetProperty(ref _UserImage, value, nameof(UserImage)); }
+            get { return _EstablishmentImage; }
+            set { SetProperty(ref _EstablishmentImage, value, nameof(EstablishmentImage)); }
+        }
+
+        string _EstablishmentTypeSelectedItem;
+        public string EstablishmentTypeSelectedItem
+        {
+            get { return _EstablishmentTypeSelectedItem; }
+            set { SetProperty(ref _EstablishmentTypeSelectedItem, value, nameof(EstablishmentTypeSelectedItem)); }
         }
 
         Color _UploadPhotoTextColor = Color.FromHex("#05257A");
@@ -47,26 +52,24 @@ namespace KeepSafe
             get { return _UploadPhotoTextColor; }
             set { SetProperty(ref _UploadPhotoTextColor, value, nameof(UploadPhotoTextColor)); }
         }
-        
+
+        Color _EstablishmentTypeTextColor = Color.White;
+        public Color EstablishmentTypeTextColor
+        {
+            get { return _EstablishmentTypeTextColor; }
+            set
+            {
+                SetProperty(ref _EstablishmentTypeTextColor, value, nameof(EstablishmentTypeTextColor));
+                if (_EstablishmentTypeSelectedItem != null)
+                    EstablishmentTypeTextColor = Color.White;
+            }
+        }
+
         Color _EULATextColor = Color.White;
         public Color EULATextColor
         {
             get { return _EULATextColor; }
             set { SetProperty(ref _EULATextColor, value, nameof(EULATextColor)); }
-        }
-
-        Color _BirthdateTextColor = Color.White;
-        public Color BirthdateTextColor
-        {
-            get { return _BirthdateTextColor; }
-            set { SetProperty(ref _BirthdateTextColor, value, nameof(BirthdateTextColor)); }
-        }
-
-        DateTime _Birthdate = DateTime.Today;
-        public DateTime Birthdate
-        {
-            get { return _Birthdate; }
-            set { SetProperty(ref _Birthdate, value, nameof(Birthdate)); }
         }
 
         bool _IsValid;
@@ -86,21 +89,15 @@ namespace KeepSafe
         MediaHelper mediaHelper = new MediaHelper();
         MediaFile file;
 
-        public RegisterUserViewModel(INavigationService navigationService, IPageDialogService pageDialogService) : base(navigationService, pageDialogService)
+        public RegisterBusinessViewModel(INavigationService navigationService, IPageDialogService pageDialogService) : base(navigationService, pageDialogService)
         {
             BackButtonClickedCommand = new DelegateCommand(OnBackButtonClicked);
             UploadPhotoClickedCommand = new DelegateCommand(OnUploadPhotoClicked);
-            DateSelectedCommand = new DelegateCommand<object>(OnDateSelected);
+            SelectedIndexChangedCommand = new DelegateCommand<object>(SelectedIndexChanged);
             CheckBoxClickedCommand = new DelegateCommand<object>(OnCheckboxClicked);
             EULALabelTappedCommand = new DelegateCommand(OnEULALabelTapped);
             RegisterButtonClickedCommand = new DelegateCommand(OnRegisterButtonClicked);
             LoginLabelTappedCommand = new DelegateCommand(OnLoginLabelTapped);
-        }
-
-        private void OnDateSelected(object sender)
-        {
-            if((sender as CustomDatePicker).TextColor != Color.White)
-                (sender as CustomDatePicker).TextColor = Color.White;
         }
 
         private void OnBackButtonClicked()
@@ -130,7 +127,7 @@ namespace KeepSafe
                         });
                         if (file != null)
                         {
-                            UserImage = file.Path;
+                            EstablishmentImage = file.Path;
                         }
                     }
                     else if (action.ToString() == "Gallery")
@@ -144,7 +141,7 @@ namespace KeepSafe
                         });
                         if (file != null)
                         {
-                            UserImage = file.Path;
+                            EstablishmentImage = file.Path;
                         }
                     }
                     else if (action.ToString() == "Remove Photo")
@@ -152,7 +149,7 @@ namespace KeepSafe
                         if (file != null)
                         {
                             file = null;
-                            UserImage = null;
+                            EstablishmentImage = null;
                         }
                     }
                 }
@@ -190,12 +187,13 @@ namespace KeepSafe
                 IsValid = false;
             }
 
-            if (FirstNameEntry.ValidateIsTextNullOrEmpty("First Name is required"))
+            if (EstablishmentTypeSelectedItem == null)
             {
+                EstablishmentTypeTextColor = Color.Red;
                 IsValid = false;
             }
 
-            if (LastNameEntry.ValidateIsTextNullOrEmpty("Last Name is required"))
+            if (BusinessNameEntry.ValidateIsTextNullOrEmpty("Business Name is required"))
             {
                 IsValid = false;
             }
@@ -215,9 +213,8 @@ namespace KeepSafe
                 IsValid = false;
             }
 
-            if (Birthdate.Date == DateTime.Today)
+            if (ContactPersonEntry.ValidateIsTextNullOrEmpty("Contact Person is required"))
             {
-                BirthdateTextColor = Color.Red;
                 IsValid = false;
             }
 
@@ -245,7 +242,6 @@ namespace KeepSafe
             if (IsValid && !IsClicked)
             {
                 IsClicked = true;
-                //TODO Register API
             }
         }
 
