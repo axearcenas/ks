@@ -103,7 +103,7 @@ namespace KeepSafe.ViewModels
             {
                 IsNotError = false;
             }
-            else if (!(EmailAddressEntry.Text+"+63").IsValidPhoneNumber())
+            else if (!("+63" + EmailAddressEntry.Text).IsValidPhoneNumber())
             {
                 EmailAddressEntry.ShowError("Not a valid mobile number");
                 IsNotError = false;

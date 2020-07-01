@@ -3,15 +3,16 @@
                           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                           x:Class="KeepSafe.RegisterUserPage"
                           xmlns:local="clr-namespace:KeepSafe"
+                          xmlns:prism="http://prismlibrary.com"
                           xmlns:res="clr-namespace:KeepSafe.Resources"
                           NavigationPage.HasNavigationBar="False"
                           BackgroundColor="#804456"
                           NavBackgroundColor="#5D172C"
-                          LeftIcon="chevron-left"
-                          LeftIconType="FontAwesome5Solid"
+                          LeftIcon="BackIcon"
+                          LeftIconType="SVG"
                           LeftIconColor="White"
                           LeftButtonCommand="{Binding BackButtonClickedCommand}"
-                          PageTitle="My QR Code"
+                          PageTitle="Register"
                           TitleFontColor="White"
                           TitleFontFamily="{Static res:FontResource.BOLD}"
                           TitleFontSize="{local:ScaleFontSize Value=21}">
@@ -40,14 +41,15 @@
                 <Setter Property="TextColor" Value="White"/>
                 <Setter Property="FontFamily" Value="{Static res:FontResource.LIGHT}"/>
                 <Setter Property="FontSize" Value="{local:ScaleFontSize Value=16}"/>
-                <Setter Property="PlaceholderColor" Value="White"/>
                 <Setter Property="BackgroundColor" Value="Transparent"/>
                 <Setter Property="Margin" Value="{local:ScaleThickness Value='12,0,0,0'}"/>
             </Style>
         </ResourceDictionary>
     </local:MainNavigationPage.Resources>
     <local:MainNavigationPage.Content>
-        <ScrollView>
+        <ScrollView BackgroundColor="#804456"
+                    HorizontalScrollBarVisibility="Never"
+                    VerticalScrollBarVisibility="Never">
             <Grid RowSpacing="0"
               ColumnSpacing="0"
               Margin="0"
@@ -77,6 +79,7 @@
                     <RowDefinition Height="{local:ScaleGridHeight Value=20}"/>
                     <RowDefinition Height="{local:ScaleGridHeight Value=17}"/>
                 </Grid.RowDefinitions>
+                <!--Photo-->
                 <Frame Grid.Row="1"
                        CornerRadius="5"
                        WidthRequest="111"
@@ -103,7 +106,7 @@
                                VerticalOptions="Center"/>
                         <Label Text="Upload Photo"
                                FontFamily="{Static res:FontResource.REGULAR}"
-                               TextColor="#05257A"
+                               TextColor="{Binding UploadPhotoTextColor}"
                                FontSize="{local:ScaleFontSize Value=16}"
                                InputTransparent="True"
                                HorizontalOptions="Center"
@@ -117,6 +120,7 @@
                                           Aspect="AspectFill"/>
                     </Grid>                    
                 </Frame>
+                <!--Business Name-->
                 <Frame Grid.Row="3"
                        Style="{StaticResource EntryFrameStyle}">
                     <Grid RowSpacing="0"
@@ -128,10 +132,14 @@
                         </Grid.ColumnDefinitions>
                         <Label Text="briefcase"
                                Style="{StaticResource EntryIconStyle}"/>
-                        <local:CustomEntry Placeholder="Business Name"
+                        <local:CustomEntry Text="{Binding BusinessNameEntry.Text}"
+                                           Placeholder="{Binding BusinessNameEntry.Placeholder}"
+                                           PlaceholderColor="{Binding BusinessNameEntry.PlaceholderColor}"
+                                           AutoCapitalization="Words"
                                            Style="{StaticResource EntryStyle}"/>
                     </Grid>
                 </Frame>
+                <!--Type of Establishment-->
                 <Frame Grid.Row="5"
                        IsClippedToBounds="True"
                        Style="{StaticResource EntryFrameStyle}">
@@ -144,13 +152,14 @@
                         </Grid.ColumnDefinitions>
                         <Label Text="building"
                                Style="{StaticResource EntryIconStyle}"/>
-                        <Picker Grid.Column="1"
+                        <Picker x:Name="EstablishmentPicker"
+                                Grid.Column="1"
                                 Grid.ColumnSpan="2"
                                 Title="Type of Establishment"
-                                TitleColor="White"
+                                TitleColor="{Binding EstablishmentTypeTextColor}"
                                 BackgroundColor="#A57B88"
                                 TextColor="White"
-                                SelectedItem="{Binding BusinessType}"
+                                SelectedItem="{Binding EstablishmentTypeSelectedItem}"
                                 FontFamily="{Static res:FontResource.LIGHT}"
                                 FontSize="{local:ScaleFontSize Value=16}"
                                 Margin="{local:ScaleThickness Value='12,0,0,0'}">
@@ -176,13 +185,20 @@
                                     <x:String>Graphics &#x26; Printing</x:String>
                                 </x:Array>
                             </Picker.ItemsSource>
+                            <Picker.Behaviors>
+                                <prism:EventToCommandBehavior Command="{Binding SelectedIndexChangedCommand}"
+                                                              CommandParameter="{x:Reference EstablishmentPicker}"
+                                                              EventName="SelectedIndexChanged"/>
+                            </Picker.Behaviors>
                         </Picker>
                         <Label Text="chevron-down"
                                Grid.Column="2"
+                               InputTransparent="True"
                                HorizontalOptions="Start"
                                Style="{StaticResource EntryIconStyle}"/>
                     </Grid>
                 </Frame>
+                <!--Mobile #-->
                 <Frame Grid.Row="7"
                        Style="{StaticResource EntryFrameStyle}">
                     <Grid RowSpacing="0"
@@ -194,11 +210,15 @@
                         </Grid.ColumnDefinitions>
                         <Label Text="phone"
                                Style="{StaticResource EntryIconStyle}"/>
-                        <local:CustomEntry Placeholder="Mobile #"
-                                           Keyboard="Numeric"
+                        <local:CustomEntry Text="{Binding MobileNumberEntry.Text}"
+                                           Placeholder="{Binding MobileNumberEntry.Placeholder}"
+                                           PlaceholderColor="{Binding MobileNumberEntry.PlaceholderColor}"
+                                           MaxLength="13"
+                                           Keyboard="Telephone"
                                            Style="{StaticResource EntryStyle}"/>
                     </Grid>
                 </Frame>
+                <!--Contact Person-->
                 <Frame Grid.Row="9"
                        Style="{StaticResource EntryFrameStyle}">
                     <Grid RowSpacing="0"
@@ -211,10 +231,14 @@
                         <Label Text="user"
                                FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"
                                Style="{StaticResource EntryIconStyle}"/>
-                        <local:CustomEntry Placeholder="Contact Person"
+                        <local:CustomEntry Text="{Binding ContactPersonEntry.Text}"
+                                           Placeholder="{Binding ContactPersonEntry.Placeholder}"
+                                           PlaceholderColor="{Binding ContactPersonEntry.PlaceholderColor}"
+                                           AutoCapitalization="Words"
                                            Style="{StaticResource EntryStyle}"/>
                     </Grid>
                 </Frame>
+                <!--Address-->
                 <Frame Grid.Row="11"
                        Style="{StaticResource EntryFrameStyle}">
                     <Grid RowSpacing="0"
@@ -226,10 +250,13 @@
                         </Grid.ColumnDefinitions>
                         <Label Text="map-marker-alt"
                                Style="{StaticResource EntryIconStyle}"/>
-                        <local:CustomEntry Placeholder="Address"
+                        <local:CustomEntry Text="{Binding AddressEntry.Text}"
+                                           Placeholder="{Binding AddressEntry.Placeholder}"
+                                           PlaceholderColor="{Binding AddressEntry.PlaceholderColor}"
                                            Style="{StaticResource EntryStyle}"/>
                     </Grid>
                 </Frame>
+                <!--Email-->
                 <Frame Grid.Row="13"
                        Style="{StaticResource EntryFrameStyle}">
                     <Grid RowSpacing="0"
@@ -242,12 +269,14 @@
                         <Label Text="envelope"
                                FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"
                                Style="{StaticResource EntryIconStyle}"/>
-                        <local:CustomEntry Text="{Binding Email}"
-                                           Placeholder="Email"
+                        <local:CustomEntry Text="{Binding EmailAddressEntry.Text}"
+                                           Placeholder="{Binding EmailAddressEntry.Placeholder}"
+                                           PlaceholderColor="{Binding EmailAddressEntry.PlaceholderColor}"
                                            Keyboard="Email"
                                            Style="{StaticResource EntryStyle}"/>
                     </Grid>
                 </Frame>
+                <!--Password-->
                 <Frame Grid.Row="15"
                        Style="{StaticResource EntryFrameStyle}">
                     <Grid RowSpacing="0"
@@ -260,11 +289,14 @@
                         <Label Text="lock"
                                FontFamily="{Static res:FontResource.FONTAWESOME5_SOLID}"
                                Style="{StaticResource EntryIconStyle}"/>
-                        <local:CustomEntry Placeholder="Password"
-                                           IsPassword="True"
+                        <local:CustomEntry Text="{Binding PasswordEntry.Text}"
+                                           Placeholder="{Binding PasswordEntry.Placeholder}"
+                                           PlaceholderColor="{Binding PasswordEntry.PlaceholderColor}"
+                                           IsPassword="{Binding PasswordEntry.IsPassword}"
                                            Style="{StaticResource EntryStyle}"/>
                     </Grid>
                 </Frame>
+                <!--Checkbox Terms & Conditions-->
                 <StackLayout Grid.Row="17"
                              Orientation="Horizontal"
                              Spacing="0"
@@ -283,25 +315,31 @@
                             WidthRequest="{local:ScaleWidth Value=25}"
                             HeightRequest="{local:ScaleHeight Value=25}"/>
                     <Label Text="Terms &#x26; Conditions | Privacy Policy"
-                           TextColor="White"
+                           TextColor="{Binding EULATextColor}"
                            FontFamily="{Static res:FontResource.LIGHT}"
                            FontSize="{local:ScaleFontSize Value=14}"
                            HorizontalOptions="Start"
-                           Margin="{local:ScaleThickness Value='6,0,0,0'}"/>
+                           Margin="{local:ScaleThickness Value='6,0,0,0'}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding EULALabelTappedCommand}" NumberOfTapsRequired="1"/>
+                        </Label.GestureRecognizers>
+                    </Label>
                 </StackLayout>
+                <!--Register Button-->
                 <Button Grid.Row="19"
                         Text="Register"
                         Command="{Binding RegisterButtonClickedCommand}"
                         TextColor="White"
                         FontFamily="{Static res:FontResource.BOLD}"
                         FontSize="{local:ScaleFontSize Value=16}"
-                        BackgroundColor="#DE3344"
+                        BackgroundColor="{Static res:ColorResource.MAIN_BUTTON_COLOR}"
                         HorizontalOptions="Center"
                         VerticalOptions="Center"
                         CornerRadius="{local:ScaleHeight Value=20}"
                         WidthRequest="{local:ScaleWidth Value=280}"
                         HeightRequest="{local:ScaleHeight Value=40}">
                 </Button>
+                <!--Login-->
                 <Label Grid.Row="21"
                        HorizontalOptions="Center"
                        VerticalOptions="Center">
