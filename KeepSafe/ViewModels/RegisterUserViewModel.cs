@@ -17,9 +17,6 @@ namespace KeepSafe
 {
     public class RegisterUserViewModel : ViewModelBase
     {
-        INavigationService _navigationService;
-        IPageDialogService _pageDialogService;
-
         public DelegateCommand BackButtonClickedCommand { get; set; }
         public DelegateCommand UploadPhotoClickedCommand { get; set; }
         public DelegateCommand<object> SelectedIndexChangedCommand { get; set; }
@@ -95,9 +92,6 @@ namespace KeepSafe
 
         public RegisterUserViewModel(INavigationService navigationService, IPageDialogService pageDialogService) : base(navigationService, pageDialogService)
         {
-            _navigationService = navigationService;
-            _pageDialogService = pageDialogService;
-
             BackButtonClickedCommand = new DelegateCommand(OnBackButtonClicked);
             UploadPhotoClickedCommand = new DelegateCommand(OnUploadPhotoClicked);
             SelectedIndexChangedCommand = new DelegateCommand<object>(SelectedIndexChanged);
@@ -109,7 +103,7 @@ namespace KeepSafe
 
         private void OnBackButtonClicked()
         {
-            _navigationService.GoBackAsync();
+            NavigationService.GoBackAsync();
         }
 
         private async void OnUploadPhotoClicked()
@@ -117,7 +111,7 @@ namespace KeepSafe
             if (!IsClicked)
             {
                 IsClicked = true;
-                var action = await _pageDialogService.DisplayActionSheetAsync("Upload Photo", "Cancel", file == null ? null : "Remove Photo", "Camera", "Gallery");
+                var action = await PageDialogService.DisplayActionSheetAsync("Upload Photo", "Cancel", file == null ? null : "Remove Photo", "Camera", "Gallery");
                 if (action != null && !action.ToString().Equals("Cancel"))
                 {
                     await CrossMedia.Current.Initialize();
@@ -254,7 +248,7 @@ namespace KeepSafe
 
         private void OnLoginLabelTapped()
         {
-            _navigationService.NavigateAsync("/MainPage");
+            NavigationService.NavigateAsync("/MainPage");
         }
     }
 }
