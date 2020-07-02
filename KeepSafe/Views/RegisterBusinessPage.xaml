@@ -6,8 +6,7 @@
                           xmlns:prism="http://prismlibrary.com"
                           xmlns:res="clr-namespace:KeepSafe.Resources"
                           NavigationPage.HasNavigationBar="False"
-                          BackgroundColor="#804456"
-                          NavBackgroundColor="#5D172C"
+                          NavBackgroundColor="#22144D"
                           LeftIcon="BackIcon"
                           LeftIconType="SVG"
                           LeftIconColor="White"
@@ -21,7 +20,7 @@
             <Style TargetType="Frame" x:Key="EntryFrameStyle">
                 <Setter Property="Margin" Value="0"/>
                 <Setter Property="Padding" Value="0"/>
-                <Setter Property="BackgroundColor" Value="#A57B88"/>
+                <Setter Property="BackgroundColor" Value="{Static res:ColorResource.WHITE_COLOR}"/>
                 <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
                 <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
                 <Setter Property="CornerRadius" Value="{local:ScaleHeight Value=20}"/>
@@ -31,14 +30,14 @@
             <Style TargetType="Label" x:Key="EntryIconStyle">
                 <Setter Property="Grid.Column" Value="0"/>
                 <Setter Property="FontFamily" Value="{Static res:FontResource.FONTAWESOME5_SOLID}"/>
-                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="TextColor" Value="{Static res:ColorResource.MAIN_BLACK_COLOR}"/>
                 <Setter Property="FontSize" Value="{local:ScaleFontSize Value=17}"/>
                 <Setter Property="HorizontalOptions" Value="End"/>
                 <Setter Property="VerticalOptions" Value="Center"/>
             </Style>
             <Style TargetType="local:CustomEntry" x:Key="EntryStyle">
                 <Setter Property="Grid.Column" Value="1"/>
-                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="TextColor" Value="{Static res:ColorResource.MAIN_BLACK_COLOR}"/>
                 <Setter Property="FontFamily" Value="{Static res:FontResource.LIGHT}"/>
                 <Setter Property="FontSize" Value="{local:ScaleFontSize Value=16}"/>
                 <Setter Property="BackgroundColor" Value="Transparent"/>
@@ -47,13 +46,13 @@
         </ResourceDictionary>
     </local:MainNavigationPage.Resources>
     <local:MainNavigationPage.Content>
-        <ScrollView BackgroundColor="#804456"
+        <ScrollView BackgroundColor="#ECF0F1"
                     HorizontalScrollBarVisibility="Never"
                     VerticalScrollBarVisibility="Never">
             <Grid RowSpacing="0"
-              ColumnSpacing="0"
-              Margin="0"
-              Padding="0">
+                  ColumnSpacing="0"
+                  Margin="0"
+                  Padding="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="{local:ScaleGridHeight Value=23}"/>
                     <RowDefinition Height="{local:ScaleGridHeight Value=111}"/>
@@ -104,7 +103,7 @@
                                InputTransparent="True"
                                HorizontalOptions="Center"
                                VerticalOptions="Center"/>
-                        <Label Text="Upload Photo"
+                        <Label Text="Upload&#10;Photo"
                                FontFamily="{Static res:FontResource.REGULAR}"
                                TextColor="{Binding UploadPhotoTextColor}"
                                FontSize="{local:ScaleFontSize Value=16}"
@@ -157,8 +156,8 @@
                                 Grid.ColumnSpan="2"
                                 Title="Type of Establishment"
                                 TitleColor="{Binding EstablishmentTypeTextColor}"
-                                BackgroundColor="#A57B88"
-                                TextColor="White"
+                                BackgroundColor="{Static res:ColorResource.WHITE_COLOR}"
+                                TextColor="{Static res:ColorResource.MAIN_BLACK_COLOR}"
                                 SelectedItem="{Binding EstablishmentTypeSelectedItem}"
                                 FontFamily="{Static res:FontResource.LIGHT}"
                                 FontSize="{local:ScaleFontSize Value=16}"
@@ -307,7 +306,7 @@
                     <Button x:Name="CheckBoxButton"
                             Command="{Binding CheckBoxClickedCommand}"
                             CommandParameter="{x:Reference CheckBoxButton}"
-                            TextColor="#804456"
+                            TextColor="{Static res:ColorResource.MAIN_BLACK_COLOR}"
                             FontFamily="{Static res:FontResource.FONTAWESOME5_SOLID}"
                             FontSize="{local:ScaleFontSize Value=16}"
                             BackgroundColor="White"
@@ -329,7 +328,7 @@
                 <Button Grid.Row="19"
                         Text="Register"
                         Command="{Binding RegisterButtonClickedCommand}"
-                        TextColor="White"
+                        TextColor="{Static res:ColorResource.WHITE_COLOR}"
                         FontFamily="{Static res:FontResource.BOLD}"
                         FontSize="{local:ScaleFontSize Value=16}"
                         BackgroundColor="{Static res:ColorResource.MAIN_BUTTON_COLOR}"
@@ -349,11 +348,11 @@
                     <Label.FormattedText>
                         <FormattedString>
                             <Span Text="Have an account? "
-                                  TextColor="White"
+                                  TextColor="{Static res:ColorResource.MAIN_BLACK_COLOR}"
                                   FontFamily="{Static res:FontResource.LIGHT}"
                                   FontSize="{local:ScaleFontSize Value=16}"/>
                             <Span Text="Login"
-                                  TextColor="White"
+                                  TextColor="{Static res:ColorResource.MAIN_BLACK_COLOR}"
                                   FontFamily="{Static res:FontResource.BOLD}"
                                   FontSize="{local:ScaleFontSize Value=16}"
                                   TextDecorations="Underline"/>

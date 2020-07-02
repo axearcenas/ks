@@ -24,12 +24,12 @@ namespace KeepSafe
         public DelegateCommand RegisterButtonClickedCommand { get; set; }
         public DelegateCommand LoginLabelTappedCommand { get; set; }
 
-        public EntryViewModel BusinessNameEntry { get; } = new EntryViewModel() { Placeholder = "Business Name", PlaceholderColor = ColorResource.WHITE_COLOR };
-        public EntryViewModel MobileNumberEntry { get; } = new EntryViewModel() { Placeholder = "Mobile #", PlaceholderColor = ColorResource.WHITE_COLOR };
-        public EntryViewModel ContactPersonEntry { get; } = new EntryViewModel() { Placeholder = "Contact Person", PlaceholderColor = ColorResource.WHITE_COLOR };
-        public EntryViewModel AddressEntry { get; } = new EntryViewModel() { Placeholder = "Address", PlaceholderColor = ColorResource.WHITE_COLOR };
-        public EntryViewModel EmailAddressEntry { get; } = new EntryViewModel() { Placeholder = "Email", PlaceholderColor = ColorResource.WHITE_COLOR };
-        public EntryViewModel PasswordEntry { get; } = new EntryViewModel() { Placeholder = "Password", PlaceholderColor = ColorResource.WHITE_COLOR, IsPassword = true };
+        public EntryViewModel BusinessNameEntry { get; } = new EntryViewModel() { Placeholder = "Business Name", PlaceholderColor = ColorResource.MAIN_BLACK_COLOR };
+        public EntryViewModel MobileNumberEntry { get; } = new EntryViewModel() { Placeholder = "Mobile #", PlaceholderColor = ColorResource.MAIN_BLACK_COLOR };
+        public EntryViewModel ContactPersonEntry { get; } = new EntryViewModel() { Placeholder = "Contact Person", PlaceholderColor = ColorResource.MAIN_BLACK_COLOR };
+        public EntryViewModel AddressEntry { get; } = new EntryViewModel() { Placeholder = "Address", PlaceholderColor = ColorResource.MAIN_BLACK_COLOR };
+        public EntryViewModel EmailAddressEntry { get; } = new EntryViewModel() { Placeholder = "Email", PlaceholderColor = ColorResource.MAIN_BLACK_COLOR };
+        public EntryViewModel PasswordEntry { get; } = new EntryViewModel() { Placeholder = "Password", PlaceholderColor = ColorResource.MAIN_BLACK_COLOR, IsPassword = true };
 
         //TODO Remove this tihs
         string _EstablishmentImage;
@@ -53,7 +53,7 @@ namespace KeepSafe
             set { SetProperty(ref _UploadPhotoTextColor, value, nameof(UploadPhotoTextColor)); }
         }
 
-        Color _EstablishmentTypeTextColor = Color.White;
+        Color _EstablishmentTypeTextColor = ColorResource.MAIN_BLACK_COLOR;
         public Color EstablishmentTypeTextColor
         {
             get { return _EstablishmentTypeTextColor; }
@@ -65,7 +65,7 @@ namespace KeepSafe
             }
         }
 
-        Color _EULATextColor = Color.White;
+        Color _EULATextColor = ColorResource.MAIN_BLACK_COLOR;
         public Color EULATextColor
         {
             get { return _EULATextColor; }
@@ -118,7 +118,7 @@ namespace KeepSafe
                     {
                         file = await mediaHelper.TakePhotoAsync(new StoreCameraMediaOptions()
                         {
-                            Directory = "Pass",
+                            Directory = "KeepSafe",
                             Name = $"{DateTime.UtcNow}.jpg",
                             CompressionQuality = 92,
                             MaxWidthHeight = (int)400.ScaleHeight(),
@@ -167,7 +167,7 @@ namespace KeepSafe
             IsChecked = !IsChecked;
 
             if (EULATextColor == Color.Red)
-                EULATextColor = Color.White;
+                EULATextColor = ColorResource.MAIN_BLACK_COLOR;
 
             (sender as Button).Text = IsChecked ? "check" : "";
         }

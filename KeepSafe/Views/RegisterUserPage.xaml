@@ -104,7 +104,7 @@
                                InputTransparent="True"
                                HorizontalOptions="Center"
                                VerticalOptions="Center"/>
-                        <Label Text="Upload Photo"
+                        <Label Text="Upload&#10;Photo"
                                FontFamily="{Static res:FontResource.REGULAR}"
                                TextColor="{Binding UploadPhotoTextColor}"
                                FontSize="{local:ScaleFontSize Value=16}"
@@ -112,7 +112,7 @@
                                HorizontalOptions="Center"
                                VerticalOptions="Center"/>
                         <Image BackgroundColor="Transparent"
-                                          Source="{Binding EstablishmentImage}"
+                                          Source="{Binding UserImage}"
                                           HorizontalOptions="Fill"
                                           VerticalOptions="Fill"
                                           HeightRequest="{local:ScaleHeightDouble Value=111}"
