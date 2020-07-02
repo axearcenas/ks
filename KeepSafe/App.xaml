@@ -99,6 +99,7 @@
             <ControlTemplate x:Key="NavigationBar">
                 <Grid RowSpacing="0"
                       ColumnSpacing="0"
+                      BackgroundColor="{TemplateBinding NavBackgroundColor}"
                       Padding="{x:Static local:Constants.STATUSBAR_PADDING}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="{x:Static local:Constants.NAVIGATION_HEIGHT}"/>
@@ -124,12 +125,20 @@
                            BackgroundColor="{TemplateBinding NavBackgroundColor}"
                            Opacity="{TemplateBinding NavOpacity}"
                            InputTransparent="true"/>
-                    <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Text="{TemplateBinding PageTitle}"
-                           InputTransparent="true" Margin="{x:Static local:Constants.NAV_TITLE_MARGIN}"
-                           VerticalOptions="{TemplateBinding TitleVerticalOptions}" VerticalTextAlignment="Center"
-                           HorizontalOptions="{TemplateBinding TitleHorizontalOptions}" HorizontalTextAlignment="Center"
-                           HeightRequest="{TemplateBinding TitleHeightRequest}" FontSize="{TemplateBinding TitleFontSize}"
-                           FontFamily="{TemplateBinding TitleFontFamily}" TextColor="{TemplateBinding TitleFontColor}"/>
+                    <Label Grid.Row="0"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="3"
+                           Text="{TemplateBinding PageTitle}"
+                           InputTransparent="true"
+                           VerticalOptions="{TemplateBinding TitleVerticalOptions}"
+                           VerticalTextAlignment="Center"
+                           HorizontalOptions="{TemplateBinding TitleHorizontalOptions}"
+                           HorizontalTextAlignment="Center"
+                           Margin="{local:ScaleThickness Value='0,-2,0,0'}"
+                           HeightRequest="{TemplateBinding TitleHeightRequest}"
+                           FontSize="{TemplateBinding TitleFontSize}"
+                           FontFamily="{TemplateBinding TitleFontFamily}"
+                           TextColor="{TemplateBinding TitleFontColor}"/>
                     <Button Grid.Column="0"
                             Text="{TemplateBinding LeftText}"
                             Command="{TemplateBinding LeftButtonCommand}"

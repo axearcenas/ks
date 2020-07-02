@@ -99,5 +99,8 @@
     <Compile Update="Views\ProfilePage.xaml.cs">
       <DependentUpon>ProfilePage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\UserCheckInPage.xaml.cs">
+      <DependentUpon>UserCheckInPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

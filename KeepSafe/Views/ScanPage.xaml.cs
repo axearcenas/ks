@@ -20,7 +20,7 @@ namespace KeepSafe.Views
             //if (Device.RuntimePlatform == Device.Android)
                 //scannerView.Options = new ZXing.Mobile.MobileBarcodeScanningOptions() { CameraResolutionSelector = CameraResolutionSelectorDelegate_Execute };
         }
-
+        ScanPageViewModel ScanPageViewModel;
         protected override async void OnAppearing()
         {
             base.OnAppearing();
@@ -44,6 +44,30 @@ namespace KeepSafe.Views
                 CanScan = true;
             }
         }
+
+        protected override void OnBindingContextChanged()
+        {
+            base.OnBindingContextChanged();
+            if(ScanPageViewModel == null && BindingContext is ScanPageViewModel scanPageViewModel)
+            {
+                ScanPageViewModel = scanPageViewModel;
+                ScanPageViewModel.IsActiveChanged += ScanPageViewModel_IsActiveChanged;
+            }
+        }
+
+        private void ScanPageViewModel_IsActiveChanged(object sender, EventArgs e)
+        {
+            if (ScanPageViewModel.IsActive)
+            {
+                if(scannerView.Parent == null)
+                    gridView.Children.Insert(0,scannerView);
+            }
+            else
+            { 
+                gridView.Children.Remove(scannerView);
+            }
+        }
+
         ZXingScannerView scannerView;
         void InitScannerView()
         {
@@ -82,16 +106,11 @@ namespace KeepSafe.Views
                 if (Device.RuntimePlatform == Device.Android)
                     scannerView.Options = new ZXing.Mobile.MobileBarcodeScanningOptions() { CameraResolutionSelector = CameraResolutionSelectorDelegate_Execute };
             }
-            if(scannerView != null ? scannerView.Parent == null : false)
-            {
-                gridView.Children.Insert(0, scannerView);
-            }
         }
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            gridView.Children.Remove(scannerView);
         }
 
         private void ScannerView_OnScanResult(ZXing.Result result)

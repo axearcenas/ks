@@ -4,8 +4,10 @@ using System.Threading.Tasks;
 using KeepSafe.Helpers;
 using KeepSafe.Helpers.FileReader;
 using KeepSafe.Helpers.Permission;
+using KeepSafe.Models;
 using KeepSafe.Resources;
 using KeepSafe.ViewModels.ViewViewModels;
+using KeepSafe.Views;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Prism;
@@ -25,6 +27,8 @@ namespace KeepSafe.ViewModels
         public DelegateCommand<Result> ScanCommand { get; set; }
         public DelegateCommand SearchCommand { get; set; }
 
+        Action<bool> ScanPageActive;
+
         bool _IsScanning;
         public bool IsScanning
         {
@@ -38,7 +42,13 @@ namespace KeepSafe.ViewModels
         {
             ScanCommand = new DelegateCommand<Result>(OnScanCommand_Execute);
             SearchCommand = new DelegateCommand(OnSearchCommand_Execute);
+            ScanPageActive = new Action<bool>(OnScanPageActive_Execute);
             SearchEntry.PropertyChanged += SearchEntry_PropertyChanged;
+        }
+
+        private void OnScanPageActive_Execute(bool obj)
+        {
+            IsActive = true;
         }
 
         private void SearchEntry_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -54,7 +64,7 @@ namespace KeepSafe.ViewModels
 
         private void OnSearchCommand_Execute()
         {
-            if (!IsClicked && SearchEntry.ValidateIsTextNullOrEmpty())
+            if (!IsClicked && !SearchEntry.ValidateIsTextNullOrEmpty())
             {
                 IsClicked = true;
                 SearchQR(SearchEntry.Text, false);
@@ -78,14 +88,11 @@ namespace KeepSafe.ViewModels
 
         public event EventHandler IsActiveChanged;
 
-
         protected virtual async  void RaiseIsActiveChanged()
         {
             IsScanning = IsActive;
             IsActiveChanged?.Invoke(this, EventArgs.Empty);
         }
-
-
 
         async void SearchQR(string code, bool IsQrCode)
         {
@@ -103,6 +110,8 @@ namespace KeepSafe.ViewModels
                     new
                     {
                         message = $"Scanned: {code}",
+                        business = new Business() { Id = 0,Photo = RandomizerHelper.GetRandomImageUrl((int)158.ScaleWidth(), (int)158.ScaleHeight(), category: ImageCategory.tech), Name = "Golden Prince Hotel" },
+                        type = RandomizerHelper.GetRandomInteger(10) % 2 == 0 ? 0 : 1,
                         status = 200
                     }),cts.Token, 0);
 #else
@@ -133,15 +142,22 @@ namespace KeepSafe.ViewModels
                 switch (wsType)
                 {
                     case 0:
-                        if (jsonData.ContainsKey("message"))
-                        {
                             Device.BeginInvokeOnMainThread(async () =>
                             {
                                 //TODO save USER Here
-                                PageDialogService?.DisplayAlertAsync("Scan Succesfully", jsonData["message"].ToString(), "Okay");
+                                if (jsonData.ContainsKey("message"))
+                                {
+                                    PageDialogService?.DisplayAlertAsync("Scan Succesfully", jsonData["message"].ToString(), "Okay");
+                                }
+                                INavigationParameters keys = new NavigationParameters();
+                                keys.Add("ScanPageActiveAction", ScanPageActive);
+                                if(jsonData.ContainsKey("type"))
+                                    keys.Add("IsCheckIn", jsonData["type"].ToObject<int>() == 0);
+                                if (jsonData.ContainsKey("business"))
+                                    keys.Add("Business", jsonData["business"].ToObject<Business>());
+                                await NavigationService.NavigateAsync(nameof(UserCheckInPage), keys, useModalNavigation: true);
                             });
-                        }
-                        break;
+                        break; 
                 }
             }
             IsClicked = false;
