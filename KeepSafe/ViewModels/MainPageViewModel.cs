@@ -111,9 +111,7 @@ namespace KeepSafe.ViewModels
 
         private void OnToRegistrationCommand_Execute()
         {
-            //TODO Navigate to RegisterPage
-            App.Log("TODO: Navigate to RegisterPage");
-            NavigationService.NavigateAsync("RegisterUserPage");
+            NavigationService.NavigateAsync("RegisterPage");
         }
 
     }

@@ -7,8 +7,7 @@
                         x:Class="KeepSafe.App"
                         xmlns:prism="clr-namespace:Prism.DryIoc;assembly=Prism.DryIoc.Forms"
                         xmlns:local="clr-namespace:KeepSafe"
-                        xmlns:res="clr-namespace:KeepSafe.Resources"
-                        >
+                        xmlns:res="clr-namespace:KeepSafe.Resources">
     <prism:PrismApplication.Resources>
         <ResourceDictionary>
             <!--Global Styles-->
