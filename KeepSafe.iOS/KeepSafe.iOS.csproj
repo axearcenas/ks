@@ -253,6 +253,7 @@
     <BundleResource Include="Resources\Fonts\Roboto-Regular.ttf" />
     <BundleResource Include="Resources\Fonts\Roboto-Bold.ttf" />
     <BundleResource Include="Resources\Fonts\Roboto-Light.ttf" />
+    <BundleResource Include="Resources\Fonts\Roboto-LightItalic.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Renderers\" />

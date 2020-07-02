@@ -1,27 +1,113 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using KeepSafe.Helpers.Permission;
+using KeepSafe.ViewModels;
+using Prism.Behaviors;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using ZXing.Mobile;
-
+using ZXing.Net.Mobile.Forms;
 namespace KeepSafe.Views
 {
     public partial class ScanPage : MainNavigationPage
     {
         static CameraResolution CameraResolution;
-
+        bool CanScan = true;
         public ScanPage()
         {
             InitializeComponent();
-            if (Device.RuntimePlatform == Device.Android)
-                scannerView.Options = new ZXing.Mobile.MobileBarcodeScanningOptions() { CameraResolutionSelector = CameraResolutionSelectorDelegate_Execute };
+            //if (Device.RuntimePlatform == Device.Android)
+                //scannerView.Options = new ZXing.Mobile.MobileBarcodeScanningOptions() { CameraResolutionSelector = CameraResolutionSelectorDelegate_Execute };
+        }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            if (CanScan)
+            {
+                CanScan = false;
+
+                var cameraPermission = await PermissionHelper.CheckAndRequestPermissionAsync(new Permissions.Camera());
+                //var flashlightPermission = await PermissionHelper.CheckAndRequestPermissionAsync(new Permissions.Flashlight());
+
+                if (cameraPermission == PermissionStatus.Granted)
+                {
+                    //await Navigation.ShowScannerPage(ScannerPage_OnScanResult);
+                    InitScannerView();
+                }
+                else
+                {
+                    //Utilities.ShowCustomMessagePopup(new CustomMessageModel() { Title = "Permission Denied", Content = "Camera permission is required to use this app.", Button = "Okay", Icon = "exclamation-circle", IconType = 2 });
+                }
+
+                CanScan = true;
+            }
+        }
+        ZXingScannerView scannerView;
+        void InitScannerView()
+        {
+            /*
+             * <scanner:ZXingScannerView  Grid.Row="1"
+                                   x:Name="scannerView"
+                                   IsScanning="False"
+                                   HorizontalOptions="Fill"
+                                   VerticalOptions="Fill"
+                                   WidthRequest="{local:ScaleWidthDouble Value=320}"
+                                   HeightRequest="{local:ScaleHeightDouble Value=487}">
+                <scanner:ZXingScannerView.Behaviors>
+                    <prism:EventToCommandBehavior Command="{Binding QRScanResultComand}"
+                                                  EventArgsParameterPath="."
+                                                  EventName="OnScanResult"/>
+                </scanner:ZXingScannerView.Behaviors>
+            </scanner:ZXingScannerView>
+             * */
+            if (scannerView == null)
+            {
+                scannerView = new ZXingScannerView()
+                {
+                    IsScanning = false,
+                    IsAnalyzing = false,
+                    HorizontalOptions = LayoutOptions.Fill,
+                    VerticalOptions = LayoutOptions.Fill
+                };
+                scannerView.SetBinding( ZXingScannerView.IsScanningProperty,"IsScanning");
+                scannerView.SetBinding(ZXingScannerView.IsAnalyzingProperty, "IsScanning");
+                Grid.SetRow(scannerView, 1);
+                scannerView.OnScanResult += ScannerView_OnScanResult;
+                //EventToCommandBehavior eventToCommandBehavior = new EventToCommandBehavior() { EventArgsParameterPath = ".", EventName = "OnScanResult" };
+                //eventToCommandBehavior.SetBinding(EventToCommandBehavior.CommandProperty, "QRScanResultCommand");
+                //scannerView.Behaviors.Add(eventToCommandBehavior);
+
+                if (Device.RuntimePlatform == Device.Android)
+                    scannerView.Options = new ZXing.Mobile.MobileBarcodeScanningOptions() { CameraResolutionSelector = CameraResolutionSelectorDelegate_Execute };
+            }
+            if(scannerView != null ? scannerView.Parent == null : false)
+            {
+                gridView.Children.Insert(0, scannerView);
+            }
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            gridView.Children.Remove(scannerView);
+        }
+
+        private void ScannerView_OnScanResult(ZXing.Result result)
+        {
+            App.Log($"RESULT: {result.Text}");
+            if(BindingContext is ScanPageViewModel scanPageViewModel)
+            {
+                scanPageViewModel.ScanCommand?.Execute(result);
+            }
         }
 
         CameraResolution CameraResolutionSelectorDelegate_Execute(List<CameraResolution> availableResolutions)
         {
             if (CameraResolution == null)
             {
-                CameraResolution = availableResolutions.FirstOrDefault((reso) => reso.Width <= 800);
+                CameraResolution = availableResolutions.FirstOrDefault((reso) => reso.Width <= 1000);
                 SetPadding(CameraResolution.Height, CameraResolution.Width);
             }
             return CameraResolution;

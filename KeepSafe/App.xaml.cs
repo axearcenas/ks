@@ -72,8 +72,8 @@ namespace KeepSafe
             //MainPage = new NavigationPage(new MainPage() { BindingContext = new MainPageViewModel(NavigationService, new PageDialogService(new ApplicationProvider())) });
             //MainPage = new CustomServerPopup() { BindingContext = new CustomServerPopupViewModel(NavigationService) };
 
-            ShowMainPage();
-            //ShowHomePage();
+            //ShowMainPage();
+            ShowHomePage();
         }
 
         public static void Log(string msg, [System.Runtime.CompilerServices.CallerMemberName] string memberName = "")

@@ -115,7 +115,7 @@
                            HorizontalOptions="Fill"
                            VerticalOptions="Fill"
                            Aspect="AspectFill"
-                           BackgroundColor="{TemplateBinding NavBackgroundColor}"
+                           BackgroundColor="{TemplateBinding BackgroundColor}"
                            InputTransparent="true"/>
                     <ContentPresenter Grid.Row="1" Grid.ColumnSpan="3"/>
                     <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"

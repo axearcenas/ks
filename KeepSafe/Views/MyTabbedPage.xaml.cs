@@ -37,6 +37,7 @@ namespace KeepSafe.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
+
         }
 
         private void OnActivated()

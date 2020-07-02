@@ -6,9 +6,14 @@
                           xmlns:res="clr-namespace:KeepSafe.Resources"
                           xmlns:views="clr-namespace:KeepSafe.Views"
                           xmlns:prism="http://prismlibrary.com"
+                          xmlns:scanner="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
                           NavBackgroundColor="{Static res:ColorResource.MAIN_DARK_THEME_COLOR}"
                           BackgroundColor="{Static res:ColorResource.SCANNER_BACKGROUNDCOLOR}"
-                          xmlns:scanner="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms">
+                          PageTitle="Scan QR"
+                          TitleFontFamily="{Static res:FontResource.BOLD}"
+                          TitleFontSize="{local:ScaleFontSize Value=21}"
+                          TitleHeightRequest="{local:ScaleHeight Value=25}"
+                          TitleVerticalOptions="Center">
     <local:MainNavigationPage.Resources>
         <ResourceDictionary>            
             <Style TargetType="local:CustomEntry" x:Key="EntryStyle">
@@ -16,9 +21,9 @@
                 <Setter Property="BackgroundColor" Value="Transparent"/>
                 <Setter Property="VerticalOptions" Value="Fill"/>
                 <Setter Property="HorizontalOptions" Value="Fill"/>
-                <Setter Property="FontSize" Value="{local:ScaleFontSize Value=17}"/>
-                <Setter Property="TextColor" Value="{Static res:ColorResource.MAIN_BLACK_COLOR}"/>
-                <Setter Property="FontFamily" Value="{Static res:FontResource.LIGHT}"/>
+                <Setter Property="FontSize" Value="{local:ScaleFontSize Value=20}"/>
+                <Setter Property="TextColor" Value="{Static res:ColorResource.MAIN_BLUE_COLOR}"/>
+                <Setter Property="FontFamily" Value="{Static res:FontResource.LIGHTITALIC}"/>
                 <Setter Property="Margin" Value="{local:ScaleThickness Value='0,0'}"/>
                 <Setter Property="MoveUp" Value="True"/>
                 <Setter Property="MoveUpAnimationSpeed" Value="16"/>
@@ -26,14 +31,15 @@
             </Style>
         </ResourceDictionary>
     </local:MainNavigationPage.Resources>
-    <Grid  RowSpacing="0"
+    <Grid x:Name="gridView" RowSpacing="0"
            ColumnSpacing="0"
            VerticalOptions="Fill"
-           PropertyChanged="Grid_PropertyChanged"
+          PropertyChanged="Grid_PropertyChanged"
+           BackgroundColor="{Static res:ColorResource.SCANNER_BACKGROUNDCOLOR}"
            RowDefinitions="{local:ScaleRowDefinition Value='61,*'}">
-        <scanner:ZXingScannerView  Grid.Row="1"
+        <!--<scanner:ZXingScannerView  Grid.Row="1"
                                    x:Name="scannerView"
-                                   IsScanning="true"
+                                   IsScanning="False"
                                    HorizontalOptions="Fill"
                                    VerticalOptions="Fill"
                                    WidthRequest="{local:ScaleWidthDouble Value=320}"
@@ -43,8 +49,9 @@
                                               EventArgsParameterPath="."
                                               EventName="OnScanResult"/>
             </scanner:ZXingScannerView.Behaviors>
-        </scanner:ZXingScannerView>
-        <local:FFSVGImage Grid.Row="1" Source="{local:FFSVGImageSource ImageName=ScannerInidcator}"
+        </scanner:ZXingScannerView>-->
+        <local:FFSVGImage Grid.Row="1"
+                          Source="{local:FFSVGImageSource ImageName=ScannerInidcator}"
                           HeightRequest="{local:ScaleHeight Value=161}"
                           WidthRequest="{local:ScaleWidth Value=159}"
                           HorizontalOptions="Center"
@@ -68,11 +75,11 @@
                                    Keyboard="Default"
                                    MoveUpOffset="{local:ScaleHeightDouble Value=85}"
                                    Style="{StaticResource EntryStyle}"
-                                   Margin="{local:ScaleThickness Value='0,0,42,0'}">
+                                   Margin="{local:ScaleThickness Value='0,0,42,0'}"
+                                   MaxLength="8">
                 <local:CustomEntry.Behaviors>
-                    <prism:EventToCommandBehavior Command="{Binding EntryFocusedCommand}"
-                                                  CommandParameter="1"
-                                                  EventName="Focused" />
+                    <prism:EventToCommandBehavior Command="{Binding SearchCommand}"
+                                                  EventName="Completed" />
                 </local:CustomEntry.Behaviors>
             </local:CustomEntry>
             </Grid>
