@@ -1,13 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <local:MainNavigationPage xmlns="http://xamarin.com/schemas/2014/forms"
                           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                          x:Class="KeepSafe.RegisterUserPage"
+                          x:Class="KeepSafe.RegisterBusinessPage"
                           xmlns:local="clr-namespace:KeepSafe"
                           xmlns:prism="http://prismlibrary.com"
                           xmlns:res="clr-namespace:KeepSafe.Resources"
                           NavigationPage.HasNavigationBar="False"
-                          BackgroundColor="#804456"
-                          NavBackgroundColor="#5D172C"
+                          NavBackgroundColor="#22144D"
                           LeftIcon="BackIcon"
                           LeftIconType="SVG"
                           LeftIconColor="White"
@@ -21,7 +20,7 @@
             <Style TargetType="Frame" x:Key="EntryFrameStyle">
                 <Setter Property="Margin" Value="0"/>
                 <Setter Property="Padding" Value="0"/>
-                <Setter Property="BackgroundColor" Value="#A57B88"/>
+                <Setter Property="BackgroundColor" Value="{Static res:ColorResource.WHITE_COLOR}"/>
                 <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
                 <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
                 <Setter Property="CornerRadius" Value="{local:ScaleHeight Value=20}"/>
@@ -31,14 +30,14 @@
             <Style TargetType="Label" x:Key="EntryIconStyle">
                 <Setter Property="Grid.Column" Value="0"/>
                 <Setter Property="FontFamily" Value="{Static res:FontResource.FONTAWESOME5_SOLID}"/>
-                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="TextColor" Value="{Static res:ColorResource.MAIN_BLACK_COLOR}"/>
                 <Setter Property="FontSize" Value="{local:ScaleFontSize Value=17}"/>
                 <Setter Property="HorizontalOptions" Value="End"/>
                 <Setter Property="VerticalOptions" Value="Center"/>
             </Style>
             <Style TargetType="local:CustomEntry" x:Key="EntryStyle">
                 <Setter Property="Grid.Column" Value="1"/>
-                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="TextColor" Value="{Static res:ColorResource.MAIN_BLACK_COLOR}"/>
                 <Setter Property="FontFamily" Value="{Static res:FontResource.LIGHT}"/>
                 <Setter Property="FontSize" Value="{local:ScaleFontSize Value=16}"/>
                 <Setter Property="BackgroundColor" Value="Transparent"/>
@@ -47,13 +46,13 @@
         </ResourceDictionary>
     </local:MainNavigationPage.Resources>
     <local:MainNavigationPage.Content>
-        <ScrollView BackgroundColor="#804456"
+        <ScrollView BackgroundColor="#ECF0F1"
                     HorizontalScrollBarVisibility="Never"
                     VerticalScrollBarVisibility="Never">
             <Grid RowSpacing="0"
-              ColumnSpacing="0"
-              Margin="0"
-              Padding="0">
+                  ColumnSpacing="0"
+                  Margin="0"
+                  Padding="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="{local:ScaleGridHeight Value=23}"/>
                     <RowDefinition Height="{local:ScaleGridHeight Value=111}"/>
@@ -112,7 +111,7 @@
                                HorizontalOptions="Center"
                                VerticalOptions="Center"/>
                         <Image BackgroundColor="Transparent"
-                                          Source="{Binding UserImage}"
+                                          Source="{Binding EstablishmentImage}"
                                           HorizontalOptions="Fill"
                                           VerticalOptions="Fill"
                                           HeightRequest="{local:ScaleHeightDouble Value=111}"
@@ -120,7 +119,7 @@
                                           Aspect="AspectFill"/>
                     </Grid>                    
                 </Frame>
-                <!--First Name-->
+                <!--Business Name-->
                 <Frame Grid.Row="3"
                        Style="{StaticResource EntryFrameStyle}">
                     <Grid RowSpacing="0"
@@ -130,18 +129,18 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="{local:ScaleGridWidth Value=30}"/>
                         </Grid.ColumnDefinitions>
-                        <Label Text="user"
-                               FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"
+                        <Label Text="briefcase"
                                Style="{StaticResource EntryIconStyle}"/>
-                        <local:CustomEntry Text="{Binding FirstNameEntry.Text}"
-                                           Placeholder="{Binding FirstNameEntry.Placeholder}"
-                                           PlaceholderColor="{Binding FirstNameEntry.PlaceholderColor}"
+                        <local:CustomEntry Text="{Binding BusinessNameEntry.Text}"
+                                           Placeholder="{Binding BusinessNameEntry.Placeholder}"
+                                           PlaceholderColor="{Binding BusinessNameEntry.PlaceholderColor}"
                                            AutoCapitalization="Words"
                                            Style="{StaticResource EntryStyle}"/>
                     </Grid>
                 </Frame>
-                <!--Last Name-->
+                <!--Type of Establishment-->
                 <Frame Grid.Row="5"
+                       IsClippedToBounds="True"
                        Style="{StaticResource EntryFrameStyle}">
                     <Grid RowSpacing="0"
                           ColumnSpacing="0">
@@ -150,14 +149,52 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="{local:ScaleGridWidth Value=30}"/>
                         </Grid.ColumnDefinitions>
-                        <Label Text="user"
-                               FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"
+                        <Label Text="building"
                                Style="{StaticResource EntryIconStyle}"/>
-                        <local:CustomEntry Text="{Binding LastNameEntry.Text}"
-                                           Placeholder="{Binding LastNameEntry.Placeholder}"
-                                           PlaceholderColor="{Binding LastNameEntry.PlaceholderColor}"
-                                           AutoCapitalization="Words"
-                                           Style="{StaticResource EntryStyle}"/>
+                        <Picker x:Name="EstablishmentPicker"
+                                Grid.Column="1"
+                                Grid.ColumnSpan="2"
+                                Title="Type of Establishment"
+                                TitleColor="{Binding EstablishmentTypeTextColor}"
+                                BackgroundColor="{Static res:ColorResource.WHITE_COLOR}"
+                                TextColor="{Static res:ColorResource.MAIN_BLACK_COLOR}"
+                                SelectedItem="{Binding EstablishmentTypeSelectedItem}"
+                                FontFamily="{Static res:FontResource.LIGHT}"
+                                FontSize="{local:ScaleFontSize Value=16}"
+                                Margin="{local:ScaleThickness Value='12,0,0,0'}">
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>Hotel</x:String>
+                                    <x:String>Gym &#x26; Yoga</x:String>
+                                    <x:String>Clinic</x:String>
+                                    <x:String>Hospital</x:String>
+                                    <x:String>Travel Agency</x:String>
+                                    <x:String>Boutique</x:String>
+                                    <x:String>Bar &#x26; Restaurant</x:String>
+                                    <x:String>Manufacturing</x:String>
+                                    <x:String>Banking &#x26; Remittance</x:String>
+                                    <x:String>Spa &#x26; Personal Care</x:String>
+                                    <x:String>Government</x:String>
+                                    <x:String>Theatre &#x26; Movie Houses</x:String>
+                                    <x:String>Appliance &#x26; Computer Store</x:String>
+                                    <x:String>Department Store</x:String>
+                                    <x:String>Grocery &#x26; Supermarket</x:String>
+                                    <x:String>Automobile</x:String>
+                                    <x:String>Home Improvement</x:String>
+                                    <x:String>Graphics &#x26; Printing</x:String>
+                                </x:Array>
+                            </Picker.ItemsSource>
+                            <Picker.Behaviors>
+                                <prism:EventToCommandBehavior Command="{Binding SelectedIndexChangedCommand}"
+                                                              CommandParameter="{x:Reference EstablishmentPicker}"
+                                                              EventName="SelectedIndexChanged"/>
+                            </Picker.Behaviors>
+                        </Picker>
+                        <Label Text="chevron-down"
+                               Grid.Column="2"
+                               InputTransparent="True"
+                               HorizontalOptions="Start"
+                               Style="{StaticResource EntryIconStyle}"/>
                     </Grid>
                 </Frame>
                 <!--Mobile #-->
@@ -180,8 +217,28 @@
                                            Style="{StaticResource EntryStyle}"/>
                     </Grid>
                 </Frame>
-                <!--Address-->
+                <!--Contact Person-->
                 <Frame Grid.Row="9"
+                       Style="{StaticResource EntryFrameStyle}">
+                    <Grid RowSpacing="0"
+                          ColumnSpacing="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="{local:ScaleGridWidth Value=40}"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="{local:ScaleGridWidth Value=30}"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Text="user"
+                               FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"
+                               Style="{StaticResource EntryIconStyle}"/>
+                        <local:CustomEntry Text="{Binding ContactPersonEntry.Text}"
+                                           Placeholder="{Binding ContactPersonEntry.Placeholder}"
+                                           PlaceholderColor="{Binding ContactPersonEntry.PlaceholderColor}"
+                                           AutoCapitalization="Words"
+                                           Style="{StaticResource EntryStyle}"/>
+                    </Grid>
+                </Frame>
+                <!--Address-->
+                <Frame Grid.Row="11"
                        Style="{StaticResource EntryFrameStyle}">
                     <Grid RowSpacing="0"
                           ColumnSpacing="0">
@@ -198,36 +255,6 @@
                                            Style="{StaticResource EntryStyle}"/>
                     </Grid>
                 </Frame>
-                <!--Birthdate-->
-                <Frame Grid.Row="11"
-                       Style="{StaticResource EntryFrameStyle}">
-                    <Grid RowSpacing="0"
-                          ColumnSpacing="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="{local:ScaleGridWidth Value=40}"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="{local:ScaleGridWidth Value=30}"/>
-                        </Grid.ColumnDefinitions>
-                        <Label Text="calendar-alt"
-                               FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"
-                               Style="{StaticResource EntryIconStyle}"/>
-                        <local:CustomDatePicker x:Name="BirthdatePicker"
-                                                Grid.Column="1"
-                                                Placeholder="Birthdate"
-                                                Date="{Binding Birthdate}"
-                                                TextColor="{Binding BirthdateTextColor}"
-                                                FontFamily="{Static res:FontResource.LIGHT}"
-                                                FontSize="{local:ScaleFontSize Value=16}"
-                                                BackgroundColor="Transparent"
-                                                Margin="{local:ScaleThickness Value='12,0,0,0'}">
-                            <local:CustomDatePicker.Behaviors>
-                                <prism:EventToCommandBehavior Command="{Binding DateSelectedCommand}"
-                                                              CommandParameter="{x:Reference BirthdatePicker}"
-                                                              EventName="DateSelected"/>
-                            </local:CustomDatePicker.Behaviors>
-                        </local:CustomDatePicker>
-                    </Grid>
-                </Frame>                
                 <!--Email-->
                 <Frame Grid.Row="13"
                        Style="{StaticResource EntryFrameStyle}">
@@ -279,7 +306,7 @@
                     <Button x:Name="CheckBoxButton"
                             Command="{Binding CheckBoxClickedCommand}"
                             CommandParameter="{x:Reference CheckBoxButton}"
-                            TextColor="#804456"
+                            TextColor="{Static res:ColorResource.MAIN_BLACK_COLOR}"
                             FontFamily="{Static res:FontResource.FONTAWESOME5_SOLID}"
                             FontSize="{local:ScaleFontSize Value=16}"
                             BackgroundColor="White"
@@ -301,7 +328,7 @@
                 <Button Grid.Row="19"
                         Text="Register"
                         Command="{Binding RegisterButtonClickedCommand}"
-                        TextColor="White"
+                        TextColor="{Static res:ColorResource.WHITE_COLOR}"
                         FontFamily="{Static res:FontResource.BOLD}"
                         FontSize="{local:ScaleFontSize Value=16}"
                         BackgroundColor="{Static res:ColorResource.MAIN_BUTTON_COLOR}"
@@ -321,11 +348,11 @@
                     <Label.FormattedText>
                         <FormattedString>
                             <Span Text="Have an account? "
-                                  TextColor="White"
+                                  TextColor="{Static res:ColorResource.MAIN_BLACK_COLOR}"
                                   FontFamily="{Static res:FontResource.LIGHT}"
                                   FontSize="{local:ScaleFontSize Value=16}"/>
                             <Span Text="Login"
-                                  TextColor="White"
+                                  TextColor="{Static res:ColorResource.MAIN_BLACK_COLOR}"
                                   FontFamily="{Static res:FontResource.BOLD}"
                                   FontSize="{local:ScaleFontSize Value=16}"
                                   TextDecorations="Underline"/>

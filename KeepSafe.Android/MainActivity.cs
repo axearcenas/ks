@@ -35,6 +35,8 @@ namespace KeepSafe.Droid
 
                 newUiOptions |= (int)SystemUiFlags.LayoutStable;
                 newUiOptions |= (int)SystemUiFlags.LayoutFullscreen;
+                newUiOptions |= (int)SystemUiFlags.HideNavigation;
+                newUiOptions |= (int)SystemUiFlags.ImmersiveSticky;
 
                 Window.DecorView.SystemUiVisibility = (StatusBarVisibility)newUiOptions;
             }

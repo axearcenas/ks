@@ -56,6 +56,7 @@
     <Folder Include="Resources\SVG\" />
     <Folder Include="Views\" />
     <Folder Include="DependencyServices\" />
+    <Folder Include="Enum\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Renderers\CustomButtonRenderer.cs" />
@@ -74,10 +75,15 @@
     <None Remove="Resources\SVG\ScanIcon.svg" />
     <None Remove="Resources\SVG\ScannerInidcator.svg" />
     <None Remove="Resources\SVG\SearchIcon.svg" />
+    <None Remove="Resources\Files\CheckInHistory.json" />
+    <None Remove="Resources\Files\CheckOutHistory.json" />
+    <None Remove="Resources\SVG\MyQRIcon.svg" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Files\CustomAlert.json" />
     <EmbeddedResource Include="Resources\Files\ServerList.json" />
+    <EmbeddedResource Include="Resources\Files\CheckInHistory.json" />
+    <EmbeddedResource Include="Resources\Files\CheckOutHistory.json" />
     <EmbeddedResource Include="Resources\SVG\KeepSafeLogo.svg" />
     <EmbeddedResource Include="Resources\SVG\BackIcon.svg" />
     <EmbeddedResource Include="Resources\SVG\ArrowForward.svg" />
@@ -88,6 +94,7 @@
     <EmbeddedResource Include="Resources\SVG\ScanIcon.svg" />
     <EmbeddedResource Include="Resources\SVG\ScannerInidcator.svg" />
     <EmbeddedResource Include="Resources\SVG\SearchIcon.svg" />
+    <EmbeddedResource Include="Resources\SVG\MyQRIcon.svg" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Views\HomePage.xaml.cs">
@@ -101,6 +108,9 @@
     </Compile>
     <Compile Update="Views\UserCheckInPage.xaml.cs">
       <DependentUpon>UserCheckInPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Popups\LoadingPage.xaml.cs">
+      <DependentUpon>LoadingPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>

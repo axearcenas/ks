@@ -1,0 +1,59 @@
+﻿{
+  "histories": [
+    {
+      "id": 1,
+      "plate_number": null,
+      "name": "Summit Galleria Hotel",
+      "address": "General Maxilom Ave Ext, Cebu City",
+      "date_scanned": "06/25/20 10:30 AM",
+      "history_type": 1,
+      "business_type": 0
+    },
+    {
+      "id": 2,
+      "plate_number": "AB-CD2",
+      "name": null,
+      "address": "Ayala Center Cebu",
+      "date_scanned": "06/25/20 10:30 AM",
+      "history_type": 1,
+      "business_type": 15
+    },
+    {
+      "id": 0,
+      "plate_number": "AB-CD1",
+      "name": null,
+      "address": "Panagdait - Labangon",
+      "date_scanned": "06/25/20 10:30 AM",
+      "history_type": 1,
+      "business_type": 15
+    },
+    {
+      "id": 3,
+      "plate_number": "AB-CD1",
+      "name": null,
+      "address": "Panagdait - Labangon",
+      "date_scanned": "06/25/20 10:30 AM",
+      "history_type": 1,
+      "business_type": 15
+    },
+    {
+      "id": 4,
+      "plate_number": null,
+      "name": "Summit Galleria Hotel",
+      "address": "General Maxilom Ave Ext, Cebu City",
+      "date_scanned": "06/25/20 10:30 AM",
+      "history_type": 1,
+      "business_type": 0
+    },
+    {
+      "id": 5,
+      "plate_number": "AB-CD2",
+      "name": null,
+      "address": "Ayala Center Cebu",
+      "date_scanned": "06/25/20 10:30 AM",
+      "history_type": 1,
+      "business_type": 15
+    }
+  ],
+  "status": 200
+}
