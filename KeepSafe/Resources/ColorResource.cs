@@ -15,6 +15,10 @@ namespace KeepSafe.Resources
         public static readonly Color MAIN_DARK_THEME_COLOR = Color.FromHex("#5D172C");
         public static readonly Color MAIN_BLUE_COLOR = Color.FromHex("#05257A");
 
+        public static readonly Color SCANNER_BACKGROUNDCOLOR = Color.FromHex("#804456");
+
+        
+
         public static readonly Color LIST_CARD_BACKGROUNDCOLOR = Color.FromHex("#885967");
         public static readonly Color LIST_CARD_ICON_BACKGROUNDCOLOR = Color.FromHex("#64293B");
 

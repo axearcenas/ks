@@ -13,7 +13,7 @@
                           NavBackgroundColor="Transparent"
                           BackgroundImageSource="UserBackground"
                           StatusBarColor="Light"
-                          BackgroundColor="{Static res:ColorResource.MAIN_DARK_THEME_COLOR}">
+                          BackgroundColor="#BE5869">
     <local:MainNavigationPage.Resources>
         <ResourceDictionary>
             <!--<Style x:Key="ButtonStyle" TargetType="Button">
@@ -120,7 +120,8 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid Padding="0"
-                              HeightRequest="{local:ScaleHeight Value=96}">
+                          RowSpacing="0"
+                          HeightRequest="{local:ScaleHeight Value=96}">
                         <Frame Margin="{local:ScaleThickness Value='20,0,20,10'}"
                            Padding="0"
                            CornerRadius="{local:ScaleHeight Value=5}"
@@ -128,10 +129,13 @@
                            BackgroundColor="{Static res:ColorResource.LIST_CARD_BACKGROUNDCOLOR}">
                         <Grid Padding="0"
                               ColumnSpacing="0"
-                              ColumnDefinitions="{local:ScaleColumnDefinition Value='48,*'}">
+                              RowSpacing="{local:ScaleHeight Value=0}"
+                              ColumnDefinitions="{local:ScaleColumnDefinition Value='48,*'}"
+                              RowDefinitions="{local:ScaleRowDefinition Value='4,20,20,20,20,4'}">
 
                             <!-- icon -->
-                            <Button Grid.Column="0"                                    
+                            <Button Grid.Column="0"
+                                    Grid.RowSpan="6"
                                     Text="{Binding BusinessTypeIcon}"
                                     TextColor="{Static res:ColorResource.WHITE_COLOR}"
                                     FontSize="{local:ScaleFontSize Value=21}"
@@ -141,54 +145,55 @@
                                     VerticalOptions="Fill"
                                     InputTransparent="True">
                             </Button>
-                            <StackLayout Grid.Column="1"
-                                         Spacing="{local:ScaleHeight Value=5}"
-                                         HorizontalOptions="Fill"
-                                         VerticalOptions="Center">
-                                <Label Text="{Binding Name}"                                       
-                                       Style="{StaticResource ListValueLabelStyle}">
-                                    <Label.Triggers>
-                                        <DataTrigger TargetType="Label" Binding="{Binding BusinessType}"
-                                                     Value="Automobile">
-                                            <Setter Property="Text" Value="{Binding PlateNumber,StringFormat='Plate#   {0}'}"/>
-                                        </DataTrigger>
-                                    </Label.Triggers>
-                                </Label>
-                                <Label Text="{Binding Address}"                                       
-                                       Style="{StaticResource ListValueLabelStyle}"/>
-                                <!--<Button Text="{Binding DateScanned, StringFormat='{0:MM/dd/yy}'}"
-                                        Style="{StaticResource ListValueButtonStyle}"/>-->
-                                <Label Style="{StaticResource ListValueLabelStyle}">
-                                    <Label.FormattedText>
-                                        <FormattedString>
-                                            <Span Text="calendar-alt"
-                                                  TextColor="{Static res:ColorResource.WHITE_COLOR}"
-                                                  FontSize="{local:ScaleFontSize Value=14}"
-                                                  FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"/>
-                                            <Span Text="{Binding DateScanned, StringFormat='    {0:MM/dd/yy}'}"
-                                                  TextColor="{Static res:ColorResource.WHITE_COLOR}"
-                                                  FontSize="{local:ScaleFontSize Value=12}"
-                                                  FontFamily="{Static res:FontResource.REGULAR}"/>
-                                        </FormattedString>
-                                    </Label.FormattedText>
-                                </Label>
-                                <Label Style="{StaticResource ListValueLabelStyle}" >
-                                    <Label.FormattedText>
-                                        <FormattedString>
-                                            <Span Text="clock"
-                                                  TextColor="{Static res:ColorResource.WHITE_COLOR}"
-                                                  FontSize="{local:ScaleFontSize Value=14}"
-                                                  FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"/>
-                                            <Span Text="{Binding DateScanned, StringFormat='   {0:H:mm tt}'}"
-                                                  TextColor="{Static res:ColorResource.WHITE_COLOR}"
-                                                  FontSize="{local:ScaleFontSize Value=12}"
-                                                  FontFamily="{Static res:FontResource.REGULAR}"/>
-                                        </FormattedString>
-                                    </Label.FormattedText>
-                                </Label>
 
-                            </StackLayout>
+                            <Label Grid.Column="1"
+                                   Grid.Row="1"
+                                   Text="{Binding Name}"                                       
+                                   Style="{StaticResource ListValueLabelStyle}">
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label" Binding="{Binding BusinessType}"
+                                                    Value="Automobile">
+                                        <Setter Property="Text" Value="{Binding PlateNumber,StringFormat='Plate#   {0}'}"/>
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                                
+                            <Label Grid.Column="1"
+                                   Grid.Row="2"
+                                   Text="{Binding Address}"                                       
+                                    Style="{StaticResource ListValueLabelStyle}"/>
 
+                            <Label Grid.Column="1"
+                                   Grid.Row="3"
+                                   Text="calendar-alt"
+                                   TextColor="{Static res:ColorResource.WHITE_COLOR}"
+                                   FontSize="{local:ScaleFontSize Value=14}"
+                                   FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"
+                                   Style="{StaticResource ListValueLabelStyle}"/>
+                            <Label Grid.Column="1"
+                                   Grid.Row="3"
+                                   Text="{Binding DateScanned, StringFormat='{0:MM/dd/yy}'}"
+                                   TextColor="{Static res:ColorResource.WHITE_COLOR}"
+                                   FontSize="{local:ScaleFontSize Value=12}"
+                                   FontFamily="{Static res:FontResource.REGULAR}"
+                                   Margin="{local:ScaleThickness Value='31,0,0,0'}"
+                                   Style="{StaticResource ListValueLabelStyle}"/>
+
+                            <Label Grid.Column="1"
+                                   Grid.Row="4"
+                                   Text="clock"
+                                   TextColor="{Static res:ColorResource.WHITE_COLOR}"
+                                   FontSize="{local:ScaleFontSize Value=14}"
+                                   FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"
+                                   Style="{StaticResource ListValueLabelStyle}"/>
+                            <Label Grid.Column="1"
+                                   Grid.Row="4"
+                                   Text="{Binding DateScanned, StringFormat='{0:H:mm tt}'}"
+                                   TextColor="{Static res:ColorResource.WHITE_COLOR}"
+                                   FontSize="{local:ScaleFontSize Value=12}"
+                                   FontFamily="{Static res:FontResource.REGULAR}"
+                                   Margin="{local:ScaleThickness Value='31,0,0,0'}"
+                                   Style="{StaticResource ListValueLabelStyle}"/>
                         </Grid>
                     </Frame>
                     </Grid>
