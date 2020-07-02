@@ -1,5 +1,6 @@
 ﻿using System;
 using KeepSafe.Helpers.Faye;
+using Newtonsoft.Json;
 using Xamarin.Forms;
 
 namespace KeepSafe
@@ -63,6 +64,9 @@ namespace KeepSafe
 
 
         #region Server Setting
+
+        public static string DEFAULT_AUTH { get { return $"{{ \"client\": \"{DataClass.GetInstance.ClientId}\", \"uid\": \"{DataClass.GetInstance.Uid}\",\"access-token\": \"{DataClass.GetInstance.Uid}\" }}"; } }
+
         // Production Server
         public static readonly string SERVER_NAME = "Production Server";
         public static readonly bool IS_SERVER_SECURE = false;

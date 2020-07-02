@@ -92,10 +92,15 @@ namespace KeepSafe.ViewModels
             TemperatureEntry.ToDefaultValue();
         }
 
-        private void OnBackCommand_Execute()
+        private async void OnBackCommand_Execute()
         {
-            NavigationService.GoBackAsync();
-            ScanPageActiveAction?.Invoke(true);
+            if (!IsClicked)
+            {
+                IsClicked = true;
+                await NavigationService.GoBackAsync();
+                ScanPageActiveAction?.Invoke(true);
+                IsClicked = false;
+            }
         }
 
         private void OnCancelCommand_Execute()
@@ -148,7 +153,10 @@ namespace KeepSafe.ViewModels
                     case 0:
                         Device.BeginInvokeOnMainThread(async () =>
                         {
-                            OnBackCommand_Execute();
+                            PopupHelper.RemoveLoading();
+                            await Task.Delay(16);
+                            await NavigationService.GoBackAsync(useModalNavigation: true);
+                            ScanPageActiveAction?.Invoke(true);
                         });
                         break;
                 }

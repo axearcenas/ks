@@ -26,6 +26,7 @@ namespace KeepSafe.ViewModels
 
         public DelegateCommand<Result> ScanCommand { get; set; }
         public DelegateCommand SearchCommand { get; set; }
+        public DelegateCommand MyQRCommand { get; set; }
 
         Action<bool> ScanPageActive;
 
@@ -103,6 +104,7 @@ namespace KeepSafe.ViewModels
             try
             {
 #if DEBUG
+                IsScanning = false;
                 await Task.Delay(500);
                 fileReader.SetDelegate(this);
                 //await fileReader.ReadFile("UserProfile.json", cts.Token, 0);
@@ -156,6 +158,7 @@ namespace KeepSafe.ViewModels
                                 if (jsonData.ContainsKey("business"))
                                     keys.Add("Business", jsonData["business"].ToObject<Business>());
                                 await NavigationService.NavigateAsync(nameof(UserCheckInPage), keys, useModalNavigation: true);
+                                IsScanning = true;
                             });
                         break; 
                 }

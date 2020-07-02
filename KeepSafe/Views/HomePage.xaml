@@ -13,7 +13,7 @@
                           NavBackgroundColor="Transparent"
                           BackgroundImageSource="UserBackground"
                           StatusBarColor="Light"
-                          BackgroundColor="{Static res:ColorResource.MAIN_DARK_THEME_COLOR}">
+                          BackgroundColor="#BE5869">
     <local:MainNavigationPage.Resources>
         <ResourceDictionary>
             <!--<Style x:Key="ButtonStyle" TargetType="Button">
