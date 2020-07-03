@@ -106,6 +106,7 @@ namespace KeepSafe.Droid
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            ZXing.Net.Mobile.Forms.Android.Platform.Init();
 
             //Plugin.FacebookClient.FacebookClientManager.Initialize(this);
             //GoogleClientManager.Initialize(this,clientId:  "682633657157-r59btitarkncgcs358emr9h91r8lf6b6.apps.googleusercontent.com");
@@ -125,7 +126,7 @@ namespace KeepSafe.Droid
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-
+            global::ZXing.Net.Mobile.Android.PermissionsHandler.OnRequestPermissionsResult(requestCode, permissions, grantResults);
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
