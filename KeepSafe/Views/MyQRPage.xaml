@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<local:MainNavigationPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KeepSafe.Views.MyQRPage"
+                          xmlns:local="clr-namespace:KeepSafe"
+                          xmlns:res="clr-namespace:KeepSafe.Resources"
+                          xmlns:views="clr-namespace:KeepSafe.Views"
+                          xmlns:prism="http://prismlibrary.com"
+                          xmlns:scanner="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+                          NavBackgroundColor="{Static res:ColorResource.MAIN_DARK_THEME_COLOR}"
+                          BackgroundColor="{Static res:ColorResource.SCANNER_BACKGROUNDCOLOR}"
+                          PageTitle="My QR"
+                          TitleFontFamily="{Static res:FontResource.BOLD}"
+                          TitleFontSize="{local:ScaleFontSize Value=21}"
+                          TitleHeightRequest="{local:ScaleHeight Value=25}"
+                          TitleVerticalOptions="Center"
+                          LeftIcon="BackIcon"
+                          LeftIconType="SVG"
+                          LeftIconColor="White"
+                          StatusBarColor="Light"
+                          LeftButtonCommand="{Binding BackCommand}">
+    <Grid RowSpacing="0"
+          Padding="0"
+           BackgroundColor="{Static res:ColorResource.SCANNER_BACKGROUNDCOLOR}"
+          RowDefinitions="{local:ScaleRowDefinition Value='92,290,*'}">
+        <Label Grid.Row="0"
+               Text="Get this scanned&#10;by an establishment"
+               TextColor="{Static res:ColorResource.WHITE_COLOR}"
+               FontSize="{local:ScaleFontSize Value=21}"
+               FontFamily="{Static res:FontResource.LIGHT}"
+               HorizontalOptions="Center"
+               VerticalOptions="End"/>
+
+        <local:FFSVGImage Grid.Row="1"
+                          Source="{Binding Source={Static local:DataClass.GetInstance},Path=User.QrCode}"
+                          HeightRequest="{local:ScaleHeight Value=258}"
+                          WidthRequest="{local:ScaleWidth Value=258}"
+                          HorizontalOptions="Center"
+                          VerticalOptions="End"
+                          BackgroundColor="{Static  res:ColorResource.WHITE_COLOR}"/>
+
+        <Label Grid.Row="2"
+               Text="{Binding Source={Static local:DataClass.GetInstance},Path=User.Code,TargetNullValue=3X4MPL31}"
+               TextColor="{Static res:ColorResource.WHITE_COLOR}"
+               FontSize="{local:ScaleFontSize Value=21}"
+               FontFamily="{Static res:FontResource.BOLD}"
+               Margin="{local:ScaleThickness Value='0,22,0,0'}"
+               HorizontalOptions="Center"
+               VerticalOptions="Start"/>
+    </Grid>
+</local:MainNavigationPage>

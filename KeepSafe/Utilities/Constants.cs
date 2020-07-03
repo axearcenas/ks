@@ -1,5 +1,6 @@
 ﻿using System;
 using KeepSafe.Helpers.Faye;
+using Newtonsoft.Json;
 using Xamarin.Forms;
 
 namespace KeepSafe
@@ -19,10 +20,12 @@ namespace KeepSafe
         public static readonly string APP_CENTER_KEY = "ios=4f983dc8-08fa-4701-8d24-f12a2c0c6618; " + "android=4ed26710-55fe-4912-80d9-b588801f6c84";
 
         //VALUES
-        public static readonly double NAVIGATION_HEIGHT = App.IsAddNavHeight ? 82.ScaleHeight() : 58.ScaleHeight();
+        public static readonly double NAVIGATION_HEIGHT = 32.ScaleHeight();
+        public static readonly double STATUS_BAR_HEIGHT = App.StatusBarHeight;
+        public static Thickness STATUSBAR_PADDING => new Thickness(0, App.StatusBarHeight, 0, 0);
 
         public static readonly double BORDER_HEIGHT = .5D.ScaleHeight();
-        public static readonly double STATUS_BAR_HEIGHT = App.StatusBarHeight;
+
         public static readonly Thickness LOGO_MARGIN = new Thickness(0, App.IsAddNavHeight ? 65.ScaleHeight() : 47.ScaleHeight(), 0, 0);
         public static readonly Thickness NAV_TITLE_MARGIN = App.IsAddNavHeight ? new Thickness(0, 41.ScaleHeight(), 0, 0) : new Thickness(0, 17.ScaleHeight(), 0, 0);
 #if DEBUG == false
@@ -61,6 +64,9 @@ namespace KeepSafe
 
 
         #region Server Setting
+
+        public static string DEFAULT_AUTH { get { return $"{{ \"client\": \"{DataClass.GetInstance.ClientId}\", \"uid\": \"{DataClass.GetInstance.Uid}\",\"access-token\": \"{DataClass.GetInstance.Uid}\" }}"; } }
+
         // Production Server
         public static readonly string SERVER_NAME = "Production Server";
         public static readonly bool IS_SERVER_SECURE = false;

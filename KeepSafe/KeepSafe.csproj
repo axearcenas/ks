@@ -48,6 +48,7 @@
     <PackageReference Include="Xamarin.FFImageLoading.Svg" Version="2.4.11.982" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
+    <PackageReference Include="ZXing.Net.Mobile.Forms" Version="2.4.1" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Helpers\Converters\" />
@@ -72,6 +73,8 @@
     <None Remove="Resources\SVG\ProfileIcon.svg" />
     <None Remove="Resources\SVG\HomeIcon.svg" />
     <None Remove="Resources\SVG\ScanIcon.svg" />
+    <None Remove="Resources\SVG\ScannerInidcator.svg" />
+    <None Remove="Resources\SVG\SearchIcon.svg" />
     <None Remove="Resources\Files\CheckInHistory.json" />
     <None Remove="Resources\Files\CheckOutHistory.json" />
     <None Remove="Resources\SVG\MyQRIcon.svg" />
@@ -80,6 +83,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\Files\CustomAlert.json" />
     <EmbeddedResource Include="Resources\Files\ServerList.json" />
+    <EmbeddedResource Include="Resources\Files\CheckInHistory.json" />
+    <EmbeddedResource Include="Resources\Files\CheckOutHistory.json" />
     <EmbeddedResource Include="Resources\SVG\KeepSafeLogo.svg" />
     <EmbeddedResource Include="Resources\SVG\BackIcon.svg" />
     <EmbeddedResource Include="Resources\SVG\ArrowForward.svg" />
@@ -88,8 +93,8 @@
     <EmbeddedResource Include="Resources\SVG\ProfileIcon.svg" />
     <EmbeddedResource Include="Resources\SVG\HomeIcon.svg" />
     <EmbeddedResource Include="Resources\SVG\ScanIcon.svg" />
-    <EmbeddedResource Include="Resources\Files\CheckInHistory.json" />
-    <EmbeddedResource Include="Resources\Files\CheckOutHistory.json" />
+    <EmbeddedResource Include="Resources\SVG\ScannerInidcator.svg" />
+    <EmbeddedResource Include="Resources\SVG\SearchIcon.svg" />
     <EmbeddedResource Include="Resources\SVG\MyQRIcon.svg" />
     <EmbeddedResource Include="Resources\Files\UserData.json" />
   </ItemGroup>
@@ -102,6 +107,9 @@
     </Compile>
     <Compile Update="Views\ProfilePage.xaml.cs">
       <DependentUpon>ProfilePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\UserCheckInPage.xaml.cs">
+      <DependentUpon>UserCheckInPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\Popups\LoadingPage.xaml.cs">
       <DependentUpon>LoadingPage.xaml</DependentUpon>

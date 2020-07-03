@@ -6,6 +6,7 @@ using KeepSafe.Enum;
 using KeepSafe.Helpers;
 using KeepSafe.Helpers.FileReader;
 using KeepSafe.Models;
+using KeepSafe.Views;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Prism.Commands;
@@ -48,9 +49,14 @@ namespace KeepSafe.ViewModels
             base.OnNavigatingTo(parameters);
         }
 
-        private void OnMyQRCommand_Execute()
+        private async void OnMyQRCommand_Execute()
         {
-            //TODO Navigate to MyQRCode
+            if(!IsClicked)
+            {
+                IsClicked = true;
+                await NavigationService.NavigateAsync(nameof(MyQRPage));
+                IsClicked = false;
+            }
         }
 
         private void OnHistoryCommand_Execute(object obj)

@@ -8,7 +8,7 @@ namespace KeepSafe.ViewModels.ViewViewModels
     {
         string _Text;
         public string Text {
-            get { return _Text; }
+            get { return  _Text; }
             set { SetPropertyChanged(ref _Text, value); }
         }
 
@@ -45,6 +45,9 @@ namespace KeepSafe.ViewModels.ViewViewModels
             get { return _IsPassword; }
             set { SetPropertyChanged(ref _IsPassword, value, nameof(IsPassword)); }
         }
+
+        public bool IsTextAllCaps { get; set; }
+
 
         Color? DefaultColor;
         string DefaultPlaceholder;

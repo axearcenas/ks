@@ -1,13 +1,91 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <local:MainNavigationPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="KeepSafe.Views.ScanPage"
-            xmlns:local="clr-namespace:KeepSafe"
-            xmlns:res="clr-namespace:KeepSafe.Resources"
-            xmlns:views="clr-namespace:KeepSafe.Views">    
-    <Grid>
-        <Label Text="SCAN PAGE"
-           HorizontalOptions="Center"
-           VerticalOptions="Center"/>
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          x:Class="KeepSafe.Views.ScanPage"
+                          xmlns:local="clr-namespace:KeepSafe"
+                          xmlns:res="clr-namespace:KeepSafe.Resources"
+                          xmlns:views="clr-namespace:KeepSafe.Views"
+                          xmlns:prism="http://prismlibrary.com"
+                          xmlns:scanner="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+                          RightIconType="SVG"
+                          RightIcon="MyQRIcon"
+                          RightButtonCommand="{Binding MyQRCommand}"
+                          NavBackgroundColor="{Static res:ColorResource.MAIN_DARK_THEME_COLOR}"
+                          BackgroundColor="{Static res:ColorResource.SCANNER_BACKGROUNDCOLOR}"
+                          PageTitle="Scan QR"
+                          TitleFontFamily="{Static res:FontResource.BOLD}"
+                          TitleFontSize="{local:ScaleFontSize Value=21}"
+                          TitleHeightRequest="{local:ScaleHeight Value=25}"
+                          TitleVerticalOptions="Center">
+    <local:MainNavigationPage.Resources>
+        <ResourceDictionary>            
+            <Style TargetType="local:CustomEntry" x:Key="EntryStyle">
+                <Setter Property="Grid.Column" Value="1"/>
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="VerticalOptions" Value="Fill"/>
+                <Setter Property="HorizontalOptions" Value="Fill"/>
+                <Setter Property="FontSize" Value="{local:ScaleFontSize Value=20}"/>
+                <Setter Property="TextColor" Value="{Static res:ColorResource.MAIN_BLUE_COLOR}"/>
+                <Setter Property="FontFamily" Value="{Static res:FontResource.LIGHTITALIC}"/>
+                <Setter Property="Margin" Value="{local:ScaleThickness Value='0,0'}"/>
+                <Setter Property="MoveUp" Value="True"/>
+                <Setter Property="MoveUpAnimationSpeed" Value="16"/>
+                <Setter Property="CanProceedToView" Value="True"/>                
+            </Style>
+        </ResourceDictionary>
+    </local:MainNavigationPage.Resources>
+    <Grid x:Name="gridView" RowSpacing="0"
+           ColumnSpacing="0"
+           VerticalOptions="Fill"
+          PropertyChanged="Grid_PropertyChanged"
+           BackgroundColor="{Static res:ColorResource.SCANNER_BACKGROUNDCOLOR}"
+           RowDefinitions="{local:ScaleRowDefinition Value='61,*'}">
+        <!--<scanner:ZXingScannerView  Grid.Row="1"
+                                   x:Name="scannerView"
+                                   IsScanning="False"
+                                   HorizontalOptions="Fill"
+                                   VerticalOptions="Fill"
+                                   WidthRequest="{local:ScaleWidthDouble Value=320}"
+                                   HeightRequest="{local:ScaleHeightDouble Value=487}">
+            <scanner:ZXingScannerView.Behaviors>
+                <prism:EventToCommandBehavior Command="{Binding QRScanResultComand}"
+                                              EventArgsParameterPath="."
+                                              EventName="OnScanResult"/>
+            </scanner:ZXingScannerView.Behaviors>
+        </scanner:ZXingScannerView>-->
+        <local:FFSVGImage Grid.Row="1"
+                          Source="{local:FFSVGImageSource ImageName=ScannerInidcator}"
+                          HeightRequest="{local:ScaleHeight Value=161}"
+                          WidthRequest="{local:ScaleWidth Value=159}"
+                          HorizontalOptions="Center"
+                          VerticalOptions="Center"/>
+        <Frame Padding="0"
+               HorizontalOptions="Fill"
+               VerticalOptions="End"
+               Margin="{local:ScaleThickness Value='17,0'}"
+               HeightRequest="{local:ScaleHeight Value=45}"
+               CornerRadius="{local:ScaleHeight Value=23}">
+            <Grid ColumnSpacing="0"
+                  ColumnDefinitions="{local:ScaleColumnDefinition Value='64,*'}">
+                <local:FFSVGImage Source="{local:FFSVGImageSource ImageName=SearchIcon}"
+                                  HeightRequest="{local:ScaleHeight Value=18}"
+                                  HorizontalOptions="Fill"
+                                  VerticalOptions="Center"/>
+                <local:CustomEntry Grid.Column="1"
+                                   Text="{Binding SearchEntry.Text}"
+                                   Placeholder="{Binding SearchEntry.Placeholder}"
+                                   PlaceholderColor="{Binding SearchEntry.PlaceholderColor}"
+                                   Keyboard="Default"
+                                   MoveUpOffset="{local:ScaleHeightDouble Value=85}"
+                                   Style="{StaticResource EntryStyle}"
+                                   Margin="{local:ScaleThickness Value='0,0,42,0'}"
+                                   MaxLength="8">
+                <local:CustomEntry.Behaviors>
+                    <prism:EventToCommandBehavior Command="{Binding SearchCommand}"
+                                                  EventName="Completed" />
+                </local:CustomEntry.Behaviors>
+            </local:CustomEntry>
+            </Grid>
+        </Frame>
     </Grid>
 </local:MainNavigationPage>
