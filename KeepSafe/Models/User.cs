@@ -83,5 +83,38 @@ namespace KeepSafe.Models
             get { return _QrCode; }
             set { _QrCode = value; OnPropertyChanged(); }
         }
+
+        public bool Equals(User user)
+        {
+            bool IsEquals = true;
+            if (!user.Id.Equals(Id))
+                IsEquals =  false;
+            if (!user.Photo.Equals(Photo))
+                IsEquals = false;
+            if (!user.FirstName.Equals(FirstName))
+                IsEquals = false;
+            if (!user.LastName.Equals(LastName))
+                IsEquals = false;
+            if (!user.PhoneNumber.Equals(PhoneNumber))
+                IsEquals = false;
+            if (!user.Address.Equals(Address))
+                IsEquals = false;
+            if (!user.Birthdate.Equals(Birthdate))
+                IsEquals = false;
+            if (!user.Email.Equals(Email))
+                IsEquals = false;
+            return IsEquals;
+        }
+
+        public void Update(User user)
+        {
+            FirstName = user.FirstName;
+            LastName = user.LastName;
+            Photo = user.Photo;
+            PhoneNumber = user.PhoneNumber;
+            Address = user.Address;
+            Birthdate = user.Birthdate;
+            Email = user.Email;
+        }
     }
 }

@@ -23,6 +23,7 @@ namespace KeepSafe
         public static readonly double NAVIGATION_HEIGHT = 32.ScaleHeight();
         public static readonly double STATUS_BAR_HEIGHT = App.StatusBarHeight;
         public static Thickness STATUSBAR_PADDING => new Thickness(0, App.StatusBarHeight, 0, 0);
+        public static Thickness NEG_STATUSBAR_PADDING => new Thickness(0, -App.StatusBarHeight, 0, 0);
 
         public static readonly double BORDER_HEIGHT = .5D.ScaleHeight();
 

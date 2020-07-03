@@ -1,6 +1,7 @@
 ﻿{
   "user": {
-    "id": 0,
+    "id": 1,
+    "photo": "https://placeimg.com/200/200/people?id=1",
     "first_name": "Mica",
     "last_name": "Perez",
     "phone_number": "09324960927",

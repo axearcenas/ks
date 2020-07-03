@@ -10,7 +10,9 @@
                           LeftIconType="SVG"
                           LeftIconColor="White"
                           LeftButtonCommand="{Binding BackCommand}"
-                          BackgroundImageSource="MainBackground">
+                          BackgroundImageSource="MainBackground"
+                          BackgroundColor="Transparent"
+                          StatusBarColor="Light">
     <local:MainNavigationPage.Resources>
         <ResourceDictionary>
             <Style TargetType="Button" x:Key="EntryBorderButtonStyle">

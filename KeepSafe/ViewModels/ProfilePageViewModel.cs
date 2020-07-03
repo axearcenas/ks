@@ -1,7 +1,12 @@
 ﻿using System;
+using System.Threading;
 using KeepSafe.Extensions;
+using KeepSafe.Helpers;
+using KeepSafe.Helpers.FileReader;
 using KeepSafe.Helpers.MediaHelper;
 using KeepSafe.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using Prism.Commands;
@@ -11,12 +16,13 @@ using Xamarin.Forms;
 
 namespace KeepSafe.ViewModels
 {
-    public class ProfilePageViewModel : ViewModelBase
+    public class ProfilePageViewModel : ViewModelBase , IFileConnector, IRestReceiver
     {
         public DelegateCommand BackButtonClickedCommand { get; set; }
         public DelegateCommand UploadPhotoClickedCommand { get; set; }
         public DelegateCommand<object> DateSelectedCommand { get; set; }
-        public DelegateCommand LoginLabelTappedCommand { get; set; }
+        public DelegateCommand LogoutTappedCommand { get; set; }
+        public DelegateCommand EditTappedCommand { get; set; }
         public DelegateCommand ChangePasswordTappedCommand { get; set; }
 
         MediaHelper mediaHelper = new MediaHelper();
@@ -33,7 +39,18 @@ namespace KeepSafe.ViewModels
         public bool IsEdit
         {
             get { return _IsEdit; }
-            set { SetProperty(ref _IsEdit, value, nameof(IsEdit)); UserData = value ? DataClass.GetInstance.User.Clone() : DataClass.GetInstance.User;  }
+            set { SetProperty(ref _IsEdit, value, nameof(IsEdit));
+                UserData.PropertyChanged -= UserData_PropertyChanged;
+                UserData = _IsEdit ? DataClass.GetInstance.User.Clone() : DataClass.GetInstance.User;
+                UserData.PropertyChanged += UserData_PropertyChanged;
+            }
+        }
+
+        bool _CanSaveEdit;
+        public bool CanSaveEdit
+        {
+            get { return _CanSaveEdit; }
+            set { SetProperty(ref _CanSaveEdit, value, nameof(CanSaveEdit)); }
         }
 
         User UserCached { get { return DataClass.GetInstance.User; } }
@@ -45,9 +62,15 @@ namespace KeepSafe.ViewModels
             BackButtonClickedCommand = new DelegateCommand(OnBackButtonClicked);
             UploadPhotoClickedCommand = new DelegateCommand(OnUploadPhotoClicked);
             DateSelectedCommand = new DelegateCommand<object>(OnDateSelected);
-            LoginLabelTappedCommand = new DelegateCommand(OnLoginLabelTapped);
+            LogoutTappedCommand = new DelegateCommand(OnLogoutTappedCommand_Execute);
+            EditTappedCommand = new DelegateCommand(OnEditTappedCommand_Execute);
             ChangePasswordTappedCommand = new DelegateCommand(OnChangePasswordLabelTapped);
-            
+            UserData.PropertyChanged += UserData_PropertyChanged;
+        }
+
+        private void UserData_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            CanSaveEdit = !UserData.Equals(UserCached);
         }
 
         private void OnDateSelected(object sender)
@@ -58,12 +81,12 @@ namespace KeepSafe.ViewModels
 
         private void OnBackButtonClicked()
         {
-            NavigationService.GoBackAsync();
+            IsEdit = false;
         }
 
         private async void OnUploadPhotoClicked()
         {
-            if (!IsClicked)
+            if (!IsClicked && IsEdit)
             {
                 IsClicked = true;
                 var action = await PageDialogService.DisplayActionSheetAsync("Upload Photo", "Cancel", file == null ? null : "Remove Photo", "Camera", "Gallery");
@@ -118,83 +141,112 @@ namespace KeepSafe.ViewModels
             App.Log(((sender as Picker).SelectedItem).ToString());
         }
 
-        private void OnLoginLabelTapped()
+        private async void OnEditTappedCommand_Execute()
         {
-            bool IsValid = true;
-
-            if (file == null)
+            if (IsEdit)
             {
-                IsValid = false;
-            }
+                bool IsValid = true;
 
-            if (string.IsNullOrEmpty(UserData.FirstName) || UserData.FirstName.Equals(UserCached.FirstName))
+                if (UserData.Equals(UserCached))
+                {
+                    IsValid = false;
+                }
+
+                if (IsValid && !IsClicked)
+                {
+                    IsClicked = true;
+                    //TODO Register API
+                    if (cts != null)
+                        cts.Cancel();
+                    cts = new CancellationTokenSource();
+                    PopupHelper.ShowLoading();
+                    try
+                    {                        
+#if DEBUG
+                            fileReader.SetDelegate(this);
+                            //await fileReader.ReadFile("UserProfile.json", cts.Token, 0);
+                            await fileReader.CreateDummyResponse(JsonConvert.SerializeObject(
+                                new
+                                {
+                                    user = UserData,
+                                    message = "Successfully update the user",
+                                    status = 200
+                                }), cts.Token, 0);
+#else
+                        if (file == null)
+                        {
+                            restService.SetDelegate(this);
+                            string content = JsonConvert.SerializeObject(new { code, IsQrCode });
+                            await RestRequest.PostRequestAsync($"{Constants.ROOT_API_URL}{Constants.HEROES_URL}{Constants.POWERS_URL}{Constants.VALIDATE_URL}".AddAuth(), content, cts.Token, 0);
+                        }
+                        else
+                        {
+
+                        }
+#endif
+
+                    }
+                    catch (OperationCanceledException oce)
+                    {
+                        App.Log(oce.StackTrace, "SEARCH CODE");
+                        PopupHelper.RemoveLoading(oce.Message);
+                        IsClicked = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        App.Log(ex.StackTrace, "SEARCH CODE");
+                        PopupHelper.RemoveLoading(ex.Message);
+                        IsClicked = true;
+                    }
+                    cts = null;
+                }
+            }
+            else
             {
-                IsValid = false;
+                IsEdit = true;
             }
+        }
 
-
-            if (UserData.Equals(UserCached))
-            {
-                IsValid = false;
-            }
-
-            //if (LastNameEntry.ValidateIsTextNullOrEmpty("Last Name is required"))
-            //{
-            //    IsValid = false;
-            //}
-
-            //if (MobileNumberEntry.ValidateIsTextNullOrEmpty("Mobile number is required"))
-            //{
-            //    IsValid = false;
-            //}
-            //else if (!(MobileNumberEntry.Text).IsValidPhoneNumber())
-            //{
-            //    MobileNumberEntry.ShowError("Invalid Mobile Number");
-            //    IsValid = false;
-            //}
-
-            //if (AddressEntry.ValidateIsTextNullOrEmpty("Address is required"))
-            //{
-            //    IsValid = false;
-            //}
-
-            //if (Birthdate.Date == DateTime.Today)
-            //{
-            //    BirthdateTextColor = Color.Red;
-            //    IsValid = false;
-            //}
-
-            //if (EmailAddressEntry.ValidateIsTextNullOrEmpty("Email is required"))
-            //{
-            //    IsValid = false;
-            //}
-            //else if (!(EmailAddressEntry.Text).IsValidEmail())
-            //{
-            //    EmailAddressEntry.ShowError("Invalid Email Address");
-            //    IsValid = false;
-            //}
-
-            //if (PasswordEntry.ValidateIsTextNullOrEmpty("Password is required"))
-            //{
-            //    IsValid = false;
-            //}
-
-            //if (!IsChecked)
-            //{
-            //    EULATextColor = Color.Red;
-            //    IsValid = false;
-            //}
-
-            if (IsValid && !IsClicked)
-            {
-                IsClicked = true;
-                //TODO Register API
-            }
+        private void OnLogoutTappedCommand_Execute()
+        {
+            App.Logout();
         }
 
         private void OnChangePasswordLabelTapped()
         {
-            NavigationService.NavigateAsync("/MainPage");
+            //TODO NAVIGATE TO CHANGE PASSWORD
+            NavigationService.NavigateAsync("ChangePasswordPage");
+        }
+
+        public void ReceiveJSONData(JObject jsonData, int wsType)
+        {
+            if (jsonData.ContainsKey("status") && jsonData["status"].ToObject<int>() == 200)
+            {
+                switch (wsType)
+                {
+                    case 0:
+                        Device.BeginInvokeOnMainThread(async () =>
+                        {
+                            //TODO save USER Here
+                            if(jsonData.ContainsKey("message"))
+                                PageDialogService.DisplayAlertAsync("User Updated!", jsonData["message"].ToString(), "Okay");
+                            DataClass.GetInstance.User = UserData;
+                            await Application.Current.SavePropertiesAsync();
+                            CanSaveEdit = false;
+                            IsEdit = false;
+                        });
+                        break;
+                }
+            }
+            IsClicked = false;
+            PopupHelper.RemoveLoading();
+        }
+
+        public void ReceiveError(string title, string error, int wsType)
+        {
+            PageDialogService?.DisplayAlertAsync(title, error, "Okay");
+            IsClicked = false;
+            PopupHelper.RemoveLoading();
         }
     }
 }

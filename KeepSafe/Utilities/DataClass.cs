@@ -166,49 +166,49 @@ namespace KeepSafe
             }
         }
 
-        User _user;
+        User _User;
         public User User
         {
             set
             {
-                _user = value;
-                Application.Current.Properties[nameof(User)] = JsonConvert.SerializeObject(_user);
+                _User = value;
+                Application.Current.Properties[nameof(User)] = JsonConvert.SerializeObject(_User);
                 OnPropertyChanged(nameof(User));
                 Application.Current.SavePropertiesAsync();
             }
             get
             {
-                if ((_user == null ? false : _user.Id != 0) && Application.Current.Properties.ContainsKey("user"))
+                if ((_User == null ? true : _User.Id != 0) && Application.Current.Properties.ContainsKey(nameof(User)))
                 {
-                    _user = JsonConvert.DeserializeObject<User>(Application.Current.Properties[nameof(User)].ToString(), new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+                    _User = JsonConvert.DeserializeObject<User>(Application.Current.Properties[nameof(User)].ToString(), new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
                 }
-                if (_user == null)
+                if (_User == null)
                 {
-                    _user = new User();
+                    _User = new User();
                 }
 
-                return _user;
+                return _User;
             }
         }
 
-        bool _IsVerified;
+        bool _IsLoggedIn;
         public bool IsLoggedIn
         {
             set
             {
-                _IsVerified = value;
-                Application.Current.Properties[nameof(IsLoggedIn)] = JsonConvert.SerializeObject(_IsVerified);
+                _IsLoggedIn = value;
+                Application.Current.Properties[nameof(IsLoggedIn)] = JsonConvert.SerializeObject(_IsLoggedIn);
                 OnPropertyChanged(nameof(IsLoggedIn));
                 Application.Current.SavePropertiesAsync();
             }
             get
             {
-                if ( Application.Current.Properties.ContainsKey("IsVerified"))
+                if ( Application.Current.Properties.ContainsKey(nameof(IsLoggedIn)))
                 {
-                    _IsVerified = JsonConvert.DeserializeObject<bool>(Application.Current.Properties["IsVerified"].ToString(), new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+                    _IsLoggedIn = JsonConvert.DeserializeObject<bool>(Application.Current.Properties[nameof(IsLoggedIn)].ToString(), new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
                 }
 
-                return _IsVerified;
+                return _IsLoggedIn;
             }
         }
 
