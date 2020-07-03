@@ -15,7 +15,8 @@
                           PageTitle="Register"
                           TitleFontColor="White"
                           TitleFontFamily="{Static res:FontResource.BOLD}"
-                          TitleFontSize="{local:ScaleFontSize Value=21}">
+                          TitleFontSize="{local:ScaleFontSize Value=21}"
+                          StatusBarColor="Light">
     <local:MainNavigationPage.Resources>
         <ResourceDictionary>
             <Style TargetType="Frame" x:Key="EntryFrameStyle">

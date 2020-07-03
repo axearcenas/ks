@@ -1,0 +1,14 @@
+﻿{
+  "user": {
+    "id": 1,
+    "photo": "https://placeimg.com/200/200/people?id=1",
+    "first_name": "Mica",
+    "last_name": "Perez",
+    "phone_number": "09324960927",
+    "address": "R.Duterte St. Banawa Cebu",
+    "birthdate": "01/07/95",
+    "gender": "Female",
+    "email": "mika.perez@gmail.com"
+  },
+  "status": 200
+}

@@ -125,17 +125,18 @@ namespace KeepSafe.ViewModels
                    {
 #if DEBUG
                        fileReader.SetDelegate(this);
-                       await fileReader.CreateDummyResponse(JsonConvert.SerializeObject(
-                           new 
-                           {
-                               user = new
-                               {
-                                   Id = 0,
-                               },
-                               message = "Successfully login",
-                               status = 200
-                           }
-                           ), cts.Token, 0);
+                       await fileReader.ReadFile("UserData.json", cts.Token, 0);
+                       //await fileReader.CreateDummyResponse(JsonConvert.SerializeObject(
+                       //    new 
+                       //    {
+                       //        user = new
+                       //        {
+                       //            Id = 0,
+                       //        },
+                       //        message = "Successfully login",
+                       //        status = 200
+                       //    }
+                       //    ), cts.Token, 0);
 #else
                        //TODO Login Rest Here
                        string content = JsonConvert.SerializeObject(new { email_address = EmailAddressEntry.Text, password = PasswordEntry.Text, device = App.DeviceType });
@@ -174,12 +175,14 @@ namespace KeepSafe.ViewModels
                 switch(wsType)
                 {
                     case 0:
-                        if(jsonData.ContainsKey("message"))
+                        if(jsonData.ContainsKey("user"))
                         {
                             Device.BeginInvokeOnMainThread(async() =>
                             {
                                 //TODO save USER Here
-                                PageDialogService?.DisplayAlertAsync("Login Succesfully",jsonData["message"].ToString(),"Okay");
+                                //PageDialogService?.DisplayAlertAsync("Login Succesfully",jsonData["message"].ToString(),"Okay");
+                                dataClass.User = JsonConvert.DeserializeObject<User>(jsonData["user"].ToString());
+                                dataClass.IsLoggedIn = true;
                                 App.ShowHomePage();
                                 EmailAddressEntry.ClearText();
                                 PasswordEntry.ClearText();

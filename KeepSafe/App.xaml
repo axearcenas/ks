@@ -96,10 +96,8 @@
                 <Setter Property="IsVisible" Value="true"/>
             </Style>
             <ControlTemplate x:Key="NavigationBar">
-                <Grid RowSpacing="0"
-                      ColumnSpacing="0"
-                      BackgroundColor="{TemplateBinding NavBackgroundColor}"
-                      Padding="{x:Static local:Constants.STATUSBAR_PADDING}">
+                <Grid RowSpacing="0" ColumnSpacing="0"
+                      Padding="{Static local:Constants.STATUSBAR_PADDING}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="{x:Static local:Constants.NAVIGATION_HEIGHT}"/>
                         <RowDefinition Height="*" />
@@ -115,7 +113,8 @@
                            HorizontalOptions="Fill"
                            VerticalOptions="Fill"
                            Aspect="AspectFill"
-                           BackgroundColor="{TemplateBinding BackgroundColor}"
+                           BackgroundColor="{TemplateBinding NavBackgroundColor}"
+                           Margin="{Static local:Constants.NEG_STATUSBAR_PADDING}"
                            InputTransparent="true"/>
                     <ContentPresenter Grid.Row="1" Grid.ColumnSpan="3"/>
                     <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
@@ -124,20 +123,13 @@
                            BackgroundColor="{TemplateBinding NavBackgroundColor}"
                            Opacity="{TemplateBinding NavOpacity}"
                            InputTransparent="true"/>
-                    <Label Grid.Row="0"
-                           Grid.Column="0"
-                           Grid.ColumnSpan="3"
-                           Text="{TemplateBinding PageTitle}"
+                    <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Text="{TemplateBinding PageTitle}"
                            InputTransparent="true"
-                           VerticalOptions="{TemplateBinding TitleVerticalOptions}"
-                           VerticalTextAlignment="Center"
-                           HorizontalOptions="{TemplateBinding TitleHorizontalOptions}"
-                           HorizontalTextAlignment="Center"
                            Margin="{local:ScaleThickness Value='0,-2,0,0'}"
-                           HeightRequest="{TemplateBinding TitleHeightRequest}"
+                           VerticalOptions="Center" VerticalTextAlignment="Center"
+                           HorizontalOptions="{TemplateBinding TitleHorizontalOptions}" HorizontalTextAlignment="Center"
                            FontSize="{TemplateBinding TitleFontSize}"
-                           FontFamily="{TemplateBinding TitleFontFamily}"
-                           TextColor="{TemplateBinding TitleFontColor}"/>
+                           FontFamily="{TemplateBinding TitleFontFamily}" TextColor="{TemplateBinding TitleFontColor}"/>
                     <Button Grid.Column="0"
                             Text="{TemplateBinding LeftText}"
                             Command="{TemplateBinding LeftButtonCommand}"
@@ -209,7 +201,7 @@
                                 <Setter Property="Style" Value="{StaticResource FontAwesomeRegularButtonStyle}" />
                             </DataTrigger>
                             <DataTrigger TargetType="Button"
-                                         Binding="{TemplateBinding LeftIconType}"
+                                         Binding="{TemplateBinding RightIconType}"
                                          Value="FontAwesome5Solid">
                                 <Setter Property="Text" Value="{TemplateBinding RightIcon}" />
                                 <Setter Property="TextColor" Value="{TemplateBinding RightIconColor}" />
