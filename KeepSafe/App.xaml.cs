@@ -71,9 +71,10 @@ namespace KeepSafe
             //NOTE: FOR TESTING PAGE to show error initializing page
             //MainPage = new NavigationPage(new MainPage() { BindingContext = new MainPageViewModel(NavigationService, new PageDialogService(new ApplicationProvider())) });
             //MainPage = new CustomServerPopup() { BindingContext = new CustomServerPopupViewModel(NavigationService) };
-
-            ShowMainPage();
-            //ShowHomePage();
+            if(dataClass.IsLoggedIn)
+                ShowHomePage();
+            else
+                ShowMainPage();
         }
 
         public static void Log(string msg, [System.Runtime.CompilerServices.CallerMemberName] string memberName = "")

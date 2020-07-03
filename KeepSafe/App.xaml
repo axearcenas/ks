@@ -198,7 +198,7 @@
                                 <Setter Property="Style" Value="{StaticResource FontAwesomeRegularButtonStyle}" />
                             </DataTrigger>
                             <DataTrigger TargetType="Button"
-                                         Binding="{TemplateBinding LeftIconType}"
+                                         Binding="{TemplateBinding RightIconType}"
                                          Value="FontAwesome5Solid">
                                 <Setter Property="Text" Value="{TemplateBinding RightIcon}" />
                                 <Setter Property="TextColor" Value="{TemplateBinding RightIconColor}" />

@@ -1,13 +1,259 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <local:MainNavigationPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="KeepSafe.Views.ProfilePage"
-            xmlns:local="clr-namespace:KeepSafe"
-            xmlns:res="clr-namespace:KeepSafe.Resources"
-            xmlns:views="clr-namespace:KeepSafe.Views">    
-    <Grid>
-        <Label Text="PROFILE PAGE"
-           HorizontalOptions="Center"
-           VerticalOptions="Center"/>
-    </Grid>
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          x:Class="KeepSafe.Views.ProfilePage"
+                          xmlns:local="clr-namespace:KeepSafe"
+                          xmlns:res="clr-namespace:KeepSafe.Resources"
+                          xmlns:views="clr-namespace:KeepSafe.Views"
+                          xmlns:prism="http://prismlibrary.com"
+                          NavigationPage.HasNavigationBar="False"
+                          BackgroundColor="{Static res:ColorResource.PROFILE_BACKGROUND_COLOR}"
+                          NavBackgroundColor="#5D172C"
+                          LeftIcon="BackIcon"
+                          LeftIconType="SVG"
+                          LeftIconColor="White"
+                          LeftButtonCommand="{Binding BackButtonClickedCommand}"
+                          PageTitle="Register"
+                          TitleFontColor="White"
+                          TitleFontFamily="{Static res:FontResource.BOLD}"
+                          TitleFontSize="{local:ScaleFontSize Value=21}"
+                          RightIcon="pen"
+                          RightIconType="FontAwesome5Solid"
+                          RightIconColor="White"
+                          RightButtonColor="Black">
+    <local:MainNavigationPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Frame" x:Key="EntryFrameStyle">
+                <Setter Property="Margin" Value="0"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="BackgroundColor" Value="#5559676B"/>
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+                <Setter Property="CornerRadius" Value="{local:ScaleHeight Value=20}"/>
+                <Setter Property="WidthRequest" Value="{local:ScaleWidth Value=280}"/>
+                <Setter Property="HeightRequest" Value="{local:ScaleHeight Value=40}"/>
+            </Style>
+            <Style TargetType="Label" x:Key="EntryIconStyle">
+                <Setter Property="Grid.Column" Value="0"/>
+                <Setter Property="FontFamily" Value="{Static res:FontResource.FONTAWESOME5_SOLID}"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="FontSize" Value="{local:ScaleFontSize Value=17}"/>
+                <Setter Property="HorizontalOptions" Value="End"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </Style>
+            <Style TargetType="local:CustomEntry" x:Key="EntryStyle">
+                <Setter Property="Grid.Column" Value="1"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="FontFamily" Value="{Static res:FontResource.LIGHT}"/>
+                <Setter Property="PlaceholderColor" Value="{Static res:ColorResource.WHITE_COLOR}"/>
+                <Setter Property="FontSize" Value="{local:ScaleFontSize Value=16}"/>
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="Margin" Value="{local:ScaleThickness Value='12,0,0,0'}"/>
+            </Style>
+        </ResourceDictionary>
+    </local:MainNavigationPage.Resources>
+    <local:MainNavigationPage.Content>
+        <ScrollView BackgroundColor="#804456"
+                    HorizontalScrollBarVisibility="Never"
+                    VerticalScrollBarVisibility="Never">
+            <Grid RowSpacing="{local:ScaleHeight Value=16}"
+                  ColumnSpacing="0"
+                  Margin="0"
+                  Padding="0"
+                  RowDefinitions="{local:ScaleRowDefinition Value='149,4,38,38,38,38,38,38,38,38,38'}">
+                <!--Photo-->
+                <Frame Grid.Row="0"
+                       CornerRadius="5"
+                       WidthRequest="111"
+                       HeightRequest="111"
+                       BackgroundColor="White"
+                       IsClippedToBounds="True"
+                       HorizontalOptions="Center"
+                       VerticalOptions="End"
+                       Margin="0"
+                       Padding="0">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding UploadPhotoClickedCommand}" NumberOfTapsRequired="1"/>
+                    </Frame.GestureRecognizers>
+                    <Grid RowSpacing="0"
+                          ColumnSpacing="0"
+                          Margin="0"
+                          Padding="0">
+                        <Label Text="camera"
+                               FontFamily="{Static res:FontResource.FONTAWESOME5_SOLID}"
+                               TextColor="#2605257A"
+                               FontSize="{local:ScaleFontSize Value=70}"
+                               InputTransparent="True"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                        <Label Text="Upload&#10;Photo"
+                               FontFamily="{Static res:FontResource.REGULAR}"
+                               TextColor="{Binding UploadPhotoTextColor}"
+                               FontSize="{local:ScaleFontSize Value=16}"
+                               InputTransparent="True"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                        <Image BackgroundColor="Transparent"
+                                          Source="{Binding UserImage}"
+                                          HorizontalOptions="Fill"
+                                          VerticalOptions="Fill"
+                                          HeightRequest="{local:ScaleHeightDouble Value=111}"
+                                          WidthRequest="{local:ScaleHeightDouble Value=111}"
+                                          Aspect="AspectFill"/>
+                    </Grid>                    
+                </Frame>
+                <!--First Name-->
+                <Frame Grid.Row="2"
+                       Style="{StaticResource EntryFrameStyle}">
+                    <Grid RowSpacing="0"
+                          ColumnSpacing="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="{local:ScaleGridWidth Value=40}"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="{local:ScaleGridWidth Value=30}"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Text="user"
+                               FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"
+                               Style="{StaticResource EntryIconStyle}"/>
+                        <local:CustomEntry Text="{Binding UserData.FirstName}"
+                                           Placeholder="First Name"
+                                           AutoCapitalization="Words"
+                                           Style="{StaticResource EntryStyle}"/>
+                    </Grid>
+                </Frame>
+                <!--Last Name-->
+                <Frame Grid.Row="3"
+                       Style="{StaticResource EntryFrameStyle}">
+                    <Grid RowSpacing="0"
+                          ColumnSpacing="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="{local:ScaleGridWidth Value=40}"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="{local:ScaleGridWidth Value=30}"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Text="user"
+                               FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"
+                               Style="{StaticResource EntryIconStyle}"/>
+                        <local:CustomEntry Text="{Binding UserData.LastName}"
+                                           Placeholder="Last Name"
+                                           AutoCapitalization="Words"
+                                           Style="{StaticResource EntryStyle}"/>
+                    </Grid>
+                </Frame>
+                <!--Mobile #-->
+                <Frame Grid.Row="4"
+                       Style="{StaticResource EntryFrameStyle}">
+                    <Grid RowSpacing="0"
+                          ColumnSpacing="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="{local:ScaleGridWidth Value=40}"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="{local:ScaleGridWidth Value=30}"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Text="phone"
+                               Style="{StaticResource EntryIconStyle}"/>
+                        <local:CustomEntry Text="{Binding UserData.PhoneNumber}"
+                                           Placeholder="Mobile Number"
+                                           MaxLength="13"
+                                           Keyboard="Telephone"
+                                           Style="{StaticResource EntryStyle}"/>
+                    </Grid>
+                </Frame>
+                <!--Address-->
+                <Frame Grid.Row="5"
+                       Style="{StaticResource EntryFrameStyle}">
+                    <Grid RowSpacing="0"
+                          ColumnSpacing="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="{local:ScaleGridWidth Value=40}"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="{local:ScaleGridWidth Value=30}"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Text="map-marker-alt"
+                               Style="{StaticResource EntryIconStyle}"/>
+                        <local:CustomEntry Text="{Binding UserData.Address}"
+                                           Placeholder="Address"
+                                           Style="{StaticResource EntryStyle}"/>
+                    </Grid>
+                </Frame>
+                <!--Birthdate-->
+                <Frame Grid.Row="6"
+                       Style="{StaticResource EntryFrameStyle}">
+                    <Grid RowSpacing="0"
+                          ColumnSpacing="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="{local:ScaleGridWidth Value=40}"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="{local:ScaleGridWidth Value=30}"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Text="calendar-alt"
+                               FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"
+                               Style="{StaticResource EntryIconStyle}"/>
+                        <local:CustomDatePicker x:Name="BirthdatePicker"
+                                                Grid.Column="1"
+                                                Placeholder="Birthdate"
+                                                Date="{Binding UserData.Birthdate}"
+                                                TextColor="{Binding BirthdateTextColor}"
+                                                FontFamily="{Static res:FontResource.LIGHT}"
+                                                FontSize="{local:ScaleFontSize Value=16}"
+                                                BackgroundColor="Transparent"
+                                                Margin="{local:ScaleThickness Value='12,0,0,0'}">
+                            <local:CustomDatePicker.Behaviors>
+                                <prism:EventToCommandBehavior Command="{Binding DateSelectedCommand}"
+                                                              CommandParameter="{x:Reference BirthdatePicker}"
+                                                              EventName="DateSelected"/>
+                            </local:CustomDatePicker.Behaviors>
+                        </local:CustomDatePicker>
+                    </Grid>
+                </Frame>                
+                <!--Email-->
+                <Frame Grid.Row="7"
+                       Style="{StaticResource EntryFrameStyle}">
+                    <Grid RowSpacing="0"
+                          ColumnSpacing="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="{local:ScaleGridWidth Value=40}"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="{local:ScaleGridWidth Value=30}"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Text="envelope"
+                               FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"
+                               Style="{StaticResource EntryIconStyle}"/>
+                        <local:CustomEntry Text="{Binding UserData.Email}"
+                                           Placeholder="Email Address"
+                                           Keyboard="Email"
+                                           Style="{StaticResource EntryStyle}"/>
+                    </Grid>
+                </Frame>
+                <!--Password-->
+                <Button Grid.Row="8"
+                        Text="Change Password"
+                        Command="{Binding ChangePasswordTappedCommand}"
+                        TextColor="White"
+                        FontFamily="{Static res:FontResource.BOLD}"
+                        FontSize="{local:ScaleFontSize Value=16}"
+                        BackgroundColor="{Static res:ColorResource.MAIN_BUTTON_COLOR}"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        CornerRadius="{local:ScaleHeight Value=20}"
+                        WidthRequest="{local:ScaleWidth Value=280}"
+                        HeightRequest="{local:ScaleHeight Value=40}">
+                </Button>
+                <!--Register Button-->
+                <Button Grid.Row="9"
+                        Text="Register"
+                        Command="{Binding LoginLabelTappedCommand}"
+                        TextColor="White"
+                        FontFamily="{Static res:FontResource.BOLD}"
+                        FontSize="{local:ScaleFontSize Value=16}"
+                        BackgroundColor="{Static res:ColorResource.MAIN_BUTTON_COLOR}"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        CornerRadius="{local:ScaleHeight Value=20}"
+                        WidthRequest="{local:ScaleWidth Value=280}"
+                        HeightRequest="{local:ScaleHeight Value=40}">
+                </Button>
+            </Grid>
+        </ScrollView>        
+    </local:MainNavigationPage.Content>
 </local:MainNavigationPage>

@@ -39,5 +39,8 @@ namespace KeepSafe.Resources
         public static readonly Color TAB_DEFAULT_TEXTCOLOR = Color.FromHex("#D290A4");
         public static readonly Color TAB_SELECTED_TEXTCOLOR = Color.FromHex("#FFFFFF");
 
+        public static readonly Color PROFILE_ENTRY_COLOR = Color.FromHex("#8859676B");
+        public static readonly Color PROFILE_BACKGROUND_COLOR = Color.FromHex("#804456");
+
     }
 }

@@ -191,6 +191,27 @@ namespace KeepSafe
             }
         }
 
+        bool _IsVerified;
+        public bool IsLoggedIn
+        {
+            set
+            {
+                _IsVerified = value;
+                Application.Current.Properties[nameof(IsLoggedIn)] = JsonConvert.SerializeObject(_IsVerified);
+                OnPropertyChanged(nameof(IsLoggedIn));
+                Application.Current.SavePropertiesAsync();
+            }
+            get
+            {
+                if ( Application.Current.Properties.ContainsKey("IsVerified"))
+                {
+                    _IsVerified = JsonConvert.DeserializeObject<bool>(Application.Current.Properties["IsVerified"].ToString(), new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+                }
+
+                return _IsVerified;
+            }
+        }
+
         int _BuildNumber;
         public int BuildNumber
         {
@@ -213,6 +234,7 @@ namespace KeepSafe
             Application.Current.Properties.Remove(nameof(User));
             Token = null;
             User = null;
+            IsLoggedIn = false;
             await Application.Current.SavePropertiesAsync();
         }
 

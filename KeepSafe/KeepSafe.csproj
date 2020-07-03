@@ -75,6 +75,7 @@
     <None Remove="Resources\Files\CheckInHistory.json" />
     <None Remove="Resources\Files\CheckOutHistory.json" />
     <None Remove="Resources\SVG\MyQRIcon.svg" />
+    <None Remove="Resources\Files\UserData.json" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Files\CustomAlert.json" />
@@ -90,6 +91,7 @@
     <EmbeddedResource Include="Resources\Files\CheckInHistory.json" />
     <EmbeddedResource Include="Resources\Files\CheckOutHistory.json" />
     <EmbeddedResource Include="Resources\SVG\MyQRIcon.svg" />
+    <EmbeddedResource Include="Resources\Files\UserData.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Views\HomePage.xaml.cs">
