@@ -217,6 +217,12 @@ namespace KeepSafe
 
             DependencyService.Get<IChangeBarColor>().ChangeColor(BarStyle.Dark);
         }
+
+        protected override void OnAppearing()
+        {
+            DependencyService.Get<IChangeBarColor>().ChangeColor(StatusBarColor);
+            base.OnAppearing();
+        }
     }
 
     public enum IconType
