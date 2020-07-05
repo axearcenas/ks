@@ -20,7 +20,9 @@
                           RightIconColor="White"
                           RightButtonColor="Black"
                           RightButtonCommand="{Binding EditTappedCommand}"
-                          StatusBarColor="Light">
+                          StatusBarColor="Light"
+                          Title="Profile"
+                          IconImageSource="ProfileIcon">
     <local:MainNavigationPage.Triggers>
         <DataTrigger TargetType="local:MainNavigationPage"
                      Binding="{Binding IsEdit}" Value="true">

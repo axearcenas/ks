@@ -6,6 +6,8 @@ using Xamarin.Forms.Platform.iOS;
 using UIKit;
 using Foundation;
 using CoreGraphics;
+using System.ComponentModel;
+using System.Linq;
 
 [assembly: ExportRenderer(typeof(CustomEntry), typeof(CustomEntryRenderer))]
 namespace KeepSafe.iOS.Renderers
@@ -15,6 +17,7 @@ namespace KeepSafe.iOS.Renderers
         NSObject _keyboardShowObserver;
         NSObject _keyboardHideObserver;
         CustomEntry entry;
+        CustomEntry CustomElement => Element as CustomEntry;
 
         protected override void OnElementChanged(ElementChangedEventArgs<Entry> e)
         {
@@ -58,7 +61,7 @@ namespace KeepSafe.iOS.Renderers
                         Control.TextContentType = UITextContentType.OneTimeCode;
                         break;
                 }
-
+                UpdatePlaceholderFont();
                 //Control.AutocapitalizationType = UITextAutocapitalizationType.None;
                 //if (entry.Keyboard == Keyboard.Numeric || entry.Keyboard == Keyboard.Telephone)
                 //{
@@ -85,6 +88,13 @@ namespace KeepSafe.iOS.Renderers
                 //    Control.InputAccessoryView = toolbar;
                 //}
             }
+        }
+
+        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            base.OnElementPropertyChanged(sender, e);
+            if (e.PropertyName == CustomEntry.PlaceholderFontFamilyProperty.PropertyName)
+                UpdatePlaceholderFont();
         }
 
         void RegisterForKeyboardNotifications()
@@ -169,6 +179,42 @@ namespace KeepSafe.iOS.Renderers
             }
             return view;
         }
+
+        private void UpdatePlaceholderFont()
+        {
+            if (CustomElement.Placeholder != null)
+            {
+                var paragraphStyle = new NSMutableParagraphStyle
+                {
+                    Alignment = UITextAlignment.Left
+                };
+
+                var placeholderFont = FindFont(CustomElement.PlaceholderFontFamily, (float)CustomElement.FontSize);
+
+                Control.AttributedPlaceholder = new NSAttributedString(CustomElement.Placeholder, placeholderFont, foregroundColor: (CustomElement.PlaceholderColor).ToUIColor(), paragraphStyle: paragraphStyle);
+            }
+        }
+
+        private UIFont FindFont(string fontFamily, float fontSize)
+        {
+            if (fontFamily != null)
+            {
+                try
+                {
+                    if (UIFont.FamilyNames.Contains(fontFamily))
+                    {
+                        var descriptor = new UIFontDescriptor().CreateWithFamily(fontFamily);
+                        return UIFont.FromDescriptor(descriptor, fontSize);
+                    }
+
+                    return UIFont.FromName(fontFamily, fontSize);
+                }
+                catch { }
+            }
+
+            return UIFont.SystemFontOfSize(fontSize);
+        }
+
     }
 }
 

@@ -18,6 +18,7 @@ namespace KeepSafe.Resources
         public static readonly Color SCANNER_BACKGROUNDCOLOR = Color.FromHex("#804456");
 
         
+        public static readonly Color ESTABLISHMENT_MAIN_THEME_COLOR = Color.FromHex("#22144D");
 
         public static readonly Color LIST_CARD_BACKGROUNDCOLOR = Color.FromHex("#885967");
         public static readonly Color LIST_CARD_ICON_BACKGROUNDCOLOR = Color.FromHex("#64293B");
@@ -45,6 +46,7 @@ namespace KeepSafe.Resources
 
         public static readonly Color PROFILE_ENTRY_COLOR = Color.FromHex("#8859676B");
         public static readonly Color PROFILE_BACKGROUND_COLOR = Color.FromHex("#804456");
+        public static readonly Color TAB_ESTABLISHMENT_DEFAULT_TEXTCOLOR = Color.FromHex("#7FB2D4");
 
     }
 }

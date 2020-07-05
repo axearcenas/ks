@@ -7,14 +7,15 @@ namespace KeepSafe.Views
 {
     public partial class MyTabbedPage : TabbedPage
     {
+        Page PreviousPage;
+        ImageSource PreviousImageSource;
+
         public MyTabbedPage()
         {
             InitializeComponent();
             //this.ToolbarItems.Add(new ToolbarItem("HOMAGE", "HomeIcon", OnActivated));
-            
         }
-        Page PreviousPage;
-        ImageSource PreviousImageSource;
+
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             base.OnPropertyChanged(propertyName);

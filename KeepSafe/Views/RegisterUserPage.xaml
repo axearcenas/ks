@@ -41,6 +41,7 @@
                 <Setter Property="Grid.Column" Value="1"/>
                 <Setter Property="TextColor" Value="White"/>
                 <Setter Property="FontFamily" Value="{Static res:FontResource.LIGHT}"/>
+                <Setter Property="PlaceholderFontFamily" Value="{Static res:FontResource.LIGHT}"/>
                 <Setter Property="FontSize" Value="{local:ScaleFontSize Value=16}"/>
                 <Setter Property="BackgroundColor" Value="Transparent"/>
                 <Setter Property="Margin" Value="{local:ScaleThickness Value='12,0,0,0'}"/>

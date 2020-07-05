@@ -74,11 +74,16 @@
     <None Remove="Resources\SVG\HomeIcon.svg" />
     <None Remove="Resources\SVG\ScanIcon.svg" />
     <None Remove="Resources\SVG\ScannerInidcator.svg" />
-    <None Remove="Resources\SVG\SearchIcon.svg" />
     <None Remove="Resources\Files\CheckInHistory.json" />
     <None Remove="Resources\Files\CheckOutHistory.json" />
     <None Remove="Resources\SVG\MyQRIcon.svg" />
     <None Remove="Resources\Files\UserData.json" />
+    <None Remove="Resources\SVG\SearchIcon.svg" />
+    <None Remove="Resources\SVG\QRCodeIcon.svg" />
+    <None Remove="Resources\SVG\CheckInIcon.svg" />
+    <None Remove="Resources\SVG\CheckoutIcon.svg" />
+    <None Remove="Resources\SVG\CheckOutIcon.svg" />
+    <None Remove="Resources\Files\EstablishmentScanHistory.json" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Files\CustomAlert.json" />
@@ -94,9 +99,13 @@
     <EmbeddedResource Include="Resources\SVG\HomeIcon.svg" />
     <EmbeddedResource Include="Resources\SVG\ScanIcon.svg" />
     <EmbeddedResource Include="Resources\SVG\ScannerInidcator.svg" />
-    <EmbeddedResource Include="Resources\SVG\SearchIcon.svg" />
     <EmbeddedResource Include="Resources\SVG\MyQRIcon.svg" />
     <EmbeddedResource Include="Resources\Files\UserData.json" />
+    <EmbeddedResource Include="Resources\SVG\SearchIcon.svg" />
+    <EmbeddedResource Include="Resources\SVG\QRCodeIcon.svg" />
+    <EmbeddedResource Include="Resources\SVG\CheckInIcon.svg" />
+    <EmbeddedResource Include="Resources\SVG\CheckOutIcon.svg" />
+    <EmbeddedResource Include="Resources\Files\EstablishmentScanHistory.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Views\HomePage.xaml.cs">

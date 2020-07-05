@@ -13,7 +13,9 @@
                           NavBackgroundColor="Transparent"
                           BackgroundImageSource="UserBackground"
                           StatusBarColor="Light"
-                          BackgroundColor="#BE5869">
+                          BackgroundColor="#BE5869"                          
+                          Title="Home"
+                          IconImageSource="HomeIcon">
     <local:MainNavigationPage.Resources>
         <ResourceDictionary>
             <!--<Style x:Key="ButtonStyle" TargetType="Button">

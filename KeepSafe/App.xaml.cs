@@ -73,7 +73,8 @@ namespace KeepSafe
             //MainPage = new CustomServerPopup() { BindingContext = new CustomServerPopupViewModel(NavigationService) };
             
             if(dataClass.IsLoggedIn)
-                ShowHomePage();
+                //TODO Add a parameter that identifies logged in account is either User or Business
+                ShowHomePage(UserType.User);
             else
                 ShowMainPage();
         }
@@ -117,10 +118,12 @@ namespace KeepSafe
             OnAppResume?.Invoke();
         }
 
-        public static void ShowHomePage()
+        public static void ShowHomePage(UserType userType)
         {
             //TODO Create Landing Page
-            _NavigationService.NavigateAsync($"{AppNavigationRootRoute}{nameof(MyTabbedPage)}");
+            var parameter = new NavigationParameters();
+            parameter.Add("UserType", userType);
+            _NavigationService.NavigateAsync($"{AppNavigationRootRoute}{nameof(MyTabbedPage)}?{KnownNavigationParameters.CreateTab}={(userType == UserType.User ? "HomePage" : "DashboardPage")}&{KnownNavigationParameters.CreateTab}=ScanPage&{KnownNavigationParameters.CreateTab}=ProfilePage", parameter);
         }
 
         public static void ShowMainPage()
@@ -161,12 +164,14 @@ namespace KeepSafe
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage>();
             containerRegistry.RegisterForNavigation<CustomServerPopup,CustomServerPopupViewModel>();
+            containerRegistry.RegisterForNavigation<ScanHistoryFilter, ScanHistoryFilterViewModel>();
             containerRegistry.RegisterForNavigation<MyTabbedPage, MyTabbedPageViewModel>();
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
             containerRegistry.RegisterForNavigation<RegisterPage, RegisterViewModel>();
             containerRegistry.RegisterForNavigation<RegisterUserPage,RegisterUserViewModel>();
             containerRegistry.RegisterForNavigation<RegisterBusinessPage, RegisterBusinessViewModel>();
             containerRegistry.RegisterForNavigation<MyTabbedPage, MyTabbedPageViewModel>();
+            containerRegistry.RegisterForNavigation<DashboardPage, DashboardViewModel>();
             containerRegistry.RegisterForNavigation<HomePage>();
             containerRegistry.RegisterForNavigation<ScanPage>();
             containerRegistry.RegisterForNavigation<ProfilePage>();

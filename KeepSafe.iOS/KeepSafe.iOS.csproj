@@ -187,6 +187,30 @@
     <ImageAsset Include="Assets.xcassets\UserBackground.imageset\UserBackground.png" />
     <ImageAsset Include="Assets.xcassets\UserBackground.imageset\UserBackground%402x.png" />
     <ImageAsset Include="Assets.xcassets\UserBackground.imageset\UserBackground%403x.png" />
+    <ImageAsset Include="Assets.xcassets\SelectedBusinessScanIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\SelectedBusinessProfileIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\SelectedDashboardIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\DashboardIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\BusinessScanIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\BusinessProfileIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\BusinessProfileIcon.imageset\BusinessProfileIcon.png" />
+    <ImageAsset Include="Assets.xcassets\BusinessProfileIcon.imageset\BusinessProfileIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\BusinessProfileIcon.imageset\BusinessProfileIcon%403x.png" />
+    <ImageAsset Include="Assets.xcassets\BusinessScanIcon.imageset\BusinessScanIcon.png" />
+    <ImageAsset Include="Assets.xcassets\BusinessScanIcon.imageset\BusinessScanIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\BusinessScanIcon.imageset\BusinessScanIcon%403x.png" />
+    <ImageAsset Include="Assets.xcassets\DashboardIcon.imageset\DashboardIcon.png" />
+    <ImageAsset Include="Assets.xcassets\DashboardIcon.imageset\DashboardIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\DashboardIcon.imageset\DashboardIcon%403x.png" />
+    <ImageAsset Include="Assets.xcassets\SelectedBusinessProfileIcon.imageset\SelectedBusinessProfileIcon.png" />
+    <ImageAsset Include="Assets.xcassets\SelectedBusinessProfileIcon.imageset\SelectedBusinessProfileIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\SelectedBusinessProfileIcon.imageset\SelectedBusinessProfileIcon%403x.png" />
+    <ImageAsset Include="Assets.xcassets\SelectedBusinessScanIcon.imageset\SelectedBusinessScanIcon.png" />
+    <ImageAsset Include="Assets.xcassets\SelectedBusinessScanIcon.imageset\SelectedBusinessScanIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\SelectedBusinessScanIcon.imageset\SelectedBusinessScanIcon%403x.png" />
+    <ImageAsset Include="Assets.xcassets\SelectedDashboardIcon.imageset\SelectedDashboardIcon.png" />
+    <ImageAsset Include="Assets.xcassets\SelectedDashboardIcon.imageset\SelectedDashboardIcon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\SelectedDashboardIcon.imageset\SelectedDashboardIcon%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -270,5 +294,20 @@
     <Folder Include="Assets.xcassets\SelectedProfileIcon.imageset\" />
     <Folder Include="Assets.xcassets\SelectedScanIcon.imageset\" />
     <Folder Include="Assets.xcassets\UserBackground.imageset\" />
+    <Folder Include="Assets.xcassets\ProfileScanIcon.imageset\" />
+    <Folder Include="Assets.xcassets\DashboardIcon.imageset\" />
+    <Folder Include="Assets.xcassets\SelectedDashboardIcon.imageset\" />
+    <Folder Include="Assets.xcassets\SelectedBusinessScanIcon.imageset\" />
+    <Folder Include="Assets.xcassets\SelectedBusinessProfileIcon.imageset\" />
+    <Folder Include="Assets.xcassets\DashboardIcon.imageset\" />
+    <Folder Include="Assets.xcassets\BusinessScanIcon.imageset\" />
+    <Folder Include="Assets.xcassets\SelectedBusinessScanIcon.imageset\" />
+    <Folder Include="Assets.xcassets\BusinessScanIcon.imageset\" />
+    <Folder Include="Assets.xcassets\BusinessProfileIcon.imageset\" />
+    <Folder Include="Assets.xcassets\SelectedBusinessProfileIcon.imageset\" />
+    <Folder Include="Assets.xcassets\SelectedDashboardIcon.imageset\" />
+    <Folder Include="Assets.xcassets\DashboardIcon.imageset\" />
+    <Folder Include="Assets.xcassets\BusinessScanIcon.imageset\" />
+    <Folder Include="Assets.xcassets\BusinessProfileIcon.imageset\" />
   </ItemGroup>
 </Project>
