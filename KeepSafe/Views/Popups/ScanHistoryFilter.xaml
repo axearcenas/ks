@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<local:RGPopupPage  xmlns="http://xamarin.com/schemas/2014/forms"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    x:Class="KeepSafe.Views.Popups.ScanHistoryFilter"
+                    xmlns:local="clr-namespace:KeepSafe"
+                    xmlns:res="clr-namespace:KeepSafe.Resources"
+                    HasSystemPadding="false"
+                    CloseWhenBackgroundIsClicked="true"
+                    HasKeyboardOffset="False"
+                    BackgroundColor="Transparent"
+                    Padding="{local:ScaleThickness Value='0,308,20,0'}">
+    <local:RGPopupPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Button" x:Key="ButtonStyle">
+                <Setter Property="TextColor" Value="#2C3E50"/>
+                <Setter Property="FontFamily" Value="{Static res:FontResource.REGULAR}"/>
+                <Setter Property="FontSize" Value="{local:ScaleFontSize Value=15}"/>
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="WidthRequest" Value="{local:ScaleWidth Value=112}"/>
+            </Style>
+        </ResourceDictionary>
+    </local:RGPopupPage.Resources>
+    <local:RGPopupPage.Content>
+        <Frame Padding="0"
+               Margin="0"
+               IsClippedToBounds="True"
+               CornerRadius="{local:ScaleHeight Value=5}"
+               HorizontalOptions="EndAndExpand"
+               VerticalOptions="StartAndExpand"
+               HasShadow="True">
+            <Grid RowSpacing="0"
+                  ColumnSpacing="0"
+                  Padding="0"
+                  BackgroundColor="White"
+                  WidthRequest="{local:ScaleWidth Value=112}"
+                  HeightRequest="{local:ScaleHeight Value=106}"
+                  HorizontalOptions="Fill"
+                  VerticalOptions="Fill">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=8}"/>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=18}"/>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=18}"/>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=18}"/>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=18}"/>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=18}"/>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=8}"/>
+                </Grid.RowDefinitions>
+                <Button x:Name="AllButton"
+                        Text="All"
+                        Grid.Row="1"
+                        ClassId="All"
+                        Style="{StaticResource ButtonStyle}"
+                        Command="{Binding FilterOptionClickedCommand}"
+                        CommandParameter="{x:Reference AllButton}">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button"
+                                     Binding="{Binding FilterType}"
+                                     Value="All">
+                            <Setter Property="TextColor" Value="#2C3E5096"/>
+                            <Setter Property="InputTransparent" Value="True"/>
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+                <Button x:Name="CheckInButton"
+                        Text="Check Ins"
+                        Grid.Row="3"
+                        ClassId="Check Ins"
+                        Style="{StaticResource ButtonStyle}"
+                        Command="{Binding FilterOptionClickedCommand}"
+                        CommandParameter="{x:Reference CheckInButton}">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button"
+                                     Binding="{Binding FilterType}"
+                                     Value="Check Ins">
+                            <Setter Property="TextColor" Value="#2C3E5096"/>
+                            <Setter Property="InputTransparent" Value="True"/>
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+                <Button x:Name="CheckOutButton"
+                        Text="Check Outs"
+                        Grid.Row="5"
+                        ClassId="Check Outs"
+                        Style="{StaticResource ButtonStyle}"
+                        Command="{Binding FilterOptionClickedCommand}"
+                        CommandParameter="{x:Reference CheckOutButton}">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button"
+                                     Binding="{Binding FilterType}"
+                                     Value="Check Outs">
+                            <Setter Property="TextColor" Value="#2C3E5096"/>
+                            <Setter Property="InputTransparent" Value="True"/>
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+            </Grid>
+        </Frame>
+    </local:RGPopupPage.Content>    
+</local:RGPopupPage>

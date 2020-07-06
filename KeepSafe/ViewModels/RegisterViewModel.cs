@@ -72,7 +72,7 @@ namespace KeepSafe.ViewModels
 
         private void OnLoginLabelTapped()
         {
-            NavigationService.NavigateAsync("/MainPage");
+            NavigationService.GoBackAsync();
         }
 
     }

@@ -17,7 +17,9 @@
                           TitleFontSize="{local:ScaleFontSize Value=21}"
                           TitleHeightRequest="{local:ScaleHeight Value=25}"
                           TitleVerticalOptions="Center"
-                          StatusBarColor="Light">
+                          StatusBarColor="Light"
+                          Title="Scan"
+                          IconImageSource="ScanIcon">
     <local:MainNavigationPage.Resources>
         <ResourceDictionary>            
             <Style TargetType="local:CustomEntry" x:Key="EntryStyle">

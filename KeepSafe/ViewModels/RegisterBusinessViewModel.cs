@@ -238,11 +238,15 @@ namespace KeepSafe
                 EULATextColor = Color.Red;
                 IsValid = false;
             }
-
+            
             if (IsValid && !IsClicked)
             {
                 IsClicked = true;
+
+                //TODO Register API
             }
+            
+            App.ShowHomePage(UserType.Establishment);
         }
 
         private void OnLoginLabelTapped()
