@@ -1,4 +1,5 @@
 ﻿using System;
+using KeepSafe.Enum;
 using KeepSafe.Resources;
 using KeepSafe.Views;
 using Prism;
@@ -47,16 +48,14 @@ namespace KeepSafe.ViewModels
         Color _BarBackgroundColor;
         public Color BarBackgroundColor
         {
-            get
-            { return _BarBackgroundColor; }
+            get{ return _BarBackgroundColor; }
             set { SetProperty(ref _BarBackgroundColor, value, nameof(BarBackgroundColor)); RaiseIsActiveChanged(); }
         }
 
         Color _UnselectedTabColor;
         public Color UnselectedTabColor
         {
-            get
-            { return _UnselectedTabColor; }
+            get{ return _UnselectedTabColor; }
             set { SetProperty(ref _UnselectedTabColor, value, nameof(UnselectedTabColor)); RaiseIsActiveChanged(); }
         }
 

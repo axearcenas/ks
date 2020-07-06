@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using KeepSafe.Enum;
 using KeepSafe.Extension;
 using KeepSafe.Extensions;
 using KeepSafe.Helpers.FileReader;
@@ -223,6 +224,7 @@ namespace KeepSafe.ViewModels
                                     //PageDialogService?.DisplayAlertAsync("Login Succesfully",jsonData["message"].ToString(),"Okay");
                                     dataClass.User = JsonConvert.DeserializeObject<User>(jsonData["user"].ToString());
                                         dataClass.IsLoggedIn = true;
+                                        dataClass.AccountType = UserType.User;
                                         App.ShowHomePage(UserType.User);
                                         EmailAddressEntry.ClearText();
                                         PasswordEntry.ClearText();
@@ -238,6 +240,7 @@ namespace KeepSafe.ViewModels
                                         //PageDialogService?.DisplayAlertAsync("Login Succesfully",jsonData["message"].ToString(),"Okay");
                                         dataClass.User = JsonConvert.DeserializeObject<User>(jsonData["user"].ToString());
                                         dataClass.IsLoggedIn = true;
+                                        dataClass.AccountType = UserType.Establishment;
                                         App.ShowHomePage(UserType.Establishment);
                                         EmailAddressEntry.ClearText();
                                         PasswordEntry.ClearText();

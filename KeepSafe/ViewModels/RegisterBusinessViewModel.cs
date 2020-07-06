@@ -1,4 +1,5 @@
 ﻿using System;
+using KeepSafe.Enum;
 using KeepSafe.Extension;
 using KeepSafe.Extensions;
 using KeepSafe.Helpers.MediaHelper;
@@ -245,7 +246,8 @@ namespace KeepSafe
 
                 //TODO Register API
             }
-            
+
+            dataClass.AccountType = UserType.Establishment;
             App.ShowHomePage(UserType.Establishment);
         }
 

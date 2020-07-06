@@ -67,6 +67,14 @@ namespace KeepSafe.ViewModels
         }
 
         User UserCached { get { return DataClass.GetInstance.User; } }
+        
+        public string TabIcon
+        {
+            get
+            {
+                return DataClass.GetInstance.AccountType == UserType.User ? "ProfileIcon" : "BusinessProfileIcon";
+            }
+        }
 
         public UserProfilePageViewModel(INavigationService navigationService, IPageDialogService pageDialogService)
             : base(navigationService, pageDialogService)

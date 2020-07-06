@@ -37,6 +37,14 @@ namespace KeepSafe.ViewModels
             set { _IsScanning = value; OnPropertyChanged(); }
         }
 
+        public string TabIcon
+        {
+            get
+            {
+                return DataClass.GetInstance.AccountType == UserType.User ? "ScanIcon" : "BusinessScanIcon";
+            }
+        }
+
         bool CanScan;
         public ScanPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService)
             : base(navigationService, pageDialogService)

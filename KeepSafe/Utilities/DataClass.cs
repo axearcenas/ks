@@ -191,6 +191,26 @@ namespace KeepSafe
             }
         }
 
+        UserType _AccountType;
+        public UserType AccountType
+        {
+            set
+            {
+                _AccountType = value;
+                Application.Current.Properties["AccountType"] = _AccountType;
+                OnPropertyChanged(nameof(_AccountType));
+                Application.Current.SavePropertiesAsync();
+            }
+            get
+            {
+                if (string.IsNullOrEmpty(_uid) && Application.Current.Properties.ContainsKey("AccountType"))
+                {
+                    _AccountType = (UserType)Application.Current.Properties["AccountType"];
+                }
+                return _AccountType;
+            }
+        }
+
         bool _IsLoggedIn;
         public bool IsLoggedIn
         {
@@ -232,6 +252,7 @@ namespace KeepSafe
             Application.Current.Properties.Remove(nameof(ClientId));
             Application.Current.Properties.Remove(nameof(Uid));
             Application.Current.Properties.Remove(nameof(User));
+            Application.Current.Properties.Remove(nameof(AccountType));
             Token = null;
             User = null;
             IsLoggedIn = false;

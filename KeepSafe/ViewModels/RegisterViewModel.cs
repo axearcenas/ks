@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using KeepSafe.Enum;
 using Prism.Commands;
 using Prism.Navigation;
 

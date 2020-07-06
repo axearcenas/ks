@@ -19,6 +19,7 @@ using KeepSafe.Views.Popups;
 using KeepSafe.ViewModels.PopupsViewModel;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
+using KeepSafe.Enum;
 
 namespace KeepSafe
 {
@@ -73,8 +74,7 @@ namespace KeepSafe
             //MainPage = new CustomServerPopup() { BindingContext = new CustomServerPopupViewModel(NavigationService) };
             
             if(dataClass.IsLoggedIn)
-                //TODO Add a parameter that identifies logged in account is either User or Business
-                ShowHomePage(UserType.User);
+                ShowHomePage(DataClass.GetInstance.AccountType);
             else
                 ShowMainPage();
         }
@@ -123,7 +123,7 @@ namespace KeepSafe
             //TODO Create Landing Page
             var parameter = new NavigationParameters();
             parameter.Add("UserType", userType);
-            _NavigationService.NavigateAsync($"{AppNavigationRootRoute}{nameof(MyTabbedPage)}?{KnownNavigationParameters.CreateTab}={(userType == UserType.User ? "HomePage" : "DashboardPage")}&{KnownNavigationParameters.CreateTab}=ScanPage&{KnownNavigationParameters.CreateTab}=UserProfilePage", parameter);
+            _NavigationService.NavigateAsync($"{AppNavigationRootRoute}{nameof(MyTabbedPage)}?createTab={(userType == UserType.User ? "HomePage" : "DashboardPage")}&createTab=ScanPage&createTab=UserProfilePage", parameter);
         }
 
         public static void ShowMainPage()

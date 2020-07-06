@@ -123,11 +123,5 @@ namespace KeepSafe.Models
             Birthdate = user.Birthdate;
             Email = user.Email;
         }
-        string _Image;
-        public string Image
-        {
-            get { return _Image; }
-            set { _Image = value; OnPropertyChanged(); }
-        }
     }
 }
