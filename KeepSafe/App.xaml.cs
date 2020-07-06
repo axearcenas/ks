@@ -177,6 +177,8 @@ namespace KeepSafe
             containerRegistry.RegisterForNavigation<UserProfilePage,UserProfilePageViewModel>();
             containerRegistry.RegisterForNavigation<UserCheckInPage>();
             containerRegistry.RegisterForNavigation<MyQRPage>();
+            containerRegistry.RegisterForNavigation<ForgotPasswordPage, ForgotPasswordPageViewModel>();
+
             //NOTE: Views that has a view model in ViewModel Folder
             //containerRegistry.RegisterForNavigation<GetStartedPage>();
             //NOTE: Views that has a view model but not in ViewModel Folder

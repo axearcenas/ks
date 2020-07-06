@@ -214,11 +214,29 @@
         <BoxView Grid.Row="7"
                  Style="{StaticResource SeparatorBoxViewStyle}"
                  Margin="{local:ScaleThickness Value='16,0,0,0'}"
-                 HorizontalOptions="Start"/>
+                 HorizontalOptions="Start"
+                 IsVisible="false">            
+            <BoxView.Triggers>
+                <DataTrigger TargetType="BoxView"
+                                Binding="{Binding UserType}"
+                                Value="User">
+                    <Setter Property="IsVisible" Value="true"/>
+                </DataTrigger>
+            </BoxView.Triggers>
+        </BoxView>
         <BoxView Grid.Row="7"
                  Style="{StaticResource SeparatorBoxViewStyle}"
                  Margin="{local:ScaleThickness Value='0,0,16,0'}"
-                 HorizontalOptions="End"/>
+                 HorizontalOptions="End"
+                 IsVisible="false">            
+            <BoxView.Triggers>
+                <DataTrigger TargetType="BoxView"
+                                Binding="{Binding UserType}"
+                                Value="User">
+                    <Setter Property="IsVisible" Value="true"/>
+                </DataTrigger>
+            </BoxView.Triggers>
+        </BoxView>
         <Label Grid.Row="7"
                Text="OR"
                TextColor="{Static res:ColorResource.WHITE_COLOR}"
@@ -228,15 +246,42 @@
                HorizontalOptions="Center"
                VerticalOptions="Fill"
                HorizontalTextAlignment="Center"
-               Margin="{local:ScaleThickness Value='0,-2,0,0'}"/>
+               Margin="{local:ScaleThickness Value='0,-2,0,0'}"               
+               IsVisible="false">
+            <Label.Triggers>
+                <DataTrigger TargetType="Label"
+                                Binding="{Binding UserType}"
+                                Value="User">
+                    <Setter Property="IsVisible" Value="true"/>
+                </DataTrigger>
+            </Label.Triggers>
+        </Label>
         <!-- 8 | Login Via Facebook and Google -->
-        <local:FFSVGImage  Grid.Row="8"
+        <local:FFSVGImage Grid.Row="8"
                           Source="{local:FFSVGImageSource ImageName=FacebookIcon}"
                           Style="{StaticResource LoginViaImage}"
-                          Margin="{local:ScaleThickness Value='-76,8,0,0'}"/>
+                          Margin="{local:ScaleThickness Value='-76,8,0,0'}"
+                          IsVisible="false">
+            <local:FFSVGImage.Triggers>
+                <DataTrigger TargetType="local:FFSVGImage"
+                                Binding="{Binding UserType}"
+                                Value="User">
+                    <Setter Property="IsVisible" Value="true"/>
+                </DataTrigger>
+            </local:FFSVGImage.Triggers>
+        </local:FFSVGImage>
         <local:FFSVGImage Grid.Row="8"
                           Source="{local:FFSVGImageSource ImageName=GoogleIcon}"
                           Style="{StaticResource LoginViaImage}"
-                          Margin="{local:ScaleThickness Value='0,8,-76,0'}"/>
+                          Margin="{local:ScaleThickness Value='0,8,-76,0'}"
+                          IsVisible="false">
+            <local:FFSVGImage.Triggers>
+                <DataTrigger TargetType="local:FFSVGImage"
+                                Binding="{Binding UserType}"
+                                Value="User">
+                    <Setter Property="IsVisible" Value="true"/>
+                </DataTrigger>
+            </local:FFSVGImage.Triggers>
+        </local:FFSVGImage>
     </Grid>
 </local:MainNavigationPage>

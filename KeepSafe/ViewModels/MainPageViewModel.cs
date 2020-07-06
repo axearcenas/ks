@@ -79,20 +79,24 @@ namespace KeepSafe.ViewModels
             {
                 IsClicked = true;
                 SellectedType = UserType.User;
+                INavigationParameters keys = new NavigationParameters();
+                keys.Add("UserType", SellectedType);
                 await Task.Delay(16);
-                await NavigationService.NavigateAsync(nameof(LoginPage));
+                await NavigationService.NavigateAsync(nameof(LoginPage), keys);
                 StartTimer();
             }
         }
 
-        private void OnEstablishmentClickedCommand_Execute()
+        private async void OnEstablishmentClickedCommand_Execute()
         {
             if (!IsClicked)
             {
                 IsClicked = true;
                 SellectedType = UserType.Establishment;
-                //TODO Navigate To Establishment Login
-                App.Log("TODO: Navigate To Establishment Login");
+                INavigationParameters keys = new NavigationParameters();
+                keys.Add("UserType", SellectedType);
+                await Task.Delay(16);
+                await NavigationService.NavigateAsync(nameof(LoginPage), keys);
                 StartTimer();
             }
         }
