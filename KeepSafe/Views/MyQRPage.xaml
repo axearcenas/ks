@@ -32,7 +32,7 @@
                VerticalOptions="End"/>
 
         <local:FFSVGImage Grid.Row="1"
-                          Source="{Binding Source={Static local:DataClass.GetInstance},Path=User.QrCode}"
+                          Source="{Binding Source={Static local:DataClass.GetInstance},Path=User.QrcodeImage}"
                           HeightRequest="{local:ScaleHeight Value=258}"
                           WidthRequest="{local:ScaleWidth Value=258}"
                           HorizontalOptions="Center"
@@ -40,7 +40,7 @@
                           BackgroundColor="{Static  res:ColorResource.WHITE_COLOR}"/>
 
         <Label Grid.Row="2"
-               Text="{Binding Source={Static local:DataClass.GetInstance},Path=User.Code,TargetNullValue=3X4MPL31}"
+               Text="{Binding Source={Static local:DataClass.GetInstance},Path=User.Qrcode,TargetNullValue=3X4MPL31}"
                TextColor="{Static res:ColorResource.WHITE_COLOR}"
                FontSize="{local:ScaleFontSize Value=21}"
                FontFamily="{Static res:FontResource.BOLD}"

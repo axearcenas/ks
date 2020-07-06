@@ -114,9 +114,9 @@
                    HorizontalOptions="Start"
                    VerticalOptions="Center"
                    />
-            <local:CustomEntry Text="{Binding EmailAddressEntry.Text}"
-                               Placeholder="{Binding EmailAddressEntry.Placeholder}"
-                               PlaceholderColor="{Binding EmailAddressEntry.PlaceholderColor}"
+            <local:CustomEntry Text="{Binding PhoneNumberEntry.Text}"
+                               Placeholder="{Binding PhoneNumberEntry.Placeholder}"
+                               PlaceholderColor="{Binding PhoneNumberEntry.PlaceholderColor}"
                                Keyboard="Numeric"
                                ReturnType="Next"
                                Margin="{local:ScaleThickness Value='37,0,0,0'}"

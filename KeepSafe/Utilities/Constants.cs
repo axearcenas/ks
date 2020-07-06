@@ -32,7 +32,9 @@ namespace KeepSafe
 #if DEBUG == false
         /// <summary> /users </summary>
         public static readonly string USERS_URL = "/users";
-        
+        public static readonly string USER_URL = "/user";
+        public static readonly string LOGIN_URL = "/login";
+
 
         /// <summary>
         /// add '?' if first parameter or '&amp;' when not first paramameter
@@ -78,9 +80,9 @@ namespace KeepSafe
         public static string RUNNING_SERVER_NAME = SERVER_NAME;
         public static string URL = URL_STABLE;
         public static string FAYE_NOTIFICATION_URL = URL_FAYE_NOTIFICATION;
-        public static string ROOT_URL = URL + "/v1";
-        public static string ROOT_API_URL = URL + "/api" + "/v1";
-        public static string ROOT_API_V2_URL = URL + "/api" + "/v2";
+        public static string ROOT_URL { get { return URL + "/v1"; } }
+        public static string ROOT_API_URL { get { return URL + "/api" + "/v1"; } }
+        public static string ROOT_API_V2_URL { get { return URL + "/api" + "/v2"; } }
         //public static string SIGN_UP_URL = URL + sign;
 
         public static void ApplyServerSettings()
@@ -88,8 +90,8 @@ namespace KeepSafe
             URL = DataClass.GetInstance.CurrentServer.Api;
             FAYE_NOTIFICATION_URL = DataClass.GetInstance.CurrentServer.Notification;
             RUNNING_SERVER_NAME = DataClass.GetInstance.CurrentServer.Name.Equals(SERVER_NAME) ? SERVER_NAME : DataClass.GetInstance.CurrentServer.Name;
-            ROOT_API_URL = URL + "/api" + "/v1";
-            ROOT_API_V2_URL = URL + "/api" + "/v2";
+            //ROOT_API_URL = URL + "/api" + "/v1";
+            //ROOT_API_V2_URL = URL + "/api" + "/v2";
             //SIGN_UP_URL = URL + REGISTRATION_PAGE_URL;
             //Faye.Instance.Disconnect();
             App.Log($"SERVER NAME: - {RUNNING_SERVER_NAME}");
@@ -98,9 +100,9 @@ namespace KeepSafe
             App.Log($"ROOT URL - {ROOT_URL}");
 #if DEBUG
 #else
-            Faye.Instance.client.Connect(Constants.FAYE_NOTIFICATION_URL);
-            Faye.Instance.client.ClearExtensions();
-            Faye.Instance.client.AddExtension(new FayeAuthExtension());
+            //Faye.Instance.client.Connect(Constants.FAYE_NOTIFICATION_URL);
+            //Faye.Instance.client.ClearExtensions();
+            //Faye.Instance.client.AddExtension(new FayeAuthExtension());
 #endif
         }
         #endregion
