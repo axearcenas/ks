@@ -34,7 +34,7 @@ namespace KeepSafe.ViewModels
         public bool IsScanning
         {
             get { return _IsScanning; }
-            set { _IsScanning = value; OnPropertyChanged(); }
+            set { _IsScanning = value; RaisePropertyChanged(); }
         }
 
         bool CanScan;
@@ -65,9 +65,9 @@ namespace KeepSafe.ViewModels
 
         private void SearchEntry_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if(e.PropertyName.Equals("Text"))
+            if (e.PropertyName.Equals("Text"))
             {
-                if(!SearchEntry.Text.Equals(SearchEntry.Text.ToUpper()))
+                if (!SearchEntry.Text.Equals(SearchEntry.Text.ToUpper()))
                 {
                     SearchEntry.Text = SearchEntry.Text.ToUpper();
                 }
