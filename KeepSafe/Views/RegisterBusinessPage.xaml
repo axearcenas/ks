@@ -39,6 +39,7 @@
                 <Setter Property="Grid.Column" Value="1"/>
                 <Setter Property="TextColor" Value="{Static res:ColorResource.MAIN_BLACK_COLOR}"/>
                 <Setter Property="FontFamily" Value="{Static res:FontResource.LIGHT}"/>
+                <Setter Property="PlaceholderFontFamily" Value="{Static res:FontResource.LIGHT}"/>
                 <Setter Property="FontSize" Value="{local:ScaleFontSize Value=16}"/>
                 <Setter Property="BackgroundColor" Value="Transparent"/>
                 <Setter Property="Margin" Value="{local:ScaleThickness Value='12,0,0,0'}"/>
@@ -156,7 +157,7 @@
                                 Grid.ColumnSpan="2"
                                 Title="Type of Establishment"
                                 TitleColor="{Binding EstablishmentTypeTextColor}"
-                                BackgroundColor="{Static res:ColorResource.WHITE_COLOR}"
+                                BackgroundColor="Transparent"
                                 TextColor="{Static res:ColorResource.MAIN_BLACK_COLOR}"
                                 SelectedItem="{Binding EstablishmentTypeSelectedItem}"
                                 FontFamily="{Static res:FontResource.LIGHT}"

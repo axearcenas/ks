@@ -69,11 +69,12 @@ namespace KeepSafe
             Constants.ApplyServerSettings();
 
             //NOTE: FOR TESTING PAGE to show error initializing page
-            //MainPage = new NavigationPage(new ForgotPasswordPage() { BindingContext = new ForgotPasswordPageViewModel(NavigationService, new PageDialogService(new ApplicationProvider())) });
+            //MainPage = new NavigationPage(new UserProfilePage() { BindingContext = new UserProfilePageViewModel(NavigationService, new PageDialogService(new ApplicationProvider())) });
             //MainPage = new CustomServerPopup() { BindingContext = new CustomServerPopupViewModel(NavigationService) };
-
-            if (dataClass.IsLoggedIn)
-                ShowHomePage();
+            
+            if(dataClass.IsLoggedIn)
+                //TODO Add a parameter that identifies logged in account is either User or Business
+                ShowHomePage(UserType.User);
             else
                 ShowMainPage();
         }
@@ -117,10 +118,12 @@ namespace KeepSafe
             OnAppResume?.Invoke();
         }
 
-        public static void ShowHomePage()
+        public static void ShowHomePage(UserType userType)
         {
             //TODO Create Landing Page
-            _NavigationService.NavigateAsync($"{AppNavigationRootRoute}{nameof(MyTabbedPage)}");
+            var parameter = new NavigationParameters();
+            parameter.Add("UserType", userType);
+            _NavigationService.NavigateAsync($"{AppNavigationRootRoute}{nameof(MyTabbedPage)}?{KnownNavigationParameters.CreateTab}={(userType == UserType.User ? "HomePage" : "DashboardPage")}&{KnownNavigationParameters.CreateTab}=ScanPage&{KnownNavigationParameters.CreateTab}=UserProfilePage", parameter);
         }
 
         public static void ShowMainPage()
@@ -161,15 +164,17 @@ namespace KeepSafe
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage>();
             containerRegistry.RegisterForNavigation<CustomServerPopup,CustomServerPopupViewModel>();
+            containerRegistry.RegisterForNavigation<ScanHistoryFilter, ScanHistoryFilterViewModel>();
             containerRegistry.RegisterForNavigation<MyTabbedPage, MyTabbedPageViewModel>();
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
             containerRegistry.RegisterForNavigation<RegisterPage, RegisterViewModel>();
             containerRegistry.RegisterForNavigation<RegisterUserPage,RegisterUserViewModel>();
             containerRegistry.RegisterForNavigation<RegisterBusinessPage, RegisterBusinessViewModel>();
             containerRegistry.RegisterForNavigation<MyTabbedPage, MyTabbedPageViewModel>();
+            containerRegistry.RegisterForNavigation<DashboardPage, DashboardViewModel>();
             containerRegistry.RegisterForNavigation<HomePage>();
             containerRegistry.RegisterForNavigation<ScanPage>();
-            containerRegistry.RegisterForNavigation<ProfilePage>();
+            containerRegistry.RegisterForNavigation<UserProfilePage,UserProfilePageViewModel>();
             containerRegistry.RegisterForNavigation<UserCheckInPage>();
             containerRegistry.RegisterForNavigation<MyQRPage>();
             containerRegistry.RegisterForNavigation<ForgotPasswordPage, ForgotPasswordPageViewModel>();

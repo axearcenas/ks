@@ -8,7 +8,9 @@
     "address": "R.Duterte St. Banawa Cebu",
     "birthdate": "01/07/95",
     "gender": "Female",
-    "email": "mika.perez@gmail.com"
+    "email": "mika.perez@gmail.com",
+    "code": "3X4MP73C",
+    "qr_code": "https://i.imgur.com/BZejtvp.png"
   },
   "status": 200
 }

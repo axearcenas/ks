@@ -20,6 +20,12 @@ namespace KeepSafe.Droid.Renderers
             if (e.OldElement == null)
             {
                 Control.Background = null;
+                var layoutParams = new MarginLayoutParams(Control.LayoutParameters);
+                layoutParams.SetMargins(0, 0, 0, 0);
+                LayoutParameters = layoutParams;
+                Control.LayoutParameters = layoutParams;
+                Control.SetPadding(0, 0, 0, 0);
+                SetPadding(0, 0, 0, 0);
             }
         }
     }

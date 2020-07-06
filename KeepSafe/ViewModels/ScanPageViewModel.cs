@@ -44,7 +44,18 @@ namespace KeepSafe.ViewModels
             ScanCommand = new DelegateCommand<Result>(OnScanCommand_Execute);
             SearchCommand = new DelegateCommand(OnSearchCommand_Execute);
             ScanPageActive = new Action<bool>(OnScanPageActive_Execute);
+            MyQRCommand = new DelegateCommand(OnMyQRCommand_Execute);
             SearchEntry.PropertyChanged += SearchEntry_PropertyChanged;
+        }
+
+        private async void OnMyQRCommand_Execute()
+        {
+            if (!IsClicked)
+            {
+                IsClicked = true;
+                await NavigationService.NavigateAsync(nameof(MyQRPage));
+                IsClicked = false;
+            }
         }
 
         private void OnScanPageActive_Execute(bool obj)

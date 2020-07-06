@@ -247,6 +247,8 @@ namespace KeepSafe
                 IsClicked = true;
                 //TODO Register API
             }
+
+            App.ShowHomePage(UserType.User);
         }
 
         private void OnLoginLabelTapped()
