@@ -9,7 +9,7 @@ namespace KeepSafe.ViewModels.ViewViewModels
         string _Text;
         public string Text {
             get { return  _Text; }
-            set { SetPropertyChanged(ref _Text, value); }
+            set { SetPropertyChanged(ref _Text, value); if (!string.IsNullOrEmpty(value) && IsError) ToDefaultValue();  }
         }
 
         string _Placeholder;
@@ -66,6 +66,7 @@ namespace KeepSafe.ViewModels.ViewViewModels
             if(string.IsNullOrEmpty(Text) || string.IsNullOrWhiteSpace(Text))
             {
                 ShowError(errorMessage, errorColor);
+                IsError = true;
                 return true;
             }
             Placeholder = DefaultPlaceholder;
@@ -75,6 +76,7 @@ namespace KeepSafe.ViewModels.ViewViewModels
 
         public void ShowError(string errorMessage = null, Color? errorColor = null)
         {
+            IsError = true;
             Text = string.Empty;
             Placeholder = errorMessage;
             PlaceholderColor = errorColor ?? Color.Red;
@@ -82,6 +84,7 @@ namespace KeepSafe.ViewModels.ViewViewModels
 
         public void ToDefaultValue(string TextValue = null)
         {
+            IsError = false;
             Text = string.IsNullOrEmpty(Text) ? TextValue : Text;
             Placeholder = DefaultPlaceholder;
             PlaceholderColor = DefaultColor ?? Color.Black;
