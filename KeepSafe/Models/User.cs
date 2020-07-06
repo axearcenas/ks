@@ -29,8 +29,8 @@ namespace KeepSafe.Models
             set { _FirstName = value; OnPropertyChanged(); }
         }
 
-        string  _LastName;
-        public string  LastName
+        string _LastName;
+        public string LastName
         {
             get { return _LastName; }
             set { _LastName = value; OnPropertyChanged(); }
@@ -41,6 +41,12 @@ namespace KeepSafe.Models
         {
             get { return _PhoneNumber; }
             set { _PhoneNumber = value; OnPropertyChanged(); }
+        }
+        string _ContactNumber;
+        public string ContactNumber
+        {
+            get { return _ContactNumber; }
+            set { _ContactNumber = value; OnPropertyChanged(); }
         }
 
         string _Address;
@@ -70,6 +76,7 @@ namespace KeepSafe.Models
             get { return _Email; }
             set { _Email = value; OnPropertyChanged(); }
         }
+
         string _Code;
         public string Code
         {
@@ -115,6 +122,12 @@ namespace KeepSafe.Models
             Address = user.Address;
             Birthdate = user.Birthdate;
             Email = user.Email;
+        }
+        string _Image;
+        public string Image
+        {
+            get { return _Image; }
+            set { _Image = value; OnPropertyChanged(); }
         }
     }
 }

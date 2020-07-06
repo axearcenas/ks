@@ -14,7 +14,7 @@ namespace KeepSafe.Resources
         public static readonly string BOLDITALIC = Device.RuntimePlatform == Device.iOS ? "OpenSans-BoldItalic" : "Fonts/OpenSans-BoldItalic.ttf#OpenSans-BoldItalic";
         public static readonly string EXTRABOLD = Device.RuntimePlatform == Device.iOS ? "OpenSans-ExtraBold" : "Fonts/OpenSans-ExtraBold.ttf#OpenSans-ExtraBold";
         public static readonly string EXTRABOLDITALIC = Device.RuntimePlatform == Device.iOS ? "OpenSans-ExtraBoldItalic" : "Fonts/OpenSans-ExtraBoldItalic.ttf#OpenSans-ExtraBoldItalic";
-        public static readonly string ITALIC = Device.RuntimePlatform == Device.iOS ? "OpenSans-Italic" : "Fonts/OpenSans-Italic.ttf#OpenSans-Italic";
+        public static readonly string ITALIC = Device.RuntimePlatform == Device.iOS ? "OpenSans-Italic" : "Fonts/OpenSans-Italic.ttf#OpenSans-Italic";        
         
         public static readonly string SEMIBOLD = Device.RuntimePlatform == Device.iOS ? "OpenSans-Semibold" : "Fonts/OpenSans-Semibold.ttf#OpenSans-Semibold";
         public static readonly string SEMIBOLDITALIC = Device.RuntimePlatform == Device.iOS ? "OpenSans-SemiboldItalic" : "Fonts/OpenSans-SemiboldItalic.ttf#OpenSans-SemiboldItalic";

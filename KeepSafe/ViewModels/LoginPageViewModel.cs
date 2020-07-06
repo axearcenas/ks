@@ -182,8 +182,8 @@ namespace KeepSafe.ViewModels
                                 //TODO save USER Here
                                 //PageDialogService?.DisplayAlertAsync("Login Succesfully",jsonData["message"].ToString(),"Okay");
                                 dataClass.User = JsonConvert.DeserializeObject<User>(jsonData["user"].ToString());
-                                dataClass.IsLoggedIn = true;
-                                App.ShowHomePage();
+                                dataClass.IsLoggedIn = true;                                
+                                App.ShowHomePage(UserType.User);
                                 EmailAddressEntry.ClearText();
                                 PasswordEntry.ClearText();
                             });                            
