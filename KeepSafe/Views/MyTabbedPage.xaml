@@ -25,7 +25,7 @@
     </NavigationPage>
     <NavigationPage IconImageSource="ProfileIcon" Title="Profile">
         <x:Arguments>
-            <views:ProfilePage  NavigationPage.HasNavigationBar="False"/>
+            <views:UserProfilePage  NavigationPage.HasNavigationBar="False"/>
         </x:Arguments>
     </NavigationPage>-->
     <!--<TabBar >

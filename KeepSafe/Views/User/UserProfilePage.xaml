@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <local:MainNavigationPage xmlns="http://xamarin.com/schemas/2014/forms"
                           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                          x:Class="KeepSafe.Views.ProfilePage"
+                          x:Class="KeepSafe.Views.UserProfilePage"
                           xmlns:local="clr-namespace:KeepSafe"
                           xmlns:res="clr-namespace:KeepSafe.Resources"
                           xmlns:views="clr-namespace:KeepSafe.Views"
                           xmlns:prism="http://prismlibrary.com"
+                          xmlns:sys="clr-namespace:System;assembly=netstandard"
                           NavigationPage.HasNavigationBar="False"
                           BackgroundColor="{Static res:ColorResource.PROFILE_BACKGROUND_COLOR}"
                           NavBackgroundColor="#5D172C"
@@ -27,6 +28,13 @@
         <DataTrigger TargetType="local:MainNavigationPage"
                      Binding="{Binding IsEdit}" Value="true">
             <Setter Property="RightIcon" Value="save"/>
+            <Setter Property="LeftIcon" Value="BackIcon"/>
+            <Setter Property="LeftIconType" Value="SVG"/>
+            <Setter Property="LeftIconColor" Value="White"/>
+            <Setter Property="LeftButtonCommand" Value="{Binding BackButtonClickedCommand}"/>
+        </DataTrigger>
+        <DataTrigger TargetType="local:MainNavigationPage"
+                     Binding="{Binding IsChangePassword}" Value="true">
             <Setter Property="LeftIcon" Value="BackIcon"/>
             <Setter Property="LeftIconType" Value="SVG"/>
             <Setter Property="LeftIconColor" Value="White"/>
@@ -60,7 +68,23 @@
                         <Setter Property="BackgroundColor" Value="#A57B88"/>
                         <Setter Property="InputTransparent" Value="False"/>
                     </DataTrigger>
+                    <DataTrigger TargetType="Frame"
+                                 Binding="{Binding IsChangePassword}" Value="true">
+                        <Setter Property="IsVisible" Value="False"/>
+                    </DataTrigger>
                 </Style.Triggers>
+            </Style>
+            <Style TargetType="Frame" x:Key="PasswordEntryFrameStyle">
+                <Setter Property="Margin" Value="0"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="BackgroundColor" Value="#A57B88"/>
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+                <Setter Property="CornerRadius" Value="{local:ScaleHeight Value=20}"/>
+                <Setter Property="WidthRequest" Value="{local:ScaleWidth Value=280}"/>
+                <Setter Property="HeightRequest" Value="{local:ScaleHeight Value=40}"/>
+                <Setter Property="InputTransparent" Value="False"/>
+                <Setter Property="IsVisible" Value="{Binding IsChangePassword}"/>
             </Style>
             <Style TargetType="Label" x:Key="EntryIconStyle">
                 <Setter Property="Grid.Column" Value="0"/>
@@ -97,7 +121,7 @@
                   ColumnSpacing="0"
                   Margin="0"
                   Padding="0"
-                  RowDefinitions="{local:ScaleRowDefinition Value='149,4,38,38,38,38,38,38,Auto,Auto,0'}">
+                  RowDefinitions="{local:ScaleRowDefinition Value='149,4,38,38,38,38,Auto,Auto,Auto,Auto,0'}">
                 <!--Photo-->
                 <Frame Grid.Row="0"
                        CornerRadius="5"
@@ -273,7 +297,120 @@
                                            Style="{StaticResource EntryStyle}"/>
                     </Grid>
                 </Frame>
-                <!--Password-->
+                <!-- Password Entry-->
+                <Frame Grid.Row="2"
+                       Style="{StaticResource PasswordEntryFrameStyle}">
+                    <Grid RowSpacing="0"
+                          ColumnSpacing="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="{local:ScaleGridWidth Value=40}"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="{local:ScaleGridWidth Value=58}"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Text="lock"
+                               FontFamily="{Static res:FontResource.FONTAWESOME5_SOLID}"
+                               Style="{StaticResource EntryIconStyle}"/>
+                        <local:CustomEntry Text="{Binding PasswordEntry.Text}"
+                                           Placeholder="{Binding PasswordEntry.Placeholder}"
+                                           PlaceholderColor="{Binding PasswordEntry.PlaceholderColor}"
+                                           IsPassword="{Binding PasswordEntry.IsPassword}"
+                                           Style="{StaticResource EntryStyle}"
+                                           InputTransparent="False">
+                             <local:CustomEntry.Behaviors>
+                                <prism:EventToCommandBehavior Command="{Binding EntryFocusedCommand}"
+                                                              CommandParameter="0"
+                                                              EventName="Focused" >
+                                </prism:EventToCommandBehavior>
+                             </local:CustomEntry.Behaviors>
+                        </local:CustomEntry>
+                        <Button Grid.Column="2"
+                                Text="eye-slash"
+                                TextColor="{Static res:ColorResource.LIGHT_GRAY_COLOR}"
+                                FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"
+                                FontSize="{local:ScaleFontSize Value=16}"
+                                BackgroundColor="Transparent"
+                                VerticalOptions="Fill"
+                                WidthRequest="{local:ScaleWidth Value=58}"
+                                HorizontalOptions="End"
+                                Command="{Binding ShowPasswordCommand}">
+                            <Button.Triggers>
+                                <DataTrigger TargetType="Button"
+                                             Binding="{Binding PasswordEntry.IsPassword}"
+                                             Value="false">
+                                    <Setter Property="Text" Value="eye"/>
+                                </DataTrigger>
+                                <DataTrigger TargetType="Button"
+                                             Binding="{Binding PasswordEntry.Text}"
+                                             Value="{Null}">
+                                    <Setter Property="IsVisible" Value="false"/>
+                                </DataTrigger>
+                                <DataTrigger TargetType="Button"
+                                             Binding="{Binding PasswordEntry.Text}"
+                                             Value="">
+                                    <Setter Property="IsVisible" Value="false"/>
+                                </DataTrigger>
+                            </Button.Triggers>
+                        </Button>
+                    </Grid>
+                </Frame>
+                <!-- New Password Entry-->
+                <Frame Grid.Row="3"
+                       Style="{StaticResource PasswordEntryFrameStyle}">
+                    <Grid RowSpacing="0"
+                          ColumnSpacing="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="{local:ScaleGridWidth Value=40}"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="{local:ScaleGridWidth Value=58}"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Text="lock"
+                               FontFamily="{Static res:FontResource.FONTAWESOME5_SOLID}"
+                               Style="{StaticResource EntryIconStyle}"/>
+                        <local:CustomEntry Text="{Binding NewPasswordEntry.Text}"
+                                           Placeholder="{Binding NewPasswordEntry.Placeholder}"
+                                           PlaceholderColor="{Binding NewPasswordEntry.PlaceholderColor}"
+                                           IsPassword="{Binding NewPasswordEntry.IsPassword}"
+                                           Style="{StaticResource EntryStyle}"
+                                           InputTransparent="False">
+                             <local:CustomEntry.Behaviors>
+                                <prism:EventToCommandBehavior Command="{Binding EntryFocusedCommand}"
+                                                              CommandParameter="1"
+                                                              EventName="Focused" >
+                                </prism:EventToCommandBehavior>
+                             </local:CustomEntry.Behaviors>
+                        </local:CustomEntry>                       
+                        <Button Grid.Column="2"
+                                Text="eye-slash"
+                                TextColor="{Static res:ColorResource.LIGHT_GRAY_COLOR}"
+                                FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"
+                                FontSize="{local:ScaleFontSize Value=16}"
+                                BackgroundColor="Transparent"
+                                VerticalOptions="Fill"
+                                WidthRequest="{local:ScaleWidth Value=58}"
+                                HorizontalOptions="End"
+                                IsVisible="{Binding IsPasswordButtonVisible}"
+                                Command="{Binding ShowPasswordCommand}">
+                            <Button.Triggers>
+                                <DataTrigger TargetType="Button"
+                                             Binding="{Binding NewPasswordEntry.IsPassword}"
+                                             Value="false">
+                                    <Setter Property="Text" Value="eye"/>
+                                </DataTrigger>
+                                <DataTrigger TargetType="Button"
+                                             Binding="{Binding NewPasswordEntry.Text}"
+                                             Value="{Null}">
+                                    <Setter Property="IsVisible" Value="false"/>
+                                </DataTrigger>
+                                <DataTrigger TargetType="Button"
+                                             Binding="{Binding NewPasswordEntry.Text}"
+                                             Value="">
+                                    <Setter Property="IsVisible" Value="false"/>
+                                </DataTrigger>
+                            </Button.Triggers>
+                        </Button>
+                    </Grid>
+                </Frame>
+                <!-- Change Password button-->
                 <Button Grid.Row="8"
                         Text="Change Password"
                         Command="{Binding ChangePasswordTappedCommand}"
@@ -290,6 +427,10 @@
                         <DataTrigger TargetType="Button"
                                      Binding="{Binding IsEdit}" Value="true">
                             <Setter Property="IsVisible" Value="false"/>
+                        </DataTrigger>
+                         <DataTrigger TargetType="Button"
+                                     Binding="{Binding IsChangePassword}" Value="true">
+                            <Setter Property="Grid.Row" Value="4"/>
                         </DataTrigger>
                     </Button.Triggers>
                 </Button>
@@ -309,6 +450,10 @@
                     <Button.Triggers>
                         <DataTrigger TargetType="Button"
                                      Binding="{Binding IsEdit}" Value="true">
+                            <Setter Property="IsVisible" Value="false"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Button"
+                                     Binding="{Binding IsChangePassword}" Value="true">
                             <Setter Property="IsVisible" Value="false"/>
                         </DataTrigger>
                     </Button.Triggers>

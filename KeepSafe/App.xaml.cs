@@ -69,7 +69,7 @@ namespace KeepSafe
             Constants.ApplyServerSettings();
 
             //NOTE: FOR TESTING PAGE to show error initializing page
-            //MainPage = new NavigationPage(new MainPage() { BindingContext = new MainPageViewModel(NavigationService, new PageDialogService(new ApplicationProvider())) });
+            //MainPage = new NavigationPage(new UserProfilePage() { BindingContext = new UserProfilePageViewModel(NavigationService, new PageDialogService(new ApplicationProvider())) });
             //MainPage = new CustomServerPopup() { BindingContext = new CustomServerPopupViewModel(NavigationService) };
             
             if(dataClass.IsLoggedIn)
@@ -174,7 +174,7 @@ namespace KeepSafe
             containerRegistry.RegisterForNavigation<DashboardPage, DashboardViewModel>();
             containerRegistry.RegisterForNavigation<HomePage>();
             containerRegistry.RegisterForNavigation<ScanPage>();
-            containerRegistry.RegisterForNavigation<ProfilePage>();
+            containerRegistry.RegisterForNavigation<UserProfilePage,UserProfilePageViewModel>();
             containerRegistry.RegisterForNavigation<UserCheckInPage>();
             containerRegistry.RegisterForNavigation<MyQRPage>();
             //NOTE: Views that has a view model in ViewModel Folder

@@ -5,9 +5,9 @@ using Xamarin.Forms;
 
 namespace KeepSafe.Views
 {
-    public partial class ProfilePage : MainNavigationPage
+    public partial class UserProfilePage : MainNavigationPage
     {
-        public ProfilePage()
+        public UserProfilePage()
         {
             InitializeComponent();
         }
