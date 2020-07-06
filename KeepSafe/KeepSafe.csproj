@@ -57,6 +57,8 @@
     <Folder Include="Views\" />
     <Folder Include="DependencyServices\" />
     <Folder Include="Enum\" />
+    <Folder Include="Views\User\" />
+    <Folder Include="ViewModels\User\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Renderers\CustomButtonRenderer.cs" />
@@ -104,9 +106,6 @@
     </Compile>
     <Compile Update="Views\ScanPage.xaml.cs">
       <DependentUpon>ScanPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\ProfilePage.xaml.cs">
-      <DependentUpon>ProfilePage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\UserCheckInPage.xaml.cs">
       <DependentUpon>UserCheckInPage.xaml</DependentUpon>
