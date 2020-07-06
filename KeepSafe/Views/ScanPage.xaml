@@ -29,7 +29,7 @@
                 <Setter Property="HorizontalOptions" Value="Fill"/>
                 <Setter Property="FontSize" Value="{local:ScaleFontSize Value=20}"/>
                 <Setter Property="TextColor" Value="{Static res:ColorResource.MAIN_BLUE_COLOR}"/>
-                <Setter Property="FontFamily" Value="{Static res:FontResource.LIGHTITALIC}"/>
+                <Setter Property="FontFamily" Value="{Static res:FontResource.LIGHT}"/>
                 <Setter Property="Margin" Value="{local:ScaleThickness Value='0,0'}"/>
                 <Setter Property="MoveUp" Value="True"/>
                 <Setter Property="MoveUpAnimationSpeed" Value="16"/>
@@ -43,19 +43,6 @@
           PropertyChanged="Grid_PropertyChanged"
            BackgroundColor="{Static res:ColorResource.SCANNER_BACKGROUNDCOLOR}"
            RowDefinitions="{local:ScaleRowDefinition Value='61,*'}">
-        <!--<scanner:ZXingScannerView  Grid.Row="1"
-                                   x:Name="scannerView"
-                                   IsScanning="False"
-                                   HorizontalOptions="Fill"
-                                   VerticalOptions="Fill"
-                                   WidthRequest="{local:ScaleWidthDouble Value=320}"
-                                   HeightRequest="{local:ScaleHeightDouble Value=487}">
-            <scanner:ZXingScannerView.Behaviors>
-                <prism:EventToCommandBehavior Command="{Binding QRScanResultComand}"
-                                              EventArgsParameterPath="."
-                                              EventName="OnScanResult"/>
-            </scanner:ZXingScannerView.Behaviors>
-        </scanner:ZXingScannerView>-->
         <local:FFSVGImage Grid.Row="1"
                           Source="{local:FFSVGImageSource ImageName=ScannerInidcator}"
                           HeightRequest="{local:ScaleHeight Value=161}"
