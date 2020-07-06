@@ -14,6 +14,7 @@ using System.Linq;
 using Xamarin.Essentials;
 using Rg.Plugins.Popup.Services;
 using KeepSafe.Helpers;
+using ImTools;
 
 namespace KeepSafe.Rest
 {
@@ -539,7 +540,7 @@ namespace KeepSafe.Rest
                     }
                     else if (json["error"] != null)
                     {
-                        WebServiceDelegate?.ReceiveError("Error!", json["error"].ToString(), wsType);
+                        WebServiceDelegate?.ReceiveError(response.StatusCode.ToString(), json["error"].ToString(), wsType);
                     }
                     else if (json["errors"] != null)
                     {
@@ -547,7 +548,7 @@ namespace KeepSafe.Rest
                     }
                     else
                     {
-                        WebServiceDelegate?.ReceiveError("Error!", "Unknown Error. Please Check!", wsType);
+                        WebServiceDelegate?.ReceiveError(response.StatusCode.ToString(), "Unknown Error. Please Check!", wsType);
                     }
                 }
                 else
@@ -557,8 +558,15 @@ namespace KeepSafe.Rest
                     //{
                     //    Content = new ScrollView() { Content = new Label() { Text = result, TextType = TextType.Html , BackgroundColor = Color.White}, Margin = new Thickness(20) }
                     //});
-
-                    if (response.StatusCode == HttpStatusCode.BadGateway) // Maintenance
+                    if (result.Contains("\"error\""))
+                    {
+                        var errorJson = JObject.Parse(result);
+                        if(errorJson.ContainsKey("error"))
+                            WebServiceDelegate?.ReceiveError(response.StatusCode.ToString(), errorJson["error"].ToString(), wsType);
+                        else
+                            WebServiceDelegate?.ReceiveError("Error!", response.StatusCode.ToString(), wsType);
+                    }
+                    else if (response.StatusCode == HttpStatusCode.BadGateway) // Maintenance
                     {
                         WebServiceDelegate?.ReceiveError("Error!", Constants.BAD_GATEWAY_CONTENT, wsType);
                     }

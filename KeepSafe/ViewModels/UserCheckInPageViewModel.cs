@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using KeepSafe.Extensions;
 using KeepSafe.Helpers;
 using KeepSafe.Helpers.FileReader;
 using KeepSafe.Models;
@@ -130,9 +131,9 @@ namespace KeepSafe.ViewModels
                                status = 200
                            }), cts.Token, 0);
 #else
-                        restService.SetDelegate(this);
-                        string content = JsonConvert.SerializeObject(new { temparature = TemperatureEntry.Entry , IsQrCode });
-                        await RestRequest.PostRequestAsync($"{Constants.ROOT_API_URL}{Constants.HEROES_URL}{Constants.POWERS_URL}{Constants.VALIDATE_URL}".AddAuth(), content, cts.Token, 0);
+                        restServices.SetDelegate(this);
+                        string content = JsonConvert.SerializeObject(new { temparature = TemperatureEntry.Text  });
+                        await restServices.PostRequestAsync($"{Constants.ROOT_API_URL}".AddAuth(), content, cts.Token, 0);
 #endif
                     }
                     catch (OperationCanceledException ox) { App.Log($"StackTrace: {ox.StackTrace}\nMESSAGE: {ox.Message}"); IsClicked = false; IsLoading = false; }

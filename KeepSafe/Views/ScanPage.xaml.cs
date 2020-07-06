@@ -59,7 +59,7 @@ namespace KeepSafe.Views
         {
             if (ScanPageViewModel.IsActive)
             {
-                if(scannerView.Parent == null)
+                if(scannerView == null ? false  :scannerView.Parent == null)
                     gridView.Children.Insert(0,scannerView);
             }
             else

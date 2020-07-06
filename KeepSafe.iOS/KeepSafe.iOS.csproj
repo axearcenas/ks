@@ -91,6 +91,17 @@
     <MtouchDebug>true</MtouchDebug>
     <DeviceSpecificBuild>true</DeviceSpecificBuild>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Staging|AnyCPU' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Staging</OutputPath>
+    <DefineConstants></DefineConstants>
+    <WarningLevel>4</WarningLevel>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
+    <MtouchVerbosity></MtouchVerbosity>
+    <MtouchEnableSGenConc>false</MtouchEnableSGenConc>
+    <MtouchLink></MtouchLink>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />

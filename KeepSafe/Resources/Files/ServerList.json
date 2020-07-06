@@ -15,6 +15,13 @@
       "is_local": false
     },
     {
+      "name": "Local Server (106)",
+      "api": "192.168.0.106:3000",
+      "notification": "ws://192.168.0.106:9292/faye",
+      "is_secured": false,
+      "is_local": false
+    },
+    {
       "name": "Custom Server",
       "api": "",
       "notification": "",
