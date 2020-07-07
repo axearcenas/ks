@@ -46,6 +46,8 @@ namespace KeepSafe.ViewModels
             set { SetProperty(ref _ScannedBusiness, value, nameof(ScannedBusiness)); }
         }
 
+        string Qrcode;
+
         Action<bool> ScanPageActiveAction;
 
         public UserCheckInPageViewModel(INavigationService navigationService)
@@ -75,6 +77,10 @@ namespace KeepSafe.ViewModels
             if (parameters.ContainsKey("ScanPageActiveAction"))
             {
                 ScanPageActiveAction = (Action<bool>)parameters["ScanPageActiveAction"];
+            }
+            if (parameters.ContainsKey("Qrcode"))
+            {
+                Qrcode = (string)parameters["Qrcode"];
             }
 
         }
@@ -131,9 +137,9 @@ namespace KeepSafe.ViewModels
                                status = 200
                            }), cts.Token, 0);
 #else
-                        restServices.SetDelegate(this);
-                        string content = JsonConvert.SerializeObject(new { temparature = TemperatureEntry.Text  });
-                        await restServices.PostRequestAsync($"{Constants.ROOT_API_URL}".AddAuth(), content, cts.Token, 0);
+                    restServices.SetDelegate(this);
+                    string content = JsonConvert.SerializeObject(new { scan_history = new { code = Qrcode, temparature = TemperatureEntry.Text } });
+                    await restServices.PostRequestAsync($"{Constants.ROOT_URL}{Constants.USER_URL}{Constants.SCAN_HISTORIES_URL}", content, cts.Token, 0, Constants.DEFAULT_AUTH);
 #endif
                     }
                     catch (OperationCanceledException ox) { App.Log($"StackTrace: {ox.StackTrace}\nMESSAGE: {ox.Message}"); IsClicked = false; IsLoading = false; }
@@ -155,8 +161,8 @@ namespace KeepSafe.ViewModels
                         Device.BeginInvokeOnMainThread(async () =>
                         {
                             PopupHelper.RemoveLoading();
-                            await Task.Delay(16);
-                            await NavigationService.GoBackAsync(useModalNavigation: true);
+                            await Task.Delay(100);
+                            await NavigationService.GoBackAsync();
                             ScanPageActiveAction?.Invoke(true);
                         });
                         break;
