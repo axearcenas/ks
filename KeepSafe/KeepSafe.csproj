@@ -59,6 +59,8 @@
     <Folder Include="Enum\" />
     <Folder Include="Views\User\" />
     <Folder Include="ViewModels\User\" />
+    <Folder Include="Views\Business\" />
+    <Folder Include="ViewModels\Business\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Renderers\CustomButtonRenderer.cs" />

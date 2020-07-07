@@ -123,7 +123,7 @@ namespace KeepSafe
             //TODO Create Landing Page
             var parameter = new NavigationParameters();
             parameter.Add("UserType", userType);
-            _NavigationService.NavigateAsync($"{AppNavigationRootRoute}{nameof(MyTabbedPage)}?createTab={(userType == UserType.User ? "HomePage" : "DashboardPage")}&createTab=ScanPage&createTab=UserProfilePage", parameter);
+            _NavigationService.NavigateAsync($"{AppNavigationRootRoute}{nameof(MyTabbedPage)}?createTab={(userType == UserType.User ? "HomePage" : "DashboardPage")}&createTab=ScanPage&createTab={(userType == UserType.User ? "UserProfilePage" : "BusinessProfilePage")}", parameter);
         }
 
         public static void ShowMainPage()
@@ -178,6 +178,7 @@ namespace KeepSafe
             containerRegistry.RegisterForNavigation<UserCheckInPage>();
             containerRegistry.RegisterForNavigation<MyQRPage>();
             containerRegistry.RegisterForNavigation<ForgotPasswordPage, ForgotPasswordPageViewModel>();
+            containerRegistry.RegisterForNavigation<BusinessProfilePage, BusinessProfileViewModel>();
 
             //NOTE: Views that has a view model in ViewModel Folder
             //containerRegistry.RegisterForNavigation<GetStartedPage>();

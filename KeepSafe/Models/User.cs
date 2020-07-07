@@ -42,6 +42,7 @@ namespace KeepSafe.Models
             get { return _PhoneNumber; }
             set { _PhoneNumber = value; OnPropertyChanged(); }
         }
+
         string _ContactNumber;
         public string ContactNumber
         {

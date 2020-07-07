@@ -33,6 +33,13 @@ namespace KeepSafe.Models
             set { _BusinessType = value; OnPropertyChanged(); }
         }
 
+        string _PhoneNumber;
+        public string PhoneNumber
+        {
+            get { return _PhoneNumber; }
+            set { _PhoneNumber = value; OnPropertyChanged(); }
+        }
+
         string _ContactNumber;
         public string ContactNumber
         {
@@ -68,11 +75,39 @@ namespace KeepSafe.Models
             set { _Password = value; OnPropertyChanged(); }
         }
 
-        private ObservableCollection<string> _EstablishmentType = new ObservableCollection<string> { "Clinic", "Hospital", "Travel Agency", "Boutique", "Bar & Restaurant", "Manufacturing", "Banking & Remittance", "Spa & Personal Care", "Government", "Theatre & Movie Houses", "Appliance & Computer Store", "Department Store", "Grocery & Supermarket", "Automobile", "Home Improvement", "Graphics & Printing" };
-        public ObservableCollection<string> EstablishmentType
+        public bool Equals(Business business)
         {
-            get { return _EstablishmentType; }
-            set { _EstablishmentType = value; OnPropertyChanged(); }
+            bool IsEquals = true;
+            if (!business.Id.Equals(Id))
+                IsEquals = false;
+            if (!business.Photo.Equals(Photo))
+                IsEquals = false;
+            if (!business.Name.Equals(Name))
+                IsEquals = false;
+            if (!business.BusinessType.Equals(BusinessType))
+                IsEquals = false;
+            if (!business.PhoneNumber.Equals(PhoneNumber))
+                IsEquals = false;
+            if (!business.ContactNumber.Equals(ContactNumber))
+                IsEquals = false;
+            if (!business.ContactPerson.Equals(ContactPerson))
+                IsEquals = false;
+            if (!business.Address.Equals(Address))
+                IsEquals = false;
+            if (!business.Email.Equals(Email))
+                IsEquals = false;
+            return IsEquals;
+        }
+
+        public void Update(Business business)
+        {
+            Name = business.Name;
+            BusinessType = business.BusinessType;
+            Photo = business.Photo;
+            PhoneNumber = business.PhoneNumber;
+            ContactPerson = business.ContactPerson;
+            Address = business.Address;
+            Email = business.Email;
         }
     }
 }

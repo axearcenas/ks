@@ -191,6 +191,31 @@ namespace KeepSafe
             }
         }
 
+        Business _Business;
+        public Business Business
+        {
+            set
+            {
+                _Business = value;
+                Application.Current.Properties[nameof(Business)] = JsonConvert.SerializeObject(_Business);
+                OnPropertyChanged(nameof(Business));
+                Application.Current.SavePropertiesAsync();
+            }
+            get
+            {
+                if ((_Business == null ? true : _Business.Id != 0) && Application.Current.Properties.ContainsKey(nameof(Business)))
+                {
+                    _Business = JsonConvert.DeserializeObject<Business>(Application.Current.Properties[nameof(Business)].ToString(), new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+                }
+                if (_Business == null)
+                {
+                    _Business = new Business();
+                }
+
+                return _Business;
+            }
+        }
+
         UserType _AccountType;
         public UserType AccountType
         {
