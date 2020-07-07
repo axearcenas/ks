@@ -93,7 +93,7 @@ namespace KeepSafe.ViewModels
                 {
 #if DEBUG
                     fileReader.SetDelegate(this);
-                    await fileReader.ReadFile(SelectedHistoryType == 0 ? "CheckInHistory.json" : "CheckOutHistory.json", cts.Token, IsPagination <= 0 ? 0 : 1);
+                    await fileReader.ReadFile(SelectedHistoryType == 0 ? "CheckInHistory.json" : "CheckOutHistory.json", cts.Token, IsPagination ? 1 : 0);
 #else
                     //TODO GET HISTORY Rest Here
                     restServices.SetDelegate(this);

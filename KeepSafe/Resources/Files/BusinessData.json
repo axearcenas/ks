@@ -1,0 +1,12 @@
+﻿{
+  "data": {
+    "name": "Seven Eleven Punta Princesa Branch",
+    "image": "https://picsum.photos/200/300?person&id=100",
+    "business_type": 2,
+    "contact_person": "Mika Perez",
+    "contact_number": "09085519912",
+    "address": "Punta Princesa Cebu City",
+    "email": "mika.perez@gmail.com"
+  },
+  "status": 200
+}

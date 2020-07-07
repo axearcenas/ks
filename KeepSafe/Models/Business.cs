@@ -16,13 +16,6 @@ namespace KeepSafe.Models
             set { _Id = value; OnPropertyChanged(); }
         }
 
-        string _Photo;
-        public string Photo
-        {
-            get { return _Photo; }
-            set { _Photo = value; OnPropertyChanged(); }
-        }
-
         string _Image;
         public string Image
         {
@@ -37,25 +30,11 @@ namespace KeepSafe.Models
             set { _Name = value; OnPropertyChanged(); }
         }
 
-        int _BusinessType;
-        public int BusinessType
+        BusinessType _BusinessType;
+        public BusinessType BusinessType
         {
             get { return _BusinessType; }
             set { _BusinessType = value; OnPropertyChanged(); }
-        }
-
-        string _PhoneNumber;
-        public string PhoneNumber
-        {
-            get { return _PhoneNumber; }
-            set { _PhoneNumber = value; OnPropertyChanged(); }
-        }
-
-        string _ContactNumber;
-        public string ContactNumber
-        {
-            get { return _ContactNumber; }
-            set { _ContactNumber = value; OnPropertyChanged(); }
         }
 
         string _ContactPerson;
@@ -63,6 +42,13 @@ namespace KeepSafe.Models
         {
             get { return _ContactPerson; }
             set { _ContactPerson = value; OnPropertyChanged(); }
+        }
+
+        string _ContactNumber;
+        public string ContactNumber
+        {
+            get { return _ContactNumber; }
+            set { _ContactNumber = value; OnPropertyChanged(); }
         }
 
         string _Address;
@@ -79,52 +65,37 @@ namespace KeepSafe.Models
             set { _Email = value; OnPropertyChanged(); }
         }
 
-        string _Password;
-        public string Password
+        public bool Equals(Business user)
         {
-            get { return _Password; }
-            set { _Password = value; OnPropertyChanged(); }
-        }
+            if (user == null)
+                return false;
 
-        public List<string> BusinessTypeList
-        {
-            get
-            {
-                return System.Enum.GetNames(typeof(BusinessType)).Select(b => b.SplitCamelCase()).ToList();
-            }
-        }
-
-        public bool Equals(Business business)
-        {
             bool IsEquals = true;
-            if (!business.Id.Equals(Id))
+
+            IsEquals = false;
+            if (!user.Id.Equals(Id))
                 IsEquals = false;
-            if (!business.Photo.Equals(Photo))
+            if (string.IsNullOrEmpty(user.Image) ? true : !user.Image.Equals(Image))
                 IsEquals = false;
-            if (!business.Name.Equals(Name))
+            if (string.IsNullOrEmpty(user.ContactPerson) ? true : !user.ContactPerson.Equals(ContactPerson))
                 IsEquals = false;
-            if (!business.BusinessType.Equals(BusinessType))
+            if (string.IsNullOrEmpty(user.ContactNumber) ? true : !user.ContactNumber.Equals(ContactNumber))
                 IsEquals = false;
-            if (!business.PhoneNumber.Equals(PhoneNumber))
+            if (string.IsNullOrEmpty(user.Address) ? true : !(bool)user.Address?.Equals(Address))
                 IsEquals = false;
-            if (!business.ContactNumber.Equals(ContactNumber))
+            if (string.IsNullOrEmpty(user.Email) ? true : !user.Email.Equals(Email))
                 IsEquals = false;
-            if (!business.ContactPerson.Equals(ContactPerson))
-                IsEquals = false;
-            if (!business.Address.Equals(Address))
-                IsEquals = false;
-            if (!business.Email.Equals(Email))
+            if (string.IsNullOrEmpty(user.Name) ? true : !user.Email.Equals(Name))
                 IsEquals = false;
             return IsEquals;
         }
 
         public void Update(Business business)
         {
-            Name = business.Name;
-            BusinessType = business.BusinessType;
-            Photo = business.Photo;
-            PhoneNumber = business.PhoneNumber;
             ContactPerson = business.ContactPerson;
+            Name = business.Name;
+            Image = business.Image;
+            ContactNumber = business.ContactNumber;
             Address = business.Address;
             Email = business.Email;
         }
