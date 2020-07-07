@@ -142,7 +142,7 @@
                           Padding="0">
                         <local:FFSVGImage
                                BackgroundColor="Transparent"
-                               Source="{Binding UserData.Photo}"
+                               Source="{Binding UserData.Image}"
                                HorizontalOptions="Fill"
                                VerticalOptions="Fill"
                                HeightRequest="{local:ScaleHeightDouble Value=111}"
@@ -216,7 +216,7 @@
                         </Grid.ColumnDefinitions>
                         <Label Text="phone"
                                Style="{StaticResource EntryIconStyle}"/>
-                        <local:CustomEntry Text="{Binding UserData.PhoneNumber}"
+                        <local:CustomEntry Text="{Binding UserData.ContactNumber}"
                                            Placeholder="Mobile Number"
                                            MaxLength="13"
                                            Keyboard="Telephone"

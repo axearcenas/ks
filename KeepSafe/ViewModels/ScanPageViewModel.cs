@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using KeepSafe.Extensions;
 using KeepSafe.Helpers;
 using KeepSafe.Helpers.FileReader;
 using KeepSafe.Helpers.Permission;
@@ -34,7 +35,7 @@ namespace KeepSafe.ViewModels
         public bool IsScanning
         {
             get { return _IsScanning; }
-            set { _IsScanning = value; OnPropertyChanged(); }
+            set { _IsScanning = value; RaisePropertyChanged(); }
         }
 
         public string TabIcon
@@ -73,9 +74,9 @@ namespace KeepSafe.ViewModels
 
         private void SearchEntry_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if(e.PropertyName.Equals("Text"))
+            if (e.PropertyName.Equals("Text"))
             {
-                if(!SearchEntry.Text.Equals(SearchEntry.Text.ToUpper()))
+                if (!SearchEntry.Text.Equals(SearchEntry.Text.ToUpper()))
                 {
                     SearchEntry.Text = SearchEntry.Text.ToUpper();
                 }
@@ -114,7 +115,7 @@ namespace KeepSafe.ViewModels
             IsActiveChanged?.Invoke(this, EventArgs.Empty);
         }
 
-        async void SearchQR(string code, bool IsQrCode)
+        async void SearchQR(string code, bool IsQrCode = true)
         {
             if (cts != null)
                 cts.Cancel();
@@ -136,9 +137,9 @@ namespace KeepSafe.ViewModels
                         status = 200
                     }),cts.Token, 0);
 #else
-                restService.SetDelegate(this);
+                restServices.SetDelegate(this);
                 string content = JsonConvert.SerializeObject(new { code, IsQrCode });
-                await RestRequest.PostRequestAsync($"{Constants.ROOT_API_URL}{Constants.HEROES_URL}{Constants.POWERS_URL}{Constants.VALIDATE_URL}".AddAuth(), content, cts.Token, 0);
+                await restServices.PostRequestAsync($"{Constants.ROOT_API_URL}".AddAuth(), content, cts.Token, 0);
 #endif
             }
             catch (OperationCanceledException oce)

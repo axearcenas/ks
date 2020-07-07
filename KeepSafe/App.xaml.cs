@@ -72,9 +72,10 @@ namespace KeepSafe
             //NOTE: FOR TESTING PAGE to show error initializing page
             //MainPage = new NavigationPage(new UserProfilePage() { BindingContext = new UserProfilePageViewModel(NavigationService, new PageDialogService(new ApplicationProvider())) });
             //MainPage = new CustomServerPopup() { BindingContext = new CustomServerPopupViewModel(NavigationService) };
-            
-            if(dataClass.IsLoggedIn)
-                ShowHomePage(DataClass.GetInstance.AccountType);
+
+            if (dataClass.LoginType != UserType.None)
+                //TODO Add a parameter that identifies logged in account is either User or Business
+                ShowHomePage(UserType.User);
             else
                 ShowMainPage();
         }

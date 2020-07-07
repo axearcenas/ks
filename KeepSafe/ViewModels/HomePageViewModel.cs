@@ -95,7 +95,7 @@ namespace KeepSafe.ViewModels
 #else
                        //TODO GET HISTORY Rest Here
                        restServices.SetDelegate(this);
-                       await restServices.GetRequestAsync($"{Constants.ROOT_URL}?type={(int)SelectedHistoryType}&offset={offset}",  cts.Token, offset <= 0 ? 0 : 1);
+                       await restServices.GetRequest($"{Constants.ROOT_URL}?type={(int)SelectedHistoryType}&offset={offset}",  cts.Token, offset <= 0 ? 0 : 1);
 #endif
                 }
                 catch (OperationCanceledException ox) { App.Log($"StackTrace: {ox.StackTrace}\nMESSAGE: {ox.Message}"); IsClicked = false; PopupHelper.RemoveLoading(); }

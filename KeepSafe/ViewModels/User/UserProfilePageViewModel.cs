@@ -18,7 +18,7 @@ using Xamarin.Forms;
 
 namespace KeepSafe.ViewModels
 {
-    public class UserProfilePageViewModel : ViewModelBase , IFileConnector, IRestReceiver
+    public class UserProfilePageViewModel : ViewModelBase, IFileConnector, IRestReceiver
     {
         public EntryViewModel PasswordEntry { get; } = new EntryViewModel() { Placeholder = "Password", PlaceholderColor = ColorResource.WHITE_COLOR, IsPassword = true };
         public EntryViewModel NewPasswordEntry { get; } = new EntryViewModel() { Placeholder = "New Password", PlaceholderColor = ColorResource.WHITE_COLOR, IsPassword = true };
@@ -30,7 +30,7 @@ namespace KeepSafe.ViewModels
         public DelegateCommand EditTappedCommand { get; set; }
         public DelegateCommand ChangePasswordTappedCommand { get; set; }
         public DelegateCommand<string> EntryFocusedCommand { get; set; }
-        
+
         MediaHelper mediaHelper = new MediaHelper();
         MediaFile file;
 
@@ -45,7 +45,9 @@ namespace KeepSafe.ViewModels
         public bool IsEdit
         {
             get { return _IsEdit; }
-            set { SetProperty(ref _IsEdit, value, nameof(IsEdit));
+            set
+            {
+                SetProperty(ref _IsEdit, value, nameof(IsEdit));
                 UserData.PropertyChanged -= UserData_PropertyChanged;
                 UserData = _IsEdit ? DataClass.GetInstance.User.Clone() : DataClass.GetInstance.User;
                 UserData.PropertyChanged += UserData_PropertyChanged;
@@ -94,11 +96,11 @@ namespace KeepSafe.ViewModels
         {
             CanSaveEdit = !UserData.Equals(UserCached);
         }
-        
+
 
         private void OnEntryFocusedCommand_Execute(string obj)
         {
-            switch(obj)
+            switch (obj)
             {
                 case "0": // password
                     PasswordEntry.ToDefaultValue();
@@ -146,7 +148,7 @@ namespace KeepSafe.ViewModels
                         });
                         if (file != null)
                         {
-                            UserData.Photo = file.Path;
+                            UserData.Image = file.Path;
                         }
                     }
                     else if (action.ToString() == "Gallery")
@@ -160,7 +162,7 @@ namespace KeepSafe.ViewModels
                         });
                         if (file != null)
                         {
-                            UserData.Photo = file.Path;
+                            UserData.Image = file.Path;
                         }
                     }
                     else if (action.ToString() == "Remove Photo")
@@ -168,7 +170,7 @@ namespace KeepSafe.ViewModels
                         if (file != null)
                         {
                             file = null;
-                            UserData.Photo = null;
+                            UserData.Image = null;
                         }
                     }
                 }
@@ -201,7 +203,7 @@ namespace KeepSafe.ViewModels
                     cts = new CancellationTokenSource();
                     PopupHelper.ShowLoading();
                     try
-                    {                        
+                    {
 #if DEBUG
                             fileReader.SetDelegate(this);
                             await fileReader.CreateDummyResponse(JsonConvert.SerializeObject(
@@ -214,9 +216,9 @@ namespace KeepSafe.ViewModels
 #else
                         if (file == null)
                         {
-                            restService.SetDelegate(this);
-                            string content = JsonConvert.SerializeObject(new { code, IsQrCode });
-                            await RestRequest.PostRequestAsync($"{Constants.ROOT_API_URL}{Constants.HEROES_URL}{Constants.POWERS_URL}{Constants.VALIDATE_URL}".AddAuth(), content, cts.Token, 0);
+                            restServices.SetDelegate(this);
+                            string content = JsonConvert.SerializeObject(new { data = UserData });
+                            await restServices.PostRequestAsync($"{Constants.ROOT_API_URL}".AddAuth(), content, cts.Token, 0);
                         }
                         else
                         {
@@ -225,11 +227,11 @@ namespace KeepSafe.ViewModels
 #endif
 
                     }
-                    
-                   catch (OperationCanceledException ox) { App.Log($"StackTrace: {ox.StackTrace}\nMESSAGE: {ox.Message}"); IsClicked = false; IsLoading = false; }
-                   catch (TimeoutException te) { App.Log($"StackTrace: {te.StackTrace}\nMESSAGE: {te.Message}"); IsClicked = false; IsLoading = false; }
-                   catch (Exception ex) { App.Log($"StackTrace: {ex.StackTrace}\nMESSAGE: {ex.Message}"); IsClicked = false; IsLoading = false; }
-                   cts = null;
+
+                    catch (OperationCanceledException ox) { App.Log($"StackTrace: {ox.StackTrace}\nMESSAGE: {ox.Message}"); IsClicked = false; IsLoading = false; }
+                    catch (TimeoutException te) { App.Log($"StackTrace: {te.StackTrace}\nMESSAGE: {te.Message}"); IsClicked = false; IsLoading = false; }
+                    catch (Exception ex) { App.Log($"StackTrace: {ex.StackTrace}\nMESSAGE: {ex.Message}"); IsClicked = false; IsLoading = false; }
+                    cts = null;
                 }
             }
             else
@@ -245,7 +247,7 @@ namespace KeepSafe.ViewModels
 
         private async void OnChangePasswordLabelTapped()
         {
-            
+
             if (!IsChangePassword)
             {
                 IsChangePassword = true;
@@ -254,11 +256,11 @@ namespace KeepSafe.ViewModels
             {
                 bool IsValid = true;
 
-                if(PasswordEntry.ValidateIsTextNullOrEmpty("Password is required!"))
+                if (PasswordEntry.ValidateIsTextNullOrEmpty("Password is required!"))
                 {
                     IsValid = false;
                 }
-                if(NewPasswordEntry.ValidateIsTextNullOrEmpty("New password is required!"))
+                if (NewPasswordEntry.ValidateIsTextNullOrEmpty("New password is required!"))
                 {
                     IsValid = false;
                 }
@@ -272,7 +274,7 @@ namespace KeepSafe.ViewModels
                     cts = new CancellationTokenSource();
                     PopupHelper.ShowLoading();
                     try
-                    {                        
+                    {
 #if DEBUG
                             fileReader.SetDelegate(this);
                             await fileReader.CreateDummyResponse(JsonConvert.SerializeObject(
@@ -282,17 +284,17 @@ namespace KeepSafe.ViewModels
                                     status = 200
                                 }), cts.Token, 1);
 #else
-                            restService.SetDelegate(this);
-                            string content = JsonConvert.SerializeObject(new { code, IsQrCode });
-                            await RestRequest.PostRequestAsync($"{Constants.ROOT_API_URL}{Constants.HEROES_URL}{Constants.POWERS_URL}{Constants.VALIDATE_URL}".AddAuth(), content, cts.Token, 0);
+                        restServices.SetDelegate(this);
+                        string content = JsonConvert.SerializeObject(new { current_password = PasswordEntry.Text, new_password = NewPasswordEntry.Text });
+                        await restServices.PostRequestAsync($"{Constants.ROOT_API_URL}".AddAuth(), content, cts.Token, 0);
 #endif
 
                     }
-                    
-                   catch (OperationCanceledException ox) { App.Log($"StackTrace: {ox.StackTrace}\nMESSAGE: {ox.Message}"); IsClicked = false; IsLoading = false; }
-                   catch (TimeoutException te) { App.Log($"StackTrace: {te.StackTrace}\nMESSAGE: {te.Message}"); IsClicked = false; IsLoading = false; }
-                   catch (Exception ex) { App.Log($"StackTrace: {ex.StackTrace}\nMESSAGE: {ex.Message}"); IsClicked = false; IsLoading = false; }
-                   cts = null;
+
+                    catch (OperationCanceledException ox) { App.Log($"StackTrace: {ox.StackTrace}\nMESSAGE: {ox.Message}"); IsClicked = false; IsLoading = false; }
+                    catch (TimeoutException te) { App.Log($"StackTrace: {te.StackTrace}\nMESSAGE: {te.Message}"); IsClicked = false; IsLoading = false; }
+                    catch (Exception ex) { App.Log($"StackTrace: {ex.StackTrace}\nMESSAGE: {ex.Message}"); IsClicked = false; IsLoading = false; }
+                    cts = null;
                 }
             }
         }
@@ -307,7 +309,7 @@ namespace KeepSafe.ViewModels
                         Device.BeginInvokeOnMainThread(async () =>
                         {
                             //TODO save USER Here
-                            if(jsonData.ContainsKey("message"))
+                            if (jsonData.ContainsKey("message"))
                                 PageDialogService.DisplayAlertAsync("User Updated!", jsonData["message"].ToString(), "Okay");
                             DataClass.GetInstance.User = UserData;
                             await Application.Current.SavePropertiesAsync();
@@ -320,7 +322,7 @@ namespace KeepSafe.ViewModels
                         {
                             //TODO save new password Here
                             if (jsonData.ContainsKey("message"))
-                               await PageDialogService.DisplayAlertAsync("User Updated!", jsonData["message"].ToString(), "Okay");
+                                await PageDialogService.DisplayAlertAsync("User Updated!", jsonData["message"].ToString(), "Okay");
                             IsChangePassword = false;
                         });
                         break;

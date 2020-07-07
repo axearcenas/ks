@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using KeepSafe.Enum;
 using KeepSafe.Extension;
 using KeepSafe.Extensions;
+using KeepSafe.Helpers;
 using KeepSafe.Helpers.FileReader;
 using KeepSafe.Models;
 using KeepSafe.Resources;
@@ -20,7 +21,7 @@ namespace KeepSafe.ViewModels
 {
     public class LoginPageViewModel : ViewModelBase, IFileConnector, IRestReceiver
     {
-        public EntryViewModel EmailAddressEntry { get; } = new EntryViewModel() { Placeholder = "Mobile No.", PlaceholderColor = ColorResource.MAIN_BLACK_COLOR };
+        public EntryViewModel PhoneNumberEntry { get; } = new EntryViewModel() { Placeholder = "Mobile No.", PlaceholderColor = ColorResource.MAIN_BLACK_COLOR };
         public EntryViewModel PasswordEntry { get; } = new EntryViewModel() { Placeholder = "Password", PlaceholderColor = ColorResource.MAIN_BLACK_COLOR, IsPassword = true};
 
         public DelegateCommand BackCommand { get; set; }
@@ -94,7 +95,7 @@ namespace KeepSafe.ViewModels
                 switch(stringValue)
                 {
                     case "0"://Email Address Entry
-                        EmailAddressEntry.ToDefaultValue();
+                        PhoneNumberEntry.ToDefaultValue();
                         break;
                     case "1":
                         PasswordEntry.ToDefaultValue();
@@ -125,13 +126,13 @@ namespace KeepSafe.ViewModels
         {
             bool IsNotError = true;
             
-            if(EmailAddressEntry.ValidateIsTextNullOrEmpty("Mobile number is required"))
+            if(PhoneNumberEntry.ValidateIsTextNullOrEmpty("Mobile number is required"))
             {
                 IsNotError = false;
             }
-            else if (!("+63" + EmailAddressEntry.Text).IsValidPhoneNumber())
+            else if (!("+63" + PhoneNumberEntry.Text).IsValidPhoneNumber())
             {
-                EmailAddressEntry.ShowError("Not a valid mobile number");
+                PhoneNumberEntry.ShowError("Not a valid mobile number");
                 IsNotError = false;
             }
 
@@ -143,43 +144,25 @@ namespace KeepSafe.ViewModels
             if(IsNotError && !IsClicked)
             {
                 IsClicked = true;
-
+                PopupHelper.ShowLoading();
                 cts = new System.Threading.CancellationTokenSource();
                 Task.Run( async() =>
                {                   
                    try
                    {
 #if DEBUG
-                       switch (UserType)
-                       {
-                           case UserType.User:
-                               fileReader.SetDelegate(this);
-                               await fileReader.ReadFile("UserData.json", cts.Token, 0);
+                        fileReader.SetDelegate(this);
+                        await fileReader.ReadFile("UserData.json", cts.Token, 0);
 #else
-                               //TODO Login Rest Here
-                               string content = JsonConvert.SerializeObject(new { email_address = EmailAddressEntry.Text, password = PasswordEntry.Text, device = App.DeviceType });
-                               restServices.SetDelegate(this);
-                               await restServices.PostRequestAsync($"{Constants.ROOT_URL}", content, cts.Token,0);
+                        //TODO Login Rest Here
+                        string content = JsonConvert.SerializeObject( new { session = new { contact_number = "0"+PhoneNumberEntry.Text, password = PasswordEntry.Text, device = App.DeviceType } });
+                        restServices.SetDelegate(this);
+                        await restServices.PostRequestAsync($"{Constants.ROOT_URL}{Constants.USER_URL}{Constants.LOGIN_URL}", content, cts.Token,0);
 #endif
-                               break;
-                           case UserType.Establishment:
-
-#if DEBUG
-                               fileReader.SetDelegate(this);
-                               await fileReader.ReadFile("UserData.json", cts.Token, 0);
-#else
-                               //TODO Login Rest Here
-                               string content = JsonConvert.SerializeObject(new { email_address = EmailAddressEntry.Text, password = PasswordEntry.Text, device = App.DeviceType });
-                               restServices.SetDelegate(this);
-                               await restServices.PostRequestAsync($"{Constants.ROOT_URL}", content, cts.Token,0);
-#endif
-                                break;                               
-                       }
-                       
                    }
-                   catch (OperationCanceledException ox) { App.Log($"StackTrace: {ox.StackTrace}\nMESSAGE: {ox.Message}"); IsClicked = false; IsLoading = false; }
-                   catch (TimeoutException te) { App.Log($"StackTrace: {te.StackTrace}\nMESSAGE: {te.Message}"); IsClicked = false; IsLoading = false; }
-                   catch (Exception ex) { App.Log($"StackTrace: {ex.StackTrace}\nMESSAGE: {ex.Message}"); IsClicked = false; IsLoading = false; }
+                   catch (OperationCanceledException ox) { App.Log($"StackTrace: {ox.StackTrace}\nMESSAGE: {ox.Message}"); IsClicked = false; IsLoading = false; PopupHelper.RemoveLoading(); }
+                   catch (TimeoutException te) { App.Log($"StackTrace: {te.StackTrace}\nMESSAGE: {te.Message}"); IsClicked = false; IsLoading = false; PopupHelper.RemoveLoading(); }
+                   catch (Exception ex) { App.Log($"StackTrace: {ex.StackTrace}\nMESSAGE: {ex.Message}"); IsClicked = false; IsLoading = false; PopupHelper.RemoveLoading(); }
                    cts = null;
                });
             }
@@ -213,51 +196,33 @@ namespace KeepSafe.ViewModels
                 switch (wsType)
                 {
                     case 0:
-                        switch (UserType)
+                        if (jsonData.ContainsKey("data"))
                         {
-                            case UserType.User:
-                                if (jsonData.ContainsKey("user"))
-                                {
-                                    Device.BeginInvokeOnMainThread(async () =>
-                                    {
-                                    //TODO save USER Here
-                                    //PageDialogService?.DisplayAlertAsync("Login Succesfully",jsonData["message"].ToString(),"Okay");
-                                    dataClass.User = JsonConvert.DeserializeObject<User>(jsonData["user"].ToString());
-                                        dataClass.IsLoggedIn = true;
-                                        dataClass.AccountType = UserType.User;
-                                        App.ShowHomePage(UserType.User);
-                                        EmailAddressEntry.ClearText();
-                                        PasswordEntry.ClearText();
-                                    });
-                                }
-                            break;
-                            case UserType.Establishment:
-                                if (jsonData.ContainsKey("user"))
-                                {
-                                    Device.BeginInvokeOnMainThread(async () =>
-                                    {
-                                        //TODO save USER Here
-                                        //PageDialogService?.DisplayAlertAsync("Login Succesfully",jsonData["message"].ToString(),"Okay");
-                                        dataClass.User = JsonConvert.DeserializeObject<User>(jsonData["user"].ToString());
-                                        dataClass.IsLoggedIn = true;
-                                        dataClass.AccountType = UserType.Establishment;
-                                        App.ShowHomePage(UserType.Establishment);
-                                        EmailAddressEntry.ClearText();
-                                        PasswordEntry.ClearText();
-                                    });
-                                }
-                                break;
-                        }                
+                            Device.BeginInvokeOnMainThread(async () =>
+                            {
+                                //TODO save USER Here
+                                PopupHelper.RemoveLoading();
+                                dataClass.User = JsonConvert.DeserializeObject<User>(jsonData["data"].ToString());
+                                dataClass.LoginType = UserType;
+                                App.ShowHomePage(UserType);
+                                PhoneNumberEntry.ClearText();
+                                PasswordEntry.ClearText();
+                            });
+                        }           
                     break;
                 }
             }
             IsClicked = false;
         }
 
-        public void ReceiveError(string title, string error, int wsType)
+        public async void ReceiveError(string title, string error, int wsType)
         {
-            PageDialogService?.DisplayAlertAsync(title, error, "Okay");
-            IsClicked = false;
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                PopupHelper.RemoveLoading();
+                await PageDialogService?.DisplayAlertAsync(title, error, "Okay");
+                IsClicked = false;
+            });
         }
     }
 }

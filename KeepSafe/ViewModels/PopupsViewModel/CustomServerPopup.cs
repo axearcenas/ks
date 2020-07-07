@@ -146,12 +146,12 @@ namespace KeepSafe.ViewModels.PopupsViewModel
                 if (DataClass.GetInstance.CurrentServer.IsSecured)
                 {
                     //TODO files for servers secured
-                    await restServices.GetRequest("http://demo2630086.mockable.io/server_list", cts.Token, 1);
+                    await restServices.GetRequest("https://demo2630086.mockable.io/keepsafe/server_list", cts.Token, 1);
                 }
                 else
                 {
                     //TODO files for servers not secured
-                    await restServices.GetRequest("http://demo2630086.mockable.io/server_list", cts.Token, 1);
+                    await restServices.GetRequest("http://demo2630086.mockable.io/keepsafe/server_list", cts.Token, 1);
                 }
             }
             catch (OperationCanceledException oce)

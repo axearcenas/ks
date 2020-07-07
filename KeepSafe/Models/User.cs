@@ -15,11 +15,11 @@ namespace KeepSafe.Models
             set { _Id = value; OnPropertyChanged(); }
         }
 
-        string _Photo;
-        public string Photo
+        string _Image;
+        public string Image
         {
-            get { return _Photo; }
-            set { _Photo = value; OnPropertyChanged(); }
+            get { return _Image; }
+            set { _Image = value; OnPropertyChanged(); }
         }
 
         string _FirstName;
@@ -36,13 +36,6 @@ namespace KeepSafe.Models
             set { _LastName = value; OnPropertyChanged(); }
         }
 
-        string _PhoneNumber;
-        public string PhoneNumber
-        {
-            get { return _PhoneNumber; }
-            set { _PhoneNumber = value; OnPropertyChanged(); }
-        }
-
         string _ContactNumber;
         public string ContactNumber
         {
@@ -57,18 +50,11 @@ namespace KeepSafe.Models
             set { _Address = value; OnPropertyChanged(); }
         }
 
-        DateTime _Birthdate;
+        DateTime _Birthdate = DateTime.Now;
         public DateTime Birthdate
         {
-            get { return _Birthdate; }
+            get { return _Birthdate == null ? DateTime.Now : _Birthdate; }
             set { _Birthdate = value; OnPropertyChanged(); }
-        }
-
-        string _Gender;
-        public string Gender
-        {
-            get { return _Gender; }
-            set { _Gender = value; OnPropertyChanged(); }
         }
 
         string _Email;
@@ -78,39 +64,45 @@ namespace KeepSafe.Models
             set { _Email = value; OnPropertyChanged(); }
         }
 
-        string _Code;
-        public string Code
+        string _Qrcode;
+        public string Qrcode
         {
-            get { return _Code; }
-            set { _Code = value; OnPropertyChanged(); }
+            get { return _Qrcode; }
+            set { _Qrcode = value; OnPropertyChanged(); }
         }
 
-        string _QrCode;
-        public string QrCode
+        string _QrcodeImage;
+        public string QrcodeImage
         {
-            get { return _QrCode; }
-            set { _QrCode = value; OnPropertyChanged(); }
+            get { return _QrcodeImage; }
+            set { _QrcodeImage = value; OnPropertyChanged(); }
         }
 
         public bool Equals(User user)
         {
+            if (user == null)
+                return false;
+
             bool IsEquals = true;
+            
+            IsEquals = false;
             if (!user.Id.Equals(Id))
-                IsEquals =  false;
-            if (!user.Photo.Equals(Photo))
                 IsEquals = false;
-            if (!user.FirstName.Equals(FirstName))
+            if (string.IsNullOrEmpty(user.Image) ? true : !user.Image.Equals(Image))
                 IsEquals = false;
-            if (!user.LastName.Equals(LastName))
+            if (string.IsNullOrEmpty(user.FirstName) ? true : !user.FirstName.Equals(FirstName))
                 IsEquals = false;
-            if (!user.PhoneNumber.Equals(PhoneNumber))
+            if (string.IsNullOrEmpty(user.LastName) ? true : !user.LastName.Equals(LastName))
                 IsEquals = false;
-            if (!user.Address.Equals(Address))
+            if (string.IsNullOrEmpty(user.ContactNumber) ? true : !user.ContactNumber.Equals(ContactNumber))
+                IsEquals = false;
+            if (string.IsNullOrEmpty(user.Address) ? true : !(bool)user.Address?.Equals(Address))
                 IsEquals = false;
             if (!user.Birthdate.Equals(Birthdate))
                 IsEquals = false;
-            if (!user.Email.Equals(Email))
+            if (string.IsNullOrEmpty(user.Email) ? true : !user.Email.Equals(Email))
                 IsEquals = false;
+            
             return IsEquals;
         }
 
@@ -118,8 +110,8 @@ namespace KeepSafe.Models
         {
             FirstName = user.FirstName;
             LastName = user.LastName;
-            Photo = user.Photo;
-            PhoneNumber = user.PhoneNumber;
+            Image = user.Image;
+            ContactNumber = user.ContactNumber;
             Address = user.Address;
             Birthdate = user.Birthdate;
             Email = user.Email;

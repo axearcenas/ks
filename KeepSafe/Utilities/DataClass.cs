@@ -10,6 +10,7 @@ using KeepSafe.Helpers.Faye;
 using DryIoc;
 using System.Runtime.CompilerServices;
 using FastExpressionCompiler.LightExpression;
+using KeepSafe.ViewModels;
 
 namespace KeepSafe
 {
@@ -236,24 +237,26 @@ namespace KeepSafe
             }
         }
 
-        bool _IsLoggedIn;
-        public bool IsLoggedIn
+        // bool _IsLoggedIn;
+        // public bool IsLoggedIn
+        UserType _LoginType;
+        public UserType LoginType
         {
             set
             {
-                _IsLoggedIn = value;
-                Application.Current.Properties[nameof(IsLoggedIn)] = JsonConvert.SerializeObject(_IsLoggedIn);
-                OnPropertyChanged(nameof(IsLoggedIn));
+                _LoginType = value;
+                Application.Current.Properties[nameof(LoginType)] = JsonConvert.SerializeObject(_LoginType);
+                OnPropertyChanged(nameof(LoginType));
                 Application.Current.SavePropertiesAsync();
             }
             get
             {
-                if ( Application.Current.Properties.ContainsKey(nameof(IsLoggedIn)))
+                if ( Application.Current.Properties.ContainsKey(nameof(LoginType)))
                 {
-                    _IsLoggedIn = JsonConvert.DeserializeObject<bool>(Application.Current.Properties[nameof(IsLoggedIn)].ToString(), new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+                    _LoginType = JsonConvert.DeserializeObject<UserType>(Application.Current.Properties[nameof(LoginType)].ToString(), new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
                 }
 
-                return _IsLoggedIn;
+                return _LoginType;
             }
         }
 
@@ -280,7 +283,7 @@ namespace KeepSafe
             Application.Current.Properties.Remove(nameof(AccountType));
             Token = null;
             User = null;
-            IsLoggedIn = false;
+            LoginType = UserType.None;
             await Application.Current.SavePropertiesAsync();
         }
 
