@@ -273,8 +273,9 @@ namespace KeepSafe
             //Logout Facebook Account
             //Plugin.FacebookClient.CrossFacebookClient.Current.Logout();
             //Unsubscribe All Channel in Socket
-            Faye.Instance.UnsubscribeAll();
+            //Faye.Instance.UnsubscribeAll();
             //Delete Cache Data
+
             Application.Current.Properties.Remove(nameof(BuildNumber));
             Application.Current.Properties.Remove(nameof(Token));
             Application.Current.Properties.Remove(nameof(ClientId));
