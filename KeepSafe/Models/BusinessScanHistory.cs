@@ -26,7 +26,7 @@ namespace KeepSafe.Models
             set { _QrCode = value; OnPropertyChanged(); }
         }
 
-        string _Image => User.Photo;
+        string _Image => User.Image;
         public string Image
         {
             get { return _Image; }
