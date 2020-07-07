@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading;
+using KeepSafe.Enum;
 using KeepSafe.Extensions;
 using KeepSafe.Helpers;
 using KeepSafe.Helpers.FileReader;
@@ -30,6 +34,13 @@ namespace KeepSafe.ViewModels
 
         public EntryViewModel PasswordEntry { get; } = new EntryViewModel() { Placeholder = "Password", PlaceholderColor = ColorResource.WHITE_COLOR, IsPassword = true };
         public EntryViewModel NewPasswordEntry { get; } = new EntryViewModel() { Placeholder = "New Password", PlaceholderColor = ColorResource.WHITE_COLOR, IsPassword = true };
+
+        BusinessType _SelectedBusinessType;
+        public BusinessType SelectedBusinessType
+        {
+            get { return _SelectedBusinessType; }
+            set { SetProperty(ref _SelectedBusinessType, value, nameof(SelectedBusinessType)); }
+        }
 
         string _EstablishmentImage;
         public string EstablishmentImage

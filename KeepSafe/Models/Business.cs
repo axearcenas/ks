@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using KeepSafe.Enum;
+using KeepSafe.Extensions;
 
 namespace KeepSafe.Models
 {
@@ -17,6 +21,13 @@ namespace KeepSafe.Models
         {
             get { return _Photo; }
             set { _Photo = value; OnPropertyChanged(); }
+        }
+
+        string _Image;
+        public string Image
+        {
+            get { return _Image; }
+            set { _Image = value; OnPropertyChanged(); }
         }
 
         string _Name;
@@ -73,6 +84,14 @@ namespace KeepSafe.Models
         {
             get { return _Password; }
             set { _Password = value; OnPropertyChanged(); }
+        }
+
+        public List<string> BusinessTypeList
+        {
+            get
+            {
+                return System.Enum.GetNames(typeof(BusinessType)).Select(b => b.SplitCamelCase()).ToList();
+            }
         }
 
         public bool Equals(Business business)
