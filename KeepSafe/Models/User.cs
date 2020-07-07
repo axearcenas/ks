@@ -78,6 +78,13 @@ namespace KeepSafe.Models
             set { _QrcodeImage = value; OnPropertyChanged(); }
         }
 
+        double _Temperature;
+        public double Temperature
+        {
+            get { return _Temperature; }
+            set { _Temperature = value; OnPropertyChanged(nameof(Temperature)); }
+        }
+
         public bool Equals(User user)
         {
             if (user == null)

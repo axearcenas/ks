@@ -182,6 +182,7 @@ namespace KeepSafe
             containerRegistry.RegisterForNavigation<MyQRPage>();
             containerRegistry.RegisterForNavigation<ForgotPasswordPage, ForgotPasswordPageViewModel>();
             containerRegistry.RegisterForNavigation<BusinessProfilePage, BusinessProfileViewModel>();
+            containerRegistry.RegisterForNavigation<BusinessReceptionPage, BusinessReceptionViewModel>();
 
             //NOTE: Views that has a view model in ViewModel Folder
             //containerRegistry.RegisterForNavigation<GetStartedPage>();

@@ -10,7 +10,7 @@
                           RightIconType="SVG"
                           RightIcon="MyQRIcon"
                           RightButtonCommand="{Binding MyQRCommand}"
-                          NavBackgroundColor="{Static res:ColorResource.MAIN_DARK_THEME_COLOR}"
+                          NavBackgroundColor="{Binding NavBgColor}"
                           BackgroundColor="{Static res:ColorResource.SCANNER_BACKGROUNDCOLOR}"
                           PageTitle="Scan QR"
                           TitleFontFamily="{Static res:FontResource.BOLD}"
@@ -41,7 +41,7 @@
            ColumnSpacing="0"
            VerticalOptions="Fill"
           PropertyChanged="Grid_PropertyChanged"
-           BackgroundColor="{Static res:ColorResource.SCANNER_BACKGROUNDCOLOR}"
+           BackgroundColor="{Binding ScannerBgColor}"
            RowDefinitions="{local:ScaleRowDefinition Value='61,*'}">
         <local:FFSVGImage Grid.Row="1"
                           Source="{local:FFSVGImageSource ImageName=ScannerInidcator}"
@@ -54,7 +54,7 @@
                VerticalOptions="End"
                Margin="{local:ScaleThickness Value='17,0'}"
                HeightRequest="{local:ScaleHeight Value=45}"
-               CornerRadius="{local:ScaleHeight Value=23}">
+               CornerRadius="{Binding FrameCornerRadius}">
             <Grid ColumnSpacing="0"
                   ColumnDefinitions="{local:ScaleColumnDefinition Value='64,*'}">
                 <local:FFSVGImage Source="{local:FFSVGImageSource ImageName=SearchIcon}"

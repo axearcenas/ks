@@ -37,6 +37,31 @@ namespace KeepSafe.ViewModels
             get { return _IsScanning; }
             set { _IsScanning = value; RaisePropertyChanged(); }
         }
+        
+        public Color NavBgColor
+        {
+            get
+            {
+                return DataClass.GetInstance.LoginType == UserType.User ? ColorResource.MAIN_DARK_THEME_COLOR : ColorResource.ESTABLISHMENT_MAIN_THEME_COLOR;
+            }
+        }
+
+        public Color ScannerBgColor
+        {
+            get
+            {
+                return DataClass.GetInstance.LoginType == UserType.User ? ColorResource.SCANNER_BACKGROUNDCOLOR : ColorResource.ESTABLISHMENT_MAIN_THEME_COLOR;
+            }
+        }
+
+        public float FrameCornerRadius
+        {
+            get
+            {
+                return DataClass.GetInstance.LoginType == UserType.User ? 23.ScaleHeight() : 5.ScaleHeight();
+            }
+        }
+
 
         public string TabIcon
         {
@@ -47,6 +72,7 @@ namespace KeepSafe.ViewModels
         }
 
         bool CanScan;
+
         public ScanPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService)
             : base(navigationService, pageDialogService)
         {
@@ -128,14 +154,26 @@ namespace KeepSafe.ViewModels
                 await Task.Delay(500);
                 fileReader.SetDelegate(this);
                 //await fileReader.ReadFile("UserProfile.json", cts.Token, 0);
-                await fileReader.CreateDummyResponse(JsonConvert.SerializeObject(
-                    new
+                if(dataClass.LoginType == UserType.User)
+                {
+                    await fileReader.CreateDummyResponse(JsonConvert.SerializeObject(new
                     {
                         message = $"Scanned: {code}",
                         business = new Business() { Id = 0, Image = RandomizerHelper.GetRandomImageUrl((int)158.ScaleWidth(), (int)158.ScaleHeight(), category: ImageCategory.tech), Name = "Golden Prince Hotel" },
                         type = RandomizerHelper.GetRandomInteger(10) % 2 == 0 ? 0 : 1,
                         status = 200
-                    }),cts.Token, 0);
+                    }), cts.Token, 0);
+                }
+                else if(dataClass.LoginType == UserType.Establishment)
+                {
+                    await fileReader.CreateDummyResponse(JsonConvert.SerializeObject(new
+                    {
+                        message = $"Scanned: {code}",
+                        user = new User() { Id = 0, Image = RandomizerHelper.GetRandomImageUrl((int)158.ScaleWidth(), (int)158.ScaleHeight(), category: ImageCategory.people), FirstName = "Uvuvwevwevwe", LastName = "Ossas" },
+                        status = 200
+                    }), cts.Token, 1);
+                }
+                
 #else
                 restServices.SetDelegate(this);
                 string content = JsonConvert.SerializeObject(new { code, IsQrCode });
@@ -164,23 +202,39 @@ namespace KeepSafe.ViewModels
                 switch (wsType)
                 {
                     case 0:
-                            Device.BeginInvokeOnMainThread(async () =>
+                        Device.BeginInvokeOnMainThread(async () =>
+                        {
+                            //TODO save USER Here
+                            if (jsonData.ContainsKey("message"))
                             {
-                                //TODO save USER Here
-                                if (jsonData.ContainsKey("message"))
-                                {
-                                    PageDialogService?.DisplayAlertAsync("Scan Succesfully", jsonData["message"].ToString(), "Okay");
-                                }
-                                INavigationParameters keys = new NavigationParameters();
-                                keys.Add("ScanPageActiveAction", ScanPageActive);
-                                if(jsonData.ContainsKey("type"))
-                                    keys.Add("IsCheckIn", jsonData["type"].ToObject<int>() == 0);
-                                if (jsonData.ContainsKey("business"))
-                                    keys.Add("Business", jsonData["business"].ToObject<Business>());
-                                await NavigationService.NavigateAsync(nameof(UserCheckInPage), keys, useModalNavigation: true);
-                                IsScanning = true;
-                            });
-                        break; 
+                                PageDialogService?.DisplayAlertAsync("Scan Succesfully", jsonData["message"].ToString(), "Okay");
+                            }
+                            INavigationParameters keys = new NavigationParameters();
+                            keys.Add("ScanPageActiveAction", ScanPageActive);
+                            if(jsonData.ContainsKey("type"))
+                                keys.Add("IsCheckIn", jsonData["type"].ToObject<int>() == 0);
+                            if (jsonData.ContainsKey("business"))
+                                keys.Add("Business", jsonData["business"].ToObject<Business>());
+                            await NavigationService.NavigateAsync(nameof(UserCheckInPage), keys, useModalNavigation: true);
+                            IsScanning = true;
+                        });
+                        break;
+                    case 1:
+                        Device.BeginInvokeOnMainThread(async () =>
+                        {
+                            if (jsonData.ContainsKey("message"))
+                            {
+                                PageDialogService?.DisplayAlertAsync("Scan Succesfully", jsonData["message"].ToString(), "Okay");
+                            }
+
+                            INavigationParameters parameter = new NavigationParameters();                            
+                            if (jsonData.ContainsKey("user"))
+                                parameter.Add("User", jsonData["user"].ToObject<User>());
+
+                            await NavigationService.NavigateAsync(nameof(BusinessReceptionPage), parameter, useModalNavigation: true);
+                            IsScanning = true;
+                        });
+                        break;
                 }
             }
             IsClicked = false;
