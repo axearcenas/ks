@@ -95,6 +95,7 @@
     <None Remove="Resources\SVG\CheckoutIcon.svg" />
     <None Remove="Resources\SVG\CheckOutIcon.svg" />
     <None Remove="Resources\Files\EstablishmentScanHistory.json" />
+    <None Remove="Resources\Files\BusinessData.json" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Files\CustomAlert.json" />
@@ -117,6 +118,7 @@
     <EmbeddedResource Include="Resources\SVG\CheckInIcon.svg" />
     <EmbeddedResource Include="Resources\SVG\CheckOutIcon.svg" />
     <EmbeddedResource Include="Resources\Files\EstablishmentScanHistory.json" />
+    <EmbeddedResource Include="Resources\Files\BusinessData.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Views\HomePage.xaml.cs">

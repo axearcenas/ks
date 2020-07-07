@@ -16,13 +16,6 @@ namespace KeepSafe.Models
             set { _Id = value; OnPropertyChanged(); }
         }
 
-        string _Photo;
-        public string Photo
-        {
-            get { return _Photo; }
-            set { _Photo = value; OnPropertyChanged(); }
-        }
-
         string _Image;
         public string Image
         {
@@ -42,13 +35,6 @@ namespace KeepSafe.Models
         {
             get { return _BusinessType; }
             set { _BusinessType = value; OnPropertyChanged(); }
-        }
-
-        string _PhoneNumber;
-        public string PhoneNumber
-        {
-            get { return _PhoneNumber; }
-            set { _PhoneNumber = value; OnPropertyChanged(); }
         }
 
         string _ContactNumber;
@@ -96,16 +82,19 @@ namespace KeepSafe.Models
 
         public bool Equals(Business business)
         {
+            if (business == null)
+                return false;
+
             bool IsEquals = true;
+
+            IsEquals = false;
             if (!business.Id.Equals(Id))
                 IsEquals = false;
-            if (!business.Photo.Equals(Photo))
+            if (!business.Image.Equals(Image))
                 IsEquals = false;
             if (!business.Name.Equals(Name))
                 IsEquals = false;
             if (!business.BusinessType.Equals(BusinessType))
-                IsEquals = false;
-            if (!business.PhoneNumber.Equals(PhoneNumber))
                 IsEquals = false;
             if (!business.ContactNumber.Equals(ContactNumber))
                 IsEquals = false;
@@ -122,8 +111,8 @@ namespace KeepSafe.Models
         {
             Name = business.Name;
             BusinessType = business.BusinessType;
-            Photo = business.Photo;
-            PhoneNumber = business.PhoneNumber;
+            Image = business.Image;
+            ContactNumber = business.ContactNumber;
             ContactPerson = business.ContactPerson;
             Address = business.Address;
             Email = business.Email;

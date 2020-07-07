@@ -132,7 +132,7 @@ namespace KeepSafe.ViewModels
                     new
                     {
                         message = $"Scanned: {code}",
-                        business = new Business() { Id = 0,Photo = RandomizerHelper.GetRandomImageUrl((int)158.ScaleWidth(), (int)158.ScaleHeight(), category: ImageCategory.tech), Name = "Golden Prince Hotel" },
+                        business = new Business() { Id = 0, Image = RandomizerHelper.GetRandomImageUrl((int)158.ScaleWidth(), (int)158.ScaleHeight(), category: ImageCategory.tech), Name = "Golden Prince Hotel" },
                         type = RandomizerHelper.GetRandomInteger(10) % 2 == 0 ? 0 : 1,
                         status = 200
                     }),cts.Token, 0);

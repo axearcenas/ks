@@ -1,11 +1,17 @@
 ﻿using System;
+using System.Threading;
 using KeepSafe.Enum;
 using KeepSafe.Extension;
 using KeepSafe.Extensions;
+using KeepSafe.Helpers;
+using KeepSafe.Helpers.FileReader;
 using KeepSafe.Helpers.MediaHelper;
+using KeepSafe.Models;
 using KeepSafe.Resources;
 using KeepSafe.ViewModels;
 using KeepSafe.ViewModels.ViewViewModels;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using Prism.Commands;
@@ -15,7 +21,7 @@ using Xamarin.Forms;
 
 namespace KeepSafe
 {
-    public class RegisterBusinessViewModel : ViewModelBase
+    public class RegisterBusinessViewModel : ViewModelBase, IRestReceiver, IFileConnector
     {
         public DelegateCommand BackButtonClickedCommand { get; set; }
         public DelegateCommand UploadPhotoClickedCommand { get; set; }
@@ -85,6 +91,13 @@ namespace KeepSafe
         {
             get { return _IsChecked; }
             set { SetProperty(ref _IsChecked, value, nameof(IsChecked)); }
+        }
+
+        UserType _UserType = UserType.Establishment;
+        public UserType UserType
+        {
+            get { return _UserType; }
+            set { SetProperty(ref _UserType, value, nameof(UserType)); }
         }
 
         MediaHelper mediaHelper = new MediaHelper();
@@ -178,7 +191,7 @@ namespace KeepSafe
             //TODO Navigate to EULA Page
         }
 
-        private void OnRegisterButtonClicked()
+        private async void OnRegisterButtonClicked()
         {
             bool IsValid = true;
 
@@ -244,16 +257,63 @@ namespace KeepSafe
             {
                 IsClicked = true;
 
-                //TODO Register API
-            }
+                if (cts != null)
+                    cts.Cancel();
+                cts = new CancellationTokenSource();
+                PopupHelper.ShowLoading();
+                try
+                {
+#if DEBUG
+                    fileReader.SetDelegate(this);
+                    await fileReader.ReadFile("BusinessData.json", cts.Token, 0);
+#else
+                        restServices.SetDelegate(this);
+                        string content = JsonConvert.SerializeObject(new { current_password = PasswordEntry.Text, new_password = NewPasswordEntry.Text });
+                        await restServices.PostRequestAsync($"{Constants.ROOT_API_URL}".AddAuth(), content, cts.Token, 0);
+#endif
 
-            dataClass.AccountType = UserType.Establishment;
-            App.ShowHomePage(UserType.Establishment);
+                }
+
+                catch (OperationCanceledException ox) { App.Log($"StackTrace: {ox.StackTrace}\nMESSAGE: {ox.Message}"); IsClicked = false; IsLoading = false; }
+                catch (TimeoutException te) { App.Log($"StackTrace: {te.StackTrace}\nMESSAGE: {te.Message}"); IsClicked = false; IsLoading = false; }
+                catch (Exception ex) { App.Log($"StackTrace: {ex.StackTrace}\nMESSAGE: {ex.Message}"); IsClicked = false; IsLoading = false; }
+                cts = null;
+            }
         }
 
         private void OnLoginLabelTapped()
         {
             NavigationService.NavigateAsync("/MainPage");
+        }
+
+        public void ReceiveJSONData(JObject jsonData, int wsType)
+        {
+            if (jsonData.ContainsKey("status") && jsonData["status"].ToObject<int>() == 200)
+            {
+                switch (wsType)
+                {
+                    case 0:
+                        if (jsonData.ContainsKey("data"))
+                        {
+                            Device.BeginInvokeOnMainThread(async () =>
+                            {
+                                dataClass.Business = JsonConvert.DeserializeObject<Business>(jsonData["data"].ToString());
+                                dataClass.LoginType = UserType;
+                                await App.ShowHomePage(dataClass.LoginType);
+                            });
+                        }
+                        break;
+                }
+            }
+            IsClicked = false;
+            PopupHelper.RemoveLoading();
+        }
+
+        public void ReceiveError(string title, string error, int wsType)
+        {
+            PageDialogService?.DisplayAlertAsync(title, error, "Okay");
+            IsClicked = false;
+            PopupHelper.RemoveLoading();
         }
     }
 }

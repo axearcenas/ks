@@ -124,7 +124,8 @@ namespace KeepSafe
             //TODO Create Landing Page
             var parameter = new NavigationParameters();
             parameter.Add("UserType", userType);
-            return  _NavigationService.NavigateAsync($"{AppNavigationRootRoute}{nameof(MyTabbedPage)}?createTab={(userType == UserType.User ? "HomePage" : "DashboardPage")}&createTab=ScanPage&createTab={(userType == UserType.User ? "UserProfilePage" : "BusinessProfilePage")}", parameter);
+
+            return  _NavigationService.NavigateAsync($"{AppNavigationRootRoute}{nameof(MyTabbedPage)}?createTab={(DataClass.GetInstance.LoginType == UserType.User ? "HomePage" : "DashboardPage")}&createTab=ScanPage&createTab={(DataClass.GetInstance.LoginType == UserType.User ? "UserProfilePage" : "BusinessProfilePage")}", parameter);
         }
 
         public static void ShowMainPage()
