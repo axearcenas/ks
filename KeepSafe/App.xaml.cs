@@ -19,6 +19,7 @@ using KeepSafe.Views.Popups;
 using KeepSafe.ViewModels.PopupsViewModel;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
+using System.Threading.Tasks;
 
 namespace KeepSafe
 {
@@ -55,7 +56,7 @@ namespace KeepSafe
 
         static INavigationService _NavigationService;
         readonly DataClass dataClass = DataClass.GetInstance;
-        protected override void OnInitialized()
+        protected override async void OnInitialized()
         {
             InitializeComponent();
             _NavigationService = NavigationService;
@@ -74,7 +75,7 @@ namespace KeepSafe
 
             if (dataClass.LoginType != UserType.None)
                 //TODO Add a parameter that identifies logged in account is either User or Business
-                ShowHomePage(UserType.User);
+                await ShowHomePage(dataClass.LoginType);
             else
                 ShowMainPage();
         }
@@ -118,12 +119,12 @@ namespace KeepSafe
             OnAppResume?.Invoke();
         }
 
-        public static void ShowHomePage(UserType userType)
+        public static  Task ShowHomePage(UserType userType)
         {
             //TODO Create Landing Page
             var parameter = new NavigationParameters();
             parameter.Add("UserType", userType);
-            _NavigationService.NavigateAsync($"{AppNavigationRootRoute}{nameof(MyTabbedPage)}?{KnownNavigationParameters.CreateTab}={(userType == UserType.User ? "HomePage" : "DashboardPage")}&{KnownNavigationParameters.CreateTab}=ScanPage&{KnownNavigationParameters.CreateTab}=UserProfilePage", parameter);
+            return  _NavigationService.NavigateAsync($"{AppNavigationRootRoute}{nameof(MyTabbedPage)}?{KnownNavigationParameters.CreateTab}={(userType == UserType.User ? "HomePage" : "DashboardPage")}&{KnownNavigationParameters.CreateTab}=ScanPage&{KnownNavigationParameters.CreateTab}=UserProfilePage", parameter);
         }
 
         public static void ShowMainPage()
