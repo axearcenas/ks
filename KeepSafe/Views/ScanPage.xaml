@@ -19,7 +19,7 @@
                           TitleVerticalOptions="Center"
                           StatusBarColor="Light"
                           Title="Scan"
-                          IconImageSource="ScanIcon">
+                          IconImageSource="{Binding TabIcon}">
     <local:MainNavigationPage.Resources>
         <ResourceDictionary>            
             <Style TargetType="local:CustomEntry" x:Key="EntryStyle">

@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading;
+using KeepSafe.Enum;
 using KeepSafe.Extensions;
 using KeepSafe.Helpers;
 using KeepSafe.Helpers.FileReader;
@@ -18,27 +22,38 @@ using Xamarin.Forms;
 
 namespace KeepSafe.ViewModels
 {
-    public class UserProfilePageViewModel : ViewModelBase, IFileConnector, IRestReceiver
+    public class BusinessProfileViewModel : ViewModelBase, IFileConnector, IRestReceiver
     {
+        public DelegateCommand BackButtonClickedCommand { get; set; }
+        public DelegateCommand UploadPhotoClickedCommand { get; set; }
+        public DelegateCommand<object> SelectedIndexChangedCommand { get; set; }
+        public DelegateCommand EditTappedCommand { get; set; }
+        public DelegateCommand ChangePasswordTappedCommand { get; set; }
+        public DelegateCommand LogoutTappedCommand { get; set; }
+        public DelegateCommand<string> EntryFocusedCommand { get; set; }
+
         public EntryViewModel PasswordEntry { get; } = new EntryViewModel() { Placeholder = "Password", PlaceholderColor = ColorResource.WHITE_COLOR, IsPassword = true };
         public EntryViewModel NewPasswordEntry { get; } = new EntryViewModel() { Placeholder = "New Password", PlaceholderColor = ColorResource.WHITE_COLOR, IsPassword = true };
 
-        public DelegateCommand BackButtonClickedCommand { get; set; }
-        public DelegateCommand UploadPhotoClickedCommand { get; set; }
-        public DelegateCommand<object> DateSelectedCommand { get; set; }
-        public DelegateCommand LogoutTappedCommand { get; set; }
-        public DelegateCommand EditTappedCommand { get; set; }
-        public DelegateCommand ChangePasswordTappedCommand { get; set; }
-        public DelegateCommand<string> EntryFocusedCommand { get; set; }
-
-        MediaHelper mediaHelper = new MediaHelper();
-        MediaFile file;
-
-        User _UserData = DataClass.GetInstance.User;
-        public User UserData
+        BusinessType _SelectedBusinessType;
+        public BusinessType SelectedBusinessType
         {
-            get { return _UserData; }
-            set { SetProperty(ref _UserData, value, nameof(UserData)); }
+            get { return _SelectedBusinessType; }
+            set { SetProperty(ref _SelectedBusinessType, value, nameof(SelectedBusinessType)); }
+        }
+
+        string _EstablishmentImage;
+        public string EstablishmentImage
+        {
+            get { return _EstablishmentImage; }
+            set { SetProperty(ref _EstablishmentImage, value, nameof(EstablishmentImage)); }
+        }
+
+        Business _BusinessData = DataClass.GetInstance.Business;
+        public Business BusinessData
+        {
+            get { return _BusinessData; }
+            set { SetProperty(ref _BusinessData, value, nameof(BusinessData)); }
         }
 
         bool _IsEdit = false;
@@ -48,9 +63,9 @@ namespace KeepSafe.ViewModels
             set
             {
                 SetProperty(ref _IsEdit, value, nameof(IsEdit));
-                UserData.PropertyChanged -= UserData_PropertyChanged;
-                UserData = _IsEdit ? DataClass.GetInstance.User.Clone() : DataClass.GetInstance.User;
-                UserData.PropertyChanged += UserData_PropertyChanged;
+                BusinessData.PropertyChanged -= UserData_PropertyChanged;
+                BusinessData = _IsEdit ? DataClass.GetInstance.Business.Clone() : DataClass.GetInstance.Business;
+                BusinessData.PropertyChanged += UserData_PropertyChanged;
             }
         }
 
@@ -68,8 +83,11 @@ namespace KeepSafe.ViewModels
             set { SetProperty(ref _IsChangePassword, value, nameof(IsChangePassword)); }
         }
 
-        User UserCached { get { return DataClass.GetInstance.User; } }
-        
+        Business BusinessCachedData { get { return DataClass.GetInstance.Business; } }
+
+        MediaHelper mediaHelper = new MediaHelper();
+        MediaFile file;
+
         public string TabIcon
         {
             get
@@ -78,25 +96,32 @@ namespace KeepSafe.ViewModels
             }
         }
 
-        public UserProfilePageViewModel(INavigationService navigationService, IPageDialogService pageDialogService)
-            : base(navigationService, pageDialogService)
+        public BusinessProfileViewModel(INavigationService navigationService, IPageDialogService pageDialogService) : base(navigationService, pageDialogService)
         {
-
             BackButtonClickedCommand = new DelegateCommand(OnBackButtonClicked);
             UploadPhotoClickedCommand = new DelegateCommand(OnUploadPhotoClicked);
-            DateSelectedCommand = new DelegateCommand<object>(OnDateSelected);
-            LogoutTappedCommand = new DelegateCommand(OnLogoutTappedCommand_Execute);
+            SelectedIndexChangedCommand = new DelegateCommand<object>(SelectedIndexChanged);
             EditTappedCommand = new DelegateCommand(OnEditTappedCommand_Execute);
+            LogoutTappedCommand = new DelegateCommand(OnLogoutTappedCommand_Execute);
             ChangePasswordTappedCommand = new DelegateCommand(OnChangePasswordLabelTapped);
-            UserData.PropertyChanged += UserData_PropertyChanged;
             EntryFocusedCommand = new DelegateCommand<string>(OnEntryFocusedCommand_Execute);
+
+            BusinessData.PropertyChanged += UserData_PropertyChanged;
         }
 
         private void UserData_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            CanSaveEdit = !UserData.Equals(UserCached);
+            CanSaveEdit = !BusinessData.Equals(BusinessCachedData);
         }
 
+        private void OnBackButtonClicked()
+        {
+            IsEdit = false;
+            file = null;
+            IsChangePassword = false;
+            PasswordEntry.Text = "";
+            NewPasswordEntry.Text = "";
+        }
 
         private void OnEntryFocusedCommand_Execute(string obj)
         {
@@ -111,24 +136,9 @@ namespace KeepSafe.ViewModels
             }
         }
 
-        private void OnDateSelected(object sender)
-        {
-            if ((sender as CustomDatePicker).TextColor != Color.White)
-                (sender as CustomDatePicker).TextColor = Color.White;
-        }
-
-        private void OnBackButtonClicked()
-        {
-            IsEdit = false;
-            file = null;
-            IsChangePassword = false;
-            PasswordEntry.Text = "";
-            NewPasswordEntry.Text = "";
-        }
-
         private async void OnUploadPhotoClicked()
         {
-            if (!IsClicked && IsEdit)
+            if (!IsClicked)
             {
                 IsClicked = true;
                 var action = await PageDialogService.DisplayActionSheetAsync("Upload Photo", "Cancel", file == null ? null : "Remove Photo", "Camera", "Gallery");
@@ -139,7 +149,7 @@ namespace KeepSafe.ViewModels
                     {
                         file = await mediaHelper.TakePhotoAsync(new StoreCameraMediaOptions()
                         {
-                            Directory = "Pass",
+                            Directory = "KeepSafe",
                             Name = $"{DateTime.UtcNow}.jpg",
                             CompressionQuality = 92,
                             MaxWidthHeight = (int)400.ScaleHeight(),
@@ -148,7 +158,7 @@ namespace KeepSafe.ViewModels
                         });
                         if (file != null)
                         {
-                            UserData.Image = file.Path;
+                            EstablishmentImage = file.Path;
                         }
                     }
                     else if (action.ToString() == "Gallery")
@@ -162,7 +172,7 @@ namespace KeepSafe.ViewModels
                         });
                         if (file != null)
                         {
-                            UserData.Image = file.Path;
+                            EstablishmentImage = file.Path;
                         }
                     }
                     else if (action.ToString() == "Remove Photo")
@@ -170,7 +180,7 @@ namespace KeepSafe.ViewModels
                         if (file != null)
                         {
                             file = null;
-                            UserData.Image = null;
+                            EstablishmentImage = null;
                         }
                     }
                 }
@@ -189,7 +199,7 @@ namespace KeepSafe.ViewModels
             {
                 bool IsValid = true;
 
-                if (UserData.Equals(UserCached))
+                if (BusinessData.Equals(BusinessCachedData))
                 {
                     IsValid = false;
                 }
@@ -205,20 +215,20 @@ namespace KeepSafe.ViewModels
                     try
                     {
 #if DEBUG
-                            fileReader.SetDelegate(this);
-                            await fileReader.CreateDummyResponse(JsonConvert.SerializeObject(
-                                new
-                                {
-                                    user = UserData,
-                                    message = "Successfully update the user",
-                                    status = 200
-                                }), cts.Token, 0);
+                        fileReader.SetDelegate(this);
+                        await fileReader.CreateDummyResponse(JsonConvert.SerializeObject(
+                            new
+                            {
+                                user = BusinessData,
+                                message = "Successfully update the user",
+                                status = 200
+                            }), cts.Token, 0);
 #else
                         if (file == null)
                         {
-                            restServices.SetDelegate(this);
-                            string content = JsonConvert.SerializeObject(new { data = UserData });
-                            await restServices.PostRequestAsync($"{Constants.ROOT_API_URL}".AddAuth(), content, cts.Token, 0);
+                            restService.SetDelegate(this);
+                            string content = JsonConvert.SerializeObject(new { code, IsQrCode });
+                            await RestRequest.PostRequestAsync($"{Constants.ROOT_API_URL}{Constants.HEROES_URL}{Constants.POWERS_URL}{Constants.VALIDATE_URL}".AddAuth(), content, cts.Token, 0);
                         }
                         else
                         {
@@ -238,11 +248,6 @@ namespace KeepSafe.ViewModels
             {
                 IsEdit = true;
             }
-        }
-
-        private void OnLogoutTappedCommand_Execute()
-        {
-            App.Logout();
         }
 
         private async void OnChangePasswordLabelTapped()
@@ -276,17 +281,17 @@ namespace KeepSafe.ViewModels
                     try
                     {
 #if DEBUG
-                            fileReader.SetDelegate(this);
-                            await fileReader.CreateDummyResponse(JsonConvert.SerializeObject(
-                                new
-                                {
-                                    message = "Successfully change password.",
-                                    status = 200
-                                }), cts.Token, 1);
+                        fileReader.SetDelegate(this);
+                        await fileReader.CreateDummyResponse(JsonConvert.SerializeObject(
+                            new
+                            {
+                                message = "Successfully change password.",
+                                status = 200
+                            }), cts.Token, 1);
 #else
-                        restServices.SetDelegate(this);
-                        string content = JsonConvert.SerializeObject(new { current_password = PasswordEntry.Text, new_password = NewPasswordEntry.Text });
-                        await restServices.PostRequestAsync($"{Constants.ROOT_API_URL}".AddAuth(), content, cts.Token, 0);
+                            restService.SetDelegate(this);
+                            string content = JsonConvert.SerializeObject(new { code, IsQrCode });
+                            await RestRequest.PostRequestAsync($"{Constants.ROOT_API_URL}{Constants.HEROES_URL}{Constants.POWERS_URL}{Constants.VALIDATE_URL}".AddAuth(), content, cts.Token, 0);
 #endif
 
                     }
@@ -297,6 +302,11 @@ namespace KeepSafe.ViewModels
                     cts = null;
                 }
             }
+        }
+
+        private void OnLogoutTappedCommand_Execute()
+        {
+            App.Logout();
         }
 
         public void ReceiveJSONData(JObject jsonData, int wsType)
@@ -310,8 +320,8 @@ namespace KeepSafe.ViewModels
                         {
                             //TODO save USER Here
                             if (jsonData.ContainsKey("message"))
-                                PageDialogService.DisplayAlertAsync("User Updated!", jsonData["message"].ToString(), "Okay");
-                            DataClass.GetInstance.User = UserData;
+                                PageDialogService.DisplayAlertAsync("Business Profile Updated!", jsonData["message"].ToString(), "Okay");
+                            DataClass.GetInstance.Business = BusinessData;
                             await Application.Current.SavePropertiesAsync();
                             CanSaveEdit = false;
                             IsEdit = false;
@@ -322,7 +332,7 @@ namespace KeepSafe.ViewModels
                         {
                             //TODO save new password Here
                             if (jsonData.ContainsKey("message"))
-                                await PageDialogService.DisplayAlertAsync("User Updated!", jsonData["message"].ToString(), "Okay");
+                                await PageDialogService.DisplayAlertAsync("Business Profile Updated!", jsonData["message"].ToString(), "Okay");
                             IsChangePassword = false;
                         });
                         break;

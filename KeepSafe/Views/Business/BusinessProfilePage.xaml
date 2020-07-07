@@ -1,18 +1,15 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <local:MainNavigationPage xmlns="http://xamarin.com/schemas/2014/forms"
                           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                          x:Class="KeepSafe.Views.UserProfilePage"
+                          x:Class="KeepSafe.BusinessProfilePage"
                           xmlns:local="clr-namespace:KeepSafe"
                           xmlns:res="clr-namespace:KeepSafe.Resources"
-                          xmlns:views="clr-namespace:KeepSafe.Views"
                           xmlns:prism="http://prismlibrary.com"
-                          xmlns:sys="clr-namespace:System;assembly=netstandard"
                           NavigationPage.HasNavigationBar="False"
-                          BackgroundColor="{Static res:ColorResource.PROFILE_BACKGROUND_COLOR}"
-                          NavBackgroundColor="#5D172C"
+                          NavBackgroundColor="#22144D"
                           LeftIcon=""
                           LeftIconType="FontAwesome5Solid"
-                          PageTitle="Register"
+                          PageTitle="Profile"
                           TitleFontColor="White"
                           TitleFontFamily="{Static res:FontResource.BOLD}"
                           TitleFontSize="{local:ScaleFontSize Value=21}"
@@ -25,16 +22,14 @@
                           Title="Profile"
                           IconImageSource="{Binding TabIcon}">
     <local:MainNavigationPage.Triggers>
-        <DataTrigger TargetType="local:MainNavigationPage"
-                     Binding="{Binding IsEdit}" Value="true">
+        <DataTrigger TargetType="local:MainNavigationPage" Binding="{Binding IsEdit}" Value="true">
             <Setter Property="RightIcon" Value="save"/>
             <Setter Property="LeftIcon" Value="BackIcon"/>
             <Setter Property="LeftIconType" Value="SVG"/>
             <Setter Property="LeftIconColor" Value="White"/>
             <Setter Property="LeftButtonCommand" Value="{Binding BackButtonClickedCommand}"/>
         </DataTrigger>
-        <DataTrigger TargetType="local:MainNavigationPage"
-                     Binding="{Binding IsChangePassword}" Value="true">
+        <DataTrigger TargetType="local:MainNavigationPage" Binding="{Binding IsChangePassword}" Value="true">
             <Setter Property="LeftIcon" Value="BackIcon"/>
             <Setter Property="LeftIconType" Value="SVG"/>
             <Setter Property="LeftIconColor" Value="White"/>
@@ -55,21 +50,19 @@
             <Style TargetType="Frame" x:Key="EntryFrameStyle">
                 <Setter Property="Margin" Value="0"/>
                 <Setter Property="Padding" Value="0"/>
-                <Setter Property="BackgroundColor" Value="#5559676B"/>
+                <Setter Property="BackgroundColor" Value="{Static res:ColorResource.WHITE_COLOR}"/>
                 <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
                 <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
-                <Setter Property="CornerRadius" Value="{local:ScaleHeight Value=20}"/>
+                <Setter Property="CornerRadius" Value="{local:ScaleHeight Value=5}"/>
                 <Setter Property="WidthRequest" Value="{local:ScaleWidth Value=280}"/>
                 <Setter Property="HeightRequest" Value="{local:ScaleHeight Value=40}"/>
                 <Setter Property="InputTransparent" Value="True"/>
                 <Style.Triggers>
-                    <DataTrigger TargetType="Frame"
-                                 Binding="{Binding IsEdit}" Value="true">
-                        <Setter Property="BackgroundColor" Value="#A57B88"/>
+                    <DataTrigger TargetType="Frame" Binding="{Binding IsEdit}" Value="true">
+                        <Setter Property="BorderColor" Value="#05257A"/>
                         <Setter Property="InputTransparent" Value="False"/>
                     </DataTrigger>
-                    <DataTrigger TargetType="Frame"
-                                 Binding="{Binding IsChangePassword}" Value="true">
+                    <DataTrigger TargetType="Frame" Binding="{Binding IsChangePassword}" Value="true">
                         <Setter Property="IsVisible" Value="False"/>
                     </DataTrigger>
                 </Style.Triggers>
@@ -77,10 +70,10 @@
             <Style TargetType="Frame" x:Key="PasswordEntryFrameStyle">
                 <Setter Property="Margin" Value="0"/>
                 <Setter Property="Padding" Value="0"/>
-                <Setter Property="BackgroundColor" Value="#A57B88"/>
+                <Setter Property="BackgroundColor" Value="White"/>
                 <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
                 <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
-                <Setter Property="CornerRadius" Value="{local:ScaleHeight Value=20}"/>
+                <Setter Property="CornerRadius" Value="{local:ScaleHeight Value=5}"/>
                 <Setter Property="WidthRequest" Value="{local:ScaleWidth Value=280}"/>
                 <Setter Property="HeightRequest" Value="{local:ScaleHeight Value=40}"/>
                 <Setter Property="InputTransparent" Value="False"/>
@@ -89,24 +82,22 @@
             <Style TargetType="Label" x:Key="EntryIconStyle">
                 <Setter Property="Grid.Column" Value="0"/>
                 <Setter Property="FontFamily" Value="{Static res:FontResource.FONTAWESOME5_SOLID}"/>
-                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="TextColor" Value="#05257A"/>
                 <Setter Property="FontSize" Value="{local:ScaleFontSize Value=17}"/>
                 <Setter Property="HorizontalOptions" Value="End"/>
                 <Setter Property="VerticalOptions" Value="Center"/>
             </Style>
             <Style TargetType="local:CustomEntry" x:Key="EntryStyle">
                 <Setter Property="Grid.Column" Value="1"/>
-                <Setter Property="TextColor" Value="White"/>
-                <Setter Property="FontFamily" Value="{Static res:FontResource.LIGHT}"/>
-                <Setter Property="PlaceholderColor" Value="{Static res:ColorResource.WHITE_COLOR}"/>
+                <Setter Property="TextColor" Value="#B1AFB8"/>
+                <Setter Property="FontFamily" Value="{Static res:FontResource.REGULAR}"/>
+                <Setter Property="PlaceholderFontFamily" Value="{Static res:FontResource.REGULAR}"/>
                 <Setter Property="FontSize" Value="{local:ScaleFontSize Value=16}"/>
                 <Setter Property="BackgroundColor" Value="Transparent"/>
-                <Setter Property="Margin" Value="{local:ScaleThickness Value='12,0,0,0'}"/>
+                <Setter Property="Margin" Value="{local:ScaleThickness Value='20,0,0,0'}"/>
                 <Setter Property="InputTransparent" Value="True"/>
                 <Style.Triggers>
-                    <DataTrigger TargetType="local:CustomEntry"
-                                 Binding="{Binding IsEdit}" Value="true">
-                        <Setter Property="BackgroundColor" Value="#A57B88"/>
+                    <DataTrigger TargetType="local:CustomEntry" Binding="{Binding IsEdit}" Value="true">
                         <Setter Property="InputTransparent" Value="False"/>
                     </DataTrigger>
                 </Style.Triggers>
@@ -114,23 +105,41 @@
         </ResourceDictionary>
     </local:MainNavigationPage.Resources>
     <local:MainNavigationPage.Content>
-        <ScrollView BackgroundColor="#804456"
+        <ScrollView BackgroundColor="#ECF0F1"
                     HorizontalScrollBarVisibility="Never"
                     VerticalScrollBarVisibility="Never">
-            <Grid RowSpacing="{local:ScaleHeight Value=16}"
+            <Grid RowSpacing="0"
                   ColumnSpacing="0"
                   Margin="0"
-                  Padding="0"
-                  RowDefinitions="{local:ScaleRowDefinition Value='149,4,38,38,38,38,Auto,Auto,Auto,Auto,0'}">
+                  Padding="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=23}"/>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=111}"/>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=30}"/>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=40}"/>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=16}"/>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=40}"/>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=16}"/>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=40}"/>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=16}"/>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=40}"/>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=16}"/>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=40}"/>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=30}"/>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=40}"/>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=16}"/>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=40}"/>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=16}"/>
+                </Grid.RowDefinitions>
                 <!--Photo-->
-                <Frame Grid.Row="0"
-                       CornerRadius="5"
-                       WidthRequest="111"
-                       HeightRequest="111"
+                <Frame Grid.Row="1"
+                       CornerRadius="{local:ScaleHeight Value=5}"
+                       WidthRequest="{local:ScaleWidth Value=111}"
+                       HeightRequest="{local:ScaleHeight Value=111}"
                        BackgroundColor="White"
                        IsClippedToBounds="True"
                        HorizontalOptions="Center"
-                       VerticalOptions="End"
+                       VerticalOptions="Center"
                        Margin="0"
                        Padding="0">
                     <Frame.GestureRecognizers>
@@ -140,52 +149,30 @@
                           ColumnSpacing="0"
                           Margin="0"
                           Padding="0">
-                        <local:FFSVGImage
-                               BackgroundColor="Transparent"
-                               Source="{Binding UserData.Image}"
-                               HorizontalOptions="Fill"
-                               VerticalOptions="Fill"
-                               HeightRequest="{local:ScaleHeightDouble Value=111}"
-                               WidthRequest="{local:ScaleHeightDouble Value=111}"
-                               Aspect="AspectFill"/>
                         <Label Text="camera"
                                FontFamily="{Static res:FontResource.FONTAWESOME5_SOLID}"
                                TextColor="#2605257A"
                                FontSize="{local:ScaleFontSize Value=70}"
                                InputTransparent="True"
                                HorizontalOptions="Center"
-                               VerticalOptions="Center"
-                               IsVisible="{Binding IsEdit}"/>
+                               VerticalOptions="Center"/>
                         <Label Text="Upload&#10;Photo"
                                FontFamily="{Static res:FontResource.REGULAR}"
                                TextColor="{Binding UploadPhotoTextColor}"
                                FontSize="{local:ScaleFontSize Value=16}"
                                InputTransparent="True"
                                HorizontalOptions="Center"
-                               VerticalOptions="Center"
-                               IsVisible="{Binding IsEdit}"/>
+                               VerticalOptions="Center"/>
+                        <local:FFCachedImage BackgroundColor="Transparent"
+                                             CachedImageSource="{Binding BusinessData.Image}"
+                                             HorizontalOptions="Fill"
+                                             VerticalOptions="Fill"
+                                             HeightRequest="{local:ScaleHeightDouble Value=111}"
+                                             WidthRequest="{local:ScaleHeightDouble Value=111}"
+                                             Aspect="AspectFill"/>
                     </Grid>                    
                 </Frame>
-                <!--First Name-->
-                <Frame Grid.Row="2"
-                       Style="{StaticResource EntryFrameStyle}">
-                    <Grid RowSpacing="0"
-                          ColumnSpacing="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="{local:ScaleGridWidth Value=40}"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="{local:ScaleGridWidth Value=30}"/>
-                        </Grid.ColumnDefinitions>
-                        <Label Text="user"
-                               FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"
-                               Style="{StaticResource EntryIconStyle}"/>
-                        <local:CustomEntry Text="{Binding UserData.FirstName}"
-                                           Placeholder="First Name"
-                                           AutoCapitalization="Words"
-                                           Style="{StaticResource EntryStyle}"/>
-                    </Grid>
-                </Frame>
-                <!--Last Name-->
+                <!--Business Name-->
                 <Frame Grid.Row="3"
                        Style="{StaticResource EntryFrameStyle}">
                     <Grid RowSpacing="0"
@@ -195,17 +182,55 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="{local:ScaleGridWidth Value=30}"/>
                         </Grid.ColumnDefinitions>
-                        <Label Text="user"
-                               FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"
+                        <Label Text="briefcase"
                                Style="{StaticResource EntryIconStyle}"/>
-                        <local:CustomEntry Text="{Binding UserData.LastName}"
-                                           Placeholder="Last Name"
+                        <local:CustomEntry Text="{Binding BusinessData.Name}"
+                                           Placeholder="Business Name"
+                                           PlaceholderColor="#B1AFB8"
                                            AutoCapitalization="Words"
                                            Style="{StaticResource EntryStyle}"/>
                     </Grid>
                 </Frame>
+                <!--Type of Establishment-->
+                <Frame Grid.Row="5"
+                       IsClippedToBounds="True"
+                       Style="{StaticResource EntryFrameStyle}">
+                    <Grid RowSpacing="0"
+                          ColumnSpacing="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="{local:ScaleGridWidth Value=40}"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="{local:ScaleGridWidth Value=30}"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Text="building"
+                               Style="{StaticResource EntryIconStyle}"/>
+                        <Picker x:Name="EstablishmentPicker"
+                                Grid.Column="1"
+                                Grid.ColumnSpan="2"
+                                Title="Type of Establishment"
+                                TitleColor="#B1AFB8"
+                                BackgroundColor="Transparent"
+                                TextColor="#B1AFB8"
+                                SelectedIndex="{Binding SelectedBusinessType, Converter={StaticResource IntEnumConverter}}"
+                                FontFamily="{Static res:FontResource.REGULAR}"
+                                FontSize="{local:ScaleFontSize Value=16}"
+                                Margin="{local:ScaleThickness Value='20,0,0,0'}"
+                                ItemsSource="{Binding BusinessData.BusinessTypeList}">
+                            <Picker.Behaviors>
+                                <prism:EventToCommandBehavior Command="{Binding SelectedIndexChangedCommand}"
+                                                              CommandParameter="{x:Reference EstablishmentPicker}"
+                                                              EventName="SelectedIndexChanged"/>
+                            </Picker.Behaviors>
+                        </Picker>
+                        <Label Text="chevron-down"
+                               Grid.Column="2"
+                               InputTransparent="True"
+                               HorizontalOptions="Start"
+                               Style="{StaticResource EntryIconStyle}"/>
+                    </Grid>
+                </Frame>
                 <!--Mobile #-->
-                <Frame Grid.Row="4"
+                <Frame Grid.Row="7"
                        Style="{StaticResource EntryFrameStyle}">
                     <Grid RowSpacing="0"
                           ColumnSpacing="0">
@@ -216,15 +241,16 @@
                         </Grid.ColumnDefinitions>
                         <Label Text="phone"
                                Style="{StaticResource EntryIconStyle}"/>
-                        <local:CustomEntry Text="{Binding UserData.ContactNumber}"
+                        <local:CustomEntry Text="{Binding BusinessData.ContactNumber}"
                                            Placeholder="Mobile Number"
+                                           PlaceholderColor="#B1AFB8"
                                            MaxLength="13"
                                            Keyboard="Telephone"
                                            Style="{StaticResource EntryStyle}"/>
                     </Grid>
                 </Frame>
-                <!--Address-->
-                <Frame Grid.Row="5"
+                <!--Contact Person-->
+                <Frame Grid.Row="9"
                        Style="{StaticResource EntryFrameStyle}">
                     <Grid RowSpacing="0"
                           ColumnSpacing="0">
@@ -233,53 +259,18 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="{local:ScaleGridWidth Value=30}"/>
                         </Grid.ColumnDefinitions>
-                        <Label Text="map-marker-alt"
+                        <Label Text="user"
+                               FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"
                                Style="{StaticResource EntryIconStyle}"/>
-                        <local:CustomEntry Text="{Binding UserData.Address}"
-                                           Placeholder="Address"
+                        <local:CustomEntry Text="{Binding ContactPersonEntry.Text}"
+                                           Placeholder="Contact Person"
+                                           PlaceholderColor="#B1AFB8"
+                                           AutoCapitalization="Words"
                                            Style="{StaticResource EntryStyle}"/>
                     </Grid>
                 </Frame>
-                <!--Birthdate-->
-                <Frame Grid.Row="6"
-                       Style="{StaticResource EntryFrameStyle}">
-                    <Grid RowSpacing="0"
-                          ColumnSpacing="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="{local:ScaleGridWidth Value=40}"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="{local:ScaleGridWidth Value=30}"/>
-                        </Grid.ColumnDefinitions>
-                        <Label Text="calendar-alt"
-                               FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"
-                               Style="{StaticResource EntryIconStyle}"/>
-                        <local:CustomDatePicker x:Name="BirthdatePicker"
-                                                Grid.Column="1"
-                                                Placeholder="{Binding UserData.Birthdate,StringFormat='{0:MM/dd/yy}'}"
-                                                Date="{Binding UserData.Birthdate}"
-                                                TextColor="White"
-                                                FontFamily="{Static res:FontResource.LIGHT}"
-                                                FontSize="{local:ScaleFontSize Value=16}"
-                                                BackgroundColor="Transparent"
-                                                Margin="{local:ScaleThickness Value='12,0,0,0'}"
-                                                InputTransparent="True">                            
-                        <local:CustomDatePicker.Triggers>
-                            <DataTrigger TargetType="local:CustomDatePicker"
-                                         Binding="{Binding IsEdit}" Value="true">
-                                <Setter Property="BackgroundColor" Value="#A57B88"/>
-                                <Setter Property="InputTransparent" Value="False"/>
-                            </DataTrigger>
-                        </local:CustomDatePicker.Triggers>
-                            <local:CustomDatePicker.Behaviors>
-                                <prism:EventToCommandBehavior Command="{Binding DateSelectedCommand}"
-                                                              CommandParameter="{x:Reference BirthdatePicker}"
-                                                              EventName="DateSelected"/>
-                            </local:CustomDatePicker.Behaviors>
-                        </local:CustomDatePicker>
-                    </Grid>
-                </Frame>
                 <!--Email-->
-                <Frame Grid.Row="7"
+                <Frame Grid.Row="11"
                        Style="{StaticResource EntryFrameStyle}">
                     <Grid RowSpacing="0"
                           ColumnSpacing="0">
@@ -291,14 +282,15 @@
                         <Label Text="envelope"
                                FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"
                                Style="{StaticResource EntryIconStyle}"/>
-                        <local:CustomEntry Text="{Binding UserData.Email}"
-                                           Placeholder="Email Address"
+                        <local:CustomEntry Text="{Binding EmailAddressEntry.Text}"
+                                           Placeholder="Email"
+                                           PlaceholderColor="#B1AFB8"
                                            Keyboard="Email"
                                            Style="{StaticResource EntryStyle}"/>
                     </Grid>
-                </Frame>
+                </Frame>                
                 <!-- Password Entry-->
-                <Frame Grid.Row="2"
+                <Frame Grid.Row="3"
                        Style="{StaticResource PasswordEntryFrameStyle}">
                     <Grid RowSpacing="0"
                           ColumnSpacing="0">
@@ -312,7 +304,7 @@
                                Style="{StaticResource EntryIconStyle}"/>
                         <local:CustomEntry Text="{Binding PasswordEntry.Text}"
                                            Placeholder="{Binding PasswordEntry.Placeholder}"
-                                           PlaceholderColor="{Binding PasswordEntry.PlaceholderColor}"
+                                           PlaceholderColor="#B1AFB8"
                                            IsPassword="{Binding PasswordEntry.IsPassword}"
                                            Style="{StaticResource EntryStyle}"
                                            InputTransparent="False">
@@ -325,7 +317,7 @@
                         </local:CustomEntry>
                         <Button Grid.Column="2"
                                 Text="eye-slash"
-                                TextColor="{Static res:ColorResource.LIGHT_GRAY_COLOR}"
+                                TextColor="{Static res:ColorResource.WHITE_COLOR}"
                                 FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"
                                 FontSize="{local:ScaleFontSize Value=16}"
                                 BackgroundColor="Transparent"
@@ -334,19 +326,13 @@
                                 HorizontalOptions="End"
                                 Command="{Binding ShowPasswordCommand}">
                             <Button.Triggers>
-                                <DataTrigger TargetType="Button"
-                                             Binding="{Binding PasswordEntry.IsPassword}"
-                                             Value="false">
+                                <DataTrigger TargetType="Button" Binding="{Binding PasswordEntry.IsPassword}" Value="false">
                                     <Setter Property="Text" Value="eye"/>
                                 </DataTrigger>
-                                <DataTrigger TargetType="Button"
-                                             Binding="{Binding PasswordEntry.Text}"
-                                             Value="{Null}">
+                                <DataTrigger TargetType="Button" Binding="{Binding PasswordEntry.Text}" Value="{Null}">
                                     <Setter Property="IsVisible" Value="false"/>
                                 </DataTrigger>
-                                <DataTrigger TargetType="Button"
-                                             Binding="{Binding PasswordEntry.Text}"
-                                             Value="">
+                                <DataTrigger TargetType="Button" Binding="{Binding PasswordEntry.Text}" Value="">
                                     <Setter Property="IsVisible" Value="false"/>
                                 </DataTrigger>
                             </Button.Triggers>
@@ -354,7 +340,7 @@
                     </Grid>
                 </Frame>
                 <!-- New Password Entry-->
-                <Frame Grid.Row="3"
+                <Frame Grid.Row="5"
                        Style="{StaticResource PasswordEntryFrameStyle}">
                     <Grid RowSpacing="0"
                           ColumnSpacing="0">
@@ -368,7 +354,7 @@
                                Style="{StaticResource EntryIconStyle}"/>
                         <local:CustomEntry Text="{Binding NewPasswordEntry.Text}"
                                            Placeholder="{Binding NewPasswordEntry.Placeholder}"
-                                           PlaceholderColor="{Binding NewPasswordEntry.PlaceholderColor}"
+                                           PlaceholderColor="#B1AFB8"
                                            IsPassword="{Binding NewPasswordEntry.IsPassword}"
                                            Style="{StaticResource EntryStyle}"
                                            InputTransparent="False">
@@ -410,35 +396,33 @@
                         </Button>
                     </Grid>
                 </Frame>
-                <!-- Change Password button-->
-                <Button Grid.Row="8"
+                <!--Change Password Button-->
+                <Button Grid.Row="13"
                         Text="Change Password"
                         Command="{Binding ChangePasswordTappedCommand}"
-                        TextColor="White"
+                        TextColor="{Static res:ColorResource.WHITE_COLOR}"
                         FontFamily="{Static res:FontResource.BOLD}"
                         FontSize="{local:ScaleFontSize Value=16}"
-                        BackgroundColor="#702C41"
+                        BackgroundColor="#3498DB"
                         HorizontalOptions="Center"
                         VerticalOptions="Center"
                         CornerRadius="{local:ScaleHeight Value=20}"
                         WidthRequest="{local:ScaleWidth Value=280}"
-                        HeightRequest="{local:ScaleHeight Value=38}">
+                        HeightRequest="{local:ScaleHeight Value=40}">
                     <Button.Triggers>
-                        <DataTrigger TargetType="Button"
-                                     Binding="{Binding IsEdit}" Value="true">
+                        <DataTrigger TargetType="Button" Binding="{Binding IsEdit}" Value="true">
                             <Setter Property="IsVisible" Value="false"/>
                         </DataTrigger>
-                         <DataTrigger TargetType="Button"
-                                     Binding="{Binding IsChangePassword}" Value="true">
-                            <Setter Property="Grid.Row" Value="4"/>
+                         <DataTrigger TargetType="Button" Binding="{Binding IsChangePassword}" Value="true">
+                            <Setter Property="Grid.Row" Value="7"/>
                         </DataTrigger>
                     </Button.Triggers>
                 </Button>
                 <!--Logout Button-->
-                <Button Grid.Row="9"
-                        Text="Log Out"
+                <Button Grid.Row="15"
+                        Text="Logout"
                         Command="{Binding LogoutTappedCommand}"
-                        TextColor="White"
+                        TextColor="{Static res:ColorResource.WHITE_COLOR}"
                         FontFamily="{Static res:FontResource.BOLD}"
                         FontSize="{local:ScaleFontSize Value=16}"
                         BackgroundColor="{Static res:ColorResource.MAIN_BUTTON_COLOR}"
@@ -446,19 +430,17 @@
                         VerticalOptions="Center"
                         CornerRadius="{local:ScaleHeight Value=20}"
                         WidthRequest="{local:ScaleWidth Value=280}"
-                        HeightRequest="{local:ScaleHeight Value=38}">                   
+                        HeightRequest="{local:ScaleHeight Value=40}">
                     <Button.Triggers>
-                        <DataTrigger TargetType="Button"
-                                     Binding="{Binding IsEdit}" Value="true">
+                        <DataTrigger TargetType="Button" Binding="{Binding IsEdit}" Value="true">
                             <Setter Property="IsVisible" Value="false"/>
                         </DataTrigger>
-                        <DataTrigger TargetType="Button"
-                                     Binding="{Binding IsChangePassword}" Value="true">
+                         <DataTrigger TargetType="Button" Binding="{Binding IsChangePassword}" Value="true">
                             <Setter Property="IsVisible" Value="false"/>
                         </DataTrigger>
                     </Button.Triggers>
                 </Button>
             </Grid>
-        </ScrollView>        
+        </ScrollView>
     </local:MainNavigationPage.Content>
 </local:MainNavigationPage>

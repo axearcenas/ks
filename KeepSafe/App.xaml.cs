@@ -19,6 +19,7 @@ using KeepSafe.Views.Popups;
 using KeepSafe.ViewModels.PopupsViewModel;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
+using KeepSafe.Enum;
 using System.Threading.Tasks;
 
 namespace KeepSafe
@@ -124,7 +125,7 @@ namespace KeepSafe
             //TODO Create Landing Page
             var parameter = new NavigationParameters();
             parameter.Add("UserType", userType);
-            return  _NavigationService.NavigateAsync($"{AppNavigationRootRoute}{nameof(MyTabbedPage)}?{KnownNavigationParameters.CreateTab}={(userType == UserType.User ? "HomePage" : "DashboardPage")}&{KnownNavigationParameters.CreateTab}=ScanPage&{KnownNavigationParameters.CreateTab}=UserProfilePage", parameter);
+            return  _NavigationService.NavigateAsync($"{AppNavigationRootRoute}{nameof(MyTabbedPage)}?createTab={(userType == UserType.User ? "HomePage" : "DashboardPage")}&createTab=ScanPage&createTab={(userType == UserType.User ? "UserProfilePage" : "BusinessProfilePage")}", parameter);
         }
 
         public static void ShowMainPage()
@@ -180,6 +181,7 @@ namespace KeepSafe
             containerRegistry.RegisterForNavigation<UserCheckInPage>();
             containerRegistry.RegisterForNavigation<MyQRPage>();
             containerRegistry.RegisterForNavigation<ForgotPasswordPage, ForgotPasswordPageViewModel>();
+            containerRegistry.RegisterForNavigation<BusinessProfilePage, BusinessProfileViewModel>();
 
             //NOTE: Views that has a view model in ViewModel Folder
             //containerRegistry.RegisterForNavigation<GetStartedPage>();

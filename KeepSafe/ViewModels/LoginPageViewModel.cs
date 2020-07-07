@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using KeepSafe.Enum;
 using KeepSafe.Extension;
 using KeepSafe.Extensions;
 using KeepSafe.Helpers;

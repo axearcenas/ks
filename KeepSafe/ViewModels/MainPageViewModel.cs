@@ -12,6 +12,7 @@ using Rg.Plugins.Popup.Services;
 using Prism.Common;
 using KeepSafe.ViewModels.PopupsViewModel;
 using System.Threading;
+using KeepSafe.Enum;
 
 namespace KeepSafe.ViewModels
 {
@@ -118,12 +119,5 @@ namespace KeepSafe.ViewModels
             NavigationService.NavigateAsync("RegisterPage");
         }
 
-    }
-
-    public enum UserType
-    {
-        None,
-        User,
-        Establishment
     }
 }

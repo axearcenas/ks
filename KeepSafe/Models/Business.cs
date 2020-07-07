@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using KeepSafe.Enum;
+using KeepSafe.Extensions;
 
 namespace KeepSafe.Models
 {
@@ -19,6 +23,13 @@ namespace KeepSafe.Models
             set { _Photo = value; OnPropertyChanged(); }
         }
 
+        string _Image;
+        public string Image
+        {
+            get { return _Image; }
+            set { _Image = value; OnPropertyChanged(); }
+        }
+
         string _Name;
         public string Name
         {
@@ -31,6 +42,13 @@ namespace KeepSafe.Models
         {
             get { return _BusinessType; }
             set { _BusinessType = value; OnPropertyChanged(); }
+        }
+
+        string _PhoneNumber;
+        public string PhoneNumber
+        {
+            get { return _PhoneNumber; }
+            set { _PhoneNumber = value; OnPropertyChanged(); }
         }
 
         string _ContactNumber;
@@ -68,11 +86,47 @@ namespace KeepSafe.Models
             set { _Password = value; OnPropertyChanged(); }
         }
 
-        private ObservableCollection<string> _EstablishmentType = new ObservableCollection<string> { "Clinic", "Hospital", "Travel Agency", "Boutique", "Bar & Restaurant", "Manufacturing", "Banking & Remittance", "Spa & Personal Care", "Government", "Theatre & Movie Houses", "Appliance & Computer Store", "Department Store", "Grocery & Supermarket", "Automobile", "Home Improvement", "Graphics & Printing" };
-        public ObservableCollection<string> EstablishmentType
+        public List<string> BusinessTypeList
         {
-            get { return _EstablishmentType; }
-            set { _EstablishmentType = value; OnPropertyChanged(); }
+            get
+            {
+                return System.Enum.GetNames(typeof(BusinessType)).Select(b => b.SplitCamelCase()).ToList();
+            }
+        }
+
+        public bool Equals(Business business)
+        {
+            bool IsEquals = true;
+            if (!business.Id.Equals(Id))
+                IsEquals = false;
+            if (!business.Photo.Equals(Photo))
+                IsEquals = false;
+            if (!business.Name.Equals(Name))
+                IsEquals = false;
+            if (!business.BusinessType.Equals(BusinessType))
+                IsEquals = false;
+            if (!business.PhoneNumber.Equals(PhoneNumber))
+                IsEquals = false;
+            if (!business.ContactNumber.Equals(ContactNumber))
+                IsEquals = false;
+            if (!business.ContactPerson.Equals(ContactPerson))
+                IsEquals = false;
+            if (!business.Address.Equals(Address))
+                IsEquals = false;
+            if (!business.Email.Equals(Email))
+                IsEquals = false;
+            return IsEquals;
+        }
+
+        public void Update(Business business)
+        {
+            Name = business.Name;
+            BusinessType = business.BusinessType;
+            Photo = business.Photo;
+            PhoneNumber = business.PhoneNumber;
+            ContactPerson = business.ContactPerson;
+            Address = business.Address;
+            Email = business.Email;
         }
     }
 }

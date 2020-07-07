@@ -1,4 +1,5 @@
 ﻿using System;
+using KeepSafe.Enum;
 using KeepSafe.Extensions;
 using KeepSafe.Helpers.FileReader;
 using KeepSafe.Models;
