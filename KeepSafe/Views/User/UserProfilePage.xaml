@@ -140,7 +140,7 @@
                           ColumnSpacing="0"
                           Margin="0"
                           Padding="0">
-                        <local:FFSVGImage
+                        <local:FFCachedImage
                                BackgroundColor="Transparent"
                                Source="{Binding UserData.Image}"
                                HorizontalOptions="Fill"

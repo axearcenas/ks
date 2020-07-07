@@ -74,7 +74,7 @@ namespace KeepSafe.ViewModels
         {
             get
             {
-                return DataClass.GetInstance.AccountType == UserType.User ? "ProfileIcon" : "BusinessProfileIcon";
+                return DataClass.GetInstance.LoginType == UserType.User ? "ProfileIcon" : "BusinessProfileIcon";
             }
         }
 

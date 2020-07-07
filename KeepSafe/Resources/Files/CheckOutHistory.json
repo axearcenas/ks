@@ -1,5 +1,5 @@
 ﻿{
-  "histories": [
+  "data": [
     {
       "id": 1,
       "plate_number": null,
@@ -55,5 +55,10 @@
       "business_type": 15
     }
   ],
+  "pagination": {
+    "url": "ks:///v1/user/scan_histories?type=check_in&offset=10",
+    "has_next": true,
+    "count": 20
+  },
   "status": 200
 }
