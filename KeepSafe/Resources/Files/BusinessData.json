@@ -1,0 +1,13 @@
+﻿{
+  "data": {
+    "id": 1,
+    "email": "jofix21@gmail.com",
+    "name": "ABCDEF",
+    "business_type": 7,
+    "contact_number": "09324325006",
+    "contact_person": "Mark Aboganda",
+    "image": "https://i2.wp.com/www.starmometer.com/wp-content/uploads/2020/02/ABS-CBN-logo.jpg?fit=677%2C453&w=640",
+    "address": "Punta Princesa Cebu City"
+  },
+  "status": 200
+}

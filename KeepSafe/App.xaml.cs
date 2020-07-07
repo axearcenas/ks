@@ -75,7 +75,6 @@ namespace KeepSafe
             //MainPage = new CustomServerPopup() { BindingContext = new CustomServerPopupViewModel(NavigationService) };
 
             if (dataClass.LoginType != UserType.None)
-                //TODO Add a parameter that identifies logged in account is either User or Business
                 await ShowHomePage(dataClass.LoginType);
             else
                 ShowMainPage();
