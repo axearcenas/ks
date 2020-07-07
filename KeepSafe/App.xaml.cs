@@ -131,10 +131,11 @@ namespace KeepSafe
             _NavigationService.NavigateAsync($"{AppNavigationRootRoute}NavigationPage/{nameof(Views.MainPage)}");
         }
 
-        public static void Logout()
+        public async static void Logout()
         {
             //TODO Create a link to Page when Logout / the Main Page
             ShowMainPage(); //NOTE:Temporary MainPage
+            await DataClass.GetInstance.Logout();
         }
 
         async void DeleteCachedData()

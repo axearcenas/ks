@@ -1,7 +1,7 @@
 ﻿{
-  "user": {
+  "data": {
     "id": 1,
-    "photo": "https://placeimg.com/200/200/people?id=1",
+    "image": "https://placeimg.com/200/200/people?id=1",
     "first_name": "Mica",
     "last_name": "Perez",
     "phone_number": "09324960927",
@@ -9,8 +9,8 @@
     "birthdate": "01/07/95",
     "gender": "Female",
     "email": "mika.perez@gmail.com",
-    "code": "3X4MP73C",
-    "qr_code": "https://i.imgur.com/BZejtvp.png"
+    "qrcode": "3X4MP73C",
+    "qrcode_image": "https://i.imgur.com/BZejtvp.png"
   },
   "status": 200
 }

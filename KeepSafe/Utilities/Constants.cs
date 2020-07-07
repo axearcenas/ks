@@ -34,7 +34,7 @@ namespace KeepSafe
         public static readonly string USERS_URL = "/users";
         public static readonly string USER_URL = "/user";
         public static readonly string LOGIN_URL = "/login";
-
+        public static readonly string SCAN_HISTORIES_URL = "/scan_histories";
 
         /// <summary>
         /// add '?' if first parameter or '&amp;' when not first paramameter
@@ -68,7 +68,7 @@ namespace KeepSafe
 
         #region Server Setting
 
-        public static string DEFAULT_AUTH { get { return $"{{ \"client\": \"{DataClass.GetInstance.ClientId}\", \"uid\": \"{DataClass.GetInstance.Uid}\",\"access-token\": \"{DataClass.GetInstance.Uid}\" }}"; } }
+        public static string DEFAULT_AUTH { get { return $"{{ \"client\": \"{DataClass.GetInstance.ClientId}\", \"uid\": \"{DataClass.GetInstance.Uid}\",\"access-token\": \"{DataClass.GetInstance.Token}\" }}"; } }
 
         // Production Server
         public static readonly string SERVER_NAME = "Production Server";
