@@ -35,6 +35,8 @@ namespace KeepSafe.ViewModels
             set { SetProperty(ref _MyScanHistory, value, nameof(MyScanHistory)); }
         }
 
+        Pagination MyScanHistoryPagination;
+
         public HomePageViewModel(INavigationService navigationService, IPageDialogService pageDialogService)
             : base(navigationService, pageDialogService)
         {
@@ -71,14 +73,14 @@ namespace KeepSafe.ViewModels
         private void OnPaginationCommand_Execute()
         {
             //TODO GET HISTORY Rest Here
-            if (!IsClicked)
+            if (!IsClicked && MyScanHistoryPagination == null ? false : MyScanHistoryPagination.HasNext )
             {
                 IsClicked = true;
-                GetHistoryData(10);
+                GetHistoryData(true);
             }
         }
 
-        async void GetHistoryData(int offset = 0)
+        async void GetHistoryData(bool IsPagination = false)
         {
             PopupHelper.ShowLoading();
             await Task.Delay(1500);
@@ -91,11 +93,12 @@ namespace KeepSafe.ViewModels
                 {
 #if DEBUG
                     fileReader.SetDelegate(this);
-                    await fileReader.ReadFile(SelectedHistoryType == 0 ? "CheckInHistory.json" : "CheckOutHistory.json", cts.Token, offset <= 0 ? 0 : 1);
+                    await fileReader.ReadFile(SelectedHistoryType == 0 ? "CheckInHistory.json" : "CheckOutHistory.json", cts.Token, IsPagination <= 0 ? 0 : 1);
 #else
-                       //TODO GET HISTORY Rest Here
-                       restServices.SetDelegate(this);
-                       await restServices.GetRequest($"{Constants.ROOT_URL}?type={(int)SelectedHistoryType}&offset={offset}",  cts.Token, offset <= 0 ? 0 : 1);
+                    //TODO GET HISTORY Rest Here
+                    restServices.SetDelegate(this);
+                    string url = $"{Constants.ROOT_URL}{Constants.USER_URL}{Constants.SCAN_HISTORIES_URL}{ ($"?type={(SelectedHistoryType == HistoryType.CheckIn ? "check_in" : "check_out")}") }";
+                    await restServices.GetRequest(IsPagination ? MyScanHistoryPagination.Url : url ,  cts.Token, IsPagination ? 1 : 0,Constants.DEFAULT_AUTH);
 #endif
                 }
                 catch (OperationCanceledException ox) { App.Log($"StackTrace: {ox.StackTrace}\nMESSAGE: {ox.Message}"); IsClicked = false; PopupHelper.RemoveLoading(); }
@@ -112,27 +115,61 @@ namespace KeepSafe.ViewModels
             {
                 switch (wsType)
                 {
-                    case 0: // histories ( CheckIn and CheckOut)
-                        if (jsonData.ContainsKey("histories"))
+                    case 0: // histories ( CheckIn and CheckOut)                        
+                        if(jsonData.ContainsKey("pagination"))
+                        {
+                            MyScanHistoryPagination = JsonConvert.DeserializeObject<Pagination>(jsonData["pagination"].ToString());
+                        }
+                        if (jsonData.ContainsKey("data"))
                         {
                             Device.BeginInvokeOnMainThread(() =>
                             {
-                                MyScanHistory = JsonConvert.DeserializeObject<ObservableCollection<UserScanHistory>>(jsonData["histories"].ToString());
+                                MyScanHistory = JsonConvert.DeserializeObject<ObservableCollection<UserScanHistory>>(jsonData["data"].ToString());
+
+                                PopupHelper.RemoveLoading();
+                            });
+                        }
+                            break;
+                    case 1: // histories pagination ( CheckIn and CheckOut)
+                        if (jsonData.ContainsKey("pagination"))
+                        {
+                            MyScanHistoryPagination = JsonConvert.DeserializeObject<Pagination>(jsonData["pagination"].ToString());
+                        }
+                        if (jsonData.ContainsKey("data"))
+                        {
+                            Device.BeginInvokeOnMainThread(() =>
+                            {
+                                var paginationHistory = JsonConvert.DeserializeObject<List<UserScanHistory>>(jsonData["data"].ToString());
+                                foreach(UserScanHistory history in paginationHistory)
+                                    MyScanHistory.Add(history);
 
                                 PopupHelper.RemoveLoading();
                             });
                         }
                         break;
-                    case 1: // histories pagination ( CheckIn and CheckOut)
-                        if (jsonData.ContainsKey("histories"))
+                }
+            }
+            else
+            {
+                switch (wsType)
+                {
+                    case 0: // histories ( CheckIn and CheckOut)
+                        if (jsonData.ContainsKey("errors"))
                         {
                             Device.BeginInvokeOnMainThread(() =>
                             {
-                                var paginationHistory = JsonConvert.DeserializeObject<List<UserScanHistory>>(jsonData["histories"].ToString());
-                                foreach(UserScanHistory history in paginationHistory)
-                                MyScanHistory.Add(history);
-
                                 PopupHelper.RemoveLoading();
+                                PageDialogService?.DisplayAlertAsync("Error!", jsonData["errors"][0].ToString(), "Okay");
+                            });
+                        }
+                        break;
+                    case 1: // histories pagination ( CheckIn and CheckOut)
+                        if (jsonData.ContainsKey("errors"))
+                        {
+                            Device.BeginInvokeOnMainThread(() =>
+                            {
+                                PopupHelper.RemoveLoading();
+                                PageDialogService?.DisplayAlertAsync("Error!", jsonData["errors"][0].ToString(), "Okay");
                             });
                         }
                         break;
@@ -143,9 +180,12 @@ namespace KeepSafe.ViewModels
 
         public void ReceiveError(string title, string error, int wsType)
         {
-            PageDialogService?.DisplayAlertAsync(title, error, "Okay");
-            IsClicked = false;
-            PopupHelper.RemoveLoading();
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                PopupHelper.RemoveLoading();
+                PageDialogService?.DisplayAlertAsync(title, error, "Okay");
+                IsClicked = false;
+            });
         }
     }
 }

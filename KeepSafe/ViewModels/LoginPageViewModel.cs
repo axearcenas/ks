@@ -203,7 +203,9 @@ namespace KeepSafe.ViewModels
                                 PopupHelper.RemoveLoading();
                                 dataClass.User = JsonConvert.DeserializeObject<User>(jsonData["data"].ToString());
                                 dataClass.LoginType = UserType;
-                                App.ShowHomePage(UserType);
+                                await Task.Delay(500);
+                                //await App.ShowHomePage(dataClass.LoginType);
+                                await App.ShowHomePage(dataClass.LoginType);
                                 PhoneNumberEntry.ClearText();
                                 PasswordEntry.ClearText();
                             });

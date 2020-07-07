@@ -132,6 +132,9 @@ namespace KeepSafe.Rest
 
                             if (!string.IsNullOrEmpty(authHeader))
                             {
+                                client.DefaultRequestHeaders.Add("access-token", DataClass.GetInstance.Token);
+                                client.DefaultRequestHeaders.Add("client", DataClass.GetInstance.ClientId);
+                                client.DefaultRequestHeaders.Add("uid", DataClass.GetInstance.Uid);
                                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authHeader);
                             }
 
@@ -504,13 +507,16 @@ namespace KeepSafe.Rest
                 if(!string.IsNullOrEmpty(result) && !result.Contains("<html"))
                 {
                     var json = JObject.Parse(result);
-                    App.Log($"Request Success? : {response.IsSuccessStatusCode} Error Response: {json}");
+                    App.Log($"Request Success? : {response.IsSuccessStatusCode} ERROR[ {response.ReasonPhrase} ] Error Response: {json}");
 
-                    if (json["status"] != null)
+                    if (json["status"] != null || response.StatusCode == HttpStatusCode.Unauthorized)
                     {
+                        if (response.StatusCode == HttpStatusCode.Unauthorized && json["status"] == null)
+                            json.Add("status", 401);
+
                         if (json["status"].ToString().Equals("401"))
                         {
-                            Device.BeginInvokeOnMainThread(() =>
+                            Device.BeginInvokeOnMainThread(async () =>
                             {
                                 // TODO add CustomAlertPopup
                                 //var customAlert = (CustomAlertPopup)PopupNavigation.Instance.PopupStack.FirstOrDefault(obj => obj is CustomAlertPopup);
@@ -531,6 +537,9 @@ namespace KeepSafe.Rest
                                 //{
                                 //    Utilities.ShowCustomMessagePopup(new Models.CustomMessageModel("", "exclamation-circle", 2, "Your session has expired.\nPlease login again.", "Okay") { IsForcedLogout = true });
                                 //}
+                                PopupHelper.RemoveLoading();
+                                await App.Current.MainPage.DisplayAlert(response.ReasonPhrase, "Unauthorize access!,You will be logout","Okay");
+                                App.Logout();
                             });
                         }
                         else
@@ -540,7 +549,7 @@ namespace KeepSafe.Rest
                     }
                     else if (json["error"] != null)
                     {
-                        WebServiceDelegate?.ReceiveError(response.StatusCode.ToString(), json["error"].ToString(), wsType);
+                        WebServiceDelegate?.ReceiveError(response.ReasonPhrase, json["error"].ToString(), wsType);
                     }
                     else if (json["errors"] != null)
                     {
@@ -548,7 +557,7 @@ namespace KeepSafe.Rest
                     }
                     else
                     {
-                        WebServiceDelegate?.ReceiveError(response.StatusCode.ToString(), "Unknown Error. Please Check!", wsType);
+                        WebServiceDelegate?.ReceiveError(response.ReasonPhrase, "Unknown Error. Please Check!", wsType);
                     }
                 }
                 else
@@ -562,9 +571,9 @@ namespace KeepSafe.Rest
                     {
                         var errorJson = JObject.Parse(result);
                         if(errorJson.ContainsKey("error"))
-                            WebServiceDelegate?.ReceiveError(response.StatusCode.ToString(), errorJson["error"].ToString(), wsType);
+                            WebServiceDelegate?.ReceiveError(response.ReasonPhrase, errorJson["error"].ToString(), wsType);
                         else
-                            WebServiceDelegate?.ReceiveError("Error!", response.StatusCode.ToString(), wsType);
+                            WebServiceDelegate?.ReceiveError("Error!", response.ReasonPhrase, wsType);
                     }
                     else if (response.StatusCode == HttpStatusCode.BadGateway) // Maintenance
                     {
@@ -572,7 +581,7 @@ namespace KeepSafe.Rest
                     }
                     else
                     {
-                        WebServiceDelegate?.ReceiveError("Error!", response.StatusCode.ToString(), wsType);
+                        WebServiceDelegate?.ReceiveError("Error!", response.ReasonPhrase, wsType);
                     }
                 }
             }
