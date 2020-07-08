@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 using KeepSafe.Enum;
 using KeepSafe.Extension;
 using KeepSafe.Extensions;
@@ -299,6 +300,7 @@ namespace KeepSafe
                             {
                                 dataClass.Business = JsonConvert.DeserializeObject<Business>(jsonData["data"].ToString());
                                 dataClass.LoginType = UserType.Establishment;
+                                await Task.Delay(500);
                                 await App.ShowHomePage(dataClass.LoginType);
                             });
                         }

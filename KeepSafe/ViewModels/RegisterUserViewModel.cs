@@ -1,12 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Net.Http;
+using System.Threading.Tasks;
 using KeepSafe.Enum;
 using KeepSafe.Extension;
 using KeepSafe.Extensions;
+using KeepSafe.Helpers;
+using KeepSafe.Helpers.FileReader;
 using KeepSafe.Helpers.MediaHelper;
+using KeepSafe.Models;
 using KeepSafe.Resources;
 using KeepSafe.ViewModels;
 using KeepSafe.ViewModels.ViewViewModels;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using Prism.Commands;
@@ -16,7 +24,7 @@ using Xamarin.Forms;
 
 namespace KeepSafe
 {
-    public class RegisterUserViewModel : ViewModelBase
+    public class RegisterUserViewModel : ViewModelBase , IRestReceiver, IFileConnector
     {
         public DelegateCommand BackButtonClickedCommand { get; set; }
         public DelegateCommand UploadPhotoClickedCommand { get; set; }
@@ -246,15 +254,90 @@ namespace KeepSafe
             if (IsValid && !IsClicked)
             {
                 IsClicked = true;
-                //TODO Register API
+                PopupHelper.ShowLoading();
+                cts = new System.Threading.CancellationTokenSource();
+                Task.Run(async () =>
+                {
+                    try
+                    {
+#if DEBUG
+                        fileReader.SetDelegate(this);
+                        await fileReader.ReadFile("UserData.json", cts.Token, 0);
+#else
+                        //TODO Login Rest Here
+                        string content = JsonConvert.SerializeObject(new
+                        {
+                            registration = new {
+                                first_name = FirstNameEntry.Text,
+                                image = "",
+                                last_name = LastNameEntry.Text, 
+                                contact_number = MobileNumberEntry.Text,
+                                address = AddressEntry.Text,
+                                birthdate = Birthdate.Date.ToLongDateString(),
+                                email = EmailAddressEntry.Text,
+                                password =  PasswordEntry.Text
+                            }
+                        });
+                        restServices.SetDelegate(this);
+                        //await restServices.PostRequestAsync($"{ Constants.ROOT_URL }{ Constants.USER_URL }{ Constants.REGISTER_URL }", content, cts.Token, 0);
+                        Dictionary<string, Stream> images = new Dictionary<string, Stream>() { { "registration[image]", file.GetStreamWithImageRotatedForExternalStorage() } };
+                        await restServices.MultiPartFormRequestAsync($"{ Constants.ROOT_URL }{ Constants.USER_URL }{ Constants.REGISTER_URL }", content, images, cts.Token, HttpMethod.Post, 0);
+#endif
+                    }
+                    catch (OperationCanceledException ox) { App.Log($"StackTrace: {ox.StackTrace}\nMESSAGE: {ox.Message}"); IsClicked = false; IsLoading = false; PopupHelper.RemoveLoading(); }
+                    catch (TimeoutException te) { App.Log($"StackTrace: {te.StackTrace}\nMESSAGE: {te.Message}"); IsClicked = false; IsLoading = false; PopupHelper.RemoveLoading(); }
+                    catch (Exception ex) { App.Log($"StackTrace: {ex.StackTrace}\nMESSAGE: {ex.Message}"); IsClicked = false; IsLoading = false; PopupHelper.RemoveLoading(); }
+                    cts = null;
+                });
             }
-
-            App.ShowHomePage(UserType.User);
         }
 
         private void OnLoginLabelTapped()
         {
-            NavigationService.NavigateAsync("/MainPage");
+            NavigationService.GoBackAsync();
+        }
+
+        public void ReceiveJSONData(JObject jsonData, int wsType)
+        {
+            if (jsonData.ContainsKey("status") && jsonData["status"].ToObject<int>() == 200)
+            {
+                switch (wsType)
+                {
+                    case 0:
+                        if (jsonData.ContainsKey("data"))
+                        {
+                            Device.BeginInvokeOnMainThread(async () =>
+                            {
+                                PopupHelper.RemoveLoading();
+                                dataClass.User = JsonConvert.DeserializeObject<User>(jsonData["data"].ToString());
+
+                                dataClass.LoginType = UserType.User;
+                                await Task.Delay(500);
+                                await App.ShowHomePage(dataClass.LoginType);
+                                FirstNameEntry.ClearText();
+                                LastNameEntry.ClearText();
+                                MobileNumberEntry.ClearText();
+                                AddressEntry.ClearText();
+                                BirthdateEntry.ClearText();
+                                EmailAddressEntry.ClearText();
+                                PasswordEntry.ClearText();
+                            });
+                        }
+                        break;
+                }
+            }
+            PopupHelper.RemoveLoading();
+            IsClicked = false;
+        }
+
+        public void ReceiveError(string title, string error, int wsType)
+        {
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                PopupHelper.RemoveLoading();
+                await PageDialogService?.DisplayAlertAsync(title, error, "Okay");
+                IsClicked = false;
+            });
         }
     }
 }
