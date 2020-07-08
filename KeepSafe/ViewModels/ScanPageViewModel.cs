@@ -255,6 +255,7 @@ namespace KeepSafe.ViewModels
                                 parameter.Add("User", jsonData["user"].ToObject<User>());
 
                             await NavigationService.NavigateAsync(nameof(BusinessReceptionPage), parameter, useModalNavigation: true);
+                            SearchEntry.ClearText();
                             IsScanning = true;
                         });
                     break;
