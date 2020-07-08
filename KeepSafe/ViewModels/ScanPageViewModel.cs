@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using KeepSafe.Extensions;
@@ -133,13 +134,13 @@ namespace KeepSafe.ViewModels
                     {
                         message = $"Scanned: {code}",
                         business = new Business() { Id = 0,Image = RandomizerHelper.GetRandomImageUrl((int)158.ScaleWidth(), (int)158.ScaleHeight(), category: ImageCategory.tech), Name = "Golden Prince Hotel" },
-                        type = RandomizerHelper.GetRandomInteger(10) % 2 == 0 ? 0 : 1,
+                        qr_code = QrCode.Mock(),
                         status = 200
                     }),cts.Token, 0);
 #else
                 restServices.SetDelegate(this);
-                string content = JsonConvert.SerializeObject(new { code, IsQrCode });
-                await restServices.PostRequestAsync($"{Constants.ROOT_API_URL}".AddAuth(), content, cts.Token, 0);
+                string content = JsonConvert.SerializeObject(new { scan_history= new { code } });
+                await restServices.PostRequestAsync($"{Constants.ROOT_URL}{Constants.USER_URL}{Constants.SCAN_HISTORIES_URL}", content, cts.Token, 0,Constants.DEFAULT_AUTH);
 #endif
             }
             catch (OperationCanceledException oce)
@@ -164,6 +165,7 @@ namespace KeepSafe.ViewModels
                 switch (wsType)
                 {
                     case 0:
+                        if(jsonData.ContainsKey("data"))
                             Device.BeginInvokeOnMainThread(async () =>
                             {
                                 //TODO save USER Here
@@ -173,11 +175,14 @@ namespace KeepSafe.ViewModels
                                 }
                                 INavigationParameters keys = new NavigationParameters();
                                 keys.Add("ScanPageActiveAction", ScanPageActive);
-                                if(jsonData.ContainsKey("type"))
-                                    keys.Add("IsCheckIn", jsonData["type"].ToObject<int>() == 0);
-                                if (jsonData.ContainsKey("business"))
-                                    keys.Add("Business", jsonData["business"].ToObject<Business>());
+                                if(jsonData["data"].ContainsKey("qr_code") && jsonData["data"]["qr_code"].ContainsKey("code_type"))
+                                    keys.Add("IsCheckIn", jsonData["data"]["qr_code"]["code_type"].ToObject<string>().Equals("check_in"));
+                                if (jsonData["data"].ContainsKey("business"))
+                                    keys.Add("Business", jsonData["data"]["business"].ToObject<Business>());
+                                if (jsonData["data"].ContainsKey("qr_code") && jsonData["data"]["qr_code"].ContainsKey("code"))
+                                    keys.Add("Qrcode", jsonData["data"]["qr_code"]["code"].ToObject<string>());
                                 await NavigationService.NavigateAsync(nameof(UserCheckInPage), keys, useModalNavigation: true);
+                                SearchEntry.ClearText();
                                 IsScanning = true;
                             });
                         break; 
