@@ -154,7 +154,7 @@ namespace KeepSafe.Helpers.MediaHelper
 
         public void OpenSettings()
         {
-            //DependencyService.Get<ILaunchApp>().OpenPermissionSettings();
+            Xamarin.Essentials.AppInfo.ShowSettingsUI();
         }
     }
 }

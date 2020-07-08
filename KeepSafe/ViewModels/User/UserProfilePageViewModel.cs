@@ -204,25 +204,27 @@ namespace KeepSafe.ViewModels
 
         private async void OnEditTappedCommand_Execute()
         {
-            if (IsEdit)
+            if (!IsChangePassword)
             {
-                bool IsValid = true;
-
-                if (UserData.Equals(UserCached))
+                if (IsEdit)
                 {
-                    IsValid = false;
-                }
+                    bool IsValid = true;
 
-                if (IsValid && !IsClicked)
-                {
-                    IsClicked = true;
-                    //TODO Update API
-                    if (cts != null)
-                        cts.Cancel();
-                    cts = new CancellationTokenSource();
-                    PopupHelper.ShowLoading();
-                    try
+                    if (UserData.Equals(UserCached))
                     {
+                        IsValid = false;
+                    }
+
+                    if (IsValid && !IsClicked)
+                    {
+                        IsClicked = true;
+                        //TODO Update API
+                        if (cts != null)
+                            cts.Cancel();
+                        cts = new CancellationTokenSource();
+                        PopupHelper.ShowLoading();
+                        try
+                        {
 #if DEBUG
                             fileReader.SetDelegate(this);
                             await fileReader.CreateDummyResponse(JsonConvert.SerializeObject(
@@ -233,32 +235,33 @@ namespace KeepSafe.ViewModels
                                     status = 200
                                 }), cts.Token, 0);
 #else
-                        if (file == null)
-                        {
-                            restServices.SetDelegate(this);
-                            string content = JsonConvert.SerializeObject(new { user = UserData });
-                            await restServices.PostRequestAsync($"{Constants.ROOT_URL}{Constants.USER_URL}{Constants.USERS_URL}{Constants.UPDATE_DETAILS_URL}".AddAuth(), content, cts.Token, 0);
-                        }
-                        else
-                        {
-                            restServices.SetDelegate(this);
-                            string content = JsonConvert.SerializeObject(new { user = UserData });
-                            Dictionary<string, Stream> images = new Dictionary<string, Stream>() { { "user[image]", file.GetStreamWithImageRotatedForExternalStorage() } };
-                            await restServices.MultiPartFormRequestAsync($"{Constants.ROOT_URL}{Constants.USER_URL}{Constants.USERS_URL}{Constants.UPDATE_DETAILS_URL}".AddAuth(), content, images, cts.Token, HttpMethod.Post, 0);
-                        }
+                            if (file == null)
+                            {
+                                restServices.SetDelegate(this);
+                                string content = JsonConvert.SerializeObject(new { user = UserData });
+                                await restServices.PostRequestAsync($"{Constants.ROOT_URL}{Constants.USER_URL}{Constants.USERS_URL}{Constants.UPDATE_DETAILS_URL}".AddAuth(), content, cts.Token, 0);
+                            }
+                            else
+                            {
+                                restServices.SetDelegate(this);
+                                string content = JsonConvert.SerializeObject(new { user = UserData });
+                                Dictionary<string, Stream> images = new Dictionary<string, Stream>() { { "user[image]", file.GetStreamWithImageRotatedForExternalStorage() } };
+                                await restServices.MultiPartFormRequestAsync($"{Constants.ROOT_URL}{Constants.USER_URL}{Constants.USERS_URL}{Constants.UPDATE_DETAILS_URL}".AddAuth(), content, images, cts.Token, HttpMethod.Post, 0);
+                            }
 #endif
 
-                    }
+                        }
 
-                    catch (OperationCanceledException ox) { App.Log($"StackTrace: {ox.StackTrace}\nMESSAGE: {ox.Message}"); IsClicked = false; IsLoading = false; }
-                    catch (TimeoutException te) { App.Log($"StackTrace: {te.StackTrace}\nMESSAGE: {te.Message}"); IsClicked = false; IsLoading = false; }
-                    catch (Exception ex) { App.Log($"StackTrace: {ex.StackTrace}\nMESSAGE: {ex.Message}"); IsClicked = false; IsLoading = false; }
-                    cts = null;
+                        catch (OperationCanceledException ox) { App.Log($"StackTrace: {ox.StackTrace}\nMESSAGE: {ox.Message}"); IsClicked = false; IsLoading = false; }
+                        catch (TimeoutException te) { App.Log($"StackTrace: {te.StackTrace}\nMESSAGE: {te.Message}"); IsClicked = false; IsLoading = false; }
+                        catch (Exception ex) { App.Log($"StackTrace: {ex.StackTrace}\nMESSAGE: {ex.Message}"); IsClicked = false; IsLoading = false; }
+                        cts = null;
+                    }
                 }
-            }
-            else
-            {
-                IsEdit = true;
+                else
+                {
+                    IsEdit = true;
+                }
             }
         }
 

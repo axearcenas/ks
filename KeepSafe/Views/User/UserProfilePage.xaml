@@ -35,9 +35,9 @@
         </DataTrigger>
         <DataTrigger TargetType="local:MainNavigationPage"
                      Binding="{Binding IsChangePassword}" Value="true">
-            <Setter Property="RightIcon" Value=""/>
-            <Setter Property="RightIconType" Value="SVG"/>
+            <Setter Property="RightIconType" Value="FontAwesome5Solid"/>
             <Setter Property="RightIconColor" Value="Transparent"/>
+            <Setter Property="RightIcon" Value=""/>
             <Setter Property="RightButtonCommand" Value=""/>
             <Setter Property="LeftIcon" Value="BackIcon"/>
             <Setter Property="LeftIconType" Value="SVG"/>
