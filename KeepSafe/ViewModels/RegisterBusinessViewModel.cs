@@ -269,7 +269,7 @@ namespace KeepSafe
                     await fileReader.ReadFile("BusinessData.json", cts.Token, 0);
 #else
                         restServices.SetDelegate(this);
-                        string content = JsonConvert.SerializeObject(new { current_password = PasswordEntry.Text, new_password = NewPasswordEntry.Text });
+                        string content = JsonConvert.SerializeObject(new { current_password = PasswordEntry.Text });
                         await restServices.PostRequestAsync($"{Constants.ROOT_API_URL}".AddAuth(), content, cts.Token, 0);
 #endif
 

@@ -150,19 +150,13 @@
 
                             <Label Grid.Column="1"
                                    Grid.Row="1"
-                                   Text="{Binding Name}"                                       
+                                   Text="{Binding Business.Name}"                                       
                                    Style="{StaticResource ListValueLabelStyle}">
-                                <Label.Triggers>
-                                    <DataTrigger TargetType="Label" Binding="{Binding BusinessType}"
-                                                    Value="Automobile">
-                                        <Setter Property="Text" Value="{Binding PlateNumber,StringFormat='Plate#   {0}'}"/>
-                                    </DataTrigger>
-                                </Label.Triggers>
                             </Label>
                                 
                             <Label Grid.Column="1"
                                    Grid.Row="2"
-                                   Text="{Binding Address}"                                       
+                                   Text="{Binding Business.Address}"                                       
                                     Style="{StaticResource ListValueLabelStyle}"/>
 
                             <Label Grid.Column="1"
@@ -174,7 +168,7 @@
                                    Style="{StaticResource ListValueLabelStyle}"/>
                             <Label Grid.Column="1"
                                    Grid.Row="3"
-                                   Text="{Binding DateScanned, StringFormat='{0:MM/dd/yy}'}"
+                                   Text="{Binding ScanDate, StringFormat='{0:MM/dd/yy}'}"
                                    TextColor="{Static res:ColorResource.WHITE_COLOR}"
                                    FontSize="{local:ScaleFontSize Value=12}"
                                    FontFamily="{Static res:FontResource.REGULAR}"
@@ -190,7 +184,7 @@
                                    Style="{StaticResource ListValueLabelStyle}"/>
                             <Label Grid.Column="1"
                                    Grid.Row="4"
-                                   Text="{Binding DateScanned, StringFormat='{0:H:mm tt}'}"
+                                   Text="{Binding ScanDate, StringFormat='{0:H:mm tt}'}"
                                    TextColor="{Static res:ColorResource.WHITE_COLOR}"
                                    FontSize="{local:ScaleFontSize Value=12}"
                                    FontFamily="{Static res:FontResource.REGULAR}"

@@ -1,58 +1,130 @@
 ﻿{
   "data": [
     {
-      "id": 1,
-      "plate_number": null,
-      "name": "Summit Galleria Hotel",
-      "address": "General Maxilom Ave Ext, Cebu City",
-      "date_scanned": "06/25/20 10:30 AM",
-      "history_type": 1,
-      "business_type": 0
+      "business": {
+        "id": 0,
+        "name": "Plate #: ABASFGAGCD1",
+        "address": "Panagdait - Labangon",
+        "image": "https://placeimg.com/200/200/people?id=6",
+        "business_type": 15
+      },
+      "qr_code": {
+        "id": 8,
+        "image": "",
+        "code": "Entrance 4",
+        "code_type": "check_in",
+        "count": 0
+      },
+      "teperature": 36.6,
+      "date_scanned": "06/25/20 10:30 AM"
     },
     {
-      "id": 2,
-      "plate_number": "AB-CD2",
-      "name": null,
-      "address": "Ayala Center Cebu",
-      "date_scanned": "06/25/20 10:30 AM",
-      "history_type": 1,
-      "business_type": 15
+      "business": {
+        "id": 0,
+        "name": "SOME BUSINESS",
+        "address": "Panagdait - Labangon",
+        "image": "https://placeimg.com/200/200/people?id=6",
+        "business_type": 5
+      },
+      "qr_code": {
+        "id": 8,
+        "image": "",
+        "code": "Entrance 4",
+        "code_type": "check_in",
+        "count": 0
+      },
+      "teperature": 36.6,
+      "date_scanned": "06/25/20 10:30 AM"
     },
     {
-      "id": 0,
-      "plate_number": "AB-CD1",
-      "name": null,
-      "address": "Panagdait - Labangon",
-      "date_scanned": "06/25/20 10:30 AM",
-      "history_type": 1,
-      "business_type": 15
+      "business": {
+        "id": 0,
+        "name": "SOME BUSINESS 2",
+        "address": "Panagdait - Labangon",
+        "image": "https://placeimg.com/200/200/people?id=6",
+        "business_type": 1
+      },
+      "qr_code": {
+        "id": 8,
+        "image": "",
+        "code": "Entrance 4",
+        "code_type": "check_in",
+        "count": 0
+      },
+      "teperature": 36.6,
+      "date_scanned": "06/25/20 10:30 AM"
     },
     {
-      "id": 3,
-      "plate_number": "AB-CD1",
-      "name": null,
-      "address": "Panagdait - Labangon",
-      "date_scanned": "06/25/20 10:30 AM",
-      "history_type": 1,
-      "business_type": 15
+      "business": {
+        "id": 0,
+        "name": "Plate #: AB-CD1",
+        "address": "Panagdait - Labangon",
+        "image": "https://placeimg.com/200/200/people?id=6",
+        "business_type": 0
+      },
+      "qr_code": {
+        "id": 8,
+        "image": "",
+        "code": "Entrance 4",
+        "code_type": "check_in",
+        "count": 0
+      },
+      "teperature": 36.6,
+      "date_scanned": "06/25/20 10:30 AM"
     },
     {
-      "id": 4,
-      "plate_number": null,
-      "name": "Summit Galleria Hotel",
-      "address": "General Maxilom Ave Ext, Cebu City",
-      "date_scanned": "06/25/20 10:30 AM",
-      "history_type": 1,
-      "business_type": 0
+      "business": {
+        "id": 0,
+        "name": "Plate #: ASFAG-CD1",
+        "address": "Panagdait - Labangon",
+        "image": "https://placeimg.com/200/200/people?id=6",
+        "business_type": 5
+      },
+      "qr_code": {
+        "id": 8,
+        "image": "",
+        "code": "Entrance 4",
+        "code_type": "check_in",
+        "count": 0
+      },
+      "teperature": 36.6,
+      "date_scanned": "06/25/20 10:30 AM"
     },
     {
-      "id": 5,
-      "plate_number": "AB-CD2",
-      "name": null,
-      "address": "Ayala Center Cebu",
-      "date_scanned": "06/25/20 10:30 AM",
-      "history_type": 1,
-      "business_type": 15
+      "business": {
+        "id": 0,
+        "name": "Plate #: AB-SADF",
+        "address": "Panagdait - Labangon",
+        "image": "https://placeimg.com/200/200/people?id=6",
+        "business_type": 9
+      },
+      "qr_code": {
+        "id": 8,
+        "image": "",
+        "code": "Entrance 4",
+        "code_type": "check_out",
+        "count": 0
+      },
+      "teperature": 36.6,
+      "date_scanned": "06/25/20 10:30 AM"
+    },
+    {
+      "business": {
+        "id": 0,
+        "name": "Plate #: ASD-CD1",
+        "address": "Panagdait - Labangon",
+        "image": "https://placeimg.com/200/200/people?id=6",
+        "business_type": 7
+      },
+      "qr_code": {
+        "id": 8,
+        "image": "",
+        "code": "Entrance 4",
+        "code_type": "check_in",
+        "count": 0
+      },
+      "teperature": 36.6,
+      "date_scanned": "06/25/20 10:30 AM"
     }
   ],
   "pagination": {
