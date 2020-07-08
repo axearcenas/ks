@@ -240,6 +240,7 @@ namespace KeepSafe.ViewModels
                                 await NavigationService.NavigateAsync(nameof(UserCheckInPage), keys, useModalNavigation: true);
                                 SearchEntry.ClearText();
                                 IsScanning = true;
+                                IsClicked = false;
                             });
                         break;
                     case 1:
@@ -257,19 +258,23 @@ namespace KeepSafe.ViewModels
                             await NavigationService.NavigateAsync(nameof(BusinessReceptionPage), parameter, useModalNavigation: true);
                             SearchEntry.ClearText();
                             IsScanning = true;
+                            IsClicked = false;
                         });
                     break;
                 }
             }
-            IsClicked = false;
+            
             PopupHelper.RemoveLoading();
         }
 
         public void ReceiveError(string title, string error, int wsType)
         {
-            PageDialogService?.DisplayAlertAsync(title, error, "Okay");
-            IsClicked = false;
-            PopupHelper.RemoveLoading();
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                PopupHelper.RemoveLoading();
+                PageDialogService?.DisplayAlertAsync(title, error, "Okay");
+                IsClicked = false;
+            });
         }
     }
 }
