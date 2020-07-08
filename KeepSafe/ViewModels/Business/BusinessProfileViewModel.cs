@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading;
 using KeepSafe.Enum;
 using KeepSafe.Extensions;
@@ -42,19 +39,14 @@ namespace KeepSafe.ViewModels
             set { SetProperty(ref _SelectedBusinessType, value, nameof(SelectedBusinessType)); }
         }
 
-        string _EstablishmentImage;
-        public string EstablishmentImage
-        {
-            get { return _EstablishmentImage; }
-            set { SetProperty(ref _EstablishmentImage, value, nameof(EstablishmentImage)); }
-        }
-
         Business _BusinessData = DataClass.GetInstance.Business;
         public Business BusinessData
         {
             get { return _BusinessData; }
             set { SetProperty(ref _BusinessData, value, nameof(BusinessData)); }
         }
+
+        Business BusinessCachedData { get { return DataClass.GetInstance.Business; } }
 
         bool _IsEdit = false;
         public bool IsEdit
@@ -63,9 +55,9 @@ namespace KeepSafe.ViewModels
             set
             {
                 SetProperty(ref _IsEdit, value, nameof(IsEdit));
-                BusinessData.PropertyChanged -= UserData_PropertyChanged;
+                BusinessData.PropertyChanged -= BusinessData_PropertyChanged;
                 BusinessData = _IsEdit ? DataClass.GetInstance.Business.Clone() : DataClass.GetInstance.Business;
-                BusinessData.PropertyChanged += UserData_PropertyChanged;
+                BusinessData.PropertyChanged += BusinessData_PropertyChanged;
             }
         }
 
@@ -83,18 +75,16 @@ namespace KeepSafe.ViewModels
             set { SetProperty(ref _IsChangePassword, value, nameof(IsChangePassword)); }
         }
 
-        Business BusinessCachedData { get { return DataClass.GetInstance.Business; } }
-
-        MediaHelper mediaHelper = new MediaHelper();
-        MediaFile file;
-
         public string TabIcon
         {
             get
             {
-                return DataClass.GetInstance.AccountType == UserType.User ? "ProfileIcon" : "BusinessProfileIcon";
+                return DataClass.GetInstance.LoginType == UserType.User ? "ProfileIcon" : "BusinessProfileIcon";
             }
         }
+
+        MediaHelper mediaHelper = new MediaHelper();
+        MediaFile file;
 
         public BusinessProfileViewModel(INavigationService navigationService, IPageDialogService pageDialogService) : base(navigationService, pageDialogService)
         {
@@ -106,10 +96,10 @@ namespace KeepSafe.ViewModels
             ChangePasswordTappedCommand = new DelegateCommand(OnChangePasswordLabelTapped);
             EntryFocusedCommand = new DelegateCommand<string>(OnEntryFocusedCommand_Execute);
 
-            BusinessData.PropertyChanged += UserData_PropertyChanged;
+            BusinessData.PropertyChanged += BusinessData_PropertyChanged;
         }
 
-        private void UserData_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void BusinessData_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             CanSaveEdit = !BusinessData.Equals(BusinessCachedData);
         }
@@ -158,7 +148,7 @@ namespace KeepSafe.ViewModels
                         });
                         if (file != null)
                         {
-                            EstablishmentImage = file.Path;
+                            BusinessData.Image = file.Path;
                         }
                     }
                     else if (action.ToString() == "Gallery")
@@ -172,7 +162,7 @@ namespace KeepSafe.ViewModels
                         });
                         if (file != null)
                         {
-                            EstablishmentImage = file.Path;
+                            BusinessData.Image = file.Path;
                         }
                     }
                     else if (action.ToString() == "Remove Photo")
@@ -180,7 +170,7 @@ namespace KeepSafe.ViewModels
                         if (file != null)
                         {
                             file = null;
-                            EstablishmentImage = null;
+                            BusinessData.Image = null;
                         }
                     }
                 }
@@ -216,13 +206,12 @@ namespace KeepSafe.ViewModels
                     {
 #if DEBUG
                         fileReader.SetDelegate(this);
-                        await fileReader.CreateDummyResponse(JsonConvert.SerializeObject(
-                            new
-                            {
-                                user = BusinessData,
-                                message = "Successfully update the user",
-                                status = 200
-                            }), cts.Token, 0);
+                        await fileReader.CreateDummyResponse(JsonConvert.SerializeObject( new
+                        {
+                            business = BusinessData,
+                            message = "Successfully updated the Establishment",
+                            status = 200
+                        }), cts.Token, 0);
 #else
                         if (file == null)
                         {
@@ -282,12 +271,11 @@ namespace KeepSafe.ViewModels
                     {
 #if DEBUG
                         fileReader.SetDelegate(this);
-                        await fileReader.CreateDummyResponse(JsonConvert.SerializeObject(
-                            new
-                            {
-                                message = "Successfully change password.",
-                                status = 200
-                            }), cts.Token, 1);
+                        await fileReader.CreateDummyResponse(JsonConvert.SerializeObject( new
+                        {
+                            message = "Successfully change password.",
+                            status = 200
+                        }), cts.Token, 1);
 #else
                         restServices.SetDelegate(this);
                         string content = JsonConvert.SerializeObject(new { data = BusinessData });
@@ -318,9 +306,9 @@ namespace KeepSafe.ViewModels
                     case 0:
                         Device.BeginInvokeOnMainThread(async () =>
                         {
-                            //TODO save USER Here
+                            //TODO save Business Here
                             if (jsonData.ContainsKey("message"))
-                                PageDialogService.DisplayAlertAsync("Business Profile Updated!", jsonData["message"].ToString(), "Okay");
+                                await PageDialogService.DisplayAlertAsync("Business Profile Updated!", jsonData["message"].ToString(), "Okay");
                             DataClass.GetInstance.Business = BusinessData;
                             await Application.Current.SavePropertiesAsync();
                             CanSaveEdit = false;

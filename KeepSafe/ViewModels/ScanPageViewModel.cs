@@ -38,6 +38,30 @@ namespace KeepSafe.ViewModels
             get { return _IsScanning; }
             set { _IsScanning = value; RaisePropertyChanged(); }
         }
+        
+        public Color NavBgColor
+        {
+            get
+            {
+                return DataClass.GetInstance.LoginType == UserType.User ? ColorResource.MAIN_DARK_THEME_COLOR : ColorResource.ESTABLISHMENT_MAIN_THEME_COLOR;
+            }
+        }
+
+        public Color ScannerBgColor
+        {
+            get
+            {
+                return DataClass.GetInstance.LoginType == UserType.User ? ColorResource.SCANNER_BACKGROUNDCOLOR : ColorResource.ESTABLISHMENT_MAIN_THEME_COLOR;
+            }
+        }
+
+        public float FrameCornerRadius
+        {
+            get
+            {
+                return DataClass.GetInstance.LoginType == UserType.User ? 23.ScaleHeight() : 5.ScaleHeight();
+            }
+        }
 
         public string TabIcon
         {
@@ -47,7 +71,24 @@ namespace KeepSafe.ViewModels
             }
         }
 
+        public string RightIcon
+        {
+            get
+            {
+                return DataClass.GetInstance.LoginType == UserType.User ? "MyQRIcon" : "";
+            }
+        }
+
+        public string PageTitle
+        {
+            get
+            {
+                return DataClass.GetInstance.LoginType == UserType.User ? "Scan QR" : "Scan User QR";
+            }
+        }
+
         bool CanScan;
+
         public ScanPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService)
             : base(navigationService, pageDialogService)
         {
@@ -129,8 +170,9 @@ namespace KeepSafe.ViewModels
                 await Task.Delay(500);
                 fileReader.SetDelegate(this);
                 //await fileReader.ReadFile("UserProfile.json", cts.Token, 0);
-                await fileReader.CreateDummyResponse(JsonConvert.SerializeObject(
-                    new
+                if(dataClass.LoginType == UserType.User)
+                {
+                    await fileReader.CreateDummyResponse(JsonConvert.SerializeObject(new
                     {
                         data = new
                         {
@@ -139,7 +181,18 @@ namespace KeepSafe.ViewModels
                             qr_code = QrCode.Mock()
                         },
                         status = 200
-                    }),cts.Token, 0);
+                    }), cts.Token, 0);
+                }
+                else if(dataClass.LoginType == UserType.Establishment)
+                {
+                    await fileReader.CreateDummyResponse(JsonConvert.SerializeObject(new
+                    {
+                        message = $"Scanned: {code}",
+                        user = new User() { Id = 0, Image = RandomizerHelper.GetRandomImageUrl((int)158.ScaleWidth(), (int)158.ScaleHeight(), category: ImageCategory.people), FirstName = "Uvuvwevwevwe", LastName = "Ossas" },
+                        status = 200
+                    }), cts.Token, 1);
+                }
+                
 #else
                 restServices.SetDelegate(this);
                 string content = JsonConvert.SerializeObject(new { scan_history= new { code } });
@@ -188,7 +241,24 @@ namespace KeepSafe.ViewModels
                                 SearchEntry.ClearText();
                                 IsScanning = true;
                             });
-                        break; 
+                        break;
+                    case 1:
+                        Device.BeginInvokeOnMainThread(async () =>
+                        {
+                            if (jsonData.ContainsKey("message"))
+                            {
+                                PageDialogService?.DisplayAlertAsync("Scan Succesfully", jsonData["message"].ToString(), "Okay");
+                            }
+
+                            INavigationParameters parameter = new NavigationParameters();                            
+                            if (jsonData.ContainsKey("user"))
+                                parameter.Add("User", jsonData["user"].ToObject<User>());
+
+                            await NavigationService.NavigateAsync(nameof(BusinessReceptionPage), parameter, useModalNavigation: true);
+                            SearchEntry.ClearText();
+                            IsScanning = true;
+                        });
+                    break;
                 }
             }
             IsClicked = false;

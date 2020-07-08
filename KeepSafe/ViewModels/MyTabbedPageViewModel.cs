@@ -18,45 +18,24 @@ namespace KeepSafe.ViewModels
         {
             get { return _IsActive; }
             set { SetProperty(ref _IsActive, value, nameof(IsActive)); RaiseIsActiveChanged(); }
-        }
-
-        UserType _UserType;
-        public UserType UserType
-        {
-            get { return _UserType; }
-            set
-            {
-                _UserType = value;
-                switch (UserType)
-                {
-                    case UserType.User:
-                        BarBackgroundColor = ColorResource.MAIN_DARK_THEME_COLOR;
-                        UnselectedTabColor = ColorResource.TAB_DEFAULT_TEXTCOLOR;
-                        break;
-                    case UserType.Establishment:
-                        BarBackgroundColor = ColorResource.ESTABLISHMENT_MAIN_THEME_COLOR;
-                        UnselectedTabColor = ColorResource.TAB_ESTABLISHMENT_DEFAULT_TEXTCOLOR;
-                        break;
-                }
-                RaiseIsActiveChanged();
-                RaisePropertyChanged(nameof(UserType));
-                RaisePropertyChanged(nameof(BarBackgroundColor));
-                RaisePropertyChanged(nameof(UnselectedTabColor));
-            }
-        }
+        }        
         
-        Color _BarBackgroundColor;
         public Color BarBackgroundColor
         {
-            get{ return _BarBackgroundColor; }
-            set { SetProperty(ref _BarBackgroundColor, value, nameof(BarBackgroundColor)); RaiseIsActiveChanged(); }
+            get
+            {
+                return DataClass.GetInstance.LoginType == UserType.User ? ColorResource.MAIN_DARK_THEME_COLOR : ColorResource.ESTABLISHMENT_MAIN_THEME_COLOR;
+            }
         }
 
-        Color _UnselectedTabColor;
+        
         public Color UnselectedTabColor
         {
-            get{ return _UnselectedTabColor; }
-            set { SetProperty(ref _UnselectedTabColor, value, nameof(UnselectedTabColor)); RaiseIsActiveChanged(); }
+            get
+            {
+                return DataClass.GetInstance.LoginType == UserType.User ? ColorResource.TAB_DEFAULT_TEXTCOLOR : ColorResource.TAB_ESTABLISHMENT_DEFAULT_TEXTCOLOR;
+            }
+            
         }
 
         public MyTabbedPageViewModel(INavigationService navigationService):
@@ -72,7 +51,7 @@ namespace KeepSafe.ViewModels
 
         public void OnNavigatedTo(INavigationParameters parameters)
         {
-            UserType = parameters.GetValue<UserType>("UserType");
+            
         }
 
         public void OnNavigatedFrom(INavigationParameters parameters)

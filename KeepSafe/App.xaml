@@ -11,6 +11,7 @@
     <prism:PrismApplication.Resources>
         <ResourceDictionary>
             <local:IntEnumConverter x:Key="IntEnumConverter"/>
+            <local:TextChangedEventArgsConverter x:Key="TextChangedEventArgsConverter"/>
 
             <!--Global Styles-->
             <Style TargetType="NavigationPage">

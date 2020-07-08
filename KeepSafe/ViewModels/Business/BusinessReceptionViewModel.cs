@@ -1,0 +1,113 @@
+﻿using System;
+using System.Globalization;
+using System.Linq;
+using KeepSafe.Helpers.FileReader;
+using KeepSafe.Models;
+using KeepSafe.Resources;
+using KeepSafe.ViewModels.ViewViewModels;
+using Newtonsoft.Json.Linq;
+using Prism.Commands;
+using Prism.Navigation;
+using Xamarin.Forms;
+
+namespace KeepSafe.ViewModels
+{
+    public class BusinessReceptionViewModel : ViewModelBase, IFileConnector, IRestReceiver
+    {
+        public EntryViewModel TemperatureEntry { get; } = new EntryViewModel() { Placeholder = "Enter user temperature", PlaceholderColor = ColorResource.MAIN_BLUE_COLOR };
+
+        public DelegateCommand<object> TextChangedCommand { get; set; }
+        public DelegateCommand CheckInButtonClickedCommand { get; set; }
+        public DelegateCommand CheckOutButtonClickedCommand { get; set; }
+        public DelegateCommand BackButtonClickedCommand { get; set; }
+
+        User _ScannedUser;
+        public User ScannedUser
+        {
+            get { return _ScannedUser; }
+            set { SetProperty(ref _ScannedUser, value, nameof(ScannedUser)); }
+        }
+
+        Action<bool> ScanPageActiveAction;
+
+        public BusinessReceptionViewModel(INavigationService navigationService) : base(navigationService)
+        {
+            TextChangedCommand = new DelegateCommand<object>(OnTemperatureTextChanged);
+            BackButtonClickedCommand = new DelegateCommand(OnBackButtonClicked);
+            CheckInButtonClickedCommand = new DelegateCommand(OnCheckInButtonClicked);
+            CheckOutButtonClickedCommand = new DelegateCommand(OnCheckOutButtonClicked);
+        }
+
+        private async void OnBackButtonClicked()
+        {
+            if (!IsClicked)
+            {
+                IsClicked = true;
+                await NavigationService.GoBackAsync();
+                ScanPageActiveAction?.Invoke(true);
+                IsClicked = false;
+            }
+        }
+
+        private void OnTemperatureTextChanged(object sender)
+        {
+            var e = (TextChangedEventArgs)sender;
+
+            if (e.OldTextValue == null)
+                return;
+
+            if (e.OldTextValue.Length < e.NewTextValue.Length && e.NewTextValue.Length == 2)
+            {
+                TemperatureEntry.Text += ".";
+            }
+
+            if (e.NewTextValue.Count(f => f == '.') > 1)
+            {
+                TemperatureEntry.Text = e.OldTextValue;
+            }
+
+            if (e.OldTextValue.Length < e.NewTextValue.Length && e.NewTextValue.Length == 4)
+            {
+                TemperatureEntry.Text += " \x00B0C";
+            }
+
+            if (e.NewTextValue.Count(f => f == ' ') > 1)
+            {
+                TemperatureEntry.Text = e.OldTextValue;
+            }
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatingTo(parameters);
+            if (parameters.ContainsKey("User"))
+            {
+                ScannedUser = (User)parameters["User"];
+            }
+        }
+
+        private async void OnCheckInButtonClicked()
+        {
+            INavigationParameters parameter = new NavigationParameters();
+            parameter.Add("IsCheckIn", true);
+            await NavigationService.NavigateAsync("SelectEntryTypePopup", parameter);
+        }
+
+        private async void OnCheckOutButtonClicked()
+        {
+            INavigationParameters parameter = new NavigationParameters();
+            parameter.Add("IsCheckIn", false);
+            await NavigationService.NavigateAsync("SelectEntryTypePopup", parameter);
+        }
+
+        public void ReceiveError(string title, string error, int wsType)
+        {
+            
+        }
+
+        public void ReceiveJSONData(JObject jsonData, int wsType)
+        {
+            
+        }
+    }
+}

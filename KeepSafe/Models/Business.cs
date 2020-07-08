@@ -65,26 +65,33 @@ namespace KeepSafe.Models
             set { _Email = value; OnPropertyChanged(); }
         }
 
-        public bool Equals(Business user)
+        ObservableCollection<QrCode> _QrCode = new ObservableCollection<QrCode>();
+        public ObservableCollection<QrCode> QrCode
         {
-            if (user == null)
+            get { return _QrCode; }
+            set { _QrCode = value; OnPropertyChanged(); }
+        }
+
+        public bool Equals(Business business)
+        {
+            if (business == null)
                 return false;
 
             bool IsEquals = true;
 
-            if (!user.Id.Equals(Id))
+            if (!business.Id.Equals(Id))
                 IsEquals = false;
-            if (string.IsNullOrEmpty(user.Image) ? true : !user.Image.Equals(Image))
+            if (string.IsNullOrEmpty(business.Image) ? true : !business.Image.Equals(Image))
                 IsEquals = false;
-            if (string.IsNullOrEmpty(user.ContactPerson) ? true : !user.ContactPerson.Equals(ContactPerson))
+            if (string.IsNullOrEmpty(business.ContactPerson) ? true : !business.ContactPerson.Equals(ContactPerson))
                 IsEquals = false;
-            if (string.IsNullOrEmpty(user.ContactNumber) ? true : !user.ContactNumber.Equals(ContactNumber))
+            if (string.IsNullOrEmpty(business.ContactNumber) ? true : !business.ContactNumber.Equals(ContactNumber))
                 IsEquals = false;
-            if (string.IsNullOrEmpty(user.Address) ? true : !(bool)user.Address?.Equals(Address))
+            if (string.IsNullOrEmpty(business.Address) ? true : !(bool)business.Address?.Equals(Address))
                 IsEquals = false;
-            if (string.IsNullOrEmpty(user.Email) ? true : !user.Email.Equals(Email))
+            if (string.IsNullOrEmpty(business.Email) ? true : !business.Email.Equals(Email))
                 IsEquals = false;
-            if (string.IsNullOrEmpty(user.Name) ? true : !user.Email.Equals(Name))
+            if (string.IsNullOrEmpty(business.Name) ? true : !business.Email.Equals(Name))
                 IsEquals = false;
             return IsEquals;
         }

@@ -75,7 +75,6 @@ namespace KeepSafe
             //MainPage = new CustomServerPopup() { BindingContext = new CustomServerPopupViewModel(NavigationService) };
 
             if (dataClass.LoginType != UserType.None)
-                //TODO Add a parameter that identifies logged in account is either User or Business
                 await ShowHomePage(dataClass.LoginType);
             else
                 ShowMainPage();
@@ -125,7 +124,8 @@ namespace KeepSafe
             //TODO Create Landing Page
             var parameter = new NavigationParameters();
             parameter.Add("UserType", userType);
-            return  _NavigationService.NavigateAsync($"{AppNavigationRootRoute}{nameof(MyTabbedPage)}?createTab={(userType == UserType.User ? "HomePage" : "DashboardPage")}&createTab=ScanPage&createTab={(userType == UserType.User ? "UserProfilePage" : "BusinessProfilePage")}", parameter);
+
+            return  _NavigationService.NavigateAsync($"{AppNavigationRootRoute}{nameof(MyTabbedPage)}?createTab={(DataClass.GetInstance.LoginType == UserType.User ? "HomePage" : "DashboardPage")}&createTab=ScanPage&createTab={(DataClass.GetInstance.LoginType == UserType.User ? "UserProfilePage" : "BusinessProfilePage")}", parameter);
         }
 
         public static void ShowMainPage()
@@ -182,6 +182,8 @@ namespace KeepSafe
             containerRegistry.RegisterForNavigation<MyQRPage>();
             containerRegistry.RegisterForNavigation<ForgotPasswordPage, ForgotPasswordPageViewModel>();
             containerRegistry.RegisterForNavigation<BusinessProfilePage, BusinessProfileViewModel>();
+            containerRegistry.RegisterForNavigation<BusinessReceptionPage, BusinessReceptionViewModel>();
+            containerRegistry.RegisterForNavigation<SelectEntryTypePopup, SelectEntryTypeViewModel>();
 
             //NOTE: Views that has a view model in ViewModel Folder
             //containerRegistry.RegisterForNavigation<GetStartedPage>();
