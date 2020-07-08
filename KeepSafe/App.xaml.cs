@@ -71,7 +71,7 @@ namespace KeepSafe
             Constants.ApplyServerSettings();
 
             //NOTE: FOR TESTING PAGE to show error initializing page
-            //MainPage = new NavigationPage(new UserProfilePage() { BindingContext = new UserProfilePageViewModel(NavigationService, new PageDialogService(new ApplicationProvider())) });
+            MainPage = new NavigationPage(new BusinessProfilePage() { BindingContext = new BusinessProfileViewModel(NavigationService, new PageDialogService(new ApplicationProvider())) });
             //MainPage = new CustomServerPopup() { BindingContext = new CustomServerPopupViewModel(NavigationService) };
 
             if (dataClass.LoginType != UserType.None)

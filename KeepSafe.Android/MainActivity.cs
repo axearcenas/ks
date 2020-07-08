@@ -12,7 +12,13 @@ using Android.Content;
 
 namespace KeepSafe.Droid
 {
-    [Activity(Label = "KeepSafe", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(
+        Label = "KeepSafe",
+        Icon = "@mipmap/icon",
+        RoundIcon = "@mipmap/icon_round",
+        Theme = "@style/MyTheme.Splash",
+        MainLauncher = true,
+        ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity, ViewTreeObserver.IOnGlobalLayoutListener
     {
         public static Action GlobalLayout;

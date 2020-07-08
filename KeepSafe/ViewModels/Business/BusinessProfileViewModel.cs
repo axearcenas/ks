@@ -215,9 +215,9 @@ namespace KeepSafe.ViewModels
 #else
                         if (file == null)
                         {
-                            restService.SetDelegate(this);
-                            string content = JsonConvert.SerializeObject(new { code, IsQrCode });
-                            await RestRequest.PostRequestAsync($"{Constants.ROOT_API_URL}{Constants.HEROES_URL}{Constants.POWERS_URL}{Constants.VALIDATE_URL}".AddAuth(), content, cts.Token, 0);
+                            restServices.SetDelegate(this);
+                            string content = JsonConvert.SerializeObject(new { data = BusinessData });
+                            await restServices.PostRequestAsync($"{Constants.ROOT_API_URL}".AddAuth(), content, cts.Token, 0);
                         }
                         else
                         {
@@ -277,9 +277,9 @@ namespace KeepSafe.ViewModels
                             status = 200
                         }), cts.Token, 1);
 #else
-                            restService.SetDelegate(this);
-                            string content = JsonConvert.SerializeObject(new { code, IsQrCode });
-                            await RestRequest.PostRequestAsync($"{Constants.ROOT_API_URL}{Constants.HEROES_URL}{Constants.POWERS_URL}{Constants.VALIDATE_URL}".AddAuth(), content, cts.Token, 0);
+                        restServices.SetDelegate(this);
+                        string content = JsonConvert.SerializeObject(new { data = BusinessData });
+                        await restServices.PostRequestAsync($"{Constants.ROOT_API_URL}".AddAuth(), content, cts.Token, 1);
 #endif
 
                     }

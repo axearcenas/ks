@@ -126,7 +126,7 @@ namespace KeepSafe.Views
         {
             if (CameraResolution == null)
             {
-                CameraResolution = availableResolutions.FirstOrDefault((reso) => reso.Width <= 1000);
+                CameraResolution = availableResolutions.FirstOrDefault((reso) => reso.Width <= 1200);
                 SetPadding(CameraResolution.Height, CameraResolution.Width);
             }
             return CameraResolution;

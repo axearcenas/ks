@@ -66,15 +66,12 @@
                                    Placeholder="{Binding SearchEntry.Placeholder}"
                                    PlaceholderColor="{Binding SearchEntry.PlaceholderColor}"
                                    Keyboard="Default"
+                                   ReturnType="Search"
+                                   ReturnCommand="{Binding SearchCommand}"
                                    MoveUpOffset="{local:ScaleHeightDouble Value=85}"
                                    Style="{StaticResource EntryStyle}"
                                    Margin="{local:ScaleThickness Value='0,0,42,0'}"
-                                   MaxLength="8">
-                <local:CustomEntry.Behaviors>
-                    <prism:EventToCommandBehavior Command="{Binding SearchCommand}"
-                                                  EventName="Completed" />
-                </local:CustomEntry.Behaviors>
-            </local:CustomEntry>
+                                   MaxLength="8"/>
             </Grid>
         </Frame>
     </Grid>
