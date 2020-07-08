@@ -326,4 +326,8 @@
     <Folder Include="Assets.xcassets\BusinessProfileIcon.imageset\" />
     <Folder Include="Assets.xcassets\KeepSafeLogo.imageset\" />
   </ItemGroup>
+  <ItemGroup>
+    <ITunesArtwork Include="iTunesArtwork" />
+    <ITunesArtwork Include="iTunesArtwork%402x" />
+  </ItemGroup>
 </Project>
