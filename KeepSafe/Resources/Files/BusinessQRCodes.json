@@ -1,0 +1,26 @@
+﻿{
+  "data": [
+    {
+      "id": 1,
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/QR_Code_Example.svg/368px-QR_Code_Example.svg.png",
+      "code": "Entrance 1",
+      "code_type": "in",
+      "count": 43214
+    },
+    {
+      "id": 2,
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/QR_Code_Example.svg/368px-QR_Code_Example.svg.png",
+      "code": "Entrance 2",
+      "code_type": "in",
+      "count": 43566
+    },
+    {
+      "id": 3,
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/QR_Code_Example.svg/368px-QR_Code_Example.svg.png",
+      "code": "Entrance 3",
+      "code_type": "in",
+      "count": 23556
+    }
+  ],
+  "status": 200
+}

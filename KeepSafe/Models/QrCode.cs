@@ -33,6 +33,13 @@ namespace KeepSafe.Models
             set { _CodeType = value; OnPropertyChanged(); }
         }
 
+        int _Count;
+        public int Count
+        {
+            get { return _Count; }
+            set { _Count = value; OnPropertyChanged(); }
+        }
+
         public static QrCode Mock()
         {
             string code = RandomizerHelper.GetRandomString(8);
