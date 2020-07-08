@@ -77,6 +77,9 @@ namespace KeepSafe.Rest
 
                             if (!string.IsNullOrEmpty(authHeader))
                             {
+                                client.DefaultRequestHeaders.Add("access-token", DataClass.GetInstance.Token);
+                                client.DefaultRequestHeaders.Add("client", DataClass.GetInstance.ClientId);
+                                client.DefaultRequestHeaders.Add("uid", DataClass.GetInstance.Uid);
                                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authHeader);
                             }
 
@@ -197,6 +200,9 @@ namespace KeepSafe.Rest
 
                             if (!string.IsNullOrEmpty(authHeader))
                             {
+                                client.DefaultRequestHeaders.Add("access-token", DataClass.GetInstance.Token);
+                                client.DefaultRequestHeaders.Add("client", DataClass.GetInstance.ClientId);
+                                client.DefaultRequestHeaders.Add("uid", DataClass.GetInstance.Uid);
                                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authHeader);
                             }
 
@@ -261,6 +267,9 @@ namespace KeepSafe.Rest
 
                             if (!string.IsNullOrEmpty(authHeader))
                             {
+                                client.DefaultRequestHeaders.Add("access-token", DataClass.GetInstance.Token);
+                                client.DefaultRequestHeaders.Add("client", DataClass.GetInstance.ClientId);
+                                client.DefaultRequestHeaders.Add("uid", DataClass.GetInstance.Uid);
                                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authHeader);
                             }
 
@@ -318,6 +327,9 @@ namespace KeepSafe.Rest
 
                             if (!string.IsNullOrEmpty(authHeader))
                             {
+                                client.DefaultRequestHeaders.Add("access-token", DataClass.GetInstance.Token);
+                                client.DefaultRequestHeaders.Add("client", DataClass.GetInstance.ClientId);
+                                client.DefaultRequestHeaders.Add("uid", DataClass.GetInstance.Uid);
                                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authHeader);
                             }
 
