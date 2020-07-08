@@ -22,6 +22,15 @@ namespace KeepSafe.Extensions
             return false;
         }
 
+
+        public static bool ContainsKey(this JToken jToken, string key)
+        {
+            
+            if (jToken.HasValues && ((JObject)jToken).ContainsKey(key))
+                return true;
+            return false;
+        }
+
         /// <summary>
         /// 1000 -> 1,000
         /// 1521.52 -> 1,521.52

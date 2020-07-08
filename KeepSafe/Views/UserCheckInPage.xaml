@@ -59,7 +59,7 @@
                HorizontalOptions="Center"
                VerticalOptions="End"
                BorderColor="{Static res:ColorResource.WHITE_COLOR}">
-            <Image Source="{Binding ScannedBusiness.Photo}" HorizontalOptions="Fill"
+            <Image Source="{Binding ScannedBusiness.Image}" HorizontalOptions="Fill"
                    VerticalOptions="Fill"
                    Aspect="AspectFill"/>
         </Frame>
