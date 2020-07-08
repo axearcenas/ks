@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<local:MainNavigationPage xmlns="http://xamarin.com/schemas/2014/forms"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          x:Class="KeepSafe.BusinessReceptionPage"
+                          xmlns:local="clr-namespace:KeepSafe"
+                          xmlns:res="clr-namespace:KeepSafe.Resources"
+                          xmlns:prism="http://prismlibrary.com"     
+                          LeftIcon="BackIcon"
+                          LeftIconType="SVG"
+                          LeftIconColor="White"
+                          LeftButtonCommand="{Binding BackButtonClickedCommand}"
+                          NavBackgroundColor="{Static res:ColorResource.ESTABLISHMENT_MAIN_THEME_COLOR}"
+                          BackgroundColor="#ECF0F1"                          
+                          PageTitle="Scan User QR"
+                          TitleFontFamily="{Static res:FontResource.BOLD}"
+                          TitleFontSize="{local:ScaleFontSize Value=21}"
+                          TitleHeightRequest="{local:ScaleHeight Value=25}"
+                          TitleVerticalOptions="Center">
+    <local:MainNavigationPage.Content>
+        <Grid RowSpacing="0"
+              ColumnSpacing="0"
+              Margin="0"
+              Padding="0"
+              BackgroundColor="#ECF0F1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="{local:ScaleGridHeight Value=31}"/>
+                <RowDefinition Height="{local:ScaleGridHeight Value=186}"/>
+                <RowDefinition Height="{local:ScaleGridHeight Value=22}"/>
+                <RowDefinition Height="{local:ScaleGridHeight Value=25}"/>
+                <RowDefinition Height="{local:ScaleGridHeight Value=23}"/>
+                <RowDefinition Height="{local:ScaleGridHeight Value=43}"/>
+                <RowDefinition Height="{local:ScaleGridHeight Value=43}"/>
+                <RowDefinition Height="{local:ScaleGridHeight Value=20}"/>
+                <RowDefinition Height="{local:ScaleGridHeight Value=47}"/>
+                <RowDefinition Height="{local:ScaleGridHeight Value=37}"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="{local:ScaleGridWidth Value=26}"/>
+                <ColumnDefinition Width="{local:ScaleGridWidth Value=131}"/>
+                <ColumnDefinition Width="{local:ScaleGridWidth Value=6}"/>
+                <ColumnDefinition Width="{local:ScaleGridWidth Value=131}"/>
+                <ColumnDefinition Width="{local:ScaleGridWidth Value=26}"/>
+            </Grid.ColumnDefinitions>
+            <Frame Grid.Row="1"
+                   Grid.ColumnSpan="5"
+                   Padding="0"                   
+                   IsClippedToBounds="True"
+                   CornerRadius="{local:ScaleHeight Value=5}"
+                   HeightRequest="{local:ScaleHeightDouble Value=186}"
+                   WidthRequest="{local:ScaleWidth Value=186}"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center">
+                <Image Source="{Binding ScannedUser.Image}"
+                       HorizontalOptions="Fill"
+                       VerticalOptions="Fill"
+                       Aspect="AspectFill"/>
+            </Frame>
+
+            <Label Grid.Row="3"
+                   Grid.ColumnSpan="5"
+                   TextColor="#05257A"
+                   FontFamily="{Static res:FontResource.BOLD}"
+                   FontSize="{local:ScaleFontSize Value=21}">
+                <Label.Text>
+                    <MultiBinding StringFormat="{}{0} {1}">
+                        <Binding Path="ScannedUser.FirstName"/>
+                        <Binding Path="ScannedUser.LastName"/>
+                    </MultiBinding>
+                </Label.Text>
+            </Label>
+            
+            <Frame Grid.Row="5"
+                   Grid.ColumnSpan="5"
+                   Padding="0"                   
+                   IsClippedToBounds="True"
+                   BorderColor="#05257A"
+                   CornerRadius="{local:ScaleHeight Value=5}"
+                   HeightRequest="{local:ScaleHeightDouble Value=43}"
+                   WidthRequest="{local:ScaleWidth Value=262}"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center">
+                <local:CustomEntry x:Name="TemperatureEntry"
+                                   Text="{Binding TemperatureEntry.Text}"
+                                   Placeholder="{Binding TemperatureEntry.Placeholder}"
+                                   TextColor="{Static res:ColorResource.MAIN_BLUE_COLOR}"
+                                   PlaceholderColor="{Binding TemperatureEntry.PlaceholderColor}"
+                                   FontFamily="{Static res:FontResource.REGULAR}"
+                                   PlaceholderFontFamily="{Static res:FontResource.LIGHTITALIC}"
+                                   FontSize="{local:ScaleFontSize Value=17}"
+                                   HorizontalTextAlignment="Center"
+                                   Keyboard="Numeric"
+                                   MaxLength="6"
+                                   MoveUpOffset="{local:ScaleHeightDouble Value=85}"
+                                   HorizontalOptions="FillAndExpand"
+                                   VerticalOptions="FillAndExpand">
+                    <local:CustomEntry.Behaviors>
+                        <prism:EventToCommandBehavior Command="{Binding TextChangedCommand}"
+                                                      EventArgsConverter="{StaticResource TextChangedEventArgsConverter}"
+                                                      EventName="TextChanged"/>
+                    </local:CustomEntry.Behaviors>
+                </local:CustomEntry>
+            </Frame>
+            
+
+            <Label Text="Please select an Option"
+                   Grid.Row="7"
+                   Grid.ColumnSpan="5"
+                   TextColor="#05257A"
+                   FontFamily="{Static res:FontResource.REGULAR}"
+                   FontSize="{local:ScaleFontSize Value=17}"/>
+
+            <Button Grid.Row="9"
+                    Grid.Column="1"
+                    Text="Check In"
+                    TextColor="White"
+                    FontFamily="{Static res:FontResource.REGULAR}"
+                    FontSize="{local:ScaleFontSize Value=17}"
+                    BackgroundColor="#3498DB"
+                    CornerRadius="{local:ScaleHeight Value=5}"
+                    WidthRequest="{local:ScaleWidth Value=131}"
+                    HeightRequest="{local:ScaleHeight Value=37}"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Command="{Binding CheckInButtonClickedCommand}"/>
+            <Button Grid.Row="9"
+                    Grid.Column="3"
+                    Text="Check Out"
+                    TextColor="White"
+                    FontFamily="{Static res:FontResource.REGULAR}"
+                    FontSize="{local:ScaleFontSize Value=17}"
+                    BackgroundColor="#E74C3C"
+                    CornerRadius="{local:ScaleHeight Value=5}"
+                    WidthRequest="{local:ScaleWidth Value=131}"
+                    HeightRequest="{local:ScaleHeight Value=37}"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Command="{Binding CheckOutButtonClickedCommand}"/>
+        </Grid>
+    </local:MainNavigationPage.Content>
+</local:MainNavigationPage>

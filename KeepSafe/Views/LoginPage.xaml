@@ -11,7 +11,7 @@
                           LeftIconColor="White"
                           LeftButtonCommand="{Binding BackCommand}"
                           BackgroundImageSource="MainBackground"
-                          BackgroundColor="Transparent"
+                          BackgroundColor="White"
                           StatusBarColor="Light">
     <local:MainNavigationPage.Resources>
         <ResourceDictionary>

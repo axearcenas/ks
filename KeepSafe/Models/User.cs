@@ -78,31 +78,38 @@ namespace KeepSafe.Models
             set { _QrcodeImage = value; OnPropertyChanged(); }
         }
 
+        double _Temperature;
+        public double Temperature
+        {
+            get { return _Temperature; }
+            set { _Temperature = value; OnPropertyChanged(nameof(Temperature)); }
+        }
+
         public bool Equals(User user)
         {
             if (user == null)
                 return false;
 
             bool IsEquals = true;
-            
-            IsEquals = false;
-            if (!user.Id.Equals(Id))
+
+
+            if (user.Id != Id)
                 IsEquals = false;
-            if (string.IsNullOrEmpty(user.Image) ? true : !user.Image.Equals(Image))
+            if (user.Image != Image)
                 IsEquals = false;
-            if (string.IsNullOrEmpty(user.FirstName) ? true : !user.FirstName.Equals(FirstName))
+            if (user.FirstName != FirstName)
                 IsEquals = false;
-            if (string.IsNullOrEmpty(user.LastName) ? true : !user.LastName.Equals(LastName))
+            if (user.LastName != LastName)
                 IsEquals = false;
-            if (string.IsNullOrEmpty(user.ContactNumber) ? true : !user.ContactNumber.Equals(ContactNumber))
+            if (user.ContactNumber != ContactNumber)
                 IsEquals = false;
-            if (string.IsNullOrEmpty(user.Address) ? true : !(bool)user.Address?.Equals(Address))
+            if (user.Address != Address)
                 IsEquals = false;
-            if (!user.Birthdate.Equals(Birthdate))
+            if (user.Birthdate != Birthdate)
                 IsEquals = false;
-            if (string.IsNullOrEmpty(user.Email) ? true : !user.Email.Equals(Email))
+            if (user.Email != Email)
                 IsEquals = false;
-            
+
             return IsEquals;
         }
 

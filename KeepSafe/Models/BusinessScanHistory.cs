@@ -73,36 +73,5 @@ namespace KeepSafe.Models
             set { _ScanDate = value; OnPropertyChanged(); }
         }
     }
-
-    public class QrCode : BaseNotify
-    {
-        int _Id;
-        public int Id
-        {
-            get { return _Id; }
-            set { _Id = value; OnPropertyChanged(); }
-        }
-
-        string _Image;
-        public string Image
-        {
-            get { return _Image; }
-            set { _Image = value; OnPropertyChanged(); }
-        }
-
-        string _Code;
-        public string Code
-        {
-            get { return _Code; }
-            set { _Code = value; OnPropertyChanged(); }
-        }
-
-        string _CodeType;
-        public string CodeType
-        {
-            get { return _CodeType; }
-            set { _CodeType = value; OnPropertyChanged(); }
-        }
-    }
 }
 

@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using KeepSafe.Enum;
+using KeepSafe.Extensions;
 
 namespace KeepSafe.Models
 {
@@ -12,11 +16,11 @@ namespace KeepSafe.Models
             set { _Id = value; OnPropertyChanged(); }
         }
 
-        string _Photo;
-        public string Photo
+        string _Image;
+        public string Image
         {
-            get { return _Photo; }
-            set { _Photo = value; OnPropertyChanged(); }
+            get { return _Image; }
+            set { _Image = value; OnPropertyChanged(); }
         }
 
         string _Name;
@@ -26,18 +30,11 @@ namespace KeepSafe.Models
             set { _Name = value; OnPropertyChanged(); }
         }
 
-        int _BusinessType;
-        public int BusinessType
+        BusinessType _BusinessType;
+        public BusinessType BusinessType
         {
             get { return _BusinessType; }
             set { _BusinessType = value; OnPropertyChanged(); }
-        }
-
-        string _ContactNumber;
-        public string ContactNumber
-        {
-            get { return _ContactNumber; }
-            set { _ContactNumber = value; OnPropertyChanged(); }
         }
 
         string _ContactPerson;
@@ -45,6 +42,13 @@ namespace KeepSafe.Models
         {
             get { return _ContactPerson; }
             set { _ContactPerson = value; OnPropertyChanged(); }
+        }
+
+        string _ContactNumber;
+        public string ContactNumber
+        {
+            get { return _ContactNumber; }
+            set { _ContactNumber = value; OnPropertyChanged(); }
         }
 
         string _Address;
@@ -61,18 +65,45 @@ namespace KeepSafe.Models
             set { _Email = value; OnPropertyChanged(); }
         }
 
-        string _Password;
-        public string Password
+        ObservableCollection<QrCode> _QrCode = new ObservableCollection<QrCode>();
+        public ObservableCollection<QrCode> QrCode
         {
-            get { return _Password; }
-            set { _Password = value; OnPropertyChanged(); }
+            get { return _QrCode; }
+            set { _QrCode = value; OnPropertyChanged(); }
         }
 
-        private ObservableCollection<string> _EstablishmentType = new ObservableCollection<string> { "Clinic", "Hospital", "Travel Agency", "Boutique", "Bar & Restaurant", "Manufacturing", "Banking & Remittance", "Spa & Personal Care", "Government", "Theatre & Movie Houses", "Appliance & Computer Store", "Department Store", "Grocery & Supermarket", "Automobile", "Home Improvement", "Graphics & Printing" };
-        public ObservableCollection<string> EstablishmentType
+        public bool Equals(Business business)
         {
-            get { return _EstablishmentType; }
-            set { _EstablishmentType = value; OnPropertyChanged(); }
+            if (business == null)
+                return false;
+
+            bool IsEquals = true;
+
+            if (!business.Id.Equals(Id))
+                IsEquals = false;
+            if (string.IsNullOrEmpty(business.Image) ? true : !business.Image.Equals(Image))
+                IsEquals = false;
+            if (string.IsNullOrEmpty(business.ContactPerson) ? true : !business.ContactPerson.Equals(ContactPerson))
+                IsEquals = false;
+            if (string.IsNullOrEmpty(business.ContactNumber) ? true : !business.ContactNumber.Equals(ContactNumber))
+                IsEquals = false;
+            if (string.IsNullOrEmpty(business.Address) ? true : !(bool)business.Address?.Equals(Address))
+                IsEquals = false;
+            if (string.IsNullOrEmpty(business.Email) ? true : !business.Email.Equals(Email))
+                IsEquals = false;
+            if (string.IsNullOrEmpty(business.Name) ? true : !business.Email.Equals(Name))
+                IsEquals = false;
+            return IsEquals;
+        }
+
+        public void Update(Business business)
+        {
+            ContactPerson = business.ContactPerson;
+            Name = business.Name;
+            Image = business.Image;
+            ContactNumber = business.ContactNumber;
+            Address = business.Address;
+            Email = business.Email;
         }
     }
 }

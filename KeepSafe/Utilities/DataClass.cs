@@ -192,6 +192,53 @@ namespace KeepSafe
             }
         }
 
+        Business _Business;
+        public Business Business
+        {
+            set
+            {
+                _Business = value;
+                Application.Current.Properties[nameof(Business)] = JsonConvert.SerializeObject(_Business);
+                OnPropertyChanged(nameof(Business));
+                Application.Current.SavePropertiesAsync();
+            }
+            get
+            {
+                if ((_Business == null ? true : _Business.Id != 0) && Application.Current.Properties.ContainsKey(nameof(Business)))
+                {
+                    _Business = JsonConvert.DeserializeObject<Business>(Application.Current.Properties[nameof(Business)].ToString(), new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+                }
+                if (_Business == null)
+                {
+                    _Business = new Business();
+                }
+
+                return _Business;
+            }
+        }
+
+        UserType _AccountType;
+        public UserType AccountType
+        {
+            set
+            {
+                _AccountType = value;
+                Application.Current.Properties["AccountType"] = _AccountType;
+                OnPropertyChanged(nameof(_AccountType));
+                Application.Current.SavePropertiesAsync();
+            }
+            get
+            {
+                if (string.IsNullOrEmpty(_uid) && Application.Current.Properties.ContainsKey("AccountType"))
+                {
+                    _AccountType = (UserType)Application.Current.Properties["AccountType"];
+                }
+                return _AccountType;
+            }
+        }
+
+        // bool _IsLoggedIn;
+        // public bool IsLoggedIn
         UserType _LoginType;
         public UserType LoginType
         {
@@ -234,6 +281,7 @@ namespace KeepSafe
             Application.Current.Properties.Remove(nameof(ClientId));
             Application.Current.Properties.Remove(nameof(Uid));
             Application.Current.Properties.Remove(nameof(User));
+            Application.Current.Properties.Remove(nameof(AccountType));
             Token = null;
             User = null;
             LoginType = UserType.None;

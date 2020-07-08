@@ -10,6 +10,9 @@
                         xmlns:res="clr-namespace:KeepSafe.Resources">
     <prism:PrismApplication.Resources>
         <ResourceDictionary>
+            <local:IntEnumConverter x:Key="IntEnumConverter"/>
+            <local:TextChangedEventArgsConverter x:Key="TextChangedEventArgsConverter"/>
+
             <!--Global Styles-->
             <Style TargetType="NavigationPage">
                 <Setter Property="BarBackgroundColor" Value="{Static res:ColorResource.MAIN_THEME_COLOR}"/>

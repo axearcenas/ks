@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using KeepSafe.Enum;
 using KeepSafe.Extension;
 using KeepSafe.Extensions;
 using KeepSafe.Helpers;
@@ -151,12 +152,12 @@ namespace KeepSafe.ViewModels
                    {
 #if DEBUG
                         fileReader.SetDelegate(this);
-                        await fileReader.ReadFile("UserData.json", cts.Token, 0);
+                        await fileReader.ReadFile(UserType == UserType.User ? "UserData.json" : "BusinessData.json", cts.Token, 0);
 #else
                         //TODO Login Rest Here
                         string content = JsonConvert.SerializeObject( new { session = new { contact_number = "0"+PhoneNumberEntry.Text, password = PasswordEntry.Text, device = App.DeviceType } });
                         restServices.SetDelegate(this);
-                        await restServices.PostRequestAsync($"{Constants.ROOT_URL}{Constants.USER_URL}{Constants.LOGIN_URL}", content, cts.Token,0);
+                        await restServices.PostRequestAsync($"{ Constants.ROOT_URL }{ (UserType == UserType.User? Constants.USER_URL : Constants.BUSINESS_URL) }{ Constants.LOGIN_URL }", content, cts.Token,0);
 #endif
                    }
                    catch (OperationCanceledException ox) { App.Log($"StackTrace: {ox.StackTrace}\nMESSAGE: {ox.Message}"); IsClicked = false; IsLoading = false; PopupHelper.RemoveLoading(); }
@@ -201,10 +202,13 @@ namespace KeepSafe.ViewModels
                             {
                                 //TODO save USER Here
                                 PopupHelper.RemoveLoading();
-                                dataClass.User = JsonConvert.DeserializeObject<User>(jsonData["data"].ToString());
+                                if (UserType == UserType.User)
+                                    dataClass.User = JsonConvert.DeserializeObject<User>(jsonData["data"].ToString());
+                                else
+                                    dataClass.Business = JsonConvert.DeserializeObject<Business>(jsonData["data"].ToString());
+
                                 dataClass.LoginType = UserType;
                                 await Task.Delay(500);
-                                //await App.ShowHomePage(dataClass.LoginType);
                                 await App.ShowHomePage(dataClass.LoginType);
                                 PhoneNumberEntry.ClearText();
                                 PasswordEntry.ClearText();

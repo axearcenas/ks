@@ -222,6 +222,10 @@
     <ImageAsset Include="Assets.xcassets\SelectedDashboardIcon.imageset\SelectedDashboardIcon.png" />
     <ImageAsset Include="Assets.xcassets\SelectedDashboardIcon.imageset\SelectedDashboardIcon%402x.png" />
     <ImageAsset Include="Assets.xcassets\SelectedDashboardIcon.imageset\SelectedDashboardIcon%403x.png" />
+    <ImageAsset Include="Assets.xcassets\KeepSafeLogo.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\KeepSafeLogo.imageset\KeepSafeLogo.png" />
+    <ImageAsset Include="Assets.xcassets\KeepSafeLogo.imageset\KeepSafeLogo%402x.png" />
+    <ImageAsset Include="Assets.xcassets\KeepSafeLogo.imageset\KeepSafeLogo%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -320,5 +324,10 @@
     <Folder Include="Assets.xcassets\DashboardIcon.imageset\" />
     <Folder Include="Assets.xcassets\BusinessScanIcon.imageset\" />
     <Folder Include="Assets.xcassets\BusinessProfileIcon.imageset\" />
+    <Folder Include="Assets.xcassets\KeepSafeLogo.imageset\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ITunesArtwork Include="iTunesArtwork" />
+    <ITunesArtwork Include="iTunesArtwork%402x" />
   </ItemGroup>
 </Project>

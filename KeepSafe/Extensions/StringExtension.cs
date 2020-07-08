@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -17,6 +18,15 @@ namespace KeepSafe.Extensions
         public static bool ContainsKey(this JObject json, string key, string value)
         {
             if (json.ContainsKey(key) && json[key].ToString() == value)
+                return true;
+            return false;
+        }
+
+
+        public static bool ContainsKey(this JToken jToken, string key)
+        {
+            
+            if (jToken.HasValues && ((JObject)jToken).ContainsKey(key))
                 return true;
             return false;
         }
@@ -68,5 +78,9 @@ namespace KeepSafe.Extensions
             }
         }
 
+        public static string SplitCamelCase(this string str)
+        {
+            return Regex.Replace(Regex.Replace(str,@"(\P{Ll})(\P{Ll}\p{Ll})","$1 $2"),@"(\p{Ll})(\P{Ll})","$1 $2");
+        }
     }
 }

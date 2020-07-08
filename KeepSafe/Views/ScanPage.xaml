@@ -8,18 +8,18 @@
                           xmlns:prism="http://prismlibrary.com"
                           xmlns:scanner="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
                           RightIconType="SVG"
-                          RightIcon="MyQRIcon"
+                          RightIcon="{Binding RightIcon}"
                           RightButtonCommand="{Binding MyQRCommand}"
-                          NavBackgroundColor="{Static res:ColorResource.MAIN_DARK_THEME_COLOR}"
+                          NavBackgroundColor="{Binding NavBgColor}"
                           BackgroundColor="{Static res:ColorResource.SCANNER_BACKGROUNDCOLOR}"
-                          PageTitle="Scan QR"
+                          PageTitle="{Binding PageTitle}"
                           TitleFontFamily="{Static res:FontResource.BOLD}"
                           TitleFontSize="{local:ScaleFontSize Value=21}"
                           TitleHeightRequest="{local:ScaleHeight Value=25}"
                           TitleVerticalOptions="Center"
                           StatusBarColor="Light"
                           Title="Scan"
-                          IconImageSource="ScanIcon">
+                          IconImageSource="{Binding TabIcon}">
     <local:MainNavigationPage.Resources>
         <ResourceDictionary>            
             <Style TargetType="local:CustomEntry" x:Key="EntryStyle">
@@ -41,7 +41,7 @@
            ColumnSpacing="0"
            VerticalOptions="Fill"
           PropertyChanged="Grid_PropertyChanged"
-           BackgroundColor="{Static res:ColorResource.SCANNER_BACKGROUNDCOLOR}"
+           BackgroundColor="{Binding ScannerBgColor}"
            RowDefinitions="{local:ScaleRowDefinition Value='61,*'}">
         <local:FFSVGImage Grid.Row="1"
                           Source="{local:FFSVGImageSource ImageName=ScannerInidcator}"
@@ -54,7 +54,7 @@
                VerticalOptions="End"
                Margin="{local:ScaleThickness Value='17,0'}"
                HeightRequest="{local:ScaleHeight Value=45}"
-               CornerRadius="{local:ScaleHeight Value=23}">
+               CornerRadius="{Binding FrameCornerRadius}">
             <Grid ColumnSpacing="0"
                   ColumnDefinitions="{local:ScaleColumnDefinition Value='64,*'}">
                 <local:FFSVGImage Source="{local:FFSVGImageSource ImageName=SearchIcon}"
@@ -66,15 +66,12 @@
                                    Placeholder="{Binding SearchEntry.Placeholder}"
                                    PlaceholderColor="{Binding SearchEntry.PlaceholderColor}"
                                    Keyboard="Default"
+                                   ReturnType="Search"
+                                   ReturnCommand="{Binding SearchCommand}"
                                    MoveUpOffset="{local:ScaleHeightDouble Value=85}"
                                    Style="{StaticResource EntryStyle}"
                                    Margin="{local:ScaleThickness Value='0,0,42,0'}"
-                                   MaxLength="8">
-                <local:CustomEntry.Behaviors>
-                    <prism:EventToCommandBehavior Command="{Binding SearchCommand}"
-                                                  EventName="Completed" />
-                </local:CustomEntry.Behaviors>
-            </local:CustomEntry>
+                                   MaxLength="8"/>
             </Grid>
         </Frame>
     </Grid>

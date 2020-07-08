@@ -19,6 +19,7 @@ using KeepSafe.Views.Popups;
 using KeepSafe.ViewModels.PopupsViewModel;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
+using KeepSafe.Enum;
 using System.Threading.Tasks;
 
 namespace KeepSafe
@@ -70,11 +71,10 @@ namespace KeepSafe
             Constants.ApplyServerSettings();
 
             //NOTE: FOR TESTING PAGE to show error initializing page
-            //MainPage = new NavigationPage(new UserProfilePage() { BindingContext = new UserProfilePageViewModel(NavigationService, new PageDialogService(new ApplicationProvider())) });
+            MainPage = new NavigationPage(new BusinessProfilePage() { BindingContext = new BusinessProfileViewModel(NavigationService, new PageDialogService(new ApplicationProvider())) });
             //MainPage = new CustomServerPopup() { BindingContext = new CustomServerPopupViewModel(NavigationService) };
 
             if (dataClass.LoginType != UserType.None)
-                //TODO Add a parameter that identifies logged in account is either User or Business
                 await ShowHomePage(dataClass.LoginType);
             else
                 ShowMainPage();
@@ -124,7 +124,8 @@ namespace KeepSafe
             //TODO Create Landing Page
             var parameter = new NavigationParameters();
             parameter.Add("UserType", userType);
-            return  _NavigationService.NavigateAsync($"{AppNavigationRootRoute}{nameof(MyTabbedPage)}?{KnownNavigationParameters.CreateTab}={(userType == UserType.User ? "HomePage" : "DashboardPage")}&{KnownNavigationParameters.CreateTab}=ScanPage&{KnownNavigationParameters.CreateTab}=UserProfilePage", parameter);
+
+            return  _NavigationService.NavigateAsync($"{AppNavigationRootRoute}{nameof(MyTabbedPage)}?createTab={(DataClass.GetInstance.LoginType == UserType.User ? "HomePage" : "DashboardPage")}&createTab=ScanPage&createTab={(DataClass.GetInstance.LoginType == UserType.User ? "UserProfilePage" : "BusinessProfilePage")}", parameter);
         }
 
         public static void ShowMainPage()
@@ -180,6 +181,9 @@ namespace KeepSafe
             containerRegistry.RegisterForNavigation<UserCheckInPage>();
             containerRegistry.RegisterForNavigation<MyQRPage>();
             containerRegistry.RegisterForNavigation<ForgotPasswordPage, ForgotPasswordPageViewModel>();
+            containerRegistry.RegisterForNavigation<BusinessProfilePage, BusinessProfileViewModel>();
+            containerRegistry.RegisterForNavigation<BusinessReceptionPage, BusinessReceptionViewModel>();
+            containerRegistry.RegisterForNavigation<SelectEntryTypePopup, SelectEntryTypeViewModel>();
 
             //NOTE: Views that has a view model in ViewModel Folder
             //containerRegistry.RegisterForNavigation<GetStartedPage>();
