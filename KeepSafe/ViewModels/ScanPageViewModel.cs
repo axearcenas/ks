@@ -86,7 +86,7 @@ namespace KeepSafe.ViewModels
 
         private void OnSearchCommand_Execute()
         {
-            if (!IsClicked && !SearchEntry.ValidateIsTextNullOrEmpty())
+            if (!IsClicked && !SearchEntry.ValidateIsTextNullOrEmpty("Enter Manually"))
             {
                 IsClicked = true;
                 SearchQR(SearchEntry.Text, false);
@@ -132,9 +132,12 @@ namespace KeepSafe.ViewModels
                 await fileReader.CreateDummyResponse(JsonConvert.SerializeObject(
                     new
                     {
-                        message = $"Scanned: {code}",
-                        business = new Business() { Id = 0,Image = RandomizerHelper.GetRandomImageUrl((int)158.ScaleWidth(), (int)158.ScaleHeight(), category: ImageCategory.tech), Name = "Golden Prince Hotel" },
-                        qr_code = QrCode.Mock(),
+                        data = new
+                        {
+                            message = $"Scanned: {code}",
+                            business = new Business() { Id = 0, Image = RandomizerHelper.GetRandomImageUrl((int)158.ScaleWidth(), (int)158.ScaleHeight(), category: ImageCategory.tech), Name = "Golden Prince Hotel" },
+                            qr_code = QrCode.Mock()
+                        },
                         status = 200
                     }),cts.Token, 0);
 #else
