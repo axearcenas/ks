@@ -90,7 +90,7 @@
                                    FontSize="{local:ScaleFontSize Value=17}"
                                    HorizontalTextAlignment="Center"
                                    Keyboard="Numeric"
-                                   MaxLength="4"
+                                   MaxLength="6"
                                    MoveUpOffset="{local:ScaleHeightDouble Value=85}"
                                    HorizontalOptions="FillAndExpand"
                                    VerticalOptions="FillAndExpand">

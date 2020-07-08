@@ -46,6 +46,16 @@ namespace KeepSafe.ViewModels
             {
                 TemperatureEntry.Text = e.OldTextValue;
             }
+
+            if (e.OldTextValue.Length < e.NewTextValue.Length && e.NewTextValue.Length == 4)
+            {
+                TemperatureEntry.Text += " \x00B0C";
+            }
+
+            if (e.NewTextValue.Count(f => f == ' ') > 1)
+            {
+                TemperatureEntry.Text = e.OldTextValue;
+            }
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
