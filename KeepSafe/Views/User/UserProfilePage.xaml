@@ -12,7 +12,7 @@
                           NavBackgroundColor="#5D172C"
                           LeftIcon=""
                           LeftIconType="FontAwesome5Solid"
-                          PageTitle="Register"
+                          PageTitle="My Profile"
                           TitleFontColor="White"
                           TitleFontFamily="{Static res:FontResource.BOLD}"
                           TitleFontSize="{local:ScaleFontSize Value=21}"
