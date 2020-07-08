@@ -17,17 +17,21 @@ namespace KeepSafe.ViewModels
         public DelegateCommand BackButtonClickedCommand { get; set; }
         public DelegateCommand<object> QRCodeSelectedCommand { get; set; }
 
+        public ObservableCollection<QrCodeGroup> QrCodes { get; private set; } = new ObservableCollection<QrCodeGroup>();
+
+        ObservableCollection<BusinessScanHistory> _ScanHistory;
+        public ObservableCollection<BusinessScanHistory> ScanHistory
+        {
+            get { return _ScanHistory; }
+            set { SetProperty(ref _ScanHistory, value, nameof(ScanHistory)); }
+        }
+
+        bool IsDataLoaded;
+
         public BusinessQRCodesViewModel(INavigationService navigationService) : base(navigationService)
         {
             BackButtonClickedCommand = new DelegateCommand(OnBackButtonClicked);
             QRCodeSelectedCommand = new DelegateCommand<object>(OnQRCodeSelected);
-        }
-
-        ObservableCollection<QrCode> _QrCodes;
-        public ObservableCollection<QrCode> QrCodes
-        {
-            get { return _QrCodes; }
-            set { SetProperty(ref _QrCodes, value, nameof(QrCodes)); }
         }
 
         private async void OnBackButtonClicked()
@@ -43,7 +47,8 @@ namespace KeepSafe.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            GetData();
+            if(!IsDataLoaded)
+                GetData();
         }
 
         private async void GetData()
@@ -94,11 +99,15 @@ namespace KeepSafe.ViewModels
                 switch (wsType)
                 {
                     case 0:                       
-                        if (jsonData.ContainsKey("data"))
+                        if (jsonData.ContainsKey("entrance") || jsonData.ContainsKey("exit"))
                         {
                             Device.BeginInvokeOnMainThread(() =>
                             {
-                                QrCodes = JsonConvert.DeserializeObject<ObservableCollection<QrCode>>(jsonData["data"].ToString());
+                                var entrance = JsonConvert.DeserializeObject<ObservableCollection<QrCode>>(jsonData["entrance"].ToString());
+                                QrCodes.Add(new QrCodeGroup("Entrance", entrance));
+                                var exit = JsonConvert.DeserializeObject<ObservableCollection<QrCode>>(jsonData["exit"].ToString());
+                                QrCodes.Add(new QrCodeGroup("Exit", exit));
+                                IsDataLoaded = true;
                             });
                         }
                         break;

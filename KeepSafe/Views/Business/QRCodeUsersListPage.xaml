@@ -62,12 +62,20 @@
                         FontFamily="{Static res:FontResource.REGULAR}"
                         FontSize="{local:ScaleFontSize Value=13}"
                         InputTransparent="True"
-                        BackgroundColor="#3498DB"
                         CornerRadius="{local:ScaleHeight Value=12}"
                         WidthRequest="{local:ScaleWidth Value=89}"
                         HeightRequest="{local:ScaleHeight Value=24}"
                         HorizontalOptions="Start"
-                        VerticalOptions="Center"/>
+                        VerticalOptions="Center">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding QrCode.CodeType}" Value="in">
+                            <Setter Property="BackgroundColor" Value="#3498DB"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Button" Binding="{Binding QrCode.CodeType}" Value="out">
+                            <Setter Property="BackgroundColor" Value="#E74C3C"/>
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
             </Grid>
 
             <!--Search Entry-->
