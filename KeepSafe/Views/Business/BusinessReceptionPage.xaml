@@ -8,7 +8,7 @@
                           LeftIcon="BackIcon"
                           LeftIconType="SVG"
                           LeftIconColor="White"
-                          LeftButtonCommand="{Binding BackCommand}"
+                          LeftButtonCommand="{Binding BackButtonClickedCommand}"
                           NavBackgroundColor="{Static res:ColorResource.ESTABLISHMENT_MAIN_THEME_COLOR}"
                           BackgroundColor="#ECF0F1"                          
                           PageTitle="{Binding Title}"
@@ -121,7 +121,8 @@
                     WidthRequest="{local:ScaleWidth Value=131}"
                     HeightRequest="{local:ScaleHeight Value=37}"
                     HorizontalOptions="Center"
-                    VerticalOptions="Center"/>
+                    VerticalOptions="Center"
+                    Command="{Binding CheckInButtonClickedCommand}"/>
             <Button Grid.Row="9"
                     Grid.Column="3"
                     Text="Check Out"
@@ -133,7 +134,8 @@
                     WidthRequest="{local:ScaleWidth Value=131}"
                     HeightRequest="{local:ScaleHeight Value=37}"
                     HorizontalOptions="Center"
-                    VerticalOptions="Center"/>
+                    VerticalOptions="Center"
+                    Command="{Binding CheckOutButtonClickedCommand}"/>
         </Grid>
     </local:MainNavigationPage.Content>
 </local:MainNavigationPage>

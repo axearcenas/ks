@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<local:RGPopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                   x:Class="KeepSafe.Views.Popups.SelectEntryTypePopup"
+                   xmlns:local="clr-namespace:KeepSafe"
+                   xmlns:res="clr-namespace:KeepSafe.Resources"
+                   HasSystemPadding="True"
+                   BackgroundColor="{Static res:ColorResource.LOADING_BACKGROUNDCOLOR}">
+    <local:RGPopupPage.Content>
+        <Frame Padding="0"
+               Margin="0"
+               IsClippedToBounds="True"
+               CornerRadius="{local:ScaleHeight Value=5}"
+               HorizontalOptions="CenterAndExpand"
+               VerticalOptions="CenterAndExpand"
+               HasShadow="True">
+            <Grid RowSpacing="0"
+                  ColumnSpacing="0"
+                  Padding="0"
+                  BackgroundColor="White"
+                  WidthRequest="{local:ScaleWidth Value=286}"
+                  HorizontalOptions="Center"
+                  VerticalOptions="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=20}"/>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=78}"/>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=20}"/>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=20}"/>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=14}"/>
+                    <RowDefinition Height="AUTO"/>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=24}"/>
+                </Grid.RowDefinitions>
+
+                <local:FFSVGImage Grid.Row="1"
+                                  Source="{local:FFSVGImageSource ImageName=InfoIcon}"
+                                  WidthRequest="{local:ScaleWidth Value=78}"
+                                  HeightRequest="{local:ScaleHeight Value=78}"/>
+                <Label Text="{Binding EntryType, StringFormat='Select {0}'}"
+                       Grid.Row="3"
+                       TextColor="#463A6A"
+                       FontFamily="{Static res:FontResource.REGULAR}"
+                       FontSize="{local:ScaleFontSize Value=17}"/>
+
+                <CollectionView Grid.Row="5"
+                                ItemsSource="{Binding QrCodes}"
+                                HorizontalOptions="CenterAndExpand"
+                                VerticalOptions="CenterAndExpand"
+                                HeightRequest="{local:ScaleHeight Value=179}"
+                                Margin="0">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical"
+                                           ItemSpacing="{local:ScaleHeight Value=10}"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="0"
+                                  Margin="0">
+                                <Button Text="{Binding Code}"
+                                        TextColor="#463A6A"
+                                        FontFamily="{Static res:FontResource.REGULAR}"
+                                        FontSize="{local:ScaleFontSize Value=17}"
+                                        CornerRadius="{local:ScaleHeight Value=5}"
+                                        BorderWidth="{local:ScaleHeight Value=1}"
+                                        BorderColor="#707070"
+                                        BackgroundColor="Transparent"
+                                        WidthRequest="{local:ScaleWidth Value=256}"
+                                        HeightRequest="{local:ScaleHeight Value=53}"
+                                        HorizontalOptions="CenterAndExpand">
+                                </Button>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+        </Frame>
+    </local:RGPopupPage.Content>
+</local:RGPopupPage>

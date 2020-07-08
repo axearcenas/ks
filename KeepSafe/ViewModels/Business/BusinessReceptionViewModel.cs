@@ -17,6 +17,9 @@ namespace KeepSafe.ViewModels
         public EntryViewModel TemperatureEntry { get; } = new EntryViewModel() { Placeholder = "Enter user temperature", PlaceholderColor = ColorResource.MAIN_BLUE_COLOR };
 
         public DelegateCommand<object> TextChangedCommand { get; set; }
+        public DelegateCommand CheckInButtonClickedCommand { get; set; }
+        public DelegateCommand CheckOutButtonClickedCommand { get; set; }
+        public DelegateCommand BackButtonClickedCommand { get; set; }
 
         User _ScannedUser;
         public User ScannedUser
@@ -25,10 +28,26 @@ namespace KeepSafe.ViewModels
             set { SetProperty(ref _ScannedUser, value, nameof(ScannedUser)); }
         }
 
+        Action<bool> ScanPageActiveAction;
+
         public BusinessReceptionViewModel(INavigationService navigationService) : base(navigationService)
         {
             TextChangedCommand = new DelegateCommand<object>(OnTemperatureTextChanged);
-        }        
+            BackButtonClickedCommand = new DelegateCommand(OnBackButtonClicked);
+            CheckInButtonClickedCommand = new DelegateCommand(OnCheckInButtonClicked);
+            CheckOutButtonClickedCommand = new DelegateCommand(OnCheckOutButtonClicked);
+        }
+
+        private async void OnBackButtonClicked()
+        {
+            if (!IsClicked)
+            {
+                IsClicked = true;
+                await NavigationService.GoBackAsync();
+                ScanPageActiveAction?.Invoke(true);
+                IsClicked = false;
+            }
+        }
 
         private void OnTemperatureTextChanged(object sender)
         {
@@ -65,6 +84,20 @@ namespace KeepSafe.ViewModels
             {
                 ScannedUser = (User)parameters["User"];
             }
+        }
+
+        private async void OnCheckInButtonClicked()
+        {
+            INavigationParameters parameter = new NavigationParameters();
+            parameter.Add("IsCheckIn", true);
+            await NavigationService.NavigateAsync("SelectEntryTypePopup", parameter);
+        }
+
+        private async void OnCheckOutButtonClicked()
+        {
+            INavigationParameters parameter = new NavigationParameters();
+            parameter.Add("IsCheckIn", false);
+            await NavigationService.NavigateAsync("SelectEntryTypePopup", parameter);
         }
 
         public void ReceiveError(string title, string error, int wsType)

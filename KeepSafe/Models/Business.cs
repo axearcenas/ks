@@ -80,6 +80,13 @@ namespace KeepSafe.Models
             }
         }
 
+        ObservableCollection<QrCode> _QrCode = new ObservableCollection<QrCode>();
+        public ObservableCollection<QrCode> QrCode
+        {
+            get { return _QrCode; }
+            set { _QrCode = value; OnPropertyChanged(); }
+        }
+
         public bool Equals(Business business)
         {
             if (business == null)
@@ -116,6 +123,44 @@ namespace KeepSafe.Models
             ContactPerson = business.ContactPerson;
             Address = business.Address;
             Email = business.Email;
+        }
+    }
+
+    public class QrCode : BaseNotify
+    {
+        int _Id;
+        public int Id
+        {
+            get { return _Id; }
+            set { _Id = value; OnPropertyChanged(); }
+        }
+
+        string _Image;
+        public string Image
+        {
+            get { return _Image; }
+            set { _Image = value; OnPropertyChanged(); }
+        }
+
+        string _Code;
+        public string Code
+        {
+            get { return _Code; }
+            set { _Code = value; OnPropertyChanged(); }
+        }
+
+        string _CodeType;
+        public string CodeType
+        {
+            get { return _CodeType; }
+            set { _CodeType = value; OnPropertyChanged(); }
+        }
+
+        int _Count;
+        public int Count
+        {
+            get { return _Count; }
+            set { _Count = value; OnPropertyChanged(); }
         }
     }
 }

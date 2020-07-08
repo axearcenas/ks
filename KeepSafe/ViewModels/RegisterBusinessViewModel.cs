@@ -298,7 +298,7 @@ namespace KeepSafe
                             Device.BeginInvokeOnMainThread(async () =>
                             {
                                 dataClass.Business = JsonConvert.DeserializeObject<Business>(jsonData["data"].ToString());
-                                dataClass.LoginType = UserType;
+                                dataClass.LoginType = UserType.Establishment;
                                 await App.ShowHomePage(dataClass.LoginType);
                             });
                         }

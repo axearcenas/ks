@@ -62,12 +62,27 @@ namespace KeepSafe.ViewModels
             }
         }
 
-
         public string TabIcon
         {
             get
             {
                 return DataClass.GetInstance.LoginType == UserType.User ? "ScanIcon" : "BusinessScanIcon";
+            }
+        }
+
+        public string RightIcon
+        {
+            get
+            {
+                return DataClass.GetInstance.LoginType == UserType.User ? "MyQRIcon" : "";
+            }
+        }
+
+        public string PageTitle
+        {
+            get
+            {
+                return DataClass.GetInstance.LoginType == UserType.User ? "Scan QR" : "Scan User QR";
             }
         }
 
