@@ -72,7 +72,6 @@ namespace KeepSafe.Models
 
             bool IsEquals = true;
 
-            IsEquals = false;
             if (!user.Id.Equals(Id))
                 IsEquals = false;
             if (string.IsNullOrEmpty(user.Image) ? true : !user.Image.Equals(Image))

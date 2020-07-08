@@ -35,6 +35,10 @@
         </DataTrigger>
         <DataTrigger TargetType="local:MainNavigationPage"
                      Binding="{Binding IsChangePassword}" Value="true">
+            <Setter Property="RightIcon" Value=""/>
+            <Setter Property="RightIconType" Value="SVG"/>
+            <Setter Property="RightIconColor" Value="Transparent"/>
+            <Setter Property="RightButtonCommand" Value=""/>
             <Setter Property="LeftIcon" Value="BackIcon"/>
             <Setter Property="LeftIconType" Value="SVG"/>
             <Setter Property="LeftIconColor" Value="White"/>
@@ -332,7 +336,8 @@
                                 VerticalOptions="Fill"
                                 WidthRequest="{local:ScaleWidth Value=58}"
                                 HorizontalOptions="End"
-                                Command="{Binding ShowPasswordCommand}">
+                                Command="{Binding ShowPasswordCommand}"
+                                CommandParameter="0">
                             <Button.Triggers>
                                 <DataTrigger TargetType="Button"
                                              Binding="{Binding PasswordEntry.IsPassword}"
@@ -389,7 +394,8 @@
                                 WidthRequest="{local:ScaleWidth Value=58}"
                                 HorizontalOptions="End"
                                 IsVisible="{Binding IsPasswordButtonVisible}"
-                                Command="{Binding ShowPasswordCommand}">
+                                Command="{Binding ShowPasswordCommand}"
+                                CommandParameter="1">
                             <Button.Triggers>
                                 <DataTrigger TargetType="Button"
                                              Binding="{Binding NewPasswordEntry.IsPassword}"
