@@ -269,7 +269,7 @@ namespace KeepSafe
                         {
                             registration = new {
                                 first_name = FirstNameEntry.Text,
-                                image = "",
+                                image = file.Path,
                                 last_name = LastNameEntry.Text, 
                                 contact_number = MobileNumberEntry.Text,
                                 address = AddressEntry.Text,
