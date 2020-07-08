@@ -264,7 +264,6 @@ namespace KeepSafe
                         fileReader.SetDelegate(this);
                         await fileReader.ReadFile("UserData.json", cts.Token, 0);
 #else
-                        //TODO Login Rest Here
                         string content = JsonConvert.SerializeObject(new
                         {
                             registration = new {
