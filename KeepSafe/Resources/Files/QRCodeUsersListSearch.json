@@ -6,74 +6,108 @@
     "code_type": "in",
     "count": 0
   },
-  "users": [
-    {
-      "id": 1,
-      "qr_code": {
+  "users": {
+    "data": [
+      {
         "id": 1,
-        "image": "/uploads/qr_code/image/1/thumb_5f7c1e34c13cd0ca1e88.png",
-        "code": "Entrance 1",
-        "code_type": "check_in"
+        "first_name": "Christian Jay",
+        "last_name": "Tautu-an",
+        "image": "https://vignette.wikia.nocookie.net/naruto/images/2/21/Sasuke_Part_1.png/revision/latest/scale-to-width-down/340?cb=20170716092103",
+        "scan_date": "06/25/20 09:14"
       },
-      "user": {
+      {
         "id": 1,
-        "email": "jofix17@gmail.com",
-        "first_name": "Argie",
-        "last_name": "Bacomo",
-        "contact_number": null,
-        "address": "Cebu City",
-        "image": "https://i.pinimg.com/474x/9f/d6/e2/9fd6e2c532bb9003cded155af3573415.jpg",
-        "qrcode_image": "/uploads/user/qrcode_image/1/thumb_dea4ab2979276b2cd38c.png",
-        "qrcode": "GWAPOKO"
+        "first_name": "Christian Jay",
+        "last_name": "Tautu-an",
+        "image": "https://vignette.wikia.nocookie.net/naruto/images/2/21/Sasuke_Part_1.png/revision/latest/scale-to-width-down/340?cb=20170716092103",
+        "scan_date": "06/25/20 09:14"
       },
-      "temperature": 36.5,
-      "scan_date": "06/25/20 09:14"
-    },
-    {
-      "id": 1,
-      "qr_code": {
+      {
         "id": 1,
-        "image": "/uploads/qr_code/image/1/thumb_5f7c1e34c13cd0ca1e88.png",
-        "code": "Entrance 1",
-        "code_type": "check_in"
+        "first_name": "Christian Jay",
+        "last_name": "Tautu-an",
+        "image": "https://vignette.wikia.nocookie.net/naruto/images/2/21/Sasuke_Part_1.png/revision/latest/scale-to-width-down/340?cb=20170716092103",
+        "scan_date": "06/25/20 09:14"
       },
-      "user": {
+      {
         "id": 1,
-        "email": "jofix17@gmail.com",
-        "first_name": "Argie",
-        "last_name": "Bacomo",
-        "contact_number": null,
-        "address": "Cebu City",
-        "image": "https://i.pinimg.com/474x/9f/d6/e2/9fd6e2c532bb9003cded155af3573415.jpg",
-        "qrcode_image": "/uploads/user/qrcode_image/1/thumb_dea4ab2979276b2cd38c.png",
-        "qrcode": "GWAPOKO"
+        "first_name": "Christian Jay",
+        "last_name": "Tautu-an",
+        "image": "https://vignette.wikia.nocookie.net/naruto/images/2/21/Sasuke_Part_1.png/revision/latest/scale-to-width-down/340?cb=20170716092103",
+        "scan_date": "06/25/20 09:14"
       },
-      "temperature": 36.5,
-      "scan_date": "06/25/20 09:14"
-    },
-    {
-      "id": 1,
-      "qr_code": {
+      {
         "id": 1,
-        "image": "/uploads/qr_code/image/1/thumb_5f7c1e34c13cd0ca1e88.png",
-        "code": "Entrance 1",
-        "code_type": "check_in"
+        "first_name": "Christian Jay",
+        "last_name": "Tautu-an",
+        "image": "https://vignette.wikia.nocookie.net/naruto/images/2/21/Sasuke_Part_1.png/revision/latest/scale-to-width-down/340?cb=20170716092103",
+        "scan_date": "06/25/20 09:14"
       },
-      "user": {
+      {
         "id": 1,
-        "email": "jofix17@gmail.com",
-        "first_name": "Argie",
-        "last_name": "Bacomo",
-        "contact_number": null,
-        "address": "Cebu City",
-        "image": "https://i.pinimg.com/474x/9f/d6/e2/9fd6e2c532bb9003cded155af3573415.jpg",
-        "qrcode_image": "/uploads/user/qrcode_image/1/thumb_dea4ab2979276b2cd38c.png",
-        "qrcode": "GWAPOKO"
+        "first_name": "Christian Jay",
+        "last_name": "Tautu-an",
+        "image": "https://vignette.wikia.nocookie.net/naruto/images/2/21/Sasuke_Part_1.png/revision/latest/scale-to-width-down/340?cb=20170716092103",
+        "scan_date": "06/25/20 09:14"
       },
-      "temperature": 36.5,
-      "scan_date": "06/25/20 09:14"
-    }
-  ],
+      {
+        "id": 1,
+        "first_name": "Christian Jay",
+        "last_name": "Tautu-an",
+        "image": "https://vignette.wikia.nocookie.net/naruto/images/2/21/Sasuke_Part_1.png/revision/latest/scale-to-width-down/340?cb=20170716092103",
+        "scan_date": "06/25/20 09:14"
+      },
+      {
+        "id": 1,
+        "first_name": "Christian Jay",
+        "last_name": "Tautu-an",
+        "image": "https://vignette.wikia.nocookie.net/naruto/images/2/21/Sasuke_Part_1.png/revision/latest/scale-to-width-down/340?cb=20170716092103",
+        "scan_date": "06/25/20 09:14"
+      },
+      {
+        "id": 1,
+        "first_name": "Christian Jay",
+        "last_name": "Tautu-an",
+        "image": "https://vignette.wikia.nocookie.net/naruto/images/2/21/Sasuke_Part_1.png/revision/latest/scale-to-width-down/340?cb=20170716092103",
+        "scan_date": "06/25/20 09:14"
+      },
+      {
+        "id": 1,
+        "first_name": "Christian Jay",
+        "last_name": "Tautu-an",
+        "image": "https://vignette.wikia.nocookie.net/naruto/images/2/21/Sasuke_Part_1.png/revision/latest/scale-to-width-down/340?cb=20170716092103",
+        "scan_date": "06/25/20 09:14"
+      },
+      {
+        "id": 1,
+        "first_name": "Christian Jay",
+        "last_name": "Tautu-an",
+        "image": "https://vignette.wikia.nocookie.net/naruto/images/2/21/Sasuke_Part_1.png/revision/latest/scale-to-width-down/340?cb=20170716092103",
+        "scan_date": "06/25/20 09:14"
+      },
+      {
+        "id": 1,
+        "first_name": "Christian Jay",
+        "last_name": "Tautu-an",
+        "image": "https://vignette.wikia.nocookie.net/naruto/images/2/21/Sasuke_Part_1.png/revision/latest/scale-to-width-down/340?cb=20170716092103",
+        "scan_date": "06/25/20 09:14"
+      },
+      {
+        "id": 1,
+        "first_name": "Christian Jay",
+        "last_name": "Tautu-an",
+        "image": "https://vignette.wikia.nocookie.net/naruto/images/2/21/Sasuke_Part_1.png/revision/latest/scale-to-width-down/340?cb=20170716092103",
+        "scan_date": "06/25/20 09:14"
+      },
+      {
+        "id": 1,
+        "first_name": "Christian Jay",
+        "last_name": "Tautu-an",
+        "image": "https://vignette.wikia.nocookie.net/naruto/images/2/21/Sasuke_Part_1.png/revision/latest/scale-to-width-down/340?cb=20170716092103",
+        "scan_date": "06/25/20 09:14"
+      }
+    ]
+  },
   "pagination": {
     "count": 0,
     "off_set": 10,

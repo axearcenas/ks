@@ -31,13 +31,21 @@
                HorizontalOptions="Center"
                VerticalOptions="End"/>
 
-        <local:FFSVGImage Grid.Row="1"
-                          Source="{Binding Source={Static local:DataClass.GetInstance},Path=User.QrcodeImage}"
-                          HeightRequest="{local:ScaleHeight Value=258}"
-                          WidthRequest="{local:ScaleWidth Value=258}"
-                          HorizontalOptions="Center"
-                          VerticalOptions="End"
-                          BackgroundColor="{Static  res:ColorResource.WHITE_COLOR}"/>
+        <Grid Grid.Row="1"
+              Margin="{local:ScaleThickness Value='-10'}"
+              Padding="{local:ScaleThickness Value=10}"
+              HorizontalOptions="Center"
+              VerticalOptions="End"
+              BackgroundColor="{Static  res:ColorResource.WHITE_COLOR}">
+            <local:FFSVGImage 
+                              Source="{Binding Source={Static local:DataClass.GetInstance},Path=User.QrcodeImage}"
+                              HeightRequest="{local:ScaleHeight Value=258}"
+                              WidthRequest="{local:ScaleWidth Value=258}"
+                              HorizontalOptions="Center"
+                              VerticalOptions="End"
+                              BackgroundColor="{Static  res:ColorResource.WHITE_COLOR}"/>
+
+        </Grid>
 
         <Label Grid.Row="2"
                Text="{Binding Source={Static local:DataClass.GetInstance},Path=User.Qrcode,TargetNullValue=3X4MPL31}"

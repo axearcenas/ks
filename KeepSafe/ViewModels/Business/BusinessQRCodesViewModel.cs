@@ -69,7 +69,7 @@ namespace KeepSafe.ViewModels
 #else
                 //TODO GET HISTORY Rest Here
                 restServices.SetDelegate(this);
-                await restServices.GetRequest($"{Constants.ROOT_URL}{Constants.USER_URL}{Constants.SCAN_HISTORIES_URL}".AddAuth() ,  cts.Token, 0);
+                await restServices.GetRequest($"{Constants.ROOT_URL}{Constants.QR_CODES_URL}".AddAuth() ,  cts.Token, 0);
 #endif
                 }
                 catch (OperationCanceledException ox) { App.Log($"StackTrace: {ox.StackTrace}\nMESSAGE: {ox.Message}"); IsClicked = false; PopupHelper.RemoveLoading(); }
@@ -99,13 +99,13 @@ namespace KeepSafe.ViewModels
                 switch (wsType)
                 {
                     case 0:                       
-                        if (jsonData.ContainsKey("entrance") || jsonData.ContainsKey("exit"))
+                        if (jsonData.ContainsKey("data"))
                         {
                             Device.BeginInvokeOnMainThread(() =>
                             {
-                                var entrance = JsonConvert.DeserializeObject<ObservableCollection<QrCode>>(jsonData["entrance"].ToString());
+                                var entrance = JsonConvert.DeserializeObject<ObservableCollection<QrCode>>(jsonData["data"]["entrance"].ToString());
                                 QrCodes.Add(new QrCodeGroup("Entrance", entrance));
-                                var exit = JsonConvert.DeserializeObject<ObservableCollection<QrCode>>(jsonData["exit"].ToString());
+                                var exit = JsonConvert.DeserializeObject<ObservableCollection<QrCode>>(jsonData["data"]["exit"].ToString());
                                 QrCodes.Add(new QrCodeGroup("Exit", exit));
                                 IsDataLoaded = true;
                             });

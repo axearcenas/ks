@@ -477,25 +477,34 @@ namespace KeepSafe.Rest
             }
             if (response.IsSuccessStatusCode)
             {
-                if (response.Headers.Contains("access-token"))
+                if (response.Headers.Contains("access-token") )
                 {
                     var token = response.Headers.GetValues("access-token").FirstOrDefault();
-                    DataClass.GetInstance.Token = token;
-                    App.Log("Token: " + DataClass.GetInstance.Token);
+                    if (!string.IsNullOrEmpty(token))
+                    {
+                        DataClass.GetInstance.Token = token;
+                        App.Log("Token: " + DataClass.GetInstance.Token);
+                    }
                 }
 
                 if (response.Headers.Contains("client"))
                 {
                     var clientId = response.Headers.GetValues("client").FirstOrDefault();
-                    DataClass.GetInstance.ClientId = clientId;
-                    App.Log("ClientId: " + DataClass.GetInstance.ClientId);
+                    if (!string.IsNullOrEmpty(clientId))
+                    {
+                        DataClass.GetInstance.ClientId = clientId;
+                        App.Log("ClientId: " + DataClass.GetInstance.ClientId);
+                    }
                 }
 
                 if (response.Headers.Contains("uid"))
                 {
                     var uid = response.Headers.GetValues("uid").FirstOrDefault();
-                    DataClass.GetInstance.Uid = uid;
-                    App.Log("Uid: " + DataClass.GetInstance.Uid);
+                    if (!string.IsNullOrEmpty(uid))
+                    {
+                        DataClass.GetInstance.Uid = uid;
+                        App.Log("Uid: " + DataClass.GetInstance.Uid);
+                    }
                 }
 
                 var json = JObject.Parse(result);
