@@ -277,7 +277,7 @@ namespace KeepSafe
                         {
                             name = BusinessNameEntry.Text,
                             image = file.Path,
-                            business_type = EstablishmentTypeSelectedItem.Replace(" ","").Replace("&","And").ToSankeCase(),
+                            business_type = EstablishmentTypeSelectedItem.Replace(" ","").Replace("&","And").ToSnakeCase(),
                             contact_person = ContactPersonEntry.Text,
                             contact_number = MobileNumberEntry.Text,
                             address = AddressEntry.Text,

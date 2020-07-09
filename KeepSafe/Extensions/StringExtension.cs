@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -84,9 +85,27 @@ namespace KeepSafe.Extensions
             return Regex.Replace(Regex.Replace(str,@"(\P{Ll})(\P{Ll}\p{Ll})","$1 $2"),@"(\p{Ll})(\P{Ll})","$1 $2");
         }
 
-        public static string ToSankeCase(this string str)
+        public static string SplitByCapitalLetter(this string str)
+        {
+            return string.Concat(str.Select((x, i) => i > 0 && char.IsUpper(x) ? " " + x.ToString() : x.ToString()));
+        }
+
+        public static string ToSnakeCase(this string str)
         {
             return string.Concat(str.Select((x, i) => i > 0 && char.IsUpper(x) ? "_" + x.ToString() : x.ToString())).ToLower();
+        }
+
+        public static List<string> ToList<T>(this T @enum,bool isSplitByCapitalLetter = true)  where T: System.Enum
+        {
+            List<string> businessType = new List<string>();
+            foreach (T enumString in System.Enum.GetValues(typeof(T)))
+            {
+                if (isSplitByCapitalLetter)
+                    businessType.Add(enumString.ToString().SplitByCapitalLetter().Replace("And", "&"));
+                else
+                    businessType.Add(enumString.ToString());
+            }
+            return businessType;
         }
     }
 }

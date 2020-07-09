@@ -45,7 +45,7 @@ namespace KeepSafe.Models
             {
                 case BusinessType.Hotel:
                     return "building";
-                case BusinessType.GymOrYoga:
+                case BusinessType.GymAndHotel:
                     return "Hotel";
                 case BusinessType.Clinic:
                     return "Hotel";
@@ -55,29 +55,29 @@ namespace KeepSafe.Models
                     return "airplane";
                 case BusinessType.Boutique:
                     return "Hotel";
-                case BusinessType.BarOrRestaurant:
+                case BusinessType.BarAndRestaurant:
                     return "Hotel";
                 case BusinessType.Manufacturing:
                     return "Hotel";
-                case BusinessType.BankingOrRemittance:
+                case BusinessType.BankingAndRemittance:
                     return "Hotel";
-                case BusinessType.SpaOrPersonalCare:
+                case BusinessType.SpaAndPersonalCare:
                     return "Hotel";
                 case BusinessType.Government:
                     return "Hotel";
-                case BusinessType.TheatreOrMovieHouses:
+                case BusinessType.TheatreAndMovieHouses:
                     return "Hotel";
-                case BusinessType.ApplianceOrComputerStore:
+                case BusinessType.ApplianceAndComputerStore:
                     return "Hotel";
                 case BusinessType.DepartmentStore:
                     return "Hotel";
-                case BusinessType.GroceryOrSupermarket:
+                case BusinessType.GroceryAndSupermarket:
                     return "Hotel";
                 case BusinessType.Automobile:
                     return "bus";
                 case BusinessType.HomeImprovement:
                     return "Hotel";
-                case BusinessType.GraphicsOrPrinting:
+                case BusinessType.GraphicsAndPrinting:
                     return "Hotel";
             }
             return "Hotel";
