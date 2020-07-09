@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using KeepSafe.Enum;
@@ -268,9 +271,24 @@ namespace KeepSafe
                     fileReader.SetDelegate(this);
                     await fileReader.ReadFile("BusinessData.json", cts.Token, 0);
 #else
-                        restServices.SetDelegate(this);
-                        string content = JsonConvert.SerializeObject(new { current_password = PasswordEntry.Text });
-                        await restServices.PostRequestAsync($"{Constants.ROOT_API_URL}".AddAuth(), content, cts.Token, 0);
+                    string content = JsonConvert.SerializeObject(new
+                    {
+                        registration = new
+                        {
+                            name = BusinessNameEntry.Text,
+                            image = file.Path,
+                            business_type = EstablishmentTypeSelectedItem.Replace(" ","").Replace("&","And").ToSankeCase(),
+                            contact_person = ContactPersonEntry.Text,
+                            contact_number = MobileNumberEntry.Text,
+                            address = AddressEntry.Text,
+                            email = EmailAddressEntry.Text,
+                            password = PasswordEntry.Text
+                        }
+                    });
+                    restServices.SetDelegate(this);
+                    //await restServices.PostRequestAsync($"{ Constants.ROOT_URL }{ Constants.USER_URL }{ Constants.REGISTER_URL }", content, cts.Token, 0);
+                    Dictionary<string, Stream> images = new Dictionary<string, Stream>() { { "registration[image]", file.GetStreamWithImageRotatedForExternalStorage() } };
+                    await restServices.MultiPartFormRequestAsync($"{ Constants.ROOT_URL }{ Constants.BUSINESS_URL }{ Constants.REGISTER_URL }", content, images, cts.Token, HttpMethod.Post, 0);
 #endif
 
                 }
