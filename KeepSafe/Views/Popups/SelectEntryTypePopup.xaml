@@ -57,7 +57,7 @@
                         <DataTemplate>
                             <Grid Padding="0"
                                   Margin="0">
-                                <Button Text="{Binding Code}"
+                                <Button Text="{Binding QrCodeName}"
                                         TextColor="#463A6A"
                                         FontFamily="{Static res:FontResource.REGULAR}"
                                         FontSize="{local:ScaleFontSize Value=17}"
@@ -73,6 +73,9 @@
                                     <Button.Triggers>
                                         <DataTrigger TargetType="Button" Binding="{Binding IsSelected}" Value="true">
                                             <Setter Property="BackgroundColor" Value="#3498DB"/>
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Button" Binding="{Binding QrCodeName}" Value="">
+                                            <Setter Property="Text" Value="{Binding Code}"/>
                                         </DataTrigger>
                                     </Button.Triggers>
                                 </Button>
