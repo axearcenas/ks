@@ -34,6 +34,8 @@ namespace KeepSafe
         public static readonly string USERS_URL = "/users";
         public static readonly string USER_URL = "/user";
         public static readonly string UPDATE_DETAILS_URL = "/update_details";
+        public static readonly string UPDATE_URL = "/update";
+        public static readonly string CHANGE_PASSWORD_URL = "/change_password";
         public static readonly string UPDATE_PASSWORD_URL = "/update_password";
         public static readonly string BUSINESS_URL = "/business";
         public static readonly string LOGIN_URL = "/login";

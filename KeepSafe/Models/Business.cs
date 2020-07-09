@@ -34,7 +34,7 @@ namespace KeepSafe.Models
         public BusinessType BusinessType
         {
             get { return _BusinessType; }
-            set { _BusinessType = value; OnPropertyChanged(); }
+            set { _BusinessType = value; OnPropertyChanged(); OnPropertyChanged(nameof(BusinessTypeInt)); }
         }
 
         string _ContactPerson;
@@ -72,6 +72,11 @@ namespace KeepSafe.Models
             set { _QrCode = value; OnPropertyChanged(); }
         }
 
+        public int BusinessTypeInt { get { return (int)BusinessType; } }
+
+
+        public List<string> BusinessTypeList { get { return BusinessType.ToList(true); } }
+
         public bool Equals(Business business)
         {
             if (business == null)
@@ -79,19 +84,19 @@ namespace KeepSafe.Models
 
             bool IsEquals = true;
 
-            if (!business.Id.Equals(Id))
+            if (business.Id != Id)
                 IsEquals = false;
-            if (string.IsNullOrEmpty(business.Image) ? true : !business.Image.Equals(Image))
+            if (business.Image != Image)
                 IsEquals = false;
-            if (string.IsNullOrEmpty(business.ContactPerson) ? true : !business.ContactPerson.Equals(ContactPerson))
+            if (business.ContactPerson != ContactPerson)
                 IsEquals = false;
-            if (string.IsNullOrEmpty(business.ContactNumber) ? true : !business.ContactNumber.Equals(ContactNumber))
+            if (business.ContactNumber != ContactNumber)
                 IsEquals = false;
-            if (string.IsNullOrEmpty(business.Address) ? true : !(bool)business.Address?.Equals(Address))
+            if (business.Address != Address)
                 IsEquals = false;
-            if (string.IsNullOrEmpty(business.Email) ? true : !business.Email.Equals(Email))
+            if (business.Email != Email)
                 IsEquals = false;
-            if (string.IsNullOrEmpty(business.Name) ? true : !business.Email.Equals(Name))
+            if (business.BusinessType != BusinessType)
                 IsEquals = false;
             return IsEquals;
         }

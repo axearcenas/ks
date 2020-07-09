@@ -34,7 +34,8 @@
             <Setter Property="LeftButtonCommand" Value="{Binding BackButtonClickedCommand}"/>
         </DataTrigger>
         <DataTrigger TargetType="local:MainNavigationPage"
-                     Binding="{Binding IsChangePassword}" Value="true">
+                     Binding="{Binding IsChangePassword}"
+                     Value="true">
             <Setter Property="RightIconType" Value="FontAwesome5Solid"/>
             <Setter Property="RightIconColor" Value="Transparent"/>
             <Setter Property="RightIcon" Value=""/>

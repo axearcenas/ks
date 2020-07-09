@@ -9,7 +9,7 @@
                           NavBackgroundColor="#22144D"
                           LeftIcon=""
                           LeftIconType="FontAwesome5Solid"
-                          PageTitle="Profile"
+                          PageTitle="My Profile"
                           TitleFontColor="White"
                           TitleFontFamily="{Static res:FontResource.BOLD}"
                           TitleFontSize="{local:ScaleFontSize Value=21}"
@@ -22,14 +22,21 @@
                           Title="Profile"
                           IconImageSource="{Binding TabIcon}">
     <local:MainNavigationPage.Triggers>
-        <DataTrigger TargetType="local:MainNavigationPage" Binding="{Binding IsEdit}" Value="true">
+        <DataTrigger TargetType="local:MainNavigationPage"
+                     Binding="{Binding IsEdit}" Value="true">
             <Setter Property="RightIcon" Value="save"/>
             <Setter Property="LeftIcon" Value="BackIcon"/>
             <Setter Property="LeftIconType" Value="SVG"/>
             <Setter Property="LeftIconColor" Value="White"/>
             <Setter Property="LeftButtonCommand" Value="{Binding BackButtonClickedCommand}"/>
         </DataTrigger>
-        <DataTrigger TargetType="local:MainNavigationPage" Binding="{Binding IsChangePassword}" Value="true">
+        <DataTrigger TargetType="local:MainNavigationPage"
+                     Binding="{Binding IsChangePassword}"
+                     Value="true">
+            <Setter Property="RightIconType" Value="FontAwesome5Solid"/>
+            <Setter Property="RightIconColor" Value="Transparent"/>
+            <Setter Property="RightIcon" Value=""/>
+            <Setter Property="RightButtonCommand" Value=""/>
             <Setter Property="LeftIcon" Value="BackIcon"/>
             <Setter Property="LeftIconType" Value="SVG"/>
             <Setter Property="LeftIconColor" Value="White"/>
@@ -208,7 +215,7 @@
                         <Picker x:Name="EstablishmentPicker"
                                 Grid.Column="1"
                                 Grid.ColumnSpan="2"
-                                Title="Type of Establishment"
+                                Title="{Binding BusinessData.BusinessType,StringFormat='{0}'}"
                                 TitleColor="#B1AFB8"
                                 BackgroundColor="Transparent"
                                 TextColor="#B1AFB8"
@@ -216,12 +223,40 @@
                                 FontFamily="{Static res:FontResource.REGULAR}"
                                 FontSize="{local:ScaleFontSize Value=16}"
                                 Margin="{local:ScaleThickness Value='20,0,0,0'}"
-                                ItemsSource="{Binding BusinessData.BusinessTypeList}">
+                                ItemsSource="{Binding BusinessData.BusinessTypeList}"
+                                InputTransparent="True">
                             <Picker.Behaviors>
                                 <prism:EventToCommandBehavior Command="{Binding SelectedIndexChangedCommand}"
                                                               CommandParameter="{x:Reference EstablishmentPicker}"
                                                               EventName="SelectedIndexChanged"/>
                             </Picker.Behaviors>
+                            <Picker.Triggers>
+                                <DataTrigger TargetType="Picker" Binding="{Binding IsEdit}" Value="true">
+                                    <Setter Property="InputTransparent" Value="False"/>
+                                </DataTrigger>
+                            </Picker.Triggers>
+                            <!--<Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>Hotel</x:String>
+                                    <x:String>Gym &#x26; Yoga</x:String>
+                                    <x:String>Clinic</x:String>
+                                    <x:String>Hospital</x:String>
+                                    <x:String>Travel Agency</x:String>
+                                    <x:String>Boutique</x:String>
+                                    <x:String>Bar &#x26; Restaurant</x:String>
+                                    <x:String>Manufacturing</x:String>
+                                    <x:String>Banking &#x26; Remittance</x:String>
+                                    <x:String>Spa &#x26; Personal Care</x:String>
+                                    <x:String>Government</x:String>
+                                    <x:String>Theatre &#x26; Movie Houses</x:String>
+                                    <x:String>Appliance &#x26; Computer Store</x:String>
+                                    <x:String>Department Store</x:String>
+                                    <x:String>Grocery &#x26; Supermarket</x:String>
+                                    <x:String>Automobile</x:String>
+                                    <x:String>Home Improvement</x:String>
+                                    <x:String>Graphics &#x26; Printing</x:String>
+                                </x:Array>
+                            </Picker.ItemsSource>-->
                         </Picker>
                         <Label Text="chevron-down"
                                Grid.Column="2"
@@ -325,7 +360,8 @@
                                 VerticalOptions="Fill"
                                 WidthRequest="{local:ScaleWidth Value=58}"
                                 HorizontalOptions="End"
-                                Command="{Binding ShowPasswordCommand}">
+                                Command="{Binding ShowPasswordCommand}"
+                                CommandParameter="0">
                             <Button.Triggers>
                                 <DataTrigger TargetType="Button" Binding="{Binding PasswordEntry.IsPassword}" Value="false">
                                     <Setter Property="Text" Value="eye"/>
@@ -376,7 +412,8 @@
                                 WidthRequest="{local:ScaleWidth Value=58}"
                                 HorizontalOptions="End"
                                 IsVisible="{Binding IsPasswordButtonVisible}"
-                                Command="{Binding ShowPasswordCommand}">
+                                Command="{Binding ShowPasswordCommand}"
+                                CommandParameter="1">
                             <Button.Triggers>
                                 <DataTrigger TargetType="Button"
                                              Binding="{Binding NewPasswordEntry.IsPassword}"
