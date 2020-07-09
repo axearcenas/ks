@@ -41,6 +41,7 @@ namespace KeepSafe
         public static readonly string LOGIN_URL = "/login";
         public static readonly string REGISTER_URL = "/register";
         public static readonly string SCAN_HISTORIES_URL = "/scan_histories";
+        public static readonly string QR_CODES_URL = "/qr_codes";
 
         /// <summary>
         /// add '?' if first parameter or '&amp;' when not first paramameter

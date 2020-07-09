@@ -51,7 +51,7 @@ namespace KeepSafe.ViewModels
         Action<bool> ScanPageActiveAction;
 
         public UserCheckInPageViewModel(INavigationService navigationService)
-            : base (navigationService)
+            : base(navigationService)
         {
             BackCommand = new DelegateCommand(OnBackCommand_Execute);
             ConfirmCommand = new DelegateCommand(OnConfirmCommand_Execute);
@@ -138,7 +138,7 @@ namespace KeepSafe.ViewModels
                            }), cts.Token, 0);
 #else
                     restServices.SetDelegate(this);
-                    string content = JsonConvert.SerializeObject(new { scan_history = new { code = Qrcode, temparature = TemperatureEntry.Text } });
+                    string content = JsonConvert.SerializeObject(new { scan_history = new { code = Qrcode, temparature = TemperatureEntry.Text ?? "0" } });
                     await restServices.PostRequestAsync($"{Constants.ROOT_URL}{Constants.USER_URL}{Constants.SCAN_HISTORIES_URL}", content, cts.Token, 0, Constants.DEFAULT_AUTH);
 #endif
                     }

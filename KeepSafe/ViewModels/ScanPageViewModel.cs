@@ -195,8 +195,8 @@ namespace KeepSafe.ViewModels
                 
 #else
                 restServices.SetDelegate(this);
-                string content = JsonConvert.SerializeObject(new { scan_history= new { code } });
-                await restServices.PostRequestAsync($"{Constants.ROOT_URL}{Constants.USER_URL}{Constants.SCAN_HISTORIES_URL}", content, cts.Token, 0,Constants.DEFAULT_AUTH);
+                string content = JsonConvert.SerializeObject(new { scan_history= new { code ,qrcode = code} });
+                await restServices.PostRequestAsync($"{Constants.ROOT_URL}{( dataClass.LoginType == UserType.User ? Constants.USER_URL : Constants.BUSINESS_URL)}{Constants.SCAN_HISTORIES_URL}", content, cts.Token, dataClass.LoginType == UserType.User ? 0 : 1, Constants.DEFAULT_AUTH);
 #endif
             }
             catch (OperationCanceledException oce)
@@ -220,7 +220,7 @@ namespace KeepSafe.ViewModels
             {
                 switch (wsType)
                 {
-                    case 0:
+                    case 0: // user scan establishment response
                         if(jsonData.ContainsKey("data"))
                             Device.BeginInvokeOnMainThread(async () =>
                             {
@@ -243,22 +243,25 @@ namespace KeepSafe.ViewModels
                                 IsClicked = false;
                             });
                         break;
-                    case 1:
+                    case 1: // establishment scan user response
                         Device.BeginInvokeOnMainThread(async () =>
                         {
-                            if (jsonData.ContainsKey("message"))
+                            if (jsonData.ContainsKey("data"))
                             {
-                                PageDialogService?.DisplayAlertAsync("Scan Succesfully", jsonData["message"].ToString(), "Okay");
+                                if (jsonData.ContainsKey("message"))
+                                {
+                                    PageDialogService?.DisplayAlertAsync("Scan Succesfully", jsonData["message"].ToString(), "Okay");
+                                }
+                                INavigationParameters parameter = new NavigationParameters();
+                                parameter.Add("ScanPageActiveAction", ScanPageActive);
+                                if (jsonData["data"].ContainsKey("user"))
+                                    parameter.Add("User", jsonData["data"]["user"].ToObject<User>());
+
+                                await NavigationService.NavigateAsync(nameof(BusinessReceptionPage), parameter, useModalNavigation: true);
+                                SearchEntry.ClearText();
+                                IsScanning = true;
+                                IsClicked = false;
                             }
-
-                            INavigationParameters parameter = new NavigationParameters();                            
-                            if (jsonData.ContainsKey("user"))
-                                parameter.Add("User", jsonData["user"].ToObject<User>());
-
-                            await NavigationService.NavigateAsync(nameof(BusinessReceptionPage), parameter, useModalNavigation: true);
-                            SearchEntry.ClearText();
-                            IsScanning = true;
-                            IsClicked = false;
                         });
                     break;
                 }
