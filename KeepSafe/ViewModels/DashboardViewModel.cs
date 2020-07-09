@@ -7,6 +7,7 @@ using KeepSafe.Models;
 using KeepSafe.ViewModels.ViewViewModels;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Prism;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
@@ -14,7 +15,7 @@ using Xamarin.Forms;
 
 namespace KeepSafe.ViewModels
 {
-    public class DashboardViewModel : ViewModelBase, IFileConnector, IRestReceiver, INavigationAware
+    public class DashboardViewModel : ViewModelBase, IFileConnector, IRestReceiver, INavigationAware , IActiveAware
     {
         public DelegateCommand QRCodeButtonClickedCommand { get; set; }
         public DelegateCommand SearchCommand { get; set; }
@@ -52,10 +53,28 @@ namespace KeepSafe.ViewModels
         }
 
         string _FilterType = "All";
+
+        public event EventHandler IsActiveChanged;
+
         public string FilterType
         {
             get { return _FilterType; }
             set { SetProperty(ref _FilterType, value, nameof(FilterType)); }
+        }
+
+
+
+        bool _IsActive;
+        public bool IsActive
+        {
+            get { return _IsActive; }
+            set { SetProperty(ref _IsActive, value, nameof(IsActive)); RaiseIsActiveChanged(); }
+        }
+
+        protected virtual async void RaiseIsActiveChanged()
+        {
+            if(IsActive)
+                GetHistoryData();
         }
 
         public DashboardViewModel(INavigationService navigationService, IPageDialogService pageDialogService) : base(navigationService, pageDialogService)

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using KeepSafe.Extension;
 using KeepSafe.Helpers;
 
 namespace KeepSafe.Models
 {
-    public class QrCode : BaseNotify
+    public class QrCode : BaseNotify , ISelect
     {
         int _Id;
         public int Id
@@ -39,6 +40,13 @@ namespace KeepSafe.Models
         {
             get { return _Count; }
             set { _Count = value; OnPropertyChanged(); }
+        }
+
+        bool _IsSelected;
+        public bool IsSelected
+        {
+            get { return _IsSelected; }
+            set { _IsSelected = value; OnPropertyChanged(); }
         }
 
         public static QrCode Mock()

@@ -5,7 +5,8 @@
                    xmlns:local="clr-namespace:KeepSafe"
                    xmlns:res="clr-namespace:KeepSafe.Resources"
                    HasSystemPadding="True"
-                   BackgroundColor="{Static res:ColorResource.LOADING_BACKGROUNDCOLOR}">
+                   BackgroundColor="{Static res:ColorResource.LOADING_BACKGROUNDCOLOR}"
+                   x:Name="popupPage">
     <local:RGPopupPage.Content>
         <Frame Padding="0"
                Margin="0"
@@ -41,11 +42,12 @@
                        FontFamily="{Static res:FontResource.REGULAR}"
                        FontSize="{local:ScaleFontSize Value=17}"/>
 
-                <CollectionView Grid.Row="5"
+                <CollectionView x:Name="qrListCollectionView"
+                                Grid.Row="5"
                                 ItemsSource="{Binding QrCodes}"
                                 HorizontalOptions="CenterAndExpand"
                                 VerticalOptions="CenterAndExpand"
-                                HeightRequest="{local:ScaleHeight Value=179}"
+                                HeightRequest="{local:ScaleHeight Value=179}" 
                                 Margin="0">
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout Orientation="Vertical"
@@ -65,7 +67,14 @@
                                         BackgroundColor="Transparent"
                                         WidthRequest="{local:ScaleWidth Value=256}"
                                         HeightRequest="{local:ScaleHeight Value=53}"
+                                        Command="{Binding Source={Reference popupPage},Path=BindingContext.SelectedQrCodeCommand}"
+                                        CommandParameter="{Binding .}"
                                         HorizontalOptions="CenterAndExpand">
+                                    <Button.Triggers>
+                                        <DataTrigger TargetType="Button" Binding="{Binding IsSelected}" Value="true">
+                                            <Setter Property="BackgroundColor" Value="#3498DB"/>
+                                        </DataTrigger>
+                                    </Button.Triggers>
                                 </Button>
                             </Grid>
                         </DataTemplate>
