@@ -269,7 +269,9 @@
                             ItemsSource="{Binding ScanHistory}"
                             BackgroundColor="Transparent"
                             VerticalScrollBarVisibility="Never"
-                            Margin="{local:ScaleThickness Value='8,0,8,0'}">
+                            Margin="{local:ScaleThickness Value='8,0,8,0'}"
+                            RemainingItemsThreshold="1"
+                            RemainingItemsThresholdReachedCommand="{Binding ScanHistoryListTreshHoldCommand}">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Vertical"
                                        ItemSpacing="{local:ScaleHeight Value=5}"/>

@@ -526,7 +526,7 @@ namespace KeepSafe.Rest
                         if (response.StatusCode == HttpStatusCode.Unauthorized && json["status"] == null)
                             json.Add("status", 401);
 
-                        if (json["status"].ToString().Equals("401"))
+                        if (json["status"].ToString().Equals("401") && DataClass.GetInstance.LoginType != UserType.None)
                         {
                             Device.BeginInvokeOnMainThread(async () =>
                             {
