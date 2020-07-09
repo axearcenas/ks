@@ -14,7 +14,8 @@
                           PageTitle="QR Codes"
                           TitleFontColor="White"
                           TitleFontFamily="{Static res:FontResource.BOLD}"
-                          TitleFontSize="{local:ScaleFontSize Value=20}">
+                          TitleFontSize="{local:ScaleFontSize Value=20}"
+                          x:Name="rootPage">
     <local:MainNavigationPage.Content>
         <Grid RowSpacing="0"
               ColumnSpacing="0"
@@ -126,7 +127,9 @@
                             ItemsSource="{Binding ScanHistory}"
                             BackgroundColor="Transparent"
                             VerticalScrollBarVisibility="Never"
-                            Margin="{local:ScaleThickness Value='8,0,8,0'}">
+                            Margin="{local:ScaleThickness Value='8,0,8,0'}"
+                            RemainingItemsThreshold="1"
+                            RemainingItemsThresholdReachedCommand="{Binding ScanHistoryListTreshHoldCommand}">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Vertical"
                                        ItemSpacing="{local:ScaleHeight Value=5}"/>
@@ -168,28 +171,35 @@
                                                          WidthRequest="{local:ScaleWidth Value=35}"
                                                          HeightRequest="{local:ScaleHeight Value=35}"/>
                                 </Frame>
-                                <Label Text="{Binding Name}"
-                                       Grid.RowSpan="2"
+                                <Label Grid.RowSpan="2"
                                        Grid.Column="1"
                                        TextColor="#2C3E50"
                                        FontFamily="{Static res:FontResource.REGULAR}"
                                        FontSize="{local:ScaleFontSize Value=15}"
                                        HorizontalOptions="Start"
                                        VerticalOptions="Center"
-                                       Margin="{local:ScaleThickness Value='8,0,0,0'}"/>
+                                       Margin="{local:ScaleThickness Value='8,0,0,0'}">
+                                    <Label.Text>
+                                        <MultiBinding StringFormat="{}{0} {1}">
+                                            <Binding Path="FirstName"/>
+                                            <Binding Path="LastName"/>
+                                        </MultiBinding>
+                                    </Label.Text>
+                                </Label>
                                 <Button Grid.Row="0"
                                         Grid.Column="2"
-                                        Text="{Binding CheckingType}"
+                                        Text="{Binding BindingContext.ButtonText, Source={x:Reference Name=rootPage}}"
+                                        BackgroundColor="{Binding BindingContext.ButtonColor, Source={x:Reference Name=rootPage}}"
                                         TextColor="White"
                                         FontFamily="{Static res:FontResource.REGULAR}"
                                         FontSize="{local:ScaleFontSize Value=13}"
                                         InputTransparent="True"
-                                        BackgroundColor="{Binding CheckingTypeColor}"
                                         CornerRadius="{local:ScaleHeight Value=11}"
                                         WidthRequest="{local:ScaleWidth Value=79}"
                                         HeightRequest="{local:ScaleHeight Value=22}"
                                         HorizontalOptions="Start"
-                                        VerticalOptions="End"/>
+                                        VerticalOptions="End">
+                                </Button>
                                 <Label Text="{Binding ScanDate}"
                                        Grid.Row="1"
                                        Grid.Column="2"
