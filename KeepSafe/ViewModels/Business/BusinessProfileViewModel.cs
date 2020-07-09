@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net.Http;
 using System.Threading;
 using KeepSafe.Enum;
 using KeepSafe.Extensions;
@@ -28,9 +31,10 @@ namespace KeepSafe.ViewModels
         public DelegateCommand ChangePasswordTappedCommand { get; set; }
         public DelegateCommand LogoutTappedCommand { get; set; }
         public DelegateCommand<string> EntryFocusedCommand { get; set; }
+        public DelegateCommand<string> ShowPasswordCommand { get; set; }
 
-        public EntryViewModel PasswordEntry { get; } = new EntryViewModel() { Placeholder = "Password", PlaceholderColor = ColorResource.WHITE_COLOR, IsPassword = true };
-        public EntryViewModel NewPasswordEntry { get; } = new EntryViewModel() { Placeholder = "New Password", PlaceholderColor = ColorResource.WHITE_COLOR, IsPassword = true };
+        public EntryViewModel PasswordEntry { get; } = new EntryViewModel() { Placeholder = "Password", PlaceholderColor = Color.FromHex("#B1AFB8"), IsPassword = true };
+        public EntryViewModel NewPasswordEntry { get; } = new EntryViewModel() { Placeholder = "New Password", PlaceholderColor = Color.FromHex("#B1AFB8"), IsPassword = true };
 
         BusinessType _SelectedBusinessType;
         public BusinessType SelectedBusinessType
@@ -95,8 +99,22 @@ namespace KeepSafe.ViewModels
             LogoutTappedCommand = new DelegateCommand(OnLogoutTappedCommand_Execute);
             ChangePasswordTappedCommand = new DelegateCommand(OnChangePasswordLabelTapped);
             EntryFocusedCommand = new DelegateCommand<string>(OnEntryFocusedCommand_Execute);
+            ShowPasswordCommand = new DelegateCommand<string>(OnShowPasswordCommand_Execute);
 
             BusinessData.PropertyChanged += BusinessData_PropertyChanged;
+        }
+
+        private void OnShowPasswordCommand_Execute(string obj)
+        {
+            switch (obj)
+            {
+                case "0":// Current Password
+                    PasswordEntry.IsPassword = !PasswordEntry.IsPassword;
+                    break;
+                case "1":// New Password
+                    NewPasswordEntry.IsPassword = !NewPasswordEntry.IsPassword;
+                    break;
+            }
         }
 
         private void BusinessData_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -213,15 +231,31 @@ namespace KeepSafe.ViewModels
                             status = 200
                         }), cts.Token, 0);
 #else
+                        string content = JsonConvert.SerializeObject(
+                            new
+                            {
+                                    //business2 = BusinessData,
+                                    business = new
+                                {
+                                    name = BusinessData.Name,
+                                    image = BusinessData.Image,
+                                    business_type = SelectedBusinessType.ToString().Replace(" ", "").Replace("&", "And").ToSankeCase(),
+                                    contact_person = BusinessData.ContactPerson,
+                                    contact_number = BusinessData.ContactNumber,
+                                    address = BusinessData.Address,
+                                    email = BusinessData.Email
+                                }
+                            });
                         if (file == null)
                         {
                             restServices.SetDelegate(this);
-                            string content = JsonConvert.SerializeObject(new { data = BusinessData });
-                            await restServices.PostRequestAsync($"{Constants.ROOT_API_URL}".AddAuth(), content, cts.Token, 0);
+                            await restServices.PostRequestAsync($"{Constants.ROOT_URL}{Constants.BUSINESS_URL}{Constants.USERS_URL}{Constants.UPDATE_DETAILS_URL}".AddAuth(), content, cts.Token, 0);
                         }
                         else
                         {
-
+                            restServices.SetDelegate(this);
+                            Dictionary<string, Stream> images = new Dictionary<string, Stream>() { { "business[image]", file.GetStreamWithImageRotatedForExternalStorage() } };
+                            await restServices.MultiPartFormRequestAsync($"{Constants.ROOT_URL}{Constants.BUSINESS_URL}{Constants.USERS_URL}{Constants.UPDATE_DETAILS_URL}".AddAuth(), content, images, cts.Token, HttpMethod.Post, 0);
                         }
 #endif
 
@@ -278,8 +312,8 @@ namespace KeepSafe.ViewModels
                         }), cts.Token, 1);
 #else
                         restServices.SetDelegate(this);
-                        string content = JsonConvert.SerializeObject(new { data = BusinessData });
-                        await restServices.PostRequestAsync($"{Constants.ROOT_API_URL}".AddAuth(), content, cts.Token, 1);
+                        string content = JsonConvert.SerializeObject(new { user = new { current_password = PasswordEntry.Text, password = NewPasswordEntry.Text } });
+                        await restServices.PostRequestAsync($"{Constants.ROOT_URL}{Constants.BUSINESS_URL}{Constants.USERS_URL}{Constants.UPDATE_PASSWORD_URL}".AddAuth(), content, cts.Token, 1);
 #endif
 
                     }
@@ -306,22 +340,25 @@ namespace KeepSafe.ViewModels
                     case 0:
                         Device.BeginInvokeOnMainThread(async () =>
                         {
-                            //TODO save Business Here
+                            if (jsonData.ContainsKey("data"))
+                            {
+                                DataClass.GetInstance.Business = BusinessData;
+                                await Application.Current.SavePropertiesAsync();
+                                CanSaveEdit = false;
+                                IsEdit = false;
+                            }
                             if (jsonData.ContainsKey("message"))
                                 await PageDialogService.DisplayAlertAsync("Business Profile Updated!", jsonData["message"].ToString(), "Okay");
-                            DataClass.GetInstance.Business = BusinessData;
-                            await Application.Current.SavePropertiesAsync();
-                            CanSaveEdit = false;
-                            IsEdit = false;
                         });
                         break;
                     case 1:
                         Device.BeginInvokeOnMainThread(async () =>
                         {
-                            //TODO save new password Here
-                            if (jsonData.ContainsKey("message"))
-                                await PageDialogService.DisplayAlertAsync("Business Profile Updated!", jsonData["message"].ToString(), "Okay");
+                            PasswordEntry.ClearText();
+                            NewPasswordEntry.ClearText();
                             IsChangePassword = false;
+                            if (jsonData.ContainsKey("message"))
+                                await PageDialogService.DisplayAlertAsync("Business Password Updated!", jsonData["message"].ToString(), "Okay");
                         });
                         break;
                 }
@@ -332,9 +369,12 @@ namespace KeepSafe.ViewModels
 
         public void ReceiveError(string title, string error, int wsType)
         {
-            PageDialogService?.DisplayAlertAsync(title, error, "Okay");
-            IsClicked = false;
-            PopupHelper.RemoveLoading();
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                PopupHelper.RemoveLoading();
+                PageDialogService?.DisplayAlertAsync(title, error, "Okay");
+                IsClicked = false;
+            });
         }
     }
 }

@@ -29,7 +29,13 @@
             <Setter Property="LeftIconColor" Value="White"/>
             <Setter Property="LeftButtonCommand" Value="{Binding BackButtonClickedCommand}"/>
         </DataTrigger>
-        <DataTrigger TargetType="local:MainNavigationPage" Binding="{Binding IsChangePassword}" Value="true">
+        <DataTrigger TargetType="local:MainNavigationPage"
+                     Binding="{Binding IsChangePassword}"
+                     Value="true">
+            <Setter Property="RightIconType" Value="FontAwesome5Solid"/>
+            <Setter Property="RightIconColor" Value="Transparent"/>
+            <Setter Property="RightIcon" Value=""/>
+            <Setter Property="RightButtonCommand" Value=""/>
             <Setter Property="LeftIcon" Value="BackIcon"/>
             <Setter Property="LeftIconType" Value="SVG"/>
             <Setter Property="LeftIconColor" Value="White"/>
@@ -325,7 +331,8 @@
                                 VerticalOptions="Fill"
                                 WidthRequest="{local:ScaleWidth Value=58}"
                                 HorizontalOptions="End"
-                                Command="{Binding ShowPasswordCommand}">
+                                Command="{Binding ShowPasswordCommand}"
+                                CommandParameter="0">
                             <Button.Triggers>
                                 <DataTrigger TargetType="Button" Binding="{Binding PasswordEntry.IsPassword}" Value="false">
                                     <Setter Property="Text" Value="eye"/>
@@ -376,7 +383,8 @@
                                 WidthRequest="{local:ScaleWidth Value=58}"
                                 HorizontalOptions="End"
                                 IsVisible="{Binding IsPasswordButtonVisible}"
-                                Command="{Binding ShowPasswordCommand}">
+                                Command="{Binding ShowPasswordCommand}"
+                                CommandParameter="1">
                             <Button.Triggers>
                                 <DataTrigger TargetType="Button"
                                              Binding="{Binding NewPasswordEntry.IsPassword}"

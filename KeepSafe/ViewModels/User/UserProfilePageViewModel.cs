@@ -333,9 +333,6 @@ namespace KeepSafe.ViewModels
                        
                         Device.BeginInvokeOnMainThread(async () =>
                         {
-                            //TODO save USER Here
-                            if (jsonData.ContainsKey("message"))
-                                PageDialogService.DisplayAlertAsync("User Updated!", jsonData["message"].ToString(), "Okay");
                             if (jsonData.ContainsKey("data"))
                             { 
                                 User userData = JsonConvert.DeserializeObject<User>(jsonData["data"].ToString());
@@ -344,17 +341,18 @@ namespace KeepSafe.ViewModels
                                 CanSaveEdit = false;
                                 IsEdit = false;
                             }
+                            if (jsonData.ContainsKey("message"))
+                                PageDialogService.DisplayAlertAsync("User Profile Updated!", jsonData["message"].ToString(), "Okay");
                         });
                         break;
                     case 1:
                         Device.BeginInvokeOnMainThread(async () =>
                         {
-                            //TODO save new password Here
-                            if (jsonData.ContainsKey("message"))
-                                await PageDialogService.DisplayAlertAsync("User Updated!", jsonData["message"].ToString(), "Okay");
                             PasswordEntry.ClearText();
                             NewPasswordEntry.ClearText();
                             IsChangePassword = false;
+                            if (jsonData.ContainsKey("message"))
+                                await PageDialogService.DisplayAlertAsync("User Password Updated!", jsonData["message"].ToString(), "Okay");
                         });
                         break;
                 }
@@ -365,9 +363,12 @@ namespace KeepSafe.ViewModels
 
         public void ReceiveError(string title, string error, int wsType)
         {
-            PageDialogService?.DisplayAlertAsync(title, error, "Okay");
-            IsClicked = false;
-            PopupHelper.RemoveLoading();
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                PopupHelper.RemoveLoading();
+                PageDialogService?.DisplayAlertAsync(title, error, "Okay");
+                IsClicked = false;
+            });
         }
     }
 }

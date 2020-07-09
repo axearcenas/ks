@@ -89,8 +89,7 @@ namespace KeepSafe.ViewModels
 #else
                 //TODO GET HISTORY Rest Here
                 restServices.SetDelegate(this);
-                string url = $"{Constants.ROOT_URL}{Constants.USER_URL}{Constants.SCAN_HISTORIES_URL}{ ($"?type={(SelectedHistoryType == HistoryType.CheckIn ? "check_in" : "check_out")}") }";
-                await restServices.GetRequest(IsPagination ? MyScanHistoryPagination.Url : url ,  cts.Token, IsPagination ? 1 : 0,Constants.DEFAULT_AUTH);
+                await restServices.GetRequest($"{Constants.ROOT_URL}{Constants.USER_URL}{Constants.SCAN_HISTORIES_URL}" ,  cts.Token, 1,Constants.DEFAULT_AUTH);
 #endif
                 }
                 catch (OperationCanceledException ox) { App.Log($"StackTrace: {ox.StackTrace}\nMESSAGE: {ox.Message}"); IsClicked = false; PopupHelper.RemoveLoading(); }
