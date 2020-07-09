@@ -18,24 +18,41 @@ namespace KeepSafe.ViewModels
         public DelegateCommand BackButtonClickedCommand { get; set; }
         public DelegateCommand SearchCommand { get; set; }
 
-        ObservableCollection<BusinessScanHistory> _ScanHistory;
-        public ObservableCollection<BusinessScanHistory> ScanHistory
+        ObservableCollection<QrCodeScanHistory> _ScanHistory;
+        public ObservableCollection<QrCodeScanHistory> ScanHistory
         {
             get { return _ScanHistory; }
             set { SetProperty(ref _ScanHistory, value, nameof(ScanHistory)); }
         }
 
-        public QrCode _QrCode;
+        QrCode _QrCode;
         public QrCode QrCode
         {
             get { return _QrCode; }
             set { SetProperty(ref _QrCode, value, nameof(QrCode)); }
         }
 
+        public string ButtonText
+        {
+            get { return QrCode.CodeType == "in" ? "Check In" : "Check Out"; }
+        }
+        
+        public Color ButtonColor
+        {
+            get { return QrCode.CodeType == "in" ? Color.FromHex("#3498DB") : Color.FromHex("#E74C3C"); }
+        }
+
         public QRCodeUsersListViewModel(INavigationService navigationService) : base(navigationService)
         {
             BackButtonClickedCommand = new DelegateCommand(OnBackButtonClicked);
             SearchCommand = new DelegateCommand(OnSearch);
+        }
+
+        string _SearchText;
+        public string SearchText
+        {
+            get { return _SearchText; }
+            set { SetProperty(ref _SearchText, value, nameof(SearchText)); }
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -61,11 +78,11 @@ namespace KeepSafe.ViewModels
                 {
 #if DEBUG
                     fileReader.SetDelegate(this);
-                    await fileReader.ReadFile("EstablishmentScanHistory.json", cts.Token, 0);
+                    await fileReader.ReadFile("QRCodeUsersListSearch.json", cts.Token, 0);
 #else
                 //TODO GET HISTORY Rest Here
                 restServices.SetDelegate(this);
-                await restServices.GetRequest($"{Constants.ROOT_URL}{Constants.USER_URL}{Constants.SCAN_HISTORIES_URL}".AddAuth(), cts.Token, 0);
+                await restServices.GetRequest($"{Constants.ROOT_URL}{Constants.QR_CODES_URL}/{QrCode.Id}".AddAuth(), cts.Token, 0);
 #endif
                 }
                 catch (OperationCanceledException ox) { App.Log($"StackTrace: {ox.StackTrace}\nMESSAGE: {ox.Message}"); IsClicked = false; PopupHelper.RemoveLoading(); }
@@ -98,11 +115,11 @@ namespace KeepSafe.ViewModels
                 {
 #if DEBUG
                     fileReader.SetDelegate(this);
-                    await fileReader.ReadFile("QRCodeUsersListSearch.json", cts.Token, 1);
+                    await fileReader.ReadFile("QRCodeUsersListSearch.json", cts.Token, 0);
 #else
                     //TODO GET HISTORY Rest Here
                     restServices.SetDelegate(this);
-                    await restServices.GetRequest($"{Constants.ROOT_URL}{Constants.USER_URL}{Constants.SCAN_HISTORIES_URL}".AddAuth(), cts.Token, 1);
+                    await restServices.GetRequest($"{Constants.ROOT_URL}{Constants.QR_CODES_URL}/{QrCode.Id}?search={SearchText}".AddAuth(), cts.Token, 0);
 #endif
                 }
                 catch (OperationCanceledException ox) { App.Log($"StackTrace: {ox.StackTrace}\nMESSAGE: {ox.Message}"); IsClicked = false; PopupHelper.RemoveLoading(); }
@@ -119,13 +136,13 @@ namespace KeepSafe.ViewModels
                 switch (wsType)
                 {
                     case 0:
-                        if (jsonData.ContainsKey("data"))
+                        if (jsonData.ContainsKey("users"))
                         {
                             Device.BeginInvokeOnMainThread(() =>
                             {
                                 if (ScanHistory != null)
                                     ScanHistory = null;
-                                ScanHistory = JsonConvert.DeserializeObject<ObservableCollection<BusinessScanHistory>>(jsonData["data"].ToString());
+                                ScanHistory = JsonConvert.DeserializeObject<ObservableCollection<QrCodeScanHistory>>(jsonData["users"]["data"].ToString());
                             });
                         }
                         break;
@@ -136,7 +153,7 @@ namespace KeepSafe.ViewModels
                             {
                                 if (ScanHistory != null)
                                     ScanHistory = null;
-                                ScanHistory = JsonConvert.DeserializeObject<ObservableCollection<BusinessScanHistory>>(jsonData["users"].ToString());
+                                ScanHistory = JsonConvert.DeserializeObject<ObservableCollection<QrCodeScanHistory>>(jsonData["users"]["data"].ToString());
                             });
                         }
                         break;
