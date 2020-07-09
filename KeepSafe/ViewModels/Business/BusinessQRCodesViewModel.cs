@@ -99,13 +99,13 @@ namespace KeepSafe.ViewModels
                 switch (wsType)
                 {
                     case 0:                       
-                        if (jsonData.ContainsKey("entrance") || jsonData.ContainsKey("exit"))
+                        if (jsonData.ContainsKey("data"))
                         {
                             Device.BeginInvokeOnMainThread(() =>
                             {
-                                var entrance = JsonConvert.DeserializeObject<ObservableCollection<QrCode>>(jsonData["entrance"].ToString());
+                                var entrance = JsonConvert.DeserializeObject<ObservableCollection<QrCode>>(jsonData["data"]["entrance"].ToString());
                                 QrCodes.Add(new QrCodeGroup("Entrance", entrance));
-                                var exit = JsonConvert.DeserializeObject<ObservableCollection<QrCode>>(jsonData["exit"].ToString());
+                                var exit = JsonConvert.DeserializeObject<ObservableCollection<QrCode>>(jsonData["data"]["exit"].ToString());
                                 QrCodes.Add(new QrCodeGroup("Exit", exit));
                                 IsDataLoaded = true;
                             });

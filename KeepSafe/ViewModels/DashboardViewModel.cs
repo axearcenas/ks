@@ -146,7 +146,7 @@ namespace KeepSafe.ViewModels
                 {
 #if DEBUG
                     fileReader.SetDelegate(this);
-                    await fileReader.ReadFile("EstablishmentScanHistory.json", cts.Token, offset <= 0 ? 0 : 1);
+                    await fileReader.ReadFile("EstablishmentScanHistory.json", cts.Token, 0);
 #else
                        //TODO GET HISTORY Rest Here
                        restServices.SetDelegate(this);
