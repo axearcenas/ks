@@ -96,6 +96,7 @@
                         <ColumnDefinition Width="{local:ScaleGridWidth Value=35}"/>
                     </Grid.ColumnDefinitions>
                     <local:CustomEntry Placeholder="Search User"
+                                       Text="{Binding SearchText}"
                                        Grid.Column="0"
                                        PlaceholderColor="#05257A"
                                        TextColor="#05257A"

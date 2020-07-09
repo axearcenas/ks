@@ -38,6 +38,13 @@ namespace KeepSafe.ViewModels
             SearchCommand = new DelegateCommand(OnSearch);
         }
 
+        string _SearchText;
+        public string SearchText
+        {
+            get { return _SearchText; }
+            set { SetProperty(ref _SearchText, value, nameof(SearchText)); }
+        }
+
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
@@ -65,7 +72,7 @@ namespace KeepSafe.ViewModels
 #else
                 //TODO GET HISTORY Rest Here
                 restServices.SetDelegate(this);
-                await restServices.GetRequest($"{Constants.ROOT_URL}{Constants.USER_URL}{Constants.SCAN_HISTORIES_URL}".AddAuth(), cts.Token, 0);
+                await restServices.GetRequest($"{Constants.ROOT_URL}{Constants.QR_CODES_URL}/{QrCode.Id}".AddAuth(), cts.Token, 0);
 #endif
                 }
                 catch (OperationCanceledException ox) { App.Log($"StackTrace: {ox.StackTrace}\nMESSAGE: {ox.Message}"); IsClicked = false; PopupHelper.RemoveLoading(); }
@@ -102,7 +109,7 @@ namespace KeepSafe.ViewModels
 #else
                     //TODO GET HISTORY Rest Here
                     restServices.SetDelegate(this);
-                    await restServices.GetRequest($"{Constants.ROOT_URL}{Constants.USER_URL}{Constants.SCAN_HISTORIES_URL}".AddAuth(), cts.Token, 1);
+                    await restServices.GetRequest($"{Constants.ROOT_URL}{Constants.QR_CODES_URL}/{QrCode.Id}?search={SearchText}".AddAuth(), cts.Token, 1);
 #endif
                 }
                 catch (OperationCanceledException ox) { App.Log($"StackTrace: {ox.StackTrace}\nMESSAGE: {ox.Message}"); IsClicked = false; PopupHelper.RemoveLoading(); }
