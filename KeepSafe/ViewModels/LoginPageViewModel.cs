@@ -200,7 +200,6 @@ namespace KeepSafe.ViewModels
                         {
                             Device.BeginInvokeOnMainThread(async () =>
                             {
-                                //TODO save USER Here
                                 PopupHelper.RemoveLoading();
                                 if (UserType == UserType.User)
                                     dataClass.User = JsonConvert.DeserializeObject<User>(jsonData["data"].ToString());
@@ -217,6 +216,23 @@ namespace KeepSafe.ViewModels
                     break;
                 }
             }
+            else
+            {
+                switch (wsType)
+                {
+                    case 0:
+                        if (jsonData.ContainsKey("error"))
+                        {
+                            Device.BeginInvokeOnMainThread(async () =>
+                            {
+                                PopupHelper.RemoveLoading();
+                                await PageDialogService?.DisplayAlertAsync("Login Error", jsonData["error"].ToString(), "Okay");
+                            });
+                        }
+                        break;
+                }
+            }
+            PopupHelper.RemoveLoading();
             IsClicked = false;
         }
 
