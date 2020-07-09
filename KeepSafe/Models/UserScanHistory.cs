@@ -5,54 +5,37 @@ namespace KeepSafe.Models
 {
     public class UserScanHistory : BaseNotify
     {
-        int _Id;
-        public int Id
+        Business _Business;
+        public Business Business
         {
-            get { return _Id; }
-            set { _Id = value; OnPropertyChanged(); }
+            get { return _Business; }
+            set { _Business = value; OnPropertyChanged(); }
         }
 
-        string _PlateNumber;
-        public string PlateNumber
+        QrCode _QrCode;
+        public QrCode QrCode
         {
-            get { return _PlateNumber; }
-            set { _PlateNumber = value; OnPropertyChanged(); }
+            get { return _QrCode; }
+            set { _QrCode = value; OnPropertyChanged(); }
         }
 
-        string _Name;
-        public string Name
+        double _Temperature;
+        public double Temperature
         {
-            get { return _Name; }
-            set { _Name = value; OnPropertyChanged(); }
+            get { return _Temperature; }
+            set { _Temperature = value; OnPropertyChanged(); }
         }
 
-        string _Address;
-        public string Address
+        DateTime _ScanDate;
+        public DateTime ScanDate
         {
-            get { return _Address; }
-            set { _Address = value; OnPropertyChanged(); }
+            get { return _ScanDate; }
+            set { _ScanDate = value; OnPropertyChanged(); }
         }
 
-        DateTime _DateScanned;
-        public DateTime DateScanned
-        {
-            get { return _DateScanned; }
-            set { _DateScanned = value; OnPropertyChanged(); }
-        }
+        public HistoryType HistoryType { get { return QrCode == null ? HistoryType.CheckIn : QrCode.CodeType.Equals("check_in") ? HistoryType.CheckIn : HistoryType.CheckOut; } }
 
-        HistoryType _HistoryType;
-        public HistoryType HistoryType
-        {
-            get { return _HistoryType; }
-            set { _HistoryType = value; OnPropertyChanged(); }
-        }
-
-        BusinessType _BusinessType;
-        public BusinessType BusinessType
-        {
-            get { return _BusinessType; }
-            set { _BusinessType = value; OnPropertyChanged(); OnPropertyChanged(nameof(BusinessTypeIcon)); }
-        }
+        public BusinessType BusinessType { get { return Business == null ? BusinessType.Hotel : Business.BusinessType; } }
 
         public string BusinessTypeIcon { get{ return GetBusinessTypeIcon(BusinessType); } }
 

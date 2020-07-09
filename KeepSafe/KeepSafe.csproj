@@ -97,6 +97,8 @@
     <None Remove="Resources\Files\EstablishmentScanHistory.json" />
     <None Remove="Resources\Files\BusinessData.json" />
     <None Remove="Resources\SVG\InfoIcon.svg" />
+    <None Remove="Resources\Files\BusinessQRCodes.json" />
+    <None Remove="Resources\Files\QRCodeUsersListSearch.json" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Files\CustomAlert.json" />
@@ -121,6 +123,8 @@
     <EmbeddedResource Include="Resources\Files\EstablishmentScanHistory.json" />
     <EmbeddedResource Include="Resources\Files\BusinessData.json" />
     <EmbeddedResource Include="Resources\SVG\InfoIcon.svg" />
+    <EmbeddedResource Include="Resources\Files\BusinessQRCodes.json" />
+    <EmbeddedResource Include="Resources\Files\QRCodeUsersListSearch.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Views\HomePage.xaml.cs">

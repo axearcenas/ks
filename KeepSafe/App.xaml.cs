@@ -184,6 +184,8 @@ namespace KeepSafe
             containerRegistry.RegisterForNavigation<BusinessProfilePage, BusinessProfileViewModel>();
             containerRegistry.RegisterForNavigation<BusinessReceptionPage, BusinessReceptionViewModel>();
             containerRegistry.RegisterForNavigation<SelectEntryTypePopup, SelectEntryTypeViewModel>();
+            containerRegistry.RegisterForNavigation<BusinessQRCodesPage, BusinessQRCodesViewModel>();
+            containerRegistry.RegisterForNavigation<QRCodeUsersListPage, QRCodeUsersListViewModel>();
 
             //NOTE: Views that has a view model in ViewModel Folder
             //containerRegistry.RegisterForNavigation<GetStartedPage>();

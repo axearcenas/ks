@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<local:MainNavigationPage xmlns="http://xamarin.com/schemas/2014/forms"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          x:Class="KeepSafe.BusinessQRCodesPage"
+                          xmlns:local="clr-namespace:KeepSafe"
+                          xmlns:res="clr-namespace:KeepSafe.Resources"
+                          xmlns:prism="http://prismlibrary.com"
+                          NavigationPage.HasNavigationBar="False"
+                          NavBackgroundColor="#22144D"
+                          LeftIcon="BackIcon"
+                          LeftIconType="SVG"
+                          LeftIconColor="White"
+                          LeftButtonCommand="{Binding BackButtonClickedCommand}"
+                          PageTitle="QR Codes"
+                          TitleFontColor="White"
+                          TitleFontFamily="{Static res:FontResource.BOLD}"
+                          TitleFontSize="{local:ScaleFontSize Value=20}">
+    <local:MainNavigationPage.Resources>
+        <Style TargetType="Frame" x:Key="SelectedColor">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="Transparent" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </local:MainNavigationPage.Resources>
+    <local:MainNavigationPage.Content>
+        <Grid Margin="0"
+              Padding="0"
+              RowSpacing="0"
+              ColumnSpacing="0"
+              BackgroundColor="#ECF0F1">
+            <CollectionView x:Name="ScannedUserList"
+                            IsGrouped="True"
+                            ItemsSource="{Binding QrCodes}"
+                            VerticalScrollBarVisibility="Never"
+                            Margin="{local:ScaleThickness Value='20,0,20,0'}"
+                            SelectionMode="Single"
+                            SelectionChangedCommand="{Binding QRCodeSelectedCommand}"
+                            SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference ScannedUserList}}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical"
+                                        ItemSpacing="{local:ScaleHeight Value=5}"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <Label Text="{Binding Type}"
+                               TextColor="#05257A"
+                               FontSize="{local:ScaleFontSize Value=20}"
+                               FontFamily="{Static res:FontResource.REGULAR}"
+                               BackgroundColor="Transparent"
+                               HorizontalTextAlignment="Start"
+                               Margin="{local:ScaleThickness Value='0,14,0,14'}"/>
+                    </DataTemplate>
+                </CollectionView.GroupHeaderTemplate>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="0"
+                               Margin="0"
+                               IsClippedToBounds="True"
+                               CornerRadius="{local:ScaleHeight Value=5}"
+                               BackgroundColor="Transparent"
+                               Style="{StaticResource SelectedColor}">
+                            <Grid RowSpacing="0"
+                                    ColumnSpacing="0"
+                                    Padding="0"                              
+                                    BackgroundColor="White"
+                                    HeightRequest="{local:ScaleHeight Value=70}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="{local:ScaleGridWidth Value=68}"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="{local:ScaleGridWidth Value=101}"/>
+                                </Grid.ColumnDefinitions>                                    
+                                <local:FFCachedImage Grid.Column="0"
+                                                        CachedImageSource="{Binding Image}"
+                                                        IsForceDownload="true"
+                                                        Aspect="AspectFit"
+                                                        HorizontalOptions="End"
+                                                        VerticalOptions="Center"
+                                                        WidthRequest="{local:ScaleWidth Value=58}"
+                                                        HeightRequest="{local:ScaleHeight Value=58}"/>
+                                <Label Text="{Binding Code}"
+                                        Grid.Column="1"
+                                        TextColor="#05257A"
+                                        FontFamily="{Static res:FontResource.LIGHT}"
+                                        FontSize="{local:ScaleFontSize Value=18}"
+                                        HorizontalOptions="Start"
+                                        VerticalOptions="Center"
+                                        Margin="{local:ScaleThickness Value='6,0,0,0'}"/>
+                                <Button Grid.Column="2"
+                                        Text="{Binding Count, StringFormat='{}{0:N0}'}"
+                                        TextColor="White"
+                                        FontFamily="{Static res:FontResource.REGULAR}"
+                                        FontSize="{local:ScaleFontSize Value=13}"
+                                        InputTransparent="True"
+                                        BackgroundColor="#3498DB"
+                                        CornerRadius="{local:ScaleHeight Value=12}"
+                                        WidthRequest="{local:ScaleWidth Value=89}"
+                                        HeightRequest="{local:ScaleHeight Value=24}"
+                                        HorizontalOptions="Start"
+                                        VerticalOptions="Center">
+                                    <Button.Triggers>
+                                        <DataTrigger TargetType="Button" Binding="{Binding CodeType}" Value="in">
+                                            <Setter Property="BackgroundColor" Value="#3498DB"/>
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Button" Binding="{Binding CodeType}" Value="out">
+                                            <Setter Property="BackgroundColor" Value="#E74C3C"/>
+                                        </DataTrigger>
+                                    </Button.Triggers>
+                                </Button>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>        
+    </local:MainNavigationPage.Content>
+</local:MainNavigationPage>

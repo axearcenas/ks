@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using KeepSafe.Helpers;
 
 namespace KeepSafe.Models
@@ -33,6 +34,13 @@ namespace KeepSafe.Models
             set { _CodeType = value; OnPropertyChanged(); }
         }
 
+        int _Count;
+        public int Count
+        {
+            get { return _Count; }
+            set { _Count = value; OnPropertyChanged(); }
+        }
+
         public static QrCode Mock()
         {
             string code = RandomizerHelper.GetRandomString(8);
@@ -43,6 +51,16 @@ namespace KeepSafe.Models
                 Code = code,
                 CodeType = RandomizerHelper.GetRandomBoolean() ? "check_out" : "check_in" // check_in
             };
+        }
+    }
+
+    public class QrCodeGroup : ObservableCollection<QrCode>
+    {
+        public string Type { get; private set; }
+
+        public QrCodeGroup(string type, ObservableCollection<QrCode> qrCodes) : base(qrCodes)
+        {
+            Type = type;
         }
     }
 }

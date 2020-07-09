@@ -67,7 +67,8 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="{local:ScaleGridWidth Value=35}"/>
                     </Grid.ColumnDefinitions>
-                    <local:CustomEntry Placeholder="Search User"
+                    <local:CustomEntry Text="{Binding SearchText}"
+                                       Placeholder="Search User"
                                        Grid.Column="0"
                                        PlaceholderColor="#05257A"
                                        TextColor="#05257A"
@@ -75,7 +76,8 @@
                                        FontFamily="{Static res:FontResource.REGULAR}"
                                        HorizontalOptions="FillAndExpand"
                                        HorizontalTextAlignment="Start"
-                                       Margin="{local:ScaleThickness Value='30,0,0,0'}"/>
+                                       Margin="{local:ScaleThickness Value='30,0,0,0'}"
+                                       ReturnCommand="{Binding SearchCommand}"/>
                     <local:FFSVGImage Grid.Column="1"
                                       Source="{local:FFSVGImageSource ImageName=SearchIcon}"
                                       Tint="#05257A"
@@ -84,7 +86,7 @@
                                       WidthRequest="{local:ScaleWidth Value=16}"
                                       HeightRequest="{local:ScaleHeight Value=16}"/>
                     <Button Grid.Column="1"
-                            Command="{Binding SearchButtonClickedCommand}"
+                            Command="{Binding SearchCommand}"
                             BackgroundColor="Transparent"
                             HorizontalOptions="FillAndExpand"
                             VerticalOptions="FillAndExpand"/>
