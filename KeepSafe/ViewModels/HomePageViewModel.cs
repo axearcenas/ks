@@ -57,6 +57,7 @@ namespace KeepSafe.ViewModels
                 IsClicked = true;
                 INavigationParameters keyValuePairs = new NavigationParameters();
                 keyValuePairs.Add("ScanHistoryDetails", userScanHistory);
+                keyValuePairs.Add("IsCheckIn", SelectedHistoryType == HistoryType.CheckIn);
                 IsFromPopup = true;
                 await NavigationService.NavigateAsync(nameof(UserScanHistoryDetails), keyValuePairs);
                 IsClicked = false;
