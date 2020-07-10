@@ -62,8 +62,6 @@ namespace KeepSafe.ViewModels
             set { SetProperty(ref _FilterType, value, nameof(FilterType)); }
         }
 
-
-
         bool _IsActive;
         public bool IsActive
         {
@@ -76,6 +74,8 @@ namespace KeepSafe.ViewModels
             if(IsActive)
                 GetHistoryData();
         }
+
+        bool isVerified;
 
         public DashboardViewModel(INavigationService navigationService, IPageDialogService pageDialogService) : base(navigationService, pageDialogService)
         {
@@ -94,14 +94,14 @@ namespace KeepSafe.ViewModels
             }
         }
 
-        private void OnFilterButtonClicked()
+        private async void OnFilterButtonClicked()
         {
             var navigationParams = new NavigationParameters
             {
                 { "FilterType", FilterType }
             };
 
-            NavigationService.NavigateAsync("ScanHistoryFilter", navigationParams);
+            await NavigationService.NavigateAsync("ScanHistoryFilter", navigationParams);
         }
 
         private async void OnSearch()
@@ -119,19 +119,22 @@ namespace KeepSafe.ViewModels
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
-        {
+        {            
             GetHistoryData();
             if (parameters.ContainsKey("FilterType"))
             {
                 FilterType = parameters.GetValue<string>("FilterType");
             }
             base.OnNavigatingTo(parameters);
+
+            //TODO improve this function
+            if(!isVerified)
+            {
+                NavigationService.NavigateAsync("DashboardAlertPopup");
+                isVerified = true;
+            }            
         }
 
-        public void OnNavigatedFrom(INavigationParameters parameters)
-        {
-            
-        }
 
         private async void GetHistoryData(bool isPagination = false)
         {

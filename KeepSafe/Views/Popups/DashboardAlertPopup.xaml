@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<local:RGPopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                   x:Class="KeepSafe.DashboardAlertPopup"
+                   xmlns:local="clr-namespace:KeepSafe"
+                   xmlns:res="clr-namespace:KeepSafe.Resources"
+                   CloseWhenBackgroundIsClicked="True"
+                   BackgroundColor="{Static res:ColorResource.LOADING_BACKGROUNDCOLOR}">
+    <local:RGPopupPage.Content>
+        <Frame Padding="0"
+               Margin="0"
+               IsClippedToBounds="True"
+               CornerRadius="{local:ScaleHeight Value=5}"
+               HorizontalOptions="CenterAndExpand"
+               VerticalOptions="CenterAndExpand"
+               HasShadow="True"
+               HeightRequest="{local:ScaleHeight Value=240}"
+               WidthRequest="{local:ScaleWidth Value=280}">
+            <Grid RowSpacing="0"
+                  ColumnSpacing="0"
+                  Padding="0"
+                  Margin="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=36}"/>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=60}"/>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=25}"/>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=38}"/>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=15}"/>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=40}"/>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=26}"/>
+                </Grid.RowDefinitions>
+
+                <Label Text="info-circle"
+                       Grid.Row="1"
+                       TextColor="#66000000"
+                       FontFamily="{Static res:FontResource.FONTAWESOME5_SOLID}"
+                       FontSize="{local:ScaleFontSize Value=60}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       VerticalTextAlignment="Center"/>
+                <Label Text="Log in to your web admin to&#10;continue using the app."
+                       Grid.Row="3"
+                       TextColor="#000000"
+                       FontFamily="{Static res:FontResource.REGULAR}"
+                       FontSize="{local:ScaleFontSize Value=16}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       HorizontalTextAlignment="Center"/>
+                <Button Grid.Row="5"
+                        Text="Go"
+                        TextColor="#FFFFFF"
+                        FontFamily="{Static res:FontResource.REGULAR}"
+                        FontSize="{local:ScaleFontSize Value=20}"
+                        BackgroundColor="#3498DB"
+                        CornerRadius="{local:ScaleHeight Value=20}"
+                        WidthRequest="{local:ScaleWidth Value=120}"
+                        HeightRequest="{local:ScaleHeight Value=40}"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Command="{Binding GoButtonClickedCommand}"/>
+            </Grid>
+        </Frame>
+    </local:RGPopupPage.Content>
+</local:RGPopupPage>
