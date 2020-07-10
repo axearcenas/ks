@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<local:RGPopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KeepSafe.Views.Popups.UserScanHistoryDetails"
+             xmlns:local="clr-namespace:KeepSafe"
+             xmlns:res="clr-namespace:KeepSafe.Resources"
+             HasSystemPadding="True"
+             BackgroundColor="{Static res:ColorResource.LOADING_BACKGROUNDCOLOR}"
+             x:Name="popupPage">
+    <Frame Padding="0"
+           Margin="0"
+           IsClippedToBounds="True"
+           CornerRadius="{local:ScaleHeight Value=5}"
+           HasShadow="False"
+           HorizontalOptions="Center"
+           VerticalOptions="Center">
+        <Grid RowSpacing="0"
+              ColumnSpacing="0"
+              HeightRequest="{local:ScaleHeight Value=295}"
+              WidthRequest="{local:ScaleWidth Value=280}"
+              RowDefinitions="{local:ScaleRowDefinition Value='40,70,29,32,26,39,*'}"
+              BackgroundColor="White">
+            <Label Grid.Row="0"
+                   Text="Check In Info"
+                   TextColor="{Static res:ColorResource.BLACK_COLOR}"
+                   FontSize="{local:ScaleFontSize Value=20}"
+                   FontFamily="{Static res:FontResource.REGULAR}"
+                   HorizontalOptions="Center"
+                   VerticalOptions="End"/>
+
+            <Label Grid.Row="1"
+                   Text="{Binding ScanHistoryData.BusinessTypeIcon}"
+                   TextColor="{Static res:ColorResource.MAIN_DARK_THEME_COLOR}"
+                   FontSize="{local:ScaleFontSize Value=58}"
+                   FontFamily="{Static res:FontResource.FONTAWESOME5_SOLID}"
+                   HorizontalOptions="Center"
+                   VerticalOptions="End"/>
+            
+            <Label Grid.Row="2"
+                   Text="{Binding ScanHistoryData.Business.BusinessType}"
+                   TextColor="{Static res:ColorResource.BLACK_COLOR}"
+                   FontSize="{local:ScaleFontSize Value=20}"
+                   FontFamily="{Static res:FontResource.BOLD}"
+                   HorizontalOptions="Center"
+                   VerticalOptions="End"/>
+
+            
+            <Label Grid.Row="3"
+                   Text="{Binding ScanHistoryData.Business.Name}"
+                   TextColor="{Static res:ColorResource.BLACK_COLOR}"
+                   FontSize="{local:ScaleFontSize Value=20}"
+                   FontFamily="{Static res:FontResource.BOLD}"
+                   HorizontalOptions="Center"
+                   VerticalOptions="End"/>
+
+            
+            <Label Grid.Row="4"
+                   Text="{Binding ScanHistoryData.Temperature}"
+                   TextColor="{Static res:ColorResource.BLACK_COLOR}"
+                   FontSize="{local:ScaleFontSize Value=20}"
+                   FontFamily="{Static res:FontResource.BOLD}"
+                   HorizontalOptions="Center"
+                   VerticalOptions="End"/>
+
+            <Label Grid.Row="5"
+                   Text="calendar-alt"
+                   TextColor="{Static res:ColorResource.MAIN_BLACK_COLOR}"
+                   FontSize="{local:ScaleFontSize Value=17}"
+                   FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"
+                   Margin="{local:ScaleThickness Value='40,0,0,0'}"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"/>
+            <Label Grid.Row="5"
+                   Text="{Binding ScanHistoryData.ScanDate, StringFormat='{0:MM/dd/yy}'}"
+                   TextColor="{Static res:ColorResource.MAIN_BLACK_COLOR}"
+                   FontSize="{local:ScaleFontSize Value=15}"
+                   FontFamily="{Static res:FontResource.REGULAR}"
+                   Margin="{local:ScaleThickness Value='72,0,0,0'}"                    
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"/>
+
+            <Label Grid.Row="5"
+                   Text="clock"
+                   TextColor="{Static res:ColorResource.MAIN_BLACK_COLOR}"
+                   FontSize="{local:ScaleFontSize Value=17}"
+                   FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"                    
+                   Margin="{local:ScaleThickness Value='0,0,109,0'}"                    
+                   HorizontalOptions="End"
+                   VerticalOptions="Center"/>
+            <Label Grid.Row="5"
+                   Text="{Binding ScanHistoryData.ScanDate, StringFormat='{0:H:mm tt}'}"
+                   TextColor="{Static res:ColorResource.MAIN_BLACK_COLOR}"
+                   FontSize="{local:ScaleFontSize Value=15}"
+                   FontFamily="{Static res:FontResource.REGULAR}"
+                   Margin="{local:ScaleThickness Value='0,0,30,0'}"                                       
+                   HorizontalOptions="End"
+                   VerticalOptions="Center"/>
+            <Button Grid.Row="6" Text="Okay"
+                    TextColor="{Static res:ColorResource.WHITE_COLOR}"
+                    FontSize="{local:ScaleFontSize Value=17}"
+                    FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"
+                    BackgroundColor="{Static res:ColorResource.MAIN_BUTTON_COLOR}"
+                    HeightRequest="{local:ScaleHeight Value=40}"
+                    WidthRequest="{local:ScaleWidth Value=130}"
+                    CornerRadius="{local:ScaleHeight Value=20}"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Start"
+                    Command="{Binding OkayCommand}"
+                    Margin="{local:ScaleThickness Value='0,4,0,0'}" />
+        </Grid>
+    </Frame>
+</local:RGPopupPage>

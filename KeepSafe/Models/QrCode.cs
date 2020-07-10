@@ -42,6 +42,13 @@ namespace KeepSafe.Models
             set { _Count = value; OnPropertyChanged(); }
         }
 
+        string _QrCodeName;
+        public string QrCodeName
+        {
+            get { return _QrCodeName; }
+            set { _QrCodeName = value; OnPropertyChanged(); }
+        }
+
         bool _IsSelected;
         public bool IsSelected
         {

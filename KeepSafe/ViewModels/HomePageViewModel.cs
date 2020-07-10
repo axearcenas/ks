@@ -6,7 +6,9 @@ using KeepSafe.Enum;
 using KeepSafe.Helpers;
 using KeepSafe.Helpers.FileReader;
 using KeepSafe.Models;
+using KeepSafe.ViewModels.PopupsViewModel;
 using KeepSafe.Views;
+using KeepSafe.Views.Popups;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Prism.Commands;
@@ -21,6 +23,7 @@ namespace KeepSafe.ViewModels
         public DelegateCommand<object> HistoryCommand { get; set; }
         public DelegateCommand PaginationCommand { get; set; }
         public DelegateCommand MyQRCommand { get; set; }
+        public DelegateCommand<object> SelectedHistoryCommand { get; set; }
 
         HistoryType _SelectedHistoryType;
         public HistoryType SelectedHistoryType
@@ -36,6 +39,7 @@ namespace KeepSafe.ViewModels
         }
 
         Pagination MyScanHistoryPagination;
+        bool IsFromPopup = false;
 
         public HomePageViewModel(INavigationService navigationService, IPageDialogService pageDialogService)
             : base(navigationService, pageDialogService)
@@ -43,11 +47,32 @@ namespace KeepSafe.ViewModels
             HistoryCommand = new DelegateCommand<object>(OnHistoryCommand_Execute);
             MyQRCommand = new DelegateCommand(OnMyQRCommand_Execute);
             PaginationCommand = new DelegateCommand(OnPaginationCommand_Execute);
+            SelectedHistoryCommand = new DelegateCommand<object>(OnSelectedHistoryCommand_Execute);
+        }
+
+        private async void OnSelectedHistoryCommand_Execute(object obj)
+        {
+            if(!IsClicked && obj is UserScanHistory userScanHistory)
+            {
+                IsClicked = true;
+                INavigationParameters keyValuePairs = new NavigationParameters();
+                keyValuePairs.Add("ScanHistoryDetails", userScanHistory);
+                IsFromPopup = true;
+                await NavigationService.NavigateAsync(nameof(UserScanHistoryDetails), keyValuePairs);
+                IsClicked = false;
+            }
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            GetHistoryData();
+            if (!IsFromPopup)
+            {
+                GetHistoryData();
+            }
+            else
+            {
+                IsFromPopup = false;
+            }
             base.OnNavigatingTo(parameters);
         }
 

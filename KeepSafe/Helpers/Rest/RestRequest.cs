@@ -138,6 +138,9 @@ namespace KeepSafe.Rest
                                 client.DefaultRequestHeaders.Add("access-token", DataClass.GetInstance.Token);
                                 client.DefaultRequestHeaders.Add("client", DataClass.GetInstance.ClientId);
                                 client.DefaultRequestHeaders.Add("uid", DataClass.GetInstance.Uid);
+                                App.Log("Request Header [access-token]: " + DataClass.GetInstance.Token);
+                                App.Log("Request Header [client]: " + DataClass.GetInstance.ClientId);
+                                App.Log("Request Header [uid]: " + DataClass.GetInstance.Uid);
                                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authHeader);
                             }
 
@@ -203,6 +206,9 @@ namespace KeepSafe.Rest
                                 client.DefaultRequestHeaders.Add("access-token", DataClass.GetInstance.Token);
                                 client.DefaultRequestHeaders.Add("client", DataClass.GetInstance.ClientId);
                                 client.DefaultRequestHeaders.Add("uid", DataClass.GetInstance.Uid);
+                                App.Log("Request Header [access-token]: " + DataClass.GetInstance.Token);
+                                App.Log("Request Header [client]: " + DataClass.GetInstance.ClientId);
+                                App.Log("Request Header [uid]: " + DataClass.GetInstance.Uid);
                                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authHeader);
                             }
 
@@ -270,6 +276,9 @@ namespace KeepSafe.Rest
                                 client.DefaultRequestHeaders.Add("access-token", DataClass.GetInstance.Token);
                                 client.DefaultRequestHeaders.Add("client", DataClass.GetInstance.ClientId);
                                 client.DefaultRequestHeaders.Add("uid", DataClass.GetInstance.Uid);
+                                App.Log("Request Header [access-token]: " + DataClass.GetInstance.Token);
+                                App.Log("Request Header [client]: " + DataClass.GetInstance.ClientId);
+                                App.Log("Request Header [uid]: " + DataClass.GetInstance.Uid);
                                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authHeader);
                             }
 
@@ -330,6 +339,9 @@ namespace KeepSafe.Rest
                                 client.DefaultRequestHeaders.Add("access-token", DataClass.GetInstance.Token);
                                 client.DefaultRequestHeaders.Add("client", DataClass.GetInstance.ClientId);
                                 client.DefaultRequestHeaders.Add("uid", DataClass.GetInstance.Uid);
+                                App.Log("Request Header [access-token]: " + DataClass.GetInstance.Token);
+                                App.Log("Request Header [client]: " + DataClass.GetInstance.ClientId);
+                                App.Log("Request Header [uid]: " + DataClass.GetInstance.Uid);
                                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authHeader);
                             }
 
@@ -385,6 +397,17 @@ namespace KeepSafe.Rest
                             var uri = new Uri(url);
                             var json = JObject.Parse(jsonString);
                             var multipartFormData = new MultipartFormDataContent();
+
+                            if (!string.IsNullOrEmpty(authHeader))
+                            {
+                                client.DefaultRequestHeaders.Add("access-token", DataClass.GetInstance.Token);
+                                client.DefaultRequestHeaders.Add("client", DataClass.GetInstance.ClientId);
+                                client.DefaultRequestHeaders.Add("uid", DataClass.GetInstance.Uid);
+                                App.Log("Request Header [access-token]: " + DataClass.GetInstance.Token);
+                                App.Log("Request Header [client]: " + DataClass.GetInstance.ClientId);
+                                App.Log("Request Header [uid]: " + DataClass.GetInstance.Uid);
+                                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authHeader);
+                            }
 
                             foreach (var keyValuePair in json)
                             {

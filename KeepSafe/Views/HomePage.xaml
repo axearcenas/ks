@@ -15,7 +15,8 @@
                           StatusBarColor="Light"
                           BackgroundColor="#BE5869"                          
                           Title="Home"
-                          IconImageSource="HomeIcon">
+                          IconImageSource="HomeIcon"
+                          x:Name="mainViewPage">
     <local:MainNavigationPage.Resources>
         <ResourceDictionary>
             <!--<Style x:Key="ButtonStyle" TargetType="Button">
@@ -28,6 +29,7 @@
                 <Setter Property="FontFamily" Value="{Static res:FontResource.REGULAR}"/>
                 <Setter Property="Margin" Value="{local:ScaleThickness Value='6,0'}"/>
                 <Setter Property="HorizontalOptions" Value="Start"/>
+                <Setter Property="InputTransparent" Value="True"/>
             </Style>
             <Style x:Key="ListValueButtonStyle" TargetType="Button">
                 <Setter Property="Grid.Column" Value="1"/>
@@ -129,69 +131,80 @@
                            CornerRadius="{local:ScaleHeight Value=5}"
                            IsClippedToBounds="True"
                            BackgroundColor="{Static res:ColorResource.LIST_CARD_BACKGROUNDCOLOR}">
-                        <Grid Padding="0"
-                              ColumnSpacing="0"
-                              RowSpacing="{local:ScaleHeight Value=0}"
-                              ColumnDefinitions="{local:ScaleColumnDefinition Value='48,*'}"
-                              RowDefinitions="{local:ScaleRowDefinition Value='4,20,20,20,20,4'}">
+                           
+                            <Grid Padding="0"
+                                  ColumnSpacing="0"
+                                  RowSpacing="{local:ScaleHeight Value=0}"
+                                  ColumnDefinitions="{local:ScaleColumnDefinition Value='48,*'}"
+                                  RowDefinitions="{local:ScaleRowDefinition Value='4,20,20,20,20,4'}"
+                                  InputTransparent="False">
 
-                            <!-- icon -->
-                            <Button Grid.Column="0"
-                                    Grid.RowSpan="6"
-                                    Text="{Binding BusinessTypeIcon}"
-                                    TextColor="{Static res:ColorResource.WHITE_COLOR}"
-                                    FontSize="{local:ScaleFontSize Value=21}"
-                                    FontFamily="{Static res:FontResource.FONTAWESOME5_SOLID}"
-                                    BackgroundColor="{Static res:ColorResource.LIST_CARD_ICON_BACKGROUNDCOLOR}"
-                                    HorizontalOptions="Fill"
-                                    VerticalOptions="Fill"
-                                    InputTransparent="True">
-                            </Button>
+                                <!-- icon -->
+                                <Button Grid.Column="0"
+                                        Grid.RowSpan="6"
+                                        Text="{Binding BusinessTypeIcon}"
+                                        TextColor="{Static res:ColorResource.WHITE_COLOR}"
+                                        FontSize="{local:ScaleFontSize Value=21}"
+                                        FontFamily="{Static res:FontResource.FONTAWESOME5_SOLID}"
+                                        BackgroundColor="{Static res:ColorResource.LIST_CARD_ICON_BACKGROUNDCOLOR}"
+                                        HorizontalOptions="Fill"
+                                        VerticalOptions="Fill"
+                                        InputTransparent="True">
+                                </Button>
 
-                            <Label Grid.Column="1"
-                                   Grid.Row="1"
-                                   Text="{Binding Business.Name}"                                       
-                                   Style="{StaticResource ListValueLabelStyle}">
-                            </Label>
+                                <Label Grid.Column="1"
+                                       Grid.Row="1"
+                                       Text="{Binding Business.Name}"                                       
+                                       Style="{StaticResource ListValueLabelStyle}">
+                                </Label>
                                 
-                            <Label Grid.Column="1"
-                                   Grid.Row="2"
-                                   Text="{Binding Business.Address}"                                       
-                                    Style="{StaticResource ListValueLabelStyle}"/>
+                                <Label Grid.Column="1"
+                                       Grid.Row="2"
+                                       Text="{Binding Business.Address}"                                       
+                                        Style="{StaticResource ListValueLabelStyle}"/>
 
-                            <Label Grid.Column="1"
-                                   Grid.Row="3"
-                                   Text="calendar-alt"
-                                   TextColor="{Static res:ColorResource.WHITE_COLOR}"
-                                   FontSize="{local:ScaleFontSize Value=14}"
-                                   FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"
-                                   Style="{StaticResource ListValueLabelStyle}"/>
-                            <Label Grid.Column="1"
-                                   Grid.Row="3"
-                                   Text="{Binding ScanDate, StringFormat='{0:MM/dd/yy}'}"
-                                   TextColor="{Static res:ColorResource.WHITE_COLOR}"
-                                   FontSize="{local:ScaleFontSize Value=12}"
-                                   FontFamily="{Static res:FontResource.REGULAR}"
-                                   Margin="{local:ScaleThickness Value='31,0,0,0'}"
-                                   Style="{StaticResource ListValueLabelStyle}"/>
+                                <Label Grid.Column="1"
+                                       Grid.Row="3"
+                                       Text="calendar-alt"
+                                       TextColor="{Static res:ColorResource.WHITE_COLOR}"
+                                       FontSize="{local:ScaleFontSize Value=14}"
+                                       FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"
+                                       Style="{StaticResource ListValueLabelStyle}"/>
+                                <Label Grid.Column="1"
+                                       Grid.Row="3"
+                                       Text="{Binding ScanDate, StringFormat='{0:MM/dd/yy}'}"
+                                       TextColor="{Static res:ColorResource.WHITE_COLOR}"
+                                       FontSize="{local:ScaleFontSize Value=12}"
+                                       FontFamily="{Static res:FontResource.REGULAR}"
+                                       Margin="{local:ScaleThickness Value='31,0,0,0'}"
+                                       Style="{StaticResource ListValueLabelStyle}"/>
 
-                            <Label Grid.Column="1"
-                                   Grid.Row="4"
-                                   Text="clock"
-                                   TextColor="{Static res:ColorResource.WHITE_COLOR}"
-                                   FontSize="{local:ScaleFontSize Value=14}"
-                                   FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"
-                                   Style="{StaticResource ListValueLabelStyle}"/>
-                            <Label Grid.Column="1"
-                                   Grid.Row="4"
-                                   Text="{Binding ScanDate, StringFormat='{0:H:mm tt}'}"
-                                   TextColor="{Static res:ColorResource.WHITE_COLOR}"
-                                   FontSize="{local:ScaleFontSize Value=12}"
-                                   FontFamily="{Static res:FontResource.REGULAR}"
-                                   Margin="{local:ScaleThickness Value='31,0,0,0'}"
-                                   Style="{StaticResource ListValueLabelStyle}"/>
-                        </Grid>
-                    </Frame>
+                                <Label Grid.Column="1"
+                                       Grid.Row="4"
+                                       Text="clock"
+                                       TextColor="{Static res:ColorResource.WHITE_COLOR}"
+                                       FontSize="{local:ScaleFontSize Value=14}"
+                                       FontFamily="{Static res:FontResource.FONTAWESOME5_REGULAR}"
+                                       Style="{StaticResource ListValueLabelStyle}"/>
+                                <Label Grid.Column="1"
+                                       Grid.Row="4"
+                                       Text="{Binding ScanDate, StringFormat='{0:H:mm tt}'}"
+                                       TextColor="{Static res:ColorResource.WHITE_COLOR}"
+                                       FontSize="{local:ScaleFontSize Value=12}"
+                                       FontFamily="{Static res:FontResource.REGULAR}"
+                                       Margin="{local:ScaleThickness Value='31,0,0,0'}"
+                                       Style="{StaticResource ListValueLabelStyle}"/>
+                                <BoxView Grid.ColumnSpan="2" Grid.RowSpan="6"
+                                         HorizontalOptions="Fill"
+                                         VerticalOptions="Fill"
+                                         BackgroundColor="Transparent">
+                                     <BoxView.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={Reference mainViewPage}, Path=BindingContext.SelectedHistoryCommand}"
+                                                                CommandParameter="{Binding .}"/>
+                                    </BoxView.GestureRecognizers>
+                                </BoxView>
+                            </Grid>
+                        </Frame>
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
