@@ -59,8 +59,8 @@
     <AndroidEnableSGenConcurrent>false</AndroidEnableSGenConcurrent>
     <AndroidUseAapt2>false</AndroidUseAapt2>
     <AndroidManifest></AndroidManifest>
-    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
-    <AndroidSupportedAbis>arm64-v8a;armeabi-v7a;x86</AndroidSupportedAbis>
+    <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
+    <AndroidSupportedAbis>arm64-v8a;armeabi-v7a;x86;x86_64</AndroidSupportedAbis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Staging|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -71,10 +71,10 @@
     <WarningLevel>4</WarningLevel>
     <JavaMaximumHeapSize></JavaMaximumHeapSize>
     <AndroidEnableSGenConcurrent>false</AndroidEnableSGenConcurrent>
-    <AndroidUseAapt2>false</AndroidUseAapt2>
+    <AndroidUseAapt2>true</AndroidUseAapt2>
     <AndroidManifest></AndroidManifest>
-    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
-    <AndroidSupportedAbis>arm64-v8a;armeabi-v7a;x86</AndroidSupportedAbis>
+    <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
+    <AndroidSupportedAbis>arm64-v8a;armeabi-v7a;x86;x86_64</AndroidSupportedAbis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Staging|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
