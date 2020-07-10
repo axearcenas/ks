@@ -86,7 +86,10 @@ namespace KeepSafe.ViewModels
                                     status = 200
                                 }), cts.Token, 0);
 #else
-                            string content = JsonConvert.SerializeObject(new { email = EmailAddressEntry.Text });
+                            string content = JsonConvert.SerializeObject(new
+                            {
+                                email = EmailAddressEntry.Text
+                            });
                             restServices.SetDelegate(this);
                             await restServices.PostRequestAsync($"{forgotPasswordRootURL}{Constants.FORGOT_PASSWORDS_URL}", content, cts.Token, 0);
 #endif
@@ -107,7 +110,11 @@ namespace KeepSafe.ViewModels
                                     status = 200
                                 }), cts.Token, 1);
 #else
-                            string content = JsonConvert.SerializeObject(new { verification_code = CodeEntry.Text });
+                            string content = JsonConvert.SerializeObject(new
+                            {
+                                email = EmailAddressEntry.Text,
+                                verification_code = CodeEntry.Text
+                            });
                             restServices.SetDelegate(this);
                             await restServices.PostRequestAsync($"{forgotPasswordRootURL}{Constants.VERIFY_CODE_URL}", content, cts.Token, 1);
 #endif
@@ -137,11 +144,12 @@ namespace KeepSafe.ViewModels
 #else
                             string content = JsonConvert.SerializeObject(new
                             {
+                                email = EmailAddressEntry.Text,
                                 password = PasswordEntry.Text,
                                 confirm_password = ConfirmPasswordEntry.Text
                             });   
                             restServices.SetDelegate(this);
-                            await restServices.PostRequestAsync($"{forgotPasswordRootURL}{Constants.CHANGE_PASSWORD_URL}", content, cts.Token, 1);
+                            await restServices.PostRequestAsync($"{forgotPasswordRootURL}{Constants.CHANGE_PASSWORD_URL}", content, cts.Token, 2);
 #endif
                             }
                             break;
@@ -190,7 +198,6 @@ namespace KeepSafe.ViewModels
                         Device.BeginInvokeOnMainThread(async () =>
                         {
                             PopupHelper.RemoveLoading();
-                            EmailAddressEntry.ClearText();
                             PageType = ForgotPasswordType.VerifyEmail;
                         });
                         break;
@@ -198,7 +205,6 @@ namespace KeepSafe.ViewModels
                         Device.BeginInvokeOnMainThread(async () =>
                         {
                             PopupHelper.RemoveLoading();
-                            EmailAddressEntry.ClearText();
                             PageType = ForgotPasswordType.ChangePassword;
                         });
                         break;
