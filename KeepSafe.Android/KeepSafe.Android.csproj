@@ -42,6 +42,11 @@
     <WarningLevel>4</WarningLevel>
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
+    <AndroidKeyStore>True</AndroidKeyStore>
+    <AndroidSigningKeyStore>/Users/developer/Projects/Projects/KeepSafe/KeepSafe.Android/Assets/KeepSafe.keystore</AndroidSigningKeyStore>
+    <AndroidSigningStorePass>t41515k33ps@f3</AndroidSigningStorePass>
+    <AndroidSigningKeyAlias>KeepSafe</AndroidSigningKeyAlias>
+    <AndroidSigningKeyPass>t41515k33ps@f3</AndroidSigningKeyPass>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Staging|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
@@ -80,6 +85,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidLinkMode>None</AndroidLinkMode>
+    <AndroidKeyStore>True</AndroidKeyStore>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />

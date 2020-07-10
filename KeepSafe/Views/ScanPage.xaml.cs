@@ -35,6 +35,7 @@ namespace KeepSafe.Views
                 {
                     //await Navigation.ShowScannerPage(ScannerPage_OnScanResult);
                     InitScannerView();
+                    ScanPageViewModel_IsActiveChanged(null,null);
                 }
                 else
                 {
