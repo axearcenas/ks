@@ -66,8 +66,8 @@ namespace KeepSafe.Models
             }
         }
 
-        string _ScanDate;
-        public string ScanDate
+        DateTime _ScanDate;
+        public DateTime ScanDate
         {
             get { return _ScanDate; }
             set { _ScanDate = value; OnPropertyChanged(); }
