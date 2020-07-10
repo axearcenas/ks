@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Threading.Tasks;
 using KeepSafe.Enum;
 using KeepSafe.Extensions;
+using KeepSafe.Helpers;
 using KeepSafe.Helpers.FileReader;
 using KeepSafe.Models;
 using KeepSafe.Resources;
@@ -63,165 +65,92 @@ namespace KeepSafe.ViewModels
                 cts = new System.Threading.CancellationTokenSource();
                 try
                 {
-                    switch (UserType)
+#if DEBUG == false
+                    string forgotPasswordRootURL = $"{Constants.ROOT_URL}{(UserType == UserType.User ? Constants.USER_URL : Constants.BUSINESS_URL)}{Constants.PASSWORDS_URL}";
+#endif
+                    switch (PageType)
                     {
-                        case UserType.User:
-                            switch (PageType)
+                        case ForgotPasswordType.SendEmailVerification:
+                            if (!EmailAddressEntry.Text.IsValidEmail())
                             {
-                                case ForgotPasswordType.SendEmailVerification:
-                                    if (!EmailAddressEntry.Text.IsValidEmail())
-                                    {
-                                        EmailAddressEntry.ShowError("Email address is required");
-                                        IsClicked = false;
-                                    }
-                                    else
-                                    { 
+                                EmailAddressEntry.ShowError("Email address is required");
+                                IsClicked = false;
+                            }
+                            else
+                            {
+                                PopupHelper.ShowLoading();
 #if DEBUG
-                                        fileReader.SetDelegate(this);
-                                        await fileReader.CreateDummyResponse(JsonConvert.SerializeObject(new
-                                        {
-                                            status = 200
-                                        }), cts.Token, 0);
+                                fileReader.SetDelegate(this);
+                                await fileReader.CreateDummyResponse(JsonConvert.SerializeObject(new
+                                {
+                                    status = 200
+                                }), cts.Token, 0);
 #else
-                                   //TODO Verify Email API Here
-                                   string content = JsonConvert.SerializeObject(new { email_address = EmailAddressEntry.Text, password = PasswordEntry.Text, device = App.DeviceType });
-                                   restServices.SetDelegate(this);
-                                   await restServices.PostRequestAsync($"{Constants.ROOT_URL}", content, cts.Token,0);
+                            string content = JsonConvert.SerializeObject(new { email = EmailAddressEntry.Text });
+                            restServices.SetDelegate(this);
+                            await restServices.PostRequestAsync($"{forgotPasswordRootURL}{Constants.FORGOT_PASSWORDS_URL}", content, cts.Token, 0);
 #endif
-                                    }
-                                    break;
-                                case ForgotPasswordType.VerifyEmail:
-                                    if (CodeEntry.ValidateIsTextNullOrEmpty("Verification code is Required"))
-                                    {
-                                        IsClicked = false;
-                                    }
-                                    else
-                                    {
-#if DEBUG
-                                        fileReader.SetDelegate(this);
-                                        await fileReader.CreateDummyResponse(JsonConvert.SerializeObject(new
-                                        {
-                                            status = 200
-                                        }), cts.Token, 1);
-#else
-                                   //TODO Verify Email API Here
-                                   string content = JsonConvert.SerializeObject(new { email_address = EmailAddressEntry.Text, password = PasswordEntry.Text, device = App.DeviceType });
-                                   restServices.SetDelegate(this);
-                                   await restServices.PostRequestAsync($"{Constants.ROOT_URL}", content, cts.Token,0);
-#endif
-                                    }
-                                    break;
-                                case ForgotPasswordType.ChangePassword:
-                                    if (PasswordEntry.ValidateIsTextNullOrEmpty("Password is Required") &&
-                                        ConfirmPasswordEntry.ValidateIsTextNullOrEmpty("Confirm password code is Required"))
-                                    {
-                                        IsClicked = false;
-                                    }
-                                    else if (!PasswordEntry.Text.Equals(ConfirmPasswordEntry.Text))
-                                    {
-                                        ConfirmPasswordEntry.ShowError("Confirm Password Mismatch");
-                                        IsClicked = false;
-                                    }
-                                    else
-                                    {
-#if DEBUG
-                                        fileReader.SetDelegate(this);
-                                        await fileReader.CreateDummyResponse(JsonConvert.SerializeObject(new
-                                        {
-                                            message = "Successfully Change Password",
-                                            status = 200
-                                        }), cts.Token, 2);
-#else
-                                   //TODO Verify Email API Here
-                                   string content = JsonConvert.SerializeObject(new { email_address = EmailAddressEntry.Text, password = PasswordEntry.Text, device = App.DeviceType });
-                                   restServices.SetDelegate(this);
-                                   await restServices.PostRequestAsync($"{Constants.ROOT_URL}", content, cts.Token,0);
-#endif
-                                    }
-                                    break;
                             }
                             break;
-                        case UserType.Establishment:
-                            switch (PageType)
+                        case ForgotPasswordType.VerifyEmail:
+                            if (CodeEntry.ValidateIsTextNullOrEmpty("Verification code is Required"))
                             {
-                                case ForgotPasswordType.SendEmailVerification:
-                                    if (!EmailAddressEntry.Text.IsValidEmail())
-                                    {
-                                        EmailAddressEntry.ShowError("Email address is required");
-                                        IsClicked = false;
-                                    }
-                                    else
-                                    {
+                                IsClicked = false;
+                            }
+                            else
+                            {
+                                PopupHelper.ShowLoading();
 #if DEBUG
-                                        fileReader.SetDelegate(this);
-                                        await fileReader.CreateDummyResponse(JsonConvert.SerializeObject(new
-                                        {
-                                            status = 200
-                                        }), cts.Token, 0);
+                                fileReader.SetDelegate(this);
+                                await fileReader.CreateDummyResponse(JsonConvert.SerializeObject(new
+                                {
+                                    status = 200
+                                }), cts.Token, 1);
 #else
-                                   //TODO Verify Email API Here
-                                   string content = JsonConvert.SerializeObject(new { email_address = EmailAddressEntry.Text, password = PasswordEntry.Text, device = App.DeviceType });
-                                   restServices.SetDelegate(this);
-                                   await restServices.PostRequestAsync($"{Constants.ROOT_URL}", content, cts.Token,0);
+                            string content = JsonConvert.SerializeObject(new { verification_code = CodeEntry.Text });
+                            restServices.SetDelegate(this);
+                            await restServices.PostRequestAsync($"{forgotPasswordRootURL}{Constants.VERIFY_CODE_URL}", content, cts.Token, 1);
 #endif
-                                    }
-                                    break;
-                                case ForgotPasswordType.VerifyEmail:
-                                    if (CodeEntry.ValidateIsTextNullOrEmpty("Verification code is Required"))
-                                    {
-                                        IsClicked = false;
-                                    }
-                                    else
-                                    {
+                            }
+                            break;
+                        case ForgotPasswordType.ChangePassword:
+                            if (PasswordEntry.ValidateIsTextNullOrEmpty("Password is Required") ||
+                                ConfirmPasswordEntry.ValidateIsTextNullOrEmpty("Confirm password code is Required"))
+                            {
+                                IsClicked = false;
+                            }
+                            else if (!PasswordEntry.Text.Equals(ConfirmPasswordEntry.Text))
+                            {
+                                ConfirmPasswordEntry.ShowError("Confirm Password Mismatch");
+                                IsClicked = false;
+                            }
+                            else
+                            {
+                                PopupHelper.ShowLoading();
 #if DEBUG
-                                        fileReader.SetDelegate(this);
-                                        await fileReader.CreateDummyResponse(JsonConvert.SerializeObject(new
-                                        {
-                                            status = 200
-                                        }), cts.Token, 1);
+                                fileReader.SetDelegate(this);
+                                await fileReader.CreateDummyResponse(JsonConvert.SerializeObject(new
+                                {
+                                    message = "Successfully Change Password",
+                                    status = 200
+                                }), cts.Token, 2);
 #else
-                                   //TODO Verify Email API Here
-                                   string content = JsonConvert.SerializeObject(new { email_address = EmailAddressEntry.Text, password = PasswordEntry.Text, device = App.DeviceType });
-                                   restServices.SetDelegate(this);
-                                   await restServices.PostRequestAsync($"{Constants.ROOT_URL}", content, cts.Token,0);
+                            string content = JsonConvert.SerializeObject(new
+                            {
+                                password = PasswordEntry.Text,
+                                confirm_password = ConfirmPasswordEntry.Text
+                            });   
+                            restServices.SetDelegate(this);
+                            await restServices.PostRequestAsync($"{forgotPasswordRootURL}{Constants.CHANGE_PASSWORD_URL}", content, cts.Token, 1);
 #endif
-                                    }
-                                    break;
-                                case ForgotPasswordType.ChangePassword:
-                                    if (PasswordEntry.ValidateIsTextNullOrEmpty("Password is Required") &&
-                                        ConfirmPasswordEntry.ValidateIsTextNullOrEmpty("Confirm password code is Required"))
-                                    {
-                                        IsClicked = false;
-                                    }
-                                    else if (!PasswordEntry.Text.Equals(ConfirmPasswordEntry.Text))
-                                    {
-                                        ConfirmPasswordEntry.ShowError("Confirm Password Mismatch");
-                                    }
-                                    else
-                                    {
-#if DEBUG
-                                        fileReader.SetDelegate(this);
-                                        await fileReader.CreateDummyResponse(JsonConvert.SerializeObject(new
-                                        {
-                                            message = "Successfully Change Password",
-                                            status = 200
-                                        }), cts.Token, 2);
-#else
-                                   //TODO Verify Email API Here
-                                   string content = JsonConvert.SerializeObject(new { email_address = EmailAddressEntry.Text, password = PasswordEntry.Text, device = App.DeviceType });
-                                   restServices.SetDelegate(this);
-                                   await restServices.PostRequestAsync($"{Constants.ROOT_URL}", content, cts.Token,0);
-#endif
-                                    }
-                                    break;
                             }
                             break;
                     }
 
                 }
-                catch (OperationCanceledException ox) { App.Log($"StackTrace: {ox.StackTrace}\nMESSAGE: {ox.Message}"); IsClicked = false; IsLoading = false; }
-                catch (TimeoutException te) { App.Log($"StackTrace: {te.StackTrace}\nMESSAGE: {te.Message}"); IsClicked = false; IsLoading = false; }
-                catch (Exception ex) { App.Log($"StackTrace: {ex.StackTrace}\nMESSAGE: {ex.Message}"); IsClicked = false; IsLoading = false; }
+                catch (OperationCanceledException ox) { App.Log($"StackTrace: {ox.StackTrace}\nMESSAGE: {ox.Message}"); IsClicked = false; IsLoading = false; PopupHelper.RemoveLoading(); }
+                catch (TimeoutException te) { App.Log($"StackTrace: {te.StackTrace}\nMESSAGE: {te.Message}"); IsClicked = false; IsLoading = false; PopupHelper.RemoveLoading(); }
+                catch (Exception ex) { App.Log($"StackTrace: {ex.StackTrace}\nMESSAGE: {ex.Message}"); IsClicked = false; IsLoading = false; PopupHelper.RemoveLoading(); }
                 cts = null;
             }
         }
@@ -257,77 +186,55 @@ namespace KeepSafe.ViewModels
             {
                 switch (wsType)
                 {
-                     //switch (PageType)
-                     //   {
-                     //       case ForgotPasswordType.SendEmailVerification:
-                     //           PageType = ForgotPasswordType.VerifyEmail;
-                     //           break;
-                     //       case ForgotPasswordType.VerifyEmail:
-                     //           PageType = ForgotPasswordType.ChangePassword;
-                     //           break;
-                     //       case ForgotPasswordType.ChangePassword:
-                     //           break;
-                     //   }
                     case 0: // verify Email
-                        switch (UserType)
+                        Device.BeginInvokeOnMainThread(async () =>
                         {
-                            case UserType.User:
-                                Device.BeginInvokeOnMainThread(async () =>
-                                {
-                                    //TODO save USER Here
-                                    EmailAddressEntry.ClearText();
-                                    PageType = ForgotPasswordType.VerifyEmail;
-                                });
-                                break;
-                            case UserType.Establishment:
-                                Device.BeginInvokeOnMainThread(async () =>
-                                {
-                                    //TODO save USER Here
-                                    EmailAddressEntry.ClearText();
-                                    PageType = ForgotPasswordType.VerifyEmail;
-                                });
-                                break;
-                        }
+                            PopupHelper.RemoveLoading();
+                            EmailAddressEntry.ClearText();
+                            PageType = ForgotPasswordType.VerifyEmail;
+                        });
                         break;
                     case 1: // verify Email Verification Code
-                        switch (UserType)
+                        Device.BeginInvokeOnMainThread(async () =>
                         {
-                            case UserType.User:
-                                Device.BeginInvokeOnMainThread(async () =>
-                                {
-                                    //TODO save USER Here
-                                    EmailAddressEntry.ClearText();
-                                    PageType = ForgotPasswordType.ChangePassword;
-                                });
-                                break;
-                            case UserType.Establishment:
-                                Device.BeginInvokeOnMainThread(async () =>
-                                {
-                                    //TODO save USER Here
-                                    EmailAddressEntry.ClearText();
-                                    PageType = ForgotPasswordType.ChangePassword;
-                                });
-                                break;
-                        }
+                            PopupHelper.RemoveLoading();
+                            EmailAddressEntry.ClearText();
+                            PageType = ForgotPasswordType.ChangePassword;
+                        });
                         break;
                     case 2: // Change Password
                         Device.BeginInvokeOnMainThread(async () =>
                         {
-                            //TODO save USER Here
-                            if(jsonData.ContainsKey("message"))
-                                PageDialogService?.DisplayAlertAsync("Change Password Success", jsonData["message"].ToString(), "Okay");
+                            PopupHelper.RemoveLoading();
+                            await Task.Delay(50);
+                            if (jsonData.ContainsKey("message"))
+                                await PageDialogService?.DisplayAlertAsync("Change Password Success", jsonData["message"].ToString(), "Okay");
                             await NavigationService.GoBackAsync();
                         });
                         break;
                 }
             }
+            else
+            {
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    PopupHelper.RemoveLoading();
+                    if (jsonData.ContainsKey("error"))
+                        await PageDialogService?.DisplayAlertAsync("Change Password Error", jsonData["message"].ToString(), "Okay");
+                });
+            }
+            PopupHelper.RemoveLoading();
             IsClicked = false;
         }
 
         public void ReceiveError(string title, string error, int wsType)
         {
-            PageDialogService?.DisplayAlertAsync(title, error, "Okay");
-            IsClicked = false;
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                PopupHelper.RemoveLoading();
+                PageDialogService?.DisplayAlertAsync(title, error, "Okay");
+                IsClicked = false;
+            });
         }
     }
 
