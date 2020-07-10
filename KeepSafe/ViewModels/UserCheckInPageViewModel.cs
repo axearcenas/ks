@@ -82,7 +82,6 @@ namespace KeepSafe.ViewModels
             {
                 Qrcode = (string)parameters["Qrcode"];
             }
-
         }
 
         private void TemperatureEntry_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -138,7 +137,7 @@ namespace KeepSafe.ViewModels
                            }), cts.Token, 0);
 #else
                     restServices.SetDelegate(this);
-                    string content = JsonConvert.SerializeObject(new { scan_history = new { code = Qrcode, temparature = TemperatureEntry.Text ?? "0" } });
+                    string content = JsonConvert.SerializeObject(new { scan_history = new { code = Qrcode, temperature = TemperatureEntry.Text ?? "0" } });
                     await restServices.PostRequestAsync($"{Constants.ROOT_URL}{Constants.USER_URL}{Constants.SCAN_HISTORIES_URL}", content, cts.Token, 0, Constants.DEFAULT_AUTH);
 #endif
                     }

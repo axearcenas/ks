@@ -16,9 +16,8 @@
            VerticalOptions="Center">
         <Grid RowSpacing="0"
               ColumnSpacing="0"
-              HeightRequest="{local:ScaleHeight Value=295}"
               WidthRequest="{local:ScaleWidth Value=280}"
-              RowDefinitions="{local:ScaleRowDefinition Value='40,70,29,32,26,39,*'}"
+              RowDefinitions="{local:ScaleRowDefinition Value='40,70,29,auto,26,39,*'}"
               BackgroundColor="White">
             <Label Grid.Row="0"
                    Text="Check In Info"
@@ -26,7 +25,13 @@
                    FontSize="{local:ScaleFontSize Value=20}"
                    FontFamily="{Static res:FontResource.REGULAR}"
                    HorizontalOptions="Center"
-                   VerticalOptions="End"/>
+                   VerticalOptions="End">
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label" Binding="{Binding IsCheckIn}" Value="false">
+                        <Setter Property="Text" Value="Check Out Info"/>
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
 
             <Label Grid.Row="1"
                    Text="{Binding ScanHistoryData.BusinessTypeIcon}"
@@ -50,6 +55,7 @@
                    TextColor="{Static res:ColorResource.BLACK_COLOR}"
                    FontSize="{local:ScaleFontSize Value=20}"
                    FontFamily="{Static res:FontResource.BOLD}"
+                   Margin="{local:ScaleThickness Value='0,10,0,0'}"
                    HorizontalOptions="Center"
                    VerticalOptions="End"/>
 
@@ -106,7 +112,7 @@
                     HorizontalOptions="Center"
                     VerticalOptions="Start"
                     Command="{Binding OkayCommand}"
-                    Margin="{local:ScaleThickness Value='0,4,0,0'}" />
+                    Margin="{local:ScaleThickness Value='0,4,0,17'}" />
         </Grid>
     </Frame>
 </local:RGPopupPage>

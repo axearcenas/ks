@@ -15,6 +15,14 @@ namespace KeepSafe.ViewModels.PopupsViewModel
             get { return _ScanHistoryData; }
             set { SetProperty(ref _ScanHistoryData, value, nameof(ScanHistoryData)); }
         }
+
+        bool _IsCheckIn;
+        public bool IsCheckIn
+        {
+            get { return _IsCheckIn; }
+            set { SetProperty(ref _IsCheckIn, value, nameof(IsCheckIn)); }
+        }
+
         public UserScanHistoryDetailsViewModel(INavigationService navigationService): base(navigationService)
         {
             OkayCommand = new DelegateCommand(OnOkayCommand_Execute);
@@ -36,6 +44,10 @@ namespace KeepSafe.ViewModels.PopupsViewModel
             if(parameters.ContainsKey("ScanHistoryDetails"))
             {
                 ScanHistoryData = parameters.GetValue<UserScanHistory>("ScanHistoryDetails");
+            }
+            if (parameters.ContainsKey("IsCheckIn"))
+            {
+                IsCheckIn = parameters.GetValue<bool>("IsCheckIn");
             }
         }
     }
