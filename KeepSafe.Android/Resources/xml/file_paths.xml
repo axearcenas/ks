@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <paths xmlns:android="http://schemas.android.com/apk/res/android">
-    <external-path name="image" path="Android/data/com.godigital.keep_safe/files/Pictures" />
+    <external-path name="image" path="Android/data/com.cebudigital.keepsafeapp/files/Pictures" />
+    <external-path name="movie" path="Android/data/com.cebudigital.keepsafeapp/files/Movies" />
 </paths>

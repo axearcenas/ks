@@ -24,7 +24,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>KeepSafe</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.godigital.Keep-Safe</string>
+	<string>ph.keepsafe</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>UILaunchStoryboardName</key>
