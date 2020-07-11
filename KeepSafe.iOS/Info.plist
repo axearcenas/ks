@@ -9,8 +9,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
@@ -34,27 +32,27 @@
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Hava App wants to access your photo gallery so you can upload a display picture for your profile.</string>
+	<string>KeepSafe App wants to access your photo gallery so you can upload a display picture for your profile.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Hava App wants to access your current location to get nearby Vehicles.</string>
+	<string>KeepSafe App wants to access your current location to get nearby Vehicles.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Hava App wants to access your current location to get nearby Vehicles.</string>
+	<string>KeepSafe App wants to access your current location to get nearby Vehicles.</string>
 	<key>NSContactsUsageDescription</key>
-	<string>Hava App wants to access your contacts.</string>
+	<string>KeepSafe App wants to access your contacts.</string>
 	<key>NSCalendarsUsageDescription</key>
-	<string>Hava App wants to access your calendar.</string>
+	<string>KeepSafe App wants to access your calendar.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Hava App wants to access your photos so you can upload a display picture for your profile.</string>
+	<string>KeepSafe App wants to access your photos so you can upload a display picture for your profile.</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Hava App wants to access your microphone.</string>
+	<string>KeepSafe App wants to access your microphone.</string>
 	<key>NSAppleMusicUsageDescription</key>
-	<string>Hava App wants to access your apple music.</string>
+	<string>KeepSafe App wants to access your apple music.</string>
 	<key>NSSiriUsageDescription</key>
-	<string>Hava App wants to access your siri.</string>
+	<string>KeepSafe App wants to access your siri.</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Hava App wants to access your camera so you can take a photo as display picture for your profile.</string>
+	<string>KeepSafe App wants to access your camera so you can take a photo as display picture for your profile.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Hava App wants to access your current location to get nearby Vehicles.</string>
+	<string>KeepSafe App wants to access your current location to get nearby Vehicles.</string>
 	<key>UIStatusBarStyle</key>
 	<string>UIStatusBarStyleLightContent</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
@@ -69,6 +67,66 @@
 		<string>Fonts/Roboto-Regular.ttf</string>
 		<string>Fonts/Roboto-Light.ttf</string>
 		<string>Fonts/Roboto-LightItalic.ttf</string>
+	</array>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>facebook.com</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+				<false/>
+			</dict>
+			<key>fbcdn.net</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+				<false/>
+			</dict>
+			<key>akamaihd.net</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+				<false/>
+			</dict>
+		</dict>
+		<key>NSAllowsArbitraryLoadsInWebContent</key>
+		<true/>
+	</dict>
+	<key>otherExternalDomainYouNeedToCall</key>
+	<dict>
+		<key>NSIncludesSubdomains</key>
+		<true/>
+		<key>NSExceptionAllowsInsecureHTTPLoads</key>
+		<true/>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>fb</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb565476890811030</string>
+			</array>
+		</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>565476890811030</string>
+	<key>FacebookDisplayName</key>
+	<string>KeepSafe</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
 	</array>
 </dict>
 </plist>

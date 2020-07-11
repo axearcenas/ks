@@ -114,7 +114,7 @@ namespace KeepSafe.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             ZXing.Net.Mobile.Forms.Android.Platform.Init();
 
-            //Plugin.FacebookClient.FacebookClientManager.Initialize(this);
+            Plugin.FacebookClient.FacebookClientManager.Initialize(this);
             //GoogleClientManager.Initialize(this,clientId:  "682633657157-r59btitarkncgcs358emr9h91r8lf6b6.apps.googleusercontent.com");
 
             App.Log("Width: " + App.ScreenWidth.ToString() + " Height: " + App.ScreenHeight.ToString());
@@ -126,7 +126,7 @@ namespace KeepSafe.Droid
         {
             base.OnActivityResult(requestCode, resultCode, data);
             //GoogleClientManager.OnAuthCompleted(requestCode, resultCode, data);
-            //Plugin.FacebookClient.FacebookClientManager.OnActivityResult(requestCode, resultCode, data);
+            Plugin.FacebookClient.FacebookClientManager.OnActivityResult(requestCode, resultCode, data);
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
