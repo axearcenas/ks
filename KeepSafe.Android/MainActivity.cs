@@ -18,7 +18,8 @@ namespace KeepSafe.Droid
         RoundIcon = "@mipmap/icon_round",
         Theme = "@style/MyTheme.Splash",
         MainLauncher = true,
-        ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+        ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation,
+        ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity, ViewTreeObserver.IOnGlobalLayoutListener
     {
         public static Action GlobalLayout;

@@ -122,7 +122,7 @@
                   Padding="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="{local:ScaleGridHeight Value=23}"/>
-                    <RowDefinition Height="{local:ScaleGridHeight Value=111}"/>
+                    <RowDefinition Height="{local:ScaleGridHeight Value=205}"/>
                     <RowDefinition Height="{local:ScaleGridHeight Value=30}"/>
                     <RowDefinition Height="{local:ScaleGridHeight Value=40}"/>
                     <RowDefinition Height="{local:ScaleGridHeight Value=16}"/>
@@ -142,8 +142,8 @@
                 <!--Photo-->
                 <Frame Grid.Row="1"
                        CornerRadius="{local:ScaleHeight Value=5}"
-                       WidthRequest="{local:ScaleWidth Value=111}"
-                       HeightRequest="{local:ScaleHeight Value=111}"
+                       HeightRequest="{local:ScaleHeightDouble Value=205}"
+                       WidthRequest="{local:ScaleHeightDouble Value=205}"
                        BackgroundColor="White"
                        IsClippedToBounds="True"
                        HorizontalOptions="Center"
@@ -160,23 +160,21 @@
                         <Label Text="camera"
                                FontFamily="{Static res:FontResource.FONTAWESOME5_SOLID}"
                                TextColor="#2605257A"
-                               FontSize="{local:ScaleFontSize Value=70}"
+                               FontSize="{local:ScaleFontSize Value=163}"
                                InputTransparent="True"
                                HorizontalOptions="Center"
                                VerticalOptions="Center"/>
-                        <Label Text="Upload&#10;Photo"
+                        <!--<Label Text="Upload&#10;Photo"
                                FontFamily="{Static res:FontResource.REGULAR}"
                                TextColor="#05257A"
                                FontSize="{local:ScaleFontSize Value=16}"
                                InputTransparent="True"
                                HorizontalOptions="Center"
-                               VerticalOptions="Center"/>
+                               VerticalOptions="Center"/>-->
                         <local:FFCachedImage BackgroundColor="Transparent"
                                              CachedImageSource="{Binding BusinessData.Image}"
                                              HorizontalOptions="Fill"
                                              VerticalOptions="Fill"
-                                             HeightRequest="{local:ScaleHeightDouble Value=111}"
-                                             WidthRequest="{local:ScaleHeightDouble Value=111}"
                                              Aspect="AspectFill"/>
                     </Grid>                    
                 </Frame>
