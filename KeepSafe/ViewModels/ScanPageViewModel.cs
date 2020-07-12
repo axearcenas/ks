@@ -187,8 +187,12 @@ namespace KeepSafe.ViewModels
                 {
                     await fileReader.CreateDummyResponse(JsonConvert.SerializeObject(new
                     {
-                        message = $"Scanned: {code}",
-                        user = new User() { Id = 0, Image = RandomizerHelper.GetRandomImageUrl((int)158.ScaleWidth(), (int)158.ScaleHeight(), category: ImageCategory.people), FirstName = "Uvuvwevwevwe", LastName = "Ossas" },
+                        data = new
+                        {
+                            message = $"Scanned: {code}",
+                            user = new User() { Id = 0, Image = RandomizerHelper.GetRandomImageUrl((int)158.ScaleWidth(), (int)158.ScaleHeight(), category: ImageCategory.people), FirstName = "Uvuvwevwevwe", LastName = "Ossas" },
+                            qrcode = QrCode.Mock()
+                        },
                         status = 200
                     }), cts.Token, 1);
                 }

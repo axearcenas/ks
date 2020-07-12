@@ -9,7 +9,7 @@ using Xamarin.Forms;
 
 namespace KeepSafe.ViewModels
 {
-    public class MyTabbedPageViewModel : ViewModelBase, IActiveAware, INavigationAware
+    public class MyTabbedPageViewModel : ViewModelBase, IActiveAware
     {
         public event EventHandler IsActiveChanged;
 
@@ -47,16 +47,6 @@ namespace KeepSafe.ViewModels
         protected virtual void RaiseIsActiveChanged()
         {
             IsActiveChanged?.Invoke(this, EventArgs.Empty);
-        }
-
-        public void OnNavigatedTo(INavigationParameters parameters)
-        {
-            
-        }
-
-        public void OnNavigatedFrom(INavigationParameters parameters)
-        {
-
         }
     }
 }

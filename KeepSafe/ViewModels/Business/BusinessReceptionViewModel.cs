@@ -59,8 +59,9 @@ namespace KeepSafe.ViewModels
                 try
                 {
 #if DEBUG
-                    //fileReader.SetDelegate(this);
-                    //await fileReader.ReadFile("EstablishmentScanHistory.json", cts.Token, offset <= 0 ? 0 : 1);
+
+                    fileReader.SetDelegate(this);
+                    await fileReader.ReadFile("BusinessQRCodes.json", cts.Token, 1);
                     IsClicked = false;
 #else
                     restServices.SetDelegate(this);
@@ -147,8 +148,8 @@ namespace KeepSafe.ViewModels
                 try
                 {
 #if DEBUG
-                    //fileReader.SetDelegate(this);
-                    //await fileReader.ReadFile("EstablishmentScanHistory.json", cts.Token, offset <= 0 ? 0 : 1);
+                    fileReader.SetDelegate(this);
+                    await fileReader.ReadFile("BusinessQRCodes.json", cts.Token, 0);
                     IsClicked = false;
 #else
                     restServices.SetDelegate(this);
