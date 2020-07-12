@@ -2,8 +2,8 @@
   "servers": [
     {
       "name": "Production Server",
-      "api": "https://keepsafe.ph",
-      "notification": "ws://keepsafe.ph:9292/faye",
+      "api": "https://apps.keepsafe.ph",
+      "notification": "ws://apps.keepsafe.ph:9292/faye",
       "is_secured": true,
       "is_local": false
     },

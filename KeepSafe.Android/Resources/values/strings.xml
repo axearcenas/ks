@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="facebook_app_name">KeepSafe</string>
+    <string name="facebook_app_id">565476890811030</string>
+    <string name="fb_login_protocol_scheme">fb565476890811030</string>
+</resources>

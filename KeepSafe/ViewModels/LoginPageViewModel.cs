@@ -11,6 +11,7 @@ using KeepSafe.ViewModels.ViewViewModels;
 using KeepSafe.Views;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Plugin.FacebookClient;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
@@ -46,6 +47,8 @@ namespace KeepSafe.ViewModels
             get { return _UserType; }
             set { SetProperty(ref _UserType, value, nameof(UserType)); }
         }
+
+        IFacebookClient _facebookService = CrossFacebookClient.Current;
 
         public LoginPageViewModel(INavigationService navigationService,IPageDialogService pageDialogService)
             :base (navigationService, pageDialogService)
@@ -147,7 +150,7 @@ namespace KeepSafe.ViewModels
                 PopupHelper.ShowLoading();
                 cts = new System.Threading.CancellationTokenSource();
                 Task.Run( async() =>
-               {                   
+               {
                    try
                    {
 #if DEBUG
@@ -178,10 +181,63 @@ namespace KeepSafe.ViewModels
             }
         }
 
-        private void OnLoginFacebookCommand_Execute()
+        private async  void OnLoginFacebookCommand_Execute()
         {
             //TODO Implement facebook OAuth
             //Xamarin.Essentials.WebAuthenticator.AuthenticateAsync();
+#if DEBUG == false
+            try
+            {
+
+                if (_facebookService.IsLoggedIn)
+                {
+                    _facebookService.Logout();
+                }
+
+                EventHandler<FBEventArgs<string>> userDataDelegate = null;
+
+                userDataDelegate = async (object sender, FBEventArgs<string> e) =>
+                {
+                    if (e == null) return;
+
+                    switch (e.Status)
+                    {
+                        case FacebookActionStatus.Completed:
+                            var facebookProfile = await Task.Run(() => JsonConvert.DeserializeObject<FacebookProfile>(e.Data));
+                            var socialLoginData = new NetworkAuthData
+                            {
+                                Id = facebookProfile.Id,
+                                Picture = facebookProfile.Picture.Data.Url,
+                                Name = $"{facebookProfile.FirstName} {facebookProfile.LastName}",
+                            };
+                            //await App.Current.MainPage.Navigation.PushModalAsync(new HomePage());
+                            await PageDialogService.DisplayAlertAsync("Facebook Auth Success", socialLoginData.ToJsonString(), "Ok");
+                            break;
+                        case FacebookActionStatus.Canceled:
+                            await PageDialogService.DisplayAlertAsync("Facebook Auth", "Canceled", "Ok");
+                            break;
+                        case FacebookActionStatus.Error:
+                            await PageDialogService.DisplayAlertAsync("Facebook Auth", "Error", "Ok");
+                            break;
+                        case FacebookActionStatus.Unauthorized:
+                            await PageDialogService.DisplayAlertAsync("Facebook Auth", "Unauthorized", "Ok");
+                            break;
+                    }
+
+                    _facebookService.OnUserData -= userDataDelegate;
+                };
+
+                _facebookService.OnUserData += userDataDelegate;
+
+                string[] fbRequestFields = { "email", "first_name", "picture", "gender", "last_name" };
+                string[] fbPermisions = { "email" };
+                await _facebookService.RequestUserDataAsync(fbRequestFields, fbPermisions);
+            }
+            catch (Exception ex)
+            {
+                App.Log($"StackTrace: {ex.StackTrace}\nMESSAGE: {ex.Message}");
+            }
+#endif
         }
 
         private void OnLoginGoogleCommand_Execute()
