@@ -5,6 +5,6 @@ namespace KeepSafe.DependencyServices
 {
     public interface IOpenWebsite
     {
-        void OpenPassWebsite(string uri);
+        Task OpenUrl(string uri);
     }
 }

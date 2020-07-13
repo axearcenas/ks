@@ -1,6 +1,8 @@
 ﻿using System;
+using KeepSafe.DependencyServices;
 using Prism.Commands;
 using Prism.Navigation;
+using Prism.Navigation.Xaml;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -17,7 +19,9 @@ namespace KeepSafe.ViewModels
 
         public async void OnGoButtonClicked()
         {
-            await Browser.OpenAsync("https://www.keepsafe.ph/", BrowserLaunchMode.External);
+            //await Browser.OpenAsync("https://www.keepsafe.ph/", BrowserLaunchMode.SystemPreferred);
+            await NavigationService.GoBackAsync();
+            await DependencyService.Get<IOpenWebsite>().OpenUrl("https://www.keepsafe.ph/");
         }
     }
 }
