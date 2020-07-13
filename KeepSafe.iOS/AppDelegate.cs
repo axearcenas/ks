@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using Plugin.FacebookClient;
 using Prism;
 using Prism.Ioc;
 using UIKit;
@@ -92,6 +93,17 @@ namespace KeepSafe.iOS
 
             return base.FinishedLaunching(app, options);
         }
+
+        public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
+        {
+            return FacebookClientManager.OpenUrl(app, url, options);
+        }
+
+        public override bool OpenUrl(UIApplication application, NSUrl url, string sourceApplication, NSObject annotation)
+        {
+            return FacebookClientManager.OpenUrl(application, url, sourceApplication, annotation);
+        }
+
 
         public void PrintFonts()
         {

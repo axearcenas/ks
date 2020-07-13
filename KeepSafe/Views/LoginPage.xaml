@@ -262,6 +262,10 @@
                           Style="{StaticResource LoginViaImage}"
                           Margin="{local:ScaleThickness Value='-76,8,0,0'}"
                           IsVisible="false">
+            <local:FFSVGImage.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding LoginFacebookCommand}"
+                                      NumberOfTapsRequired="1"/>
+            </local:FFSVGImage.GestureRecognizers>
             <local:FFSVGImage.Triggers>
                 <DataTrigger TargetType="local:FFSVGImage"
                                 Binding="{Binding UserType}"
