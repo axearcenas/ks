@@ -25,8 +25,6 @@
 	<string>KeepSafe</string>
 	<key>CFBundleIdentifier</key>
 	<string>ph.keepsafe</string>
-	<key>CFBundleVersion</key>
-	<string>1.0</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>CFBundleName</key>
@@ -70,5 +68,9 @@
 		<string>Fonts/Roboto-Light.ttf</string>
 		<string>Fonts/Roboto-LightItalic.ttf</string>
 	</array>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>CFBundleVersion</key>
+	<string>3</string>
 </dict>
 </plist>

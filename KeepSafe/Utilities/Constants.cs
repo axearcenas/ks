@@ -84,8 +84,8 @@ namespace KeepSafe
         // Production Server
         public static readonly string SERVER_NAME = "Production Server";
         public static readonly bool IS_SERVER_SECURE = false;
-        public static readonly string URL_STABLE = "https://keepsafe.ph";
-        public static readonly string URL_FAYE_NOTIFICATION = "ws://keepsafe.ph:9292/faye";
+        public static readonly string URL_STABLE = "https://apps.keepsafe.ph";
+        public static readonly string URL_FAYE_NOTIFICATION = "ws://apps.keepsafe.ph:9292/faye";
 
         //Running Server
         public static string RUNNING_SERVER_NAME = SERVER_NAME;
