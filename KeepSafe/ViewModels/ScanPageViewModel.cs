@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using KeepSafe.Extensions;
@@ -22,9 +23,9 @@ using ZXing;
 
 namespace KeepSafe.ViewModels
 {
-    public class ScanPageViewModel : ViewModelBase, IActiveAware , IFileConnector , IRestReceiver
+    public class ScanPageViewModel : ViewModelBase, IActiveAware, IFileConnector, IRestReceiver , IAnimatable
     {
-        public EntryViewModel SearchEntry { get; } = new EntryViewModel() { Placeholder = "Enter Manually", PlaceholderColor = ColorResource.MAIN_BLUE_COLOR, IsTextAllCaps=true };
+        public EntryViewModel SearchEntry { get; } = new EntryViewModel() { Placeholder = "Enter Manually", PlaceholderColor = ColorResource.MAIN_BLUE_COLOR, IsTextAllCaps = true };
 
         public DelegateCommand<Result> ScanCommand { get; set; }
         public DelegateCommand SearchCommand { get; set; }
@@ -36,9 +37,15 @@ namespace KeepSafe.ViewModels
         public bool IsScanning
         {
             get { return _IsScanning; }
-            set { _IsScanning = value; RaisePropertyChanged(); }
+            set { _IsScanning = value;
+                RaisePropertyChanged();
+                if (_IsScanning)
+                    StartAnimating(4000);
+                else
+                    StopAnimating();
+            }
         }
-        
+
         public Color NavBgColor
         {
             get
@@ -87,6 +94,15 @@ namespace KeepSafe.ViewModels
             }
         }
 
+        double _ScanIndicatorLineTranslateY;
+        public double ScanIndicatorLineTranslateY
+        {
+            get { return _ScanIndicatorLineTranslateY; }
+            set { SetProperty(ref _ScanIndicatorLineTranslateY, value, nameof(ScanIndicatorLineTranslateY)); }
+        }
+
+        public double ScanIndicatorHeight {get { return 161.ScaleHeight(); } }
+
         bool CanScan;
 
         public ScanPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService)
@@ -107,6 +123,31 @@ namespace KeepSafe.ViewModels
                 await NavigationService.NavigateAsync(nameof(MyQRPage));
                 IsClicked = false;
             }
+        }
+        bool IsScannerIndicatorAnimating = true;
+        async void StartAnimating(int millisecondsTime = 1000)
+        {
+            if (!this.AnimationIsRunning("ScannerInidicatorAnimation") || !this.AnimationIsRunning("ScannerInidicatorAnimation2"))
+            {
+                IsScannerIndicatorAnimating = true;
+                while (IsScannerIndicatorAnimating)
+                {
+                    Action<double> callback = (d) => ScanIndicatorLineTranslateY = d;
+                    this.Animate("ScannerInidicatorAnimation", callback: callback, 0, ScanIndicatorHeight - 1.5.ScaleHeight(), 16, (uint)(millisecondsTime / 2), Easing.CubicInOut);
+                    await Task.Delay(millisecondsTime / 2);
+                    this.Animate("ScannerInidicatorAnimation2", callback: callback, ScanIndicatorHeight - 1.5.ScaleHeight(), 0, 16, (uint)(millisecondsTime / 2), Easing.CubicInOut);
+                    await Task.Delay(millisecondsTime / 2);
+                }
+            }
+        }
+        void StopAnimating()
+        {
+            if(this.AnimationIsRunning("ScannerInidicatorAnimation") || this.AnimationIsRunning("ScannerInidicatorAnimation2"))
+            {
+                this.AbortAnimation("ScannerInidicatorAnimation");
+                this.AbortAnimation("ScannerInidicatorAnimation2");
+            }
+            IsScannerIndicatorAnimating = false;
         }
 
         private void OnScanPageActive_Execute(bool obj)
@@ -218,6 +259,9 @@ namespace KeepSafe.ViewModels
             cts = null;
         }
 
+        public void BatchBegin() { }
+        public void BatchCommit() { }
+
         public void ReceiveJSONData(JObject jsonData, int wsType)
         {
             if (jsonData.ContainsKey("status") && jsonData["status"].ToObject<int>() == 200)
@@ -283,5 +327,6 @@ namespace KeepSafe.ViewModels
                 IsClicked = false;
             });
         }
+
     }
 }

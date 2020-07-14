@@ -43,12 +43,20 @@
           PropertyChanged="Grid_PropertyChanged"
            BackgroundColor="{Binding ScannerBgColor}"
            RowDefinitions="{local:ScaleRowDefinition Value='61,*'}">
-        <local:FFSVGImage Grid.Row="1"
-                          Source="{local:FFSVGImageSource ImageName=ScannerInidcator}"
-                          HeightRequest="{local:ScaleHeight Value=161}"
-                          WidthRequest="{local:ScaleWidth Value=159}"
-                          HorizontalOptions="Center"
-                          VerticalOptions="Center"/>
+        <Grid Grid.Row="1" HeightRequest="{Binding ScanIndicatorHeight}"
+              WidthRequest="{local:ScaleWidth Value=159}"
+              HorizontalOptions="Center"
+              VerticalOptions="Center"
+              BackgroundColor="Transparent">
+            <local:FFSVGImage Source="{local:FFSVGImageSource ImageName=ScannerInidcator}"
+                              HorizontalOptions="Fill"
+                              VerticalOptions="Fill"/>
+            <BoxView HeightRequest="{local:ScaleHeight Value=1.5}"
+                     HorizontalOptions="Fill"
+                     VerticalOptions="Start"
+                     TranslationY="{Binding ScanIndicatorLineTranslateY}"
+                     Color="{Static res:ColorResource.MAIN_BUTTON_COLOR}"/>
+        </Grid>
         <Frame Padding="0"
                HorizontalOptions="Fill"
                VerticalOptions="End"
