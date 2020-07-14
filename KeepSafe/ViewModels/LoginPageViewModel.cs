@@ -59,7 +59,8 @@ namespace KeepSafe.ViewModels
             RegisterCommand = new DelegateCommand(OnRegisterCommandCommand_Execute);
             EntryFocusedCommand = new DelegateCommand<object>(OnEntryFocusedCommand_Execute);
             ShowPasswordCommand = new DelegateCommand(OnShowPasswordCommand_Execute);
-            LoginFacebookCommand = new DelegateCommand(OnLoginFacebookCommand_Execute);
+            //TODO FACEBOOK Login (Uncomment This when api is ready)
+            //LoginFacebookCommand = new DelegateCommand(OnLoginFacebookCommand_Execute);
             LoginGoogleCommand = new DelegateCommand(OnLoginGoogleCommand_Execute);
             PasswordEntry.PropertyChanged += PasswordEntry_PropertyChanged;
         }

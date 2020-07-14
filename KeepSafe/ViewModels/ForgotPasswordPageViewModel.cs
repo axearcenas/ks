@@ -194,10 +194,13 @@ namespace KeepSafe.ViewModels
             {
                 switch (wsType)
                 {
-                    case 0: // verify Email
+                    case 0: // verify Email | forgot Password API
                         Device.BeginInvokeOnMainThread(async () =>
                         {
                             PopupHelper.RemoveLoading();
+                            await Task.Delay(50);
+                            if (jsonData.ContainsKey("message"))
+                                await PageDialogService?.DisplayAlertAsync("Change Password Success", jsonData["message"].ToString(), "Okay");
                             PageType = ForgotPasswordType.VerifyEmail;
                         });
                         break;
@@ -226,7 +229,7 @@ namespace KeepSafe.ViewModels
                 {
                     PopupHelper.RemoveLoading();
                     if (jsonData.ContainsKey("error"))
-                        await PageDialogService?.DisplayAlertAsync("Change Password Error", jsonData["message"].ToString(), "Okay");
+                        await PageDialogService?.DisplayAlertAsync("Change Password Error", jsonData["error"].ToString(), "Okay");
                 });
             }
             PopupHelper.RemoveLoading();

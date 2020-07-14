@@ -257,7 +257,7 @@
             </Label.Triggers>
         </Label>
         <!-- 8 | Login Via Facebook and Google -->
-        <local:FFSVGImage Grid.Row="8"
+        <!--<local:FFSVGImage Grid.Row="8"
                           Source="{local:FFSVGImageSource ImageName=FacebookIcon}"
                           Style="{StaticResource LoginViaImage}"
                           Margin="{local:ScaleThickness Value='-76,8,0,0'}"
@@ -286,6 +286,6 @@
                     <Setter Property="IsVisible" Value="true"/>
                 </DataTrigger>
             </local:FFSVGImage.Triggers>
-        </local:FFSVGImage>
+        </local:FFSVGImage>-->
     </Grid>
 </local:MainNavigationPage>
